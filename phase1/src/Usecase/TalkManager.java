@@ -1,6 +1,6 @@
 package Usecase;
 
-import Entity.Talk;
+import Entity.*;
 
 import java.util.ArrayList;
 

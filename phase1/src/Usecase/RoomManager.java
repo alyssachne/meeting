@@ -1,7 +1,7 @@
 package Usecase;
 
 import java.util.ArrayList;
-import Entity.Room;
+import Entity.*;
 
 public class RoomManager {
 
