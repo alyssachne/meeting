@@ -39,5 +39,27 @@ public class RoomManager {
         }
         return null;
     }
+    // controller need to call both RoomManager and TalkManager to add or cancel the attendee.
+    public boolean addAttendee(Room room) {
+        if (room.full) {
+            return false;
+        }
+        room.currentCapacity += 1;
+        if(room.currentCapacity == room.MaxCapacity) {
+            room.full = true;
+        }
+        return true;
+    }
+
+    public boolean removeAttendee(Room room) {
+        if (room.currentCapacity == 0) {
+            return false;
+        }
+        if (room.currentCapacity == room.MaxCapacity) {
+            room.full = false;
+        }
+        room.currentCapacity -= 1;
+        return true;
+    }
 }
 

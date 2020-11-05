@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class TalkManager {
 
-    private RoomManager roomManager;
     ArrayList<Talk> allTalks;
 
     /**
@@ -44,13 +43,11 @@ public class TalkManager {
 
     public boolean addAttendee(int talkId, Attendee attendee) {
         Talk talk = getTalk(talkId);
-        Room room = roomManager.getRoom(talk.roomId);
-        return talk.addAttendee(attendee) & room.addAttendee();}
+        return talk.addAttendee(attendee);}
 
     public boolean cancelSpot(int talkId, Attendee attendee) {
         Talk talk = getTalk(talkId);
-        Room room = roomManager.getRoom(talk.roomId);
-        return talk.removeAttendee(attendee) & room.removeAttendee();
+        return talk.removeAttendee(attendee);
     }
 
 }

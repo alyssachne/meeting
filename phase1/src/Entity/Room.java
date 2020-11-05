@@ -1,9 +1,9 @@
 package Entity;
 
 public class Room {
-    private int MaxCapacity;
-    private int currentCapacity;
-    private int id;
+    public int MaxCapacity;
+    public int currentCapacity;
+    public int id;
     public boolean full;
     public boolean booked;
 
@@ -38,25 +38,4 @@ public class Room {
         return false;
     }
 
-    public boolean addAttendee() {
-        if (full) {
-            return false;
-        }
-        currentCapacity += 1;
-        if(currentCapacity == MaxCapacity) {
-            full = true;
-        }
-        return true;
-    }
-
-    public boolean removeAttendee() {
-        if (currentCapacity == 0) {
-            return false;
-        }
-        if (currentCapacity == MaxCapacity) {
-            full = false;
-        }
-        currentCapacity -= 1;
-        return true;
-    }
 }
