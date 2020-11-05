@@ -1,9 +1,14 @@
 package Entity;
 
+import Usecase.MessageHistory;
+
+import java.util.HashMap;
+
 public class User {
     private String name;
     private String username;
     private String password;
+    private HashMap<String, MessageHistory> messageList = new HashMap<>();
 
     public User(String name, String username, String password){
         this.name = name;
@@ -34,4 +39,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
