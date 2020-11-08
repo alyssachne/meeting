@@ -22,10 +22,19 @@ public class RoomManager {
         allRooms.add(r);
     }
 
+    /**
+     * Create a new room.
+     * @param id: the id of the room.
+     * @param MaxCapacity: the maximum capacity of the room.
+     */
     public void createRoom(int id, int MaxCapacity){
         Room room = new Room(id, MaxCapacity);
     }
 
+    /**
+     * Return the room of the corresponding id, raise error if not found.
+     * @param id: the id of the room.
+     */
     public Room getRoom(int id) {
         try {
             for (Room r : allRooms) {
@@ -39,27 +48,27 @@ public class RoomManager {
         }
         return null;
     }
-    // controller need to call both RoomManager and TalkManager to add or cancel the attendee.
-    public boolean addAttendee(Room room) {
-        if (room.full) {
-            return false;
-        }
-        room.currentCapacity += 1;
-        if(room.currentCapacity == room.MaxCapacity) {
-            room.full = true;
-        }
-        return true;
+
+    /**
+     * Add one attendee to this room, increase the current capacity by 1, and return true if the room is not full. Else,
+     * return false.,
+     * @param room: the room the attendee is going to be add in.
+     * @param attendee: the attendee who is going to be added into this room.
+     */
+    public boolean addAttendee(Room room, Attendee attendee) {
+        String username = attendee.getUsername();
+        return room.addAttendee(username);
     }
 
-    public boolean removeAttendee(Room room) {
-        if (room.currentCapacity == 0) {
-            return false;
-        }
-        if (room.currentCapacity == room.MaxCapacity) {
-            room.full = false;
-        }
-        room.currentCapacity -= 1;
-        return true;
+    /**
+     * Remove one attendee to this room, decrease the current capacity by 1, and return true if the room is not empty.
+     * Else, return false.
+     * @param room: the room the attendee is going to be remove from.
+     * @param attendee: the attendee who is going to be removed from this room.
+     */
+    public boolean removeAttendee(Room room, Attendee attendee) {
+        String username = attendee.getUsername();
+        return room.removeAttendee(username);
     }
 }
 

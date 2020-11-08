@@ -1,0 +1,73 @@
+package Usecase;
+
+import Entity.*;
+
+import java.util.ArrayList;
+
+public class EventManager {
+
+    ArrayList<Event> allEvents;
+
+    /**
+     * Creates an empty talk manager.
+     */
+    public EventManager() {
+        allEvents = new ArrayList<>();
+    }
+    /**
+     * Adds a given event to this event manager.
+     * @param event: the event being added to the ArrayList.
+     */
+    public void addEvent(Event event) {
+        allEvents.add(event);
+    }
+
+    /**
+     * Create a new event.
+     * @param id: the id of the event.
+     * @param duration: the duration of the event.
+     */
+    public void createEvent(int id, double duration){
+        Event event = new Event(id, duration);
+    }
+
+    /**
+     * Return the event of the corresponding id, raise error if not found.
+     * @param id: the id of the event.
+     */
+    public Event getEvent(int id) {
+        try {
+            for (Event event: allEvents) {
+                if(event.getId() == id) {
+                    return event;
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println("This talk does not exist.");
+        }
+        return null;
+    }
+
+    /**
+     * Add the attendee to this event and return true if successfully added in. Else, return false.
+     * @param eventId: the event id the attendee is going to attend.
+     * @param attendee: the the attendee who is going to attend this event.
+     */
+    public boolean addAttendee(int eventId, Attendee attendee) {
+        Event event = getEvent(eventId);
+        String name = attendee.getUsername();
+        return event.addAttendee(name);}
+
+    /**
+     * Remove attendee from this event and return true if successfully removed. Else, return false.
+     * @param eventId: the event id the attendee is going to be removed from.
+     * @param attendee: the the attendee who is going to cancel his spot.
+     */
+    public boolean cancelSpot(int eventId, Attendee attendee) {
+        Event event = getEvent(eventId);
+        String name = attendee.getUsername();
+        return event.removeAttendee(name);
+    }
+
+}
