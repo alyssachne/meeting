@@ -1,16 +1,16 @@
 package Sorter;
 
-import Entity.Talk;
+import Entity.Event;
 
 import java.util.ArrayList;
 
-public class TalkTimeSorter implements Sorter{
+public class EventTimeSorter implements Sorter{
 
-    public TalkTimeSorter(){}
+    public EventTimeSorter(){}
 
     @Override
     // Selection Sort
-    public void sort(ArrayList<Talk> tl) {
+    public void sort(ArrayList<Event> tl) {
         for (int i = 0; i < tl.size() - 1; i++) {
 
             // Find the index of the item with the earliest time in the list between
@@ -24,7 +24,7 @@ public class TalkTimeSorter implements Sorter{
 
             // Swap the item at index i with the item with the earliest time
             // between i and  list.size() - 1 inclusive.
-            Talk temp = tl.get(i);
+            Event temp = tl.get(i);
             tl.set(i, tl.get(indexMin));
             tl.set(indexMin, temp);
         }

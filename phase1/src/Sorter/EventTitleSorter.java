@@ -1,18 +1,18 @@
 package Sorter;
 
-import Entity.Talk;
+import Entity.Event;
 
 import java.util.ArrayList;
 
-public class TalkTitleSorter implements Sorter {
+public class EventTitleSorter implements Sorter {
 
 
-    public TalkTitleSorter(){}
+    public EventTitleSorter(){}
 
 
     @Override
     // Selection Sort
-    public void sort(ArrayList<Talk> tl) {
+    public void sort(ArrayList<Event> tl) {
         for (int i = 0; i < tl.size() - 1; i++) {
 
             // Find the index of the talk with title alphabetically in the beginning of the list between
@@ -26,7 +26,7 @@ public class TalkTitleSorter implements Sorter {
 
             // Swap the item at index i with the talk with title alphabetically in the beginning of the list
             // between i and  list.size() - 1 inclusive.
-            Talk temp = tl.get(i);
+            Event temp = tl.get(i);
             tl.set(i, tl.get(indexMin));
             tl.set(indexMin, temp);
         }
