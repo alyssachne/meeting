@@ -10,9 +10,9 @@ public class OrganizerAct {
         Organizer organizer = new Organizer(name, username, password);
     }
 
-    public void createSpeaker(String name, String username, String password){
-        Speaker speaker = new Speaker(name, username, password);
-    }
+//    public void createSpeaker(String name, String username, String password){
+//        Speaker speaker = new Speaker(name, username, password);
+//    }
 
     public void sentMessage(Organizer organizer, ArrayList<User> receivers, Any content){
         //Can we import Userlist from UserOragnizer(Use case)？

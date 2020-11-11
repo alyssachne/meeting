@@ -6,5 +6,6 @@ public class Speaker extends User {
         super(name, username, password);
     }
 
-
+    @Override
+    public String typeGetter(){return "Speaker";};
 }

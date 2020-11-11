@@ -17,7 +17,7 @@ public class EventTimeSorter implements Sorter{
             // indices i and tl.size() - 1 inclusive.
             int indexMin = i;
             for (int j = i + 1; j < tl.size(); j++) {
-                if (tl.get(indexMin).time > tl.get(j).time) {
+                if (tl.get(indexMin).time.compareTo(tl.get(j).time)==1 ) {
                     indexMin = j;
                 }
             }

@@ -54,4 +54,6 @@ public class User {
         System.out.println(this.InBox);
     }
 
+    public String typeGetter(){return "User";};
+
 }
