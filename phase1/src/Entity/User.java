@@ -8,6 +8,8 @@ public class User {
     private String name;
     private String username;
     private String password;
+    private MessageBox InBox;
+    private MessageBox SentBox;
     private HashMap<String, MessageHistory> messageList = new HashMap<>();
 
     public User(String name, String username, String password){
@@ -38,6 +40,18 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void sendMessage(Message message){
+        this.SentBox.addMessage(message);
+    }
+
+    public void receiveMessage(Message message){
+        this.InBox.addMessage(message);
+    }
+
+    public void viewMessageIn() {
+        System.out.println(this.InBox);
     }
 
 }

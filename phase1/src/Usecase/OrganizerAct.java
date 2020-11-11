@@ -1,5 +1,8 @@
 package Usecase;
 import Entity.*;
+import org.omg.CORBA.Any;
+
+import java.util.ArrayList;
 
 public class OrganizerAct {
 
@@ -11,5 +14,13 @@ public class OrganizerAct {
         Speaker speaker = new Speaker(name, username, password);
     }
 
+    public void sentMessage(Organizer organizer, ArrayList<User> receivers, Any content){
+        //Can we import Userlist from UserOragnizer(Use case)？
+        Message message = new Message(organizer,receivers,content);
+        for (User receiver: receivers){
+            receiver.receiveMessage(message);
+        }
+        organizer.sendMessage(message);
+    }
 
 }

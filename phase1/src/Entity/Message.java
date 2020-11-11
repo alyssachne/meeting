@@ -1,13 +1,15 @@
 package Entity;
 
+import java.util.ArrayList;
+
 public class Message {
     private User sender;
-    private User receiver;
+    private ArrayList<User> receivers;
     private Object message;
 
-    Message (User sender, User receiver, Object message){
+    public Message(User sender, ArrayList<User> receivers, Object message){
         this.sender = sender;
-        this.receiver = receiver;
+        this.receivers = receivers;
         this.message = message;
     }
 
@@ -19,7 +21,16 @@ public class Message {
         return this.sender;
     }
 
-    public User getReceiver(){
-        return this.receiver;
+    public ArrayList<User> getReceiver(){
+        return this.receivers;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "sender=" + sender +
+                ", receiver=" + receivers +
+                ", message=" + message +
+                '}';
     }
 }
