@@ -1,15 +1,17 @@
 package Entity;
 
-import javafx.util.Pair;
 
+import javafx.util.Pair;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Room {
     public int MaxCapacity;
     public int id;
-    public Pair event;
-    public boolean full;
+    // The key is id and the value is duration of the event.
+    public Pair<Integer, Integer> event;
     public boolean booked;
+    public Calendar useTime;
     public ArrayList<String> ListOfAttendees;
 
     public Room(int id, int MaxCapacity) {
@@ -34,17 +36,29 @@ public class Room {
 
     // Check whether this room is full or not.
     public boolean isFull() {
-        return full;
+        return MaxCapacity == getCurrentCapacity();
+    }
+
+    // Get the id of the event happens in this room.
+    public Integer getEvent() {
+        return event.getKey();
     }
 
     // Check whether this room is booked or not.
     public boolean isBooked() {return booked;}
 
-    // If this room is not booked, change the state to Book, modify the Event and return True.
-    public boolean Book(Integer id, String title) {
+    // Get the useTime of this room if an event happens in this room, else return null.
+    public Calendar getUseTime() {
+        return useTime;
+    }
+
+    // If this room is not booked, change the state to Book, set the event and useTime, and return True. Else, return
+    // false.
+    public boolean Book(Integer id, Integer duration, Calendar time) {
         if(!booked) {
             booked = true;
-            event = new Pair(id, title);
+            event = new Pair(id, duration);
+            useTime = time;
             return true;
         }
         return false;
@@ -56,15 +70,13 @@ public class Room {
      * @param username: the username of the attendee who attends to the event.
      */
     public boolean addAttendee(String username) {
-        if(full) {
+        if(MaxCapacity == getCurrentCapacity()) {
             return false;}
         for (String name: ListOfAttendees) {
             if(name.equals(username)){
                 return false;}
         }
         ListOfAttendees.add(username);
-        if(getCurrentCapacity() == MaxCapacity) {
-            full = true;}
         return true;
     }
 
@@ -77,10 +89,21 @@ public class Room {
         for (String name : ListOfAttendees) {
             if (name.equals(username)) {
                 ListOfAttendees.remove(username);
-                full = false;
                 return true;
             }
         }
             return false;
         }
+
+    @Override
+    public String toString() {
+        if(booked) {
+            double curr = getCurrentCapacity();
+            Integer duration = event.getValue();
+            return "This is Room" + id + " with a maximum capacity of " + MaxCapacity + " and a current capacity of " +
+                    curr + "." + "It will be used started from " + useTime + " and last for "  + duration + "minutes";
+        }
+        return "This is Room" + id + " with a maximum capacity of " + MaxCapacity +
+                ". It is currently available for booking";
+    }
 }
