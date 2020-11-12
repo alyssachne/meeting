@@ -16,13 +16,12 @@ public class User {
     public ArrayList<Integer> eventList;
     public ArrayList<String> contacts;
 
-    public User(String name, String username, String password, ArrayList<Integer> eventList,
-                ArrayList<String> contacts){
+    public User(String name, String username, String password){
         this.name = name;
         this.username = username;
         this.password = password;
-        this.eventList = eventList;
-        this.contacts = contacts;
+        eventList = new ArrayList<>();
+        contacts = new ArrayList<>();
     }
 
     public String getName(){
