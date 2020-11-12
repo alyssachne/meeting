@@ -7,7 +7,7 @@ import java.util.Calendar;
 
 public class OrganizerAct {
 
-    public void creatOrganizer(String name, String username, String password, String type){
+    public void createOrganizer(String name, String username, String password, String type){
         new Organizer(name,username,password);
     }
 
