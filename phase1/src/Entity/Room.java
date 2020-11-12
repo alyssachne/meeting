@@ -101,4 +101,21 @@ public class Room {
         }
             return false;
         }
+
+    @Override
+    public String toString() {
+        String acc = "Room" + id;
+        for (int i = 9; i < 16; i++) {
+            Integer eventId = schedule.get(i);
+            if (eventId == null) {
+                String temp = " \n " + i + "00 - " + i + 1 + "00.";
+                acc = acc + temp;
+            } else {
+                Integer current = ListOfAttendees.get(i).size();
+                String temp = " \n " + i + "00 - " + i + 1 + "00 " + eventId + " with " + current + " attendees.";
+                acc = acc + temp;
+            }
+        }
+        return acc;
+    }
 }
