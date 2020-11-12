@@ -6,34 +6,23 @@ import java.util.ArrayList;
 
 public class OrganizerAct {
 
-    public void creatUser(String name, String Username, String password, String type){
-        if (type.equals('Attendee')){
-            new Attendee();
-        }
-        if(type.equals('Speaker')){
-            new Speaker();
-        }
-        if (type.equals('Organizer')){
-            new Organizer();
-        }
-        else{
-            new User();
-        }
+    public void creatOrganizer(String name, String username, String password, String type){
+        new Organizer(name,username,password);
     }
 
     public boolean setSpeaker(Event talk, Speaker speaker){
-        talk.setSpeaker(speaker);
-        return True;
+        talk.setSpeaker(speaker.username, speaker.name);
+        return true;
     }
 
     public boolean setTime(Event talk, Calendar time){
         talk.setTime(time);
-        return Ture;
+        return true;
     }
 
     public boolean setLocation(Event talk, int roomId){
         talk.setRoom(roomId);
-        return True;
+        return true;
     }
 
     public boolean sendMessage(ArrayList<User> receiver, Object content){
@@ -42,7 +31,7 @@ public class OrganizerAct {
         for (int i = 0; i < receiver.length; i++){
             receiver[i].inbox.add(newMessage);
         }
-        return True;
+        return true;
     }
 
     public void sentMessage(Organizer organizer, ArrayList<User> receivers, Any content){
