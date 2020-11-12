@@ -1,22 +1,23 @@
 package Entity;
 
 
-import javafx.util.Pair;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Map;
 
 public class Room {
     public int MaxCapacity;
     public int id;
-    // The key is id and the value is duration of the event.
-    public Pair<Integer, Integer> event;
-    public boolean booked;
-    public Calendar useTime;
-    public ArrayList<String> ListOfAttendees;
+    public Map<Integer, Integer> schedule;
+    public Map<Integer, ArrayList> ListOfAttendees;
 
     public Room(int id, int MaxCapacity) {
         this.MaxCapacity = MaxCapacity;
         this.id = id;
+        for (int i = 9; i < 16; i++) {
+            schedule.put(i, null);
+            ListOfAttendees.put(i, null);
+        }
     }
 
     // Get the maximum capacity of the room.
@@ -24,9 +25,9 @@ public class Room {
         return MaxCapacity;
     }
 
-    // Get the current capacity of the room.
-    public double getCurrentCapacity() {
-        return ListOfAttendees.size();
+    // Get the current capacity of the room at given time.
+    public double getCurrentCapacity(Integer time) {
+        return ListOfAttendees.get(time).size();
     }
 
     // Get the id of this room.
@@ -34,31 +35,37 @@ public class Room {
         return id;
     }
 
-    // Check whether this room is full or not.
-    public boolean isFull() {
-        return MaxCapacity == getCurrentCapacity();
+    // Check whether this room is full or not at the given time.
+    public boolean isFull(Integer time) {
+        return MaxCapacity == getCurrentCapacity(time);
     }
 
-    // Get the id of the event happens in this room.
-    public Integer getEvent() {
-        return event.getKey();
+    // Get the id of the event happens in this room at the given time.
+    public int getEvent(Integer time) {
+        return schedule.get(time);
     }
 
-    // Check whether this room is booked or not.
-    public boolean isBooked() {return booked;}
-
-    // Get the useTime of this room if an event happens in this room, else return null.
-    public Calendar getUseTime() {
-        return useTime;
+    // Check whether this room is booked at certain time or not.
+    public boolean isBooked(Integer time) {
+        return schedule.get(time) != null;
     }
 
-    // If this room is not booked, change the state to Book, set the event and useTime, and return True. Else, return
-    // false.
-    public boolean Book(Integer id, Integer duration, Calendar time) {
-        if(!booked) {
-            booked = true;
-            event = new Pair(id, duration);
-            useTime = time;
+    // Get a list of available time of this room.
+    public ArrayList getAvailableTime() {
+        ArrayList available = new ArrayList();
+        for (Map.Entry<Integer,Integer> time: schedule.entrySet()) {
+            if(time.getValue() == null) {
+                available.add(time.getKey());
+        }}
+            return available;
+    }
+
+    // If this room is not booked at the given time, add the event to the schedule, add the list of attendee to the
+    // ListOfAttendee, and return True. Else, return false.
+    public boolean Book(Integer id, Integer time, ArrayList attendee) {
+        if(!isBooked(time)) {
+            schedule.put(time, id);
+            ListOfAttendees.put(time, attendee);
             return true;
         }
         return false;
@@ -69,14 +76,16 @@ public class Room {
      * full. Else, return false. Change the state of fullness if current capacity equals maximum capacity of the room.
      * @param username: the username of the attendee who attends to the event.
      */
-    public boolean addAttendee(String username) {
-        if(MaxCapacity == getCurrentCapacity()) {
+    public boolean addAttendee(String username, Integer time) {
+        if(MaxCapacity == getCurrentCapacity(time)) {
             return false;}
-        for (String name: ListOfAttendees) {
-            if(name.equals(username)){
-                return false;}
+        for (Map.Entry<Integer,ArrayList> name: ListOfAttendees.entrySet()) {
+            if (name.equals(username)) {
+                return false;
+            }
         }
-        ListOfAttendees.add(username);
+        ArrayList temp = ListOfAttendees.get(time);
+        temp.add(username);
         return true;
     }
 
@@ -85,25 +94,13 @@ public class Room {
      * Remove the attendee from this room and return true if the attendee is in the ListOfAttendees. Else, return false.
      * @param username: the username of the attendee who is going to be removed from the ListOfAttendees.
      */
-    public boolean removeAttendee(String username) {
-        for (String name : ListOfAttendees) {
+    public boolean removeAttendee(String username, Integer time) {
+        for (Map.Entry<Integer,ArrayList> name: ListOfAttendees.entrySet()) {
             if (name.equals(username)) {
-                ListOfAttendees.remove(username);
                 return true;
             }
         }
             return false;
         }
 
-    @Override
-    public String toString() {
-        if(booked) {
-            double curr = getCurrentCapacity();
-            Integer duration = event.getValue();
-            return "This is Room" + id + " with a maximum capacity of " + MaxCapacity + " and a current capacity of " +
-                    curr + "." + "It will be used started from " + useTime + " and last for "  + duration + "minutes";
-        }
-        return "This is Room" + id + " with a maximum capacity of " + MaxCapacity +
-                ". It is currently available for booking";
-    }
 }
