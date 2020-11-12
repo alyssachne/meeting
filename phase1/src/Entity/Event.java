@@ -3,23 +3,19 @@ package Entity;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Event {
 
     public Integer id;
     public String title;
-    // The duration is in mins.
-    public Integer duration;
-    public Calendar time;
+    public Integer time;
     public int roomId;
     // The first string is the username of the speaker and the second string is the name of the speaker.
     public Pair<String, String> speaker;
     public ArrayList<String> ListOfAttendees;
 
-    public Event(int id, Integer duration) {
+    public Event(int id) {
         this.id = id;
-        this.duration = duration;
         ArrayList<Attendee> ListOfAttendees = new ArrayList<Attendee>();
     }
 
@@ -33,13 +29,8 @@ public class Event {
         return title;
     }
 
-    // Get the duration of this event.
-    public Integer getDuration() {
-        return duration;
-    }
-
     // Get the start time of the event.
-    public Calendar getTime() {
+    public Integer getTime() {
         return time;
     }
 
@@ -69,7 +60,7 @@ public class Event {
     }
 
     // Set the start time of this event.
-    public void setTime(Calendar time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
     
@@ -106,8 +97,9 @@ public class Event {
     @Override
     public String toString() {
         String s = speaker.getValue();
+
         return "This event is about" + title + ", given by" + s + ". It starts on" + time + "on Room"
-                + roomId + "and it lasts for" + duration + "minutes";
+                + roomId + "and it lasts for 1 hour." ;
     }
 }
 

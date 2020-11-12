@@ -25,10 +25,9 @@ public class EventManager {
     /**
      * Create a new event.
      * @param id: the id of the event.
-     * @param duration: the duration of the event.
      */
-    public void createEvent(int id, int duration){
-        Event event = new Event(id, duration);
+    public void createEvent(int id){
+        Event event = new Event(id);
     }
 
     /**
