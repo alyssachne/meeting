@@ -2,12 +2,13 @@ package Entity;
 
 import javafx.util.Pair;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
 
 
 public class Speaker extends User {
     // The first Integer is the started time and the second one is eventId.
-    public Map<Integer, Integer> events;
+    public HashMap<Integer, Integer> events = new HashMap<>(8);
 
     public Speaker(String name, String username, String password) {
         super(name, username, password);
@@ -24,8 +25,30 @@ public class Speaker extends User {
         return true;
     }
 
-    public Map<Integer, Integer> getEvents() {
+    public boolean cancelEvent(Integer eventId) {
+        Set<Integer> temp = events.keySet();
+        for(Integer time: temp) {
+            if(events.get(time).equals(eventId)) {
+                events.replace(time, null);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public HashMap<Integer, Integer> getEvents() {
         return events;
+    }
+
+    public ArrayList<Integer> available() {
+        ArrayList<Integer> acc = new ArrayList<>();
+        Set<Integer> temp = events.keySet();
+        for (Integer time: temp) {
+            if(events.get(time) == null) {
+                acc.add(time);
+            }
+        }
+        return acc;
     }
 
 

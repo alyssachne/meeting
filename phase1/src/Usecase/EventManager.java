@@ -50,28 +50,26 @@ public class EventManager {
 
     /**
      * Add the attendee to this event and return true if successfully added in. Else, return false.
-     * @param eventId: the event id the attendee is going to attend.
+     * @param event: the event the attendee is going to attend.
      * @param attendee: the the attendee who is going to attend this event.
      */
-    public boolean addAttendee(int eventId, Attendee attendee) {
-        Event event = getEvent(eventId);
+    public boolean addAttendee(Event event, Attendee attendee) {
         String name = attendee.getUsername();
         return event.addAttendee(name);}
 
     /**
      * Remove attendee from this event and return true if successfully removed. Else, return false.
-     * @param eventId: the event id the attendee is going to be removed from.
+     * @param event: the event the attendee is going to be removed from.
      * @param attendee: the the attendee who is going to cancel his spot.
      */
-    public boolean cancelSpot(int eventId, Attendee attendee) {
-        Event event = getEvent(eventId);
+    public boolean cancelSpot(Event event, Attendee attendee) {
         String name = attendee.getUsername();
         return event.removeAttendee(name);
     }
 
     // Get a list of event this person signed up for.
-    public ArrayList getSignUp(String username) {
-        ArrayList acc = new ArrayList();
+    public ArrayList<Event> getSignUp(String username) {
+        ArrayList<Event> acc = new ArrayList<>();
         for (Event event: allEvents) {
             if(event.ListOfAttendees.contains(username)) {
                 acc.add(event);

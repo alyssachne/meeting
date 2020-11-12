@@ -7,33 +7,47 @@ import java.util.Calendar;
 
 public class OrganizerAct {
 
-    public void createOrganizer(String name, String username, String password, String type){
+    public void createOrganizer(String name, String username, String password){
         new Organizer(name,username,password);
     }
 
-    public boolean setSpeaker(Event talk, String userName, String name){
-        talk.setSpeaker(userName, name);
-        return true;
-    }
-
-    public boolean setTime(Event talk, Integer time){
-        talk.setTime(time);
-        return true;
-    }
-
-    public boolean setLocation(Event talk, int roomId){
-        talk.setRoom(roomId);
-        return true;
-    }
-
-    public boolean sendMessage(Organizer sender,ArrayList<User> receiver, Object content){
-        Message newMessage = new Message(sender,receiver,content);
-        sender.SentBox.add(newMessage);
-        for (int i = 0; i < receiver.size(); i++){
-            receiver.get(i).InBox.add(newMessage);
+    public boolean setSpeaker(Event event, Speaker speaker){
+        ArrayList<Integer> temp = speaker.available();
+        if(temp.size() == 0) {
+            return false;
         }
+        Integer time = temp.get(0);
+        event.setTime(time);
         return true;
     }
+
+    public boolean setTime(Event event, Integer time, Speaker speaker){
+        if(time.equals(event.time)) {
+            return false;
+        }
+        ArrayList<Integer> temp = speaker.available();
+        if(temp.contains(time))
+        event.setTime(time);
+        return true;
+    }
+
+    public boolean setLocation(Event event, Room room){
+        ArrayList<Integer> temp = room.getAvailableTime();
+        return temp.contains(event.time);
+    }
+
+    public void setTitle(Event event, String title) {
+        event.setTitle(title);
+    }
+
+//    public boolean sendMessage(Organizer sender,ArrayList<User> receiver, Object content){
+//        Message newMessage = new Message(sender,receiver,content);
+//        sender.SentBox.add(newMessage);
+//        for (int i = 0; i < receiver.size(); i++){
+//            receiver.get(i).InBox.add(newMessage);
+//        }
+//        return true;
+//    }
 
 //    public void sentMessage(Organizer organizer, ArrayList<User> receivers, Any content){
 //        //Can we import Userlist from UserOragnizer(Use case)？

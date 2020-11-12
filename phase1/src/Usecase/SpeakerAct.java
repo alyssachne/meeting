@@ -6,23 +6,33 @@ import org.omg.CORBA.Any;
 import java.util.ArrayList;
 
 public class SpeakerAct {
-    public void createSpeaker(String name, String username, String password, ArrayList<Event> speaks){
+
+    public void createSpeaker(String name, String username, String password) {
         Speaker speaker = new Speaker(name, username, password);
     }
-    public boolean sentMessageToAttendee(Speaker speaker, ArrayList<Event> speaks, Message message){
-        // Exception needed here
-        speaker.sendMessage(message);
-        for (Event speak : speaks){
-            if (speaker.getSpeaks().contains(speak)){
-                return false;
-            }
-            for (String user :speak.ListOfAttendees){
-                // user receive messages
 
-            }
-        }
-        return true;
+    public boolean giveEvent(Event event, Integer time, Speaker speaker){
+        return speaker.giveEvent(event.id, time);
     }
+
+    public boolean cancelEvent(Event event, Speaker speaker) {
+        return speaker.cancelEvent(event.id);
+    }
+
+//    public boolean sentMessageToAttendee(Speaker speaker, ArrayList<Event> speaks, Message message){
+//        // Exception needed here
+//        speaker.sendMessage(message);
+//        for (Event speak : speaks){
+//            if (speaker.getSpeaks().contains(speak)){
+//                return false;
+//            }
+//            for (String user :speak.ListOfAttendees){
+//                // user receive messages
+//
+//            }
+//        }
+//        return true;
+//    }
 
 //    private void sentMessage(User user, ArrayList<User> receivers, Message message){
 //        //Can we import Userlist from UserOragnizer(Use case)？
@@ -32,7 +42,4 @@ public class SpeakerAct {
 //        user.sendMessage(message);
 //    }
 
-    public void createSpeaker(String name, String username, String password) {
-        Speaker speaker = new Speaker(name, username, password);
-    }
 }

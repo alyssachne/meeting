@@ -2,13 +2,14 @@ package Entity;
 
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
 
 public class Room {
     public int MaxCapacity;
     public int id;
-    public Map<Integer, Integer> schedule;
-    public Map<Integer, ArrayList> ListOfAttendees;
+    public HashMap<Integer, Integer> schedule = new HashMap<>(8);
+    public HashMap<Integer, ArrayList<String>> ListOfAttendees = new HashMap<>(8);
 
     public Room(int id, int MaxCapacity) {
         this.MaxCapacity = MaxCapacity;
@@ -50,9 +51,9 @@ public class Room {
     }
 
     // Get a list of available time of this room.
-    public ArrayList getAvailableTime() {
-        ArrayList available = new ArrayList();
-        for (Map.Entry<Integer,Integer> time: schedule.entrySet()) {
+    public ArrayList<Integer> getAvailableTime() {
+        ArrayList<Integer> available = new ArrayList<>();
+        for (HashMap.Entry<Integer,Integer> time: schedule.entrySet()) {
             if(time.getValue() == null) {
                 available.add(time.getKey());
         }}
@@ -61,11 +62,23 @@ public class Room {
 
     // If this room is not booked at the given time, add the event to the schedule, add the list of attendee to the
     // ListOfAttendee, and return True. Else, return false.
-    public boolean Book(Integer id, Integer time, ArrayList attendee) {
+    public boolean Book(Integer id, Integer time, ArrayList<String> attendee) {
         if(!isBooked(time)) {
             schedule.put(time, id);
             ListOfAttendees.put(time, attendee);
             return true;
+        }
+        return false;
+    }
+
+    public boolean cancel(Integer eventId) {
+        Set<Integer> temp = schedule.keySet();
+        for(Integer time: temp) {
+            if(schedule.get(time).equals(eventId)) {
+                schedule.replace(time, null);
+                ListOfAttendees.replace(time, null);
+                return true;
+            }
         }
         return false;
     }
@@ -78,12 +91,12 @@ public class Room {
     public boolean addAttendee(String username, Integer time) {
         if(MaxCapacity == getCurrentCapacity(time)) {
             return false;}
-        for (Map.Entry<Integer,ArrayList> name: ListOfAttendees.entrySet()) {
-            if (name.equals(username)) {
+        for (ArrayList<String> attendees: ListOfAttendees.values()) {
+            if (attendees.contains(username)) {
                 return false;
             }
         }
-        ArrayList temp = ListOfAttendees.get(time);
+        ArrayList<String> temp = ListOfAttendees.get(time);
         temp.add(username);
         return true;
     }
@@ -94,8 +107,8 @@ public class Room {
      * @param username: the username of the attendee who is going to be removed from the ListOfAttendees.
      */
     public boolean removeAttendee(String username, Integer time) {
-        for (Map.Entry<Integer,ArrayList> name: ListOfAttendees.entrySet()) {
-            if (name.equals(username)) {
+        for (ArrayList<String> attendees: ListOfAttendees.values()) {
+            if (attendees.contains(username)) {
                 return true;
             }
         }
@@ -104,18 +117,18 @@ public class Room {
 
     @Override
     public String toString() {
-        String acc = "Room" + id;
+        StringBuilder acc = new StringBuilder("Room" + id);
         for (int i = 9; i < 16; i++) {
             Integer eventId = schedule.get(i);
             if (eventId == null) {
                 String temp = " \n " + i + "00 - " + i + 1 + "00.";
-                acc = acc + temp;
+                acc.append(temp);
             } else {
-                Integer current = ListOfAttendees.get(i).size();
+                int current = ListOfAttendees.get(i).size();
                 String temp = " \n " + i + "00 - " + i + 1 + "00 " + eventId + " with " + current + " attendees.";
-                acc = acc + temp;
+                acc.append(temp);
             }
         }
-        return acc;
+        return acc.toString();
     }
 }
