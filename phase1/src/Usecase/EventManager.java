@@ -69,4 +69,15 @@ public class EventManager {
         return event.removeAttendee(name);
     }
 
+    // Get a list of event this person signed up for.
+    public ArrayList getSignUp(String username) {
+        ArrayList acc = new ArrayList();
+        for (Event event: allEvents) {
+            if(event.ListOfAttendees.contains(username)) {
+                acc.add(event);
+            }
+        }
+        return acc;
+    }
+
 }

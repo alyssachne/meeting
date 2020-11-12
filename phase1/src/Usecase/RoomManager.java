@@ -55,9 +55,10 @@ public class RoomManager {
      * @param room: the room the attendee is going to be add in.
      * @param attendee: the attendee who is going to be added into this room.
      */
-    public boolean addAttendee(Room room, Attendee attendee) {
+    public boolean addAttendee(Room room, Attendee attendee, Event event) {
         String username = attendee.getUsername();
-        return room.addAttendee(username);
+        Integer time = event.time;
+        return room.addAttendee(username, time);
     }
 
     /**
@@ -66,9 +67,10 @@ public class RoomManager {
      * @param room: the room the attendee is going to be remove from.
      * @param attendee: the attendee who is going to be removed from this room.
      */
-    public boolean removeAttendee(Room room, Attendee attendee) {
+    public boolean removeAttendee(Room room, Attendee attendee, Event event) {
         String username = attendee.getUsername();
-        return room.removeAttendee(username);
+        Integer time = event.time;
+        return room.removeAttendee(username, time);
     }
 }
 
