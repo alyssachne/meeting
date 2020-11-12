@@ -6,10 +6,6 @@ import java.util.ArrayList;
 
 public class OrganizerAct {
 
-//    public void createOrganizer(String name, String username, String password){
-//        Organizer organizer = new Organizer(name, username, password);
-//    }
-
     public void creatUser(String name, String Username, String password, String type){
         if (type.equals('Attendee')){
             new Attendee();
@@ -24,13 +20,10 @@ public class OrganizerAct {
             new User();
         }
     }
-    //user 没有写对应的构造函数，子类无法调用父类构造函数，在使用子类无参构造函数时可能遇到问题
-    //use needs to include inbox and outbox in the constructor
 
     public boolean setSpeaker(Event talk, Speaker speaker){
         talk.setSpeaker(speaker);
         return True;
-    //event needs one instance: speaker
     }
 
     public boolean setTime(Event talk, Calendar time){
@@ -51,9 +44,6 @@ public class OrganizerAct {
         }
         return True;
     }
-//    public void createSpeaker(String name, String username, String password){
-//        Speaker speaker = new Speaker(name, username, password);
-//    }
 
     public void sentMessage(Organizer organizer, ArrayList<User> receivers, Any content){
         //Can we import Userlist from UserOragnizer(Use case)？
