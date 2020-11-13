@@ -61,6 +61,16 @@ public class Speaker extends User {
         return acc;
     }
 
+    public ArrayList<Integer> eventList(){
+        ArrayList<Integer> eventId = new ArrayList<>();
+        Set<Integer> temp = events.keySet();
+        for (Integer time: temp) {
+            if(events.get(time) != null) {
+                eventId.add(events.get(time));
+            }
+        }
+        return eventId;
+    }
 
     public String toString(){
         return "Speaker: " + getUsername();

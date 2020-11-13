@@ -101,7 +101,7 @@ public class Event {
     public String toString() {
         String s = speaker.getValue();
 
-        return "This event is about" + title + ", given by" + s + ". It starts on" + time + "on Room"
+        return "This event is about" + title + ", given by" + s + ". It starts at" + time + "on Room"
                 + roomId + "and it lasts for 1 hour." ;
     }
 }

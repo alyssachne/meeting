@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class EventManager {
 
-    ArrayList<Event> allEvents;
+    public ArrayList<Event> allEvents;
 
     /**
      * Creates an empty talk manager.
@@ -52,34 +52,32 @@ public class EventManager {
     public void setTime(int id, int time){
         getEvent(id).setTime(time);
     }
-    /**
-     * Add the attendee to this event and return true if successfully added in. Else, return false.
-     * @param event: the event the attendee is going to attend.
-     * @param attendee: the the attendee who is going to attend this event.
-     */
-    public boolean addAttendee(Event event, Attendee attendee) {
-        String name = attendee.getUsername();
-        return event.addAttendee(name);}
+//    /**
+//     * Add the attendee to this event and return true if successfully added in. Else, return false.
+//     * @param event: the event the attendee is going to attend.
+//     * @param attendee: the the attendee who is going to attend this event.
+//     */
+    public boolean addAttendee(String username, int eventId) {
+        return getEvent(eventId).addAttendee(username);}
 
-    /**
-     * Remove attendee from this event and return true if successfully removed. Else, return false.
-     * @param event: the event the attendee is going to be removed from.
-     * @param attendee: the the attendee who is going to cancel his spot.
-     */
-    public boolean cancelSpot(Event event, Attendee attendee) {
-        String name = attendee.getUsername();
-        return event.removeAttendee(name);
+//    /**
+//     * Remove attendee from this event and return true if successfully removed. Else, return false.
+//     * @param event: the event the attendee is going to be removed from.
+//     * @param attendee: the the attendee who is going to cancel his spot.
+//     */
+    public boolean cancelSpot(String username, int eventId) {
+        return getEvent(eventId).removeAttendee(username);
     }
 
     // Get a list of event this person signed up for.
-    public ArrayList<Event> getSignUp(String username) {
-        ArrayList<Event> acc = new ArrayList<>();
-        for (Event event: allEvents) {
-            if(event.ListOfAttendees.contains(username)) {
-                acc.add(event);
-            }
-        }
-        return acc;
-    }
+//    public ArrayList<Event> getSignUp(String username) {
+//        ArrayList<Event> acc = new ArrayList<>();
+//        for (Event event: allEvents) {
+//            if(event.ListOfAttendees.contains(username)) {
+//                acc.add(event);
+//            }
+//        }
+//        return acc;
+//    }
 
 }

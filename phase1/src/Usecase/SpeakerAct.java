@@ -25,6 +25,11 @@ public class SpeakerAct implements Usable{
         return speaker.available();
     }
 
+    public ArrayList<Integer> eventList(String username){
+        Speaker speaker = getSpeaker(username);
+        return speaker.eventList;
+    }
+
     public boolean login(String username, String password){
         if (password.equals(getSpeaker(username).getPassword())){
             return true;

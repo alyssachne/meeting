@@ -22,7 +22,7 @@ public class Room {
     }
 
     // Get the maximum capacity of the room.
-    public double getMaxCapacity() {
+    public Integer getMaxCapacity() {
         return MaxCapacity;
     }
 

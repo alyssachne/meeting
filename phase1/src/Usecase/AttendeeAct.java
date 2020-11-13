@@ -2,6 +2,7 @@ package Usecase;
 
 import Entity.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AttendeeAct implements Usable {
@@ -27,7 +28,9 @@ public class AttendeeAct implements Usable {
         return attendeeMap.get(username);
     }
 
-
+    public ArrayList<Integer> getEvents(String username){
+        return getAttendee(username).getEvents();
+    }
 
     @Override
     public boolean signUp(String username, int eventId) {

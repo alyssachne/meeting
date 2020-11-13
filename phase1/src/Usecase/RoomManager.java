@@ -42,6 +42,9 @@ public class RoomManager {
         return null;
     }
 
+    public Integer getMaxCapacity(int id){
+        return getRoom(id).getMaxCapacity();
+    }
     public ArrayList<Integer> availableTime(int roomId){
         Room room = getRoom(roomId);
         return room.getAvailableTime();

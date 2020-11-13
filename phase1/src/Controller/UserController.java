@@ -1,15 +1,15 @@
 package Controller;
 
-import Entity.Organizer;
-import Entity.User;
+import Entity.*;
 import Usecase.*;
 import com.sun.tools.corba.se.idl.constExpr.Or;
 
 import javax.swing.text.html.parser.Entity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserController {
+public class UserController implements Serializable {
 
     RoomManager rm = new RoomManager();
     EventManager em = new EventManager();
@@ -17,6 +17,10 @@ public class UserController {
     OrganizerAct oa = new OrganizerAct();
     AttendeeAct aa = new AttendeeAct();
     String username;
+
+    public UserController(){
+        oa.createOrganizer("admin","admin","admin");
+    }
 
     public boolean login(String username, String password, String userType){
         if (userType.equalsIgnoreCase("Organizer")){
@@ -78,5 +82,41 @@ public class UserController {
 
     public void roomList(){
         rm.roomList();
+    }
+
+    public void speakerSchedule(){
+        for (int id : sa.eventList(username)){
+            //sa.eventList(username) is arraylist of eventids
+            System.out.println(em.getEvent(id).toString());
+        }
+    }
+
+    public void attendeeSchedule(){
+        for (int id : aa.getEvents(username)){
+            System.out.println(em.getEvent(id).toString());
+        }
+    }
+    public void getAvailableEvent(){
+        //events that are not full
+        for (Event event: em.allEvents){
+           if ((!event.getAttendees().contains(username))&&rm.getMaxCapacity(event.roomId)>event.getAttendees().size()){
+               //check if the attendee has signed up the event or not and if the event reaches its room's maxCapacity
+               System.out.println(em.getEvent(event.id).toString());
+           }
+        }
+    }
+
+    public void signUp(int eventId){
+        aa.signUp(username,eventId);
+        em.addAttendee(username,eventId);
+    }
+
+    public void cancelSpot(int eventId){
+        aa.cancelSpot(username,eventId);
+        em.cancelSpot(username,eventId);
+    }
+
+    public void logout(){
+        username = null;
     }
 }
