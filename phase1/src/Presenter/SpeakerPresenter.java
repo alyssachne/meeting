@@ -27,4 +27,3 @@ public class SpeakerPresenter {
                 "to send messages to multiple users, please separate the usernames with comma");
     }
 }
-
