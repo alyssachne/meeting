@@ -4,9 +4,9 @@ import Entity.*;
 
 public interface Usable {
 
-    boolean signUp(User user, Event event);
+    boolean signUp(String username, int eventId);
 
-    boolean cancelSpot(User user, Event event);
+    boolean cancelSpot(String username, int eventId);
 
 
 

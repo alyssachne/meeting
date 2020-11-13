@@ -14,7 +14,10 @@ public class Event {
     public Pair<String, String> speaker;
     public ArrayList<String> ListOfAttendees;
 
-    public Event(int id) {
+    public Event(int id, String title, int time, int roomId) {
+        this.title = title;
+        this.time = time;
+        this.roomId = roomId;
         this.id = id;
         ArrayList<Attendee> ListOfAttendees = new ArrayList<Attendee>();
     }

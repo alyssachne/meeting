@@ -2,24 +2,56 @@ package Usecase;
 
 import Entity.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class SpeakerAct implements Usable{
 
+    HashMap<String,Speaker> speakerMap;
+    public SpeakerAct(){
+        speakerMap = new HashMap<>();
+    }
     public void createSpeaker(String name, String username, String password) {
         Speaker speaker = new Speaker(name, username, password);
+        speakerMap.put(speaker.getUsername(),speaker);
+    }
+
+    public Speaker getSpeaker(String username){
+        return speakerMap.get(username);
+    }
+
+    public ArrayList<Integer> availableTime(String username){
+        Speaker speaker = getSpeaker(username);
+        return speaker.available();
+    }
+
+    public boolean login(String username, String password){
+        if (password.equals(getSpeaker(username).getPassword())){
+            return true;
+        }
+        return false;
+    }
+
+    public void speakerList(){
+        for (String username:speakerMap.keySet()){
+            System.out.println(username);
+            for (Integer time: availableTime(username)){
+                System.out.println(time);
+            }
+        }
+    }
+    @Override
+    public boolean signUp(String username, int eventId) {
+        return getSpeaker(username).signUp(eventId);
     }
 
     @Override
-    public boolean signUp(User attendee, Event event) {
-        return attendee.signUp(event.id);
+    public boolean cancelSpot(String username, int eventId) {
+        return getSpeaker(username).cancelSpot(eventId);
     }
 
-    @Override
-    public boolean cancelSpot(User attendee, Event event) {
-        return attendee.cancelSpot(event.id);
-    }
-
-    public boolean giveEvent(Event event, Integer time, Speaker speaker){
-        return speaker.giveEvent(event.id, time);
+    public void giveEvent(String username,Integer eventId, Integer time){
+        speakerMap.get(username).giveEvent(eventId,time);
     }
 
     public boolean cancelEvent(Event event, Speaker speaker) {
