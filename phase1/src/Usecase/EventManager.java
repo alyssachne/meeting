@@ -2,9 +2,10 @@ package Usecase;
 
 import Entity.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EventManager {
+public class EventManager implements Serializable {
 
     public ArrayList<Event> allEvents;
 
@@ -26,8 +27,8 @@ public class EventManager {
      * Create a new event.
      * @param id: the id of the event.
      */
-    public void createEvent(int id, String title, int time, int roomId){
-        Event event = new Event(id, title, time, roomId);
+    public void createEvent(int id, String title, int time, int roomId, String speaker){
+        Event event = new Event(id, title, time, roomId, speaker);
         allEvents.add(event);
     }
 

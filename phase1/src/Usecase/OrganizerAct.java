@@ -2,11 +2,12 @@ package Usecase;
 import Entity.*;
 import org.omg.CORBA.Any;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class OrganizerAct implements Usable {
+public class OrganizerAct implements Usable, Serializable {
 
     HashMap<String,Organizer> organizerMap;
 

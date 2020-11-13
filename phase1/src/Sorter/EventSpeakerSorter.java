@@ -19,8 +19,8 @@ public class EventSpeakerSorter implements Sorter {
             // indices i and tl.size() - 1 inclusive.
             int indexMin = i;
             for (int j = i + 1; j < tl.size(); j++) {
-                String vi = tl.get(indexMin).speaker.getValue();
-                String vj = tl.get(j).speaker.getValue();
+                String vi = tl.get(indexMin).speaker;
+                String vj = tl.get(j).speaker;
                 // Want to sort according to speaker's name, since username may not be that well-known to other users.
                 if (vi.compareTo(vj) > 0) {
                     indexMin = j;

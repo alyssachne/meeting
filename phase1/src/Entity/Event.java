@@ -2,23 +2,25 @@ package Entity;
 
 import javafx.util.Pair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Event {
+public class Event implements Serializable {
 
     public Integer id;
     public String title;
     public Integer time;
     public int roomId;
     // The first string is the username of the speaker and the second string is the name of the speaker.
-    public Pair<String, String> speaker;
+    public String speaker;
     public ArrayList<String> ListOfAttendees;
 
-    public Event(int id, String title, int time, int roomId) {
+    public Event(int id, String title, int time, int roomId, String speaker) {
         this.title = title;
         this.time = time;
         this.roomId = roomId;
         this.id = id;
+        this.speaker = speaker;
         ArrayList<Attendee> ListOfAttendees = new ArrayList<Attendee>();
     }
 
@@ -43,7 +45,7 @@ public class Event {
     }
 
     // Get the name and username of the speaker who give the talk.
-    public Pair<String, String> getSpeaker() {
+    public String getSpeaker() {
         return speaker;
     }
 
@@ -73,8 +75,9 @@ public class Event {
     }
 
     // Set the username of the speaker who gives this event.
-    public void setSpeaker(String username, String name) {
-        this.speaker = new Pair(username, name);}
+    public void setSpeaker(String username) {
+        this.speaker = username;
+    }
 
     // Add the username of the given attendee to the Attendees list if the attendee is not on the list.
     public boolean addAttendee(String attendee) {
@@ -99,10 +102,10 @@ public class Event {
 
     @Override
     public String toString() {
-        String s = speaker.getValue();
+        String s = speaker;
 
-        return "This event is about" + title + ", given by" + s + ". It starts at" + time + "on Room"
-                + roomId + "and it lasts for 1 hour." ;
+        return "This event is about " + title + ", given by " + s + ". It starts at " + time + " on Room"
+                + roomId + " and it lasts for 1 hour." ;
     }
 }
 

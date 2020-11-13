@@ -1,11 +1,12 @@
 package Entity;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-public class Room {
+public class Room implements Serializable {
     public int MaxCapacity;
     public int id;
     //time, eventId

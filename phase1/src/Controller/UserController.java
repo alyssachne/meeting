@@ -58,7 +58,7 @@ public class UserController implements Serializable {
         ArrayList<Integer> spTime = sa.availableTime(username);
         ArrayList<Integer> roomTime = rm.availableTime(roomId);
         if (spTime.contains(time) && roomTime.contains(time)) {
-            em.createEvent(eventId,title,time,roomId);
+            em.createEvent(eventId,title,time,roomId,username);
             sa.giveEvent(username,eventId,time);
             rm.book(roomId,eventId,time);
             return true;
@@ -85,6 +85,7 @@ public class UserController implements Serializable {
     }
 
     public void speakerSchedule(){
+//        System.out.println(em.getEvent(1).toString());
         for (int id : sa.eventList(username)){
             //sa.eventList(username) is arraylist of eventids
             System.out.println(em.getEvent(id).toString());
