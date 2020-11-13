@@ -20,9 +20,9 @@ public class ControllerRW {
     }
 
     public UserController readFile() throws IOException, ClassNotFoundException {
-        Reader = new ObjectInputStream(new FileInputStream(file));
         UserController uc = null;
         if (file.length()!=0){
+            Reader = new ObjectInputStream(new FileInputStream(file));
             uc = (UserController)Reader.readObject();
         }
         return uc;

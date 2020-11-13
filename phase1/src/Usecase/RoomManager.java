@@ -1,9 +1,10 @@
 package Usecase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import Entity.*;
 
-public class RoomManager {
+public class RoomManager implements Serializable {
 
     public ArrayList<Room> allRooms;
 

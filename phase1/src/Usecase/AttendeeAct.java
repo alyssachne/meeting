@@ -2,10 +2,11 @@ package Usecase;
 
 import Entity.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AttendeeAct implements Usable {
+public class AttendeeAct implements Usable, Serializable {
     HashMap<String,Attendee> attendeeMap;
 
     public AttendeeAct(){

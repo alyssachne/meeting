@@ -80,6 +80,7 @@ public class Demo {
                         //message
                     } else if (choice.equals("5")) {
                         uo.logout();
+                        crw.writeFile(uo);
                         handle = false;
                     }
                 }
@@ -92,12 +93,13 @@ public class Demo {
                     System.out.println("2.Send a message");
                     System.out.println("3.Exit");
                     String choice = scanner.nextLine();
-                    if (choice.equals(1)) {
+                    if (choice.equals("1")) {
                         uo.speakerSchedule();
-                    } else if (choice.equals(2)) {
+                    } else if (choice.equals("2")) {
 
-                    } else if (choice.equals(3)) {
+                    } else if (choice.equals("3")) {
                         uo.logout();
+                        crw.writeFile(uo);
                         handle = false;
                     }
                 }
@@ -112,23 +114,24 @@ public class Demo {
                     System.out.println("4.Send a message");
                     System.out.println("5.Exit");
                     String choice = scanner.nextLine();
-                    if (choice.equals(1)) {
+                    if (choice.equals("1")) {
                         System.out.println("Here is your current schedule");
                         uo.attendeeSchedule();
-                    } else if (choice.equals(2)) {
+                    } else if (choice.equals("2")) {
                         System.out.println("Here is a list of events you can sign up");
                         uo.getAvailableEvent();
                         System.out.println("Please enter the eventId you would like to sign up");
                         String eventId = scanner.nextLine();
                         uo.signUp(Integer.parseInt(eventId));
-                    } else if (choice.equals(3)) {
+                    } else if (choice.equals("3")) {
                         System.out.println("Please enter the eventId you would like to cancel");
                         String eventId = scanner.nextLine();
                         uo.cancelSpot(Integer.parseInt(eventId));
-                    } else if (choice.equals(4)) {
+                    } else if (choice.equals("4")) {
 
-                    } else if (choice.equals(5)) {
+                    } else if (choice.equals("5")) {
                         uo.logout();
+                        crw.writeFile(uo);
                         handle = false;
                     }
                 }

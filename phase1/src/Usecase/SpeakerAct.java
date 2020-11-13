@@ -2,10 +2,11 @@ package Usecase;
 
 import Entity.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SpeakerAct implements Usable{
+public class SpeakerAct implements Usable, Serializable {
 
     HashMap<String,Speaker> speakerMap;
     public SpeakerAct(){
@@ -27,7 +28,7 @@ public class SpeakerAct implements Usable{
 
     public ArrayList<Integer> eventList(String username){
         Speaker speaker = getSpeaker(username);
-        return speaker.eventList;
+        return speaker.eventList();
     }
 
     public boolean login(String username, String password){
