@@ -4,6 +4,7 @@ import Entity.Organizer;
 import Entity.User;
 import com.sun.tools.corba.se.idl.constExpr.Or;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.HashMap;
 
 public class UserController {
@@ -20,10 +21,16 @@ public class UserController {
         }
     }
 
-    public void createOrganizer(){
-        Organizer organizer = new Organizer("admin", "admin", "admin");
-        userMap.put("admin",organizer);
+//    public void createOrganizer(){
+//        Organizer organizer = new Organizer("admin", "admin", "admin");
+//        userMap.put("admin",organizer);
+//    }
+
+    public void addUser(User user){
+        userMap.put(user.getUsername(),user);
     }
+
+
 
     public String userType(){
         return current.typeGetter();
