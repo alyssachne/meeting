@@ -1,14 +1,21 @@
 package Usecase;
 
 import Entity.*;
-import org.omg.CORBA.Any;
 
-import java.util.ArrayList;
-
-public class SpeakerAct {
+public class SpeakerAct implements Usable{
 
     public void createSpeaker(String name, String username, String password) {
         Speaker speaker = new Speaker(name, username, password);
+    }
+
+    @Override
+    public boolean signUp(User attendee, Event event) {
+        return attendee.signUp(event.id);
+    }
+
+    @Override
+    public boolean cancelSpot(User attendee, Event event) {
+        return attendee.cancelSpot(event.id);
     }
 
     public boolean giveEvent(Event event, Integer time, Speaker speaker){

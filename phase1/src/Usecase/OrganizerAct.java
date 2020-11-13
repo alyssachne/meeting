@@ -5,10 +5,20 @@ import org.omg.CORBA.Any;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class OrganizerAct {
+public class OrganizerAct implements Usable {
 
     public void createOrganizer(String name, String username, String password){
         new Organizer(name,username,password);
+    }
+
+    @Override
+    public boolean signUp(User attendee, Event event) {
+        return attendee.signUp(event.id);
+    }
+
+    @Override
+    public boolean cancelSpot(User attendee, Event event) {
+        return attendee.cancelSpot(event.id);
     }
 
     public boolean setSpeaker(Event event, Speaker speaker){

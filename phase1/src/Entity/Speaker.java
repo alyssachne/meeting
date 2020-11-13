@@ -17,6 +17,16 @@ public class Speaker extends User {
         }
     }
 
+    @Override
+    public boolean signUp(Integer eventId) {
+        Set<Integer> given = events.keySet();
+        if(eventList.contains(eventId) || given.contains(eventId)) {
+            return false;
+        }
+        eventList.add(eventId);
+        return true;
+    }
+
     public boolean giveEvent(Integer eventId, Integer time){
         if(events.get(time) != null) {
             return false;
@@ -58,5 +68,5 @@ public class Speaker extends User {
 
 
     @Override
-    public String typeGetter(){return "Speaker";};
+    public String typeGetter(){return "Speaker";}
 }

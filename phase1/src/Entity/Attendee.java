@@ -11,6 +11,16 @@ public class Attendee extends User {
     public ArrayList<String> getContacts(){
         return contacts;
     }
+
+    @Override
+    public boolean signUp(Integer eventId) {
+        if(eventList.contains(eventId)) {
+            return false;
+        }
+        eventList.add(eventId);
+        return true;
+    }
+
     public ArrayList<Integer> getEvents() {
         return eventList;
     }
