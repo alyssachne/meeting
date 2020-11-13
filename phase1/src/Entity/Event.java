@@ -21,7 +21,7 @@ public class Event implements Serializable {
         this.roomId = roomId;
         this.id = id;
         this.speaker = speaker;
-        ArrayList<Attendee> ListOfAttendees = new ArrayList<Attendee>();
+        ListOfAttendees = new ArrayList<>();
     }
 
     // Get the id of the event.
@@ -104,7 +104,7 @@ public class Event implements Serializable {
     public String toString() {
         String s = speaker;
 
-        return "This event is about " + title + ", given by " + s + ". It starts at " + time + " on Room"
+        return "Event ID:"+id+" This event is about " + title + ", given by " + s + ". It starts at " + time + " on Room"
                 + roomId + " and it lasts for 1 hour." ;
     }
 }

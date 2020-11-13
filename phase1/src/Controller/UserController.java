@@ -54,6 +54,10 @@ public class UserController implements Serializable {
         sa.createSpeaker(name,username,password);
     }
 
+    public void createAttendee(String name, String username, String password){
+        aa.createAttendee(name,username,password);
+    }
+
     public boolean createEvent(String username, int eventId, String title, int time, int roomId){
         ArrayList<Integer> spTime = sa.availableTime(username);
         ArrayList<Integer> roomTime = rm.availableTime(roomId);
@@ -63,16 +67,6 @@ public class UserController implements Serializable {
             rm.book(roomId,eventId,time);
             return true;
         }
-        //        for (Integer time : spTime){
-//            if (roomTime.contains(time)){
-//                em.createEvent(eventId,title,roomId);
-//                em.setTime(eventId,time);//eventTime
-//                sa.giveEvent(username,eventId,time);//speakerTime
-//
-//                return true;
-//            }
-//
-//        }
         return false;
     }
 
