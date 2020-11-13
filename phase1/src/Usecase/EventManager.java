@@ -14,20 +14,21 @@ public class EventManager {
     public EventManager() {
         allEvents = new ArrayList<>();
     }
-    /**
-     * Adds a given event to this event manager.
-     * @param event: the event being added to the ArrayList.
-     */
-    public void addEvent(Event event) {
-        allEvents.add(event);
-    }
+//    /**
+//     * Adds a given event to this event manager.
+//     * @param event: the event being added to the ArrayList.
+//     */
+//    public void addEvent(Event event) {
+//        allEvents.add(event);
+//    }
 
     /**
      * Create a new event.
      * @param id: the id of the event.
      */
-    public void createEvent(int id){
-        Event event = new Event(id);
+    public void createEvent(int id, String title, int time, int roomId){
+        Event event = new Event(id, title, time, roomId);
+        allEvents.add(event);
     }
 
     /**
@@ -48,6 +49,9 @@ public class EventManager {
         return null;
     }
 
+    public void setTime(int id, int time){
+        getEvent(id).setTime(time);
+    }
     /**
      * Add the attendee to this event and return true if successfully added in. Else, return false.
      * @param event: the event the attendee is going to attend.
