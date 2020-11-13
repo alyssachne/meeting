@@ -15,20 +15,13 @@ public class RoomManager {
     }
 
     /**
-     * Adds a given room to this room manager.
-     * @param r: the room being added to the ArrayList.
-     */
-    public void addRoom(Room r) {
-        allRooms.add(r);
-    }
-
-    /**
      * Create a new room.
      * @param id: the id of the room.
      * @param MaxCapacity: the maximum capacity of the room.
      */
     public void createRoom(int id, int MaxCapacity){
         Room room = new Room(id, MaxCapacity);
+        allRooms.add(room);
     }
 
     /**
@@ -49,28 +42,49 @@ public class RoomManager {
         return null;
     }
 
-    /**
-     * Add one attendee to this room, increase the current capacity by 1, and return true if the room is not full. Else,
-     * return false.,
-     * @param room: the room the attendee is going to be add in.
-     * @param attendee: the attendee who is going to be added into this room.
-     */
-    public boolean addAttendee(Room room, Attendee attendee, Event event) {
-        String username = attendee.getUsername();
-        Integer time = event.time;
-        return room.addAttendee(username, time);
+    public ArrayList<Integer> availableTime(int roomId){
+        Room room = getRoom(roomId);
+        return room.getAvailableTime();
     }
 
-    /**
-     * Remove one attendee to this room, decrease the current capacity by 1, and return true if the room is not empty.
-     * Else, return false.
-     * @param room: the room the attendee is going to be remove from.
-     * @param attendee: the attendee who is going to be removed from this room.
-     */
-    public boolean removeAttendee(Room room, Attendee attendee, Event event) {
-        String username = attendee.getUsername();
-        Integer time = event.time;
-        return room.removeAttendee(username, time);
+    public void roomList(){
+        for (Room room:allRooms){
+            System.out.println(room.getId());
+            for (Integer time : availableTime(room.id)){
+                System.out.println(time);
+            }
+        }
     }
+    public void book(Integer roomId, Integer eventId, Integer time){
+        getRoom(roomId).book(eventId,time);
+    }
+
+    public void cancel(Integer roomId, Integer eventId){
+        getRoom(roomId).cancel(eventId);
+    }
+
+    //    /**
+//     * Add one attendee to this room, increase the current capacity by 1, and return true if the room is not full. Else,
+//     * return false.,
+//     * @param room: the room the attendee is going to be add in.
+//     * @param attendee: the attendee who is going to be added into this room.
+//     */
+//    public boolean addAttendee(Room room, Attendee attendee, Event event) {
+//        String username = attendee.getUsername();
+//        Integer time = event.time;
+//        return room.addAttendee(username, time);
+//    }
+
+//    /**
+//     * Remove one attendee to this room, decrease the current capacity by 1, and return true if the room is not empty.
+//     * Else, return false.
+//     * @param room: the room the attendee is going to be remove from.
+//     * @param attendee: the attendee who is going to be removed from this room.
+//     */
+//    public boolean removeAttendee(Room room, Attendee attendee, Event event) {
+//        String username = attendee.getUsername();
+//        Integer time = event.time;
+//        return room.removeAttendee(username, time);
+//    }
 }
 
