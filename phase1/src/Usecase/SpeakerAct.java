@@ -74,7 +74,7 @@ public class SpeakerAct implements Usable, Serializable {
     }
 
     public boolean cancelEvent(Event event, Speaker speaker) {
-        return speaker.cancelEvent(event.id);
+        return speaker.cancelEvent(event.getId());
     }
 
 

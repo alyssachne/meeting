@@ -18,7 +18,7 @@ public class EventRoomSorter implements Sorter{
             // indices i and tl.size() - 1 inclusive.
             int indexMin = i;
             for (int j = i + 1; j < tl.size(); j++) {
-                if (tl.get(indexMin).roomId > tl.get(j).roomId) {
+                if (tl.get(indexMin).getRoom() > tl.get(j).getRoom()) {
                     indexMin = j;
                 }
             }

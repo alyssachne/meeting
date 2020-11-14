@@ -17,7 +17,7 @@ public class EventIdSorter implements Sorter {
             // indices i and tl.size() - 1 inclusive.
             int indexMin = i;
             for (int j = i + 1; j < tl.size(); j++) {
-                if (tl.get(indexMin).id > tl.get(j).id) {
+                if (tl.get(indexMin).getId() > tl.get(j).getId()) {
                     indexMin = j;
                 }
             }

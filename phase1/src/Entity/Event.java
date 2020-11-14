@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public class Event implements Serializable {
 
-    public Integer id;
-    public String title;
-    public Integer time;
-    public int roomId;
+    private Integer id;
+    private String title;
+    private Integer time;
+    private int roomId;
     // The first string is the username of the speaker and the second string is the name of the speaker.
-    public String speaker;
-    public ArrayList<String> ListOfAttendees;
+    private String speaker;
+    private ArrayList<String> ListOfAttendees;
 
     public Event(int id, String title, int time, int roomId, String speaker) {
         this.title = title;
@@ -53,7 +53,6 @@ public class Event implements Serializable {
     public ArrayList<String> getAttendees() {
         return ListOfAttendees;
     }
-
     // Get the number of attendees who attend this talk.
     public int getNumOfAttendees() {
         return ListOfAttendees.size();
@@ -79,27 +78,27 @@ public class Event implements Serializable {
         this.speaker = username;
     }
 
-    // Add the username of the given attendee to the Attendees list if the attendee is not on the list.
-    public boolean addAttendee(String attendee) {
-        for (String name : ListOfAttendees) {
-            if(attendee.equals(name)) {
-                return false;
-            }
-        }
-        ListOfAttendees.add(attendee);
-        return true;
-    }
+//    // Add the username of the given attendee to the Attendees list if the attendee is not on the list.
+//    public boolean addAttendee(String attendee) {
+//        for (String name : ListOfAttendees) {
+//            if(attendee.equals(name)) {
+//                return false;
+//            }
+//        }
+//        ListOfAttendees.add(attendee);
+//        return true;
+//    }
 
-    // Remove the username of the given attendee from the Attendees list if the attendee is on the list.
-    public boolean removeAttendee(String attendee) {
-        for (String name: ListOfAttendees) {
-            if(attendee.equals(name)) {
-                ListOfAttendees.remove(name);
-                return true;
-            }
-        }
-        return false;
-    }
+//    // Remove the username of the given attendee from the Attendees list if the attendee is on the list.
+//    public boolean removeAttendee(String attendee) {
+//        for (String name: ListOfAttendees) {
+//            if(attendee.equals(name)) {
+//                ListOfAttendees.remove(name);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     @Override
     public String toString() {

@@ -90,9 +90,9 @@ public class UserController implements Serializable {
     public void getAvailableEvent(){
         //events that are not full
         for (Event event: em.allEvents){
-           if ((!event.getAttendees().contains(username))&&rm.getMaxCapacity(event.roomId)>event.getAttendees().size()){
+           if ((!event.getAttendees().contains(username))&&rm.getMaxCapacity(event.getRoom())>event.getAttendees().size()){
                //check if the attendee has signed up the event or not and if the event reaches its room's maxCapacity
-               System.out.println(em.getEvent(event.id).toString());
+               System.out.println(em.getEvent(event.getId()).toString());
            }
         }
     }

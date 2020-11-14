@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Room implements Serializable {
-    public int MaxCapacity;
-    public int id;
+    private final int MaxCapacity;
+    private final int id;
     //time, eventId
-    public HashMap<Integer, Integer> schedule = new HashMap<>(8);
+    private final HashMap<Integer, Integer> schedule = new HashMap<>(8);
 
     public Room(int id, int MaxCapacity) {
         this.MaxCapacity = MaxCapacity;
@@ -40,6 +40,8 @@ public class Room implements Serializable {
         return schedule.get(time) != null;
     }
 
+    public HashMap<Integer, Integer> getSchedule() {return schedule;}
+
     // Get a list of available time of this room.
     public ArrayList<Integer> getAvailableTime() {
         ArrayList<Integer> available = new ArrayList<>();
@@ -50,24 +52,24 @@ public class Room implements Serializable {
             return available;
     }
 
-    // If this room is not booked at the given time, add the event to the schedule, add the list of attendee to the
-    // ListOfAttendee, and return True. Else, return false.
-    public boolean book(Integer eventId, Integer time) {
-        if(!isBooked(time)) {
-            schedule.put(time, eventId);
-            return true;
-        }
-        return false;
-    }
+//    // If this room is not booked at the given time, add the event to the schedule, add the list of attendee to the
+//    // ListOfAttendee, and return True. Else, return false.
+//    public boolean book(Integer eventId, Integer time) {
+//        if(!isBooked(time)) {
+//            schedule.put(time, eventId);
+//            return true;
+//        }
+//        return false;
+//    }
 
-    public boolean cancel(Integer eventId) {
-        Set<Integer> temp = schedule.keySet();
-        for(Integer time: temp) {
-            if(schedule.get(time).equals(eventId)) {
-                schedule.replace(time, null);
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean cancel(Integer eventId) {
+//        Set<Integer> temp = schedule.keySet();
+//        for(Integer time: temp) {
+//            if(schedule.get(time).equals(eventId)) {
+//                schedule.replace(time, null);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 }

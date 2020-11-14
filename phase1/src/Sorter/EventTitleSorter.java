@@ -19,7 +19,7 @@ public class EventTitleSorter implements Sorter {
             // indices i and tl.size() - 1 inclusive.
             int indexMin = i;
             for (int j = i + 1; j < tl.size(); j++) {
-                if (tl.get(indexMin).title.compareTo(tl.get(j).title) > 0) {
+                if (tl.get(indexMin).getTitle().compareTo(tl.get(j).getTitle()) > 0) {
                     indexMin = j;
                 }
             }

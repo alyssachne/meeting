@@ -8,15 +8,6 @@ public class Attendee extends User {
         super(name, username, password);
     }
 
-    @Override
-    public boolean signUp(Integer eventId) {
-        if(eventList.contains(eventId)) {
-            return false;
-        }
-        eventList.add(eventId);
-        return true;
-    }
-
     public ArrayList<Integer> getEvents() {
         return eventList;
     }

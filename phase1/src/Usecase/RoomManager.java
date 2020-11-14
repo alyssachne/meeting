@@ -2,6 +2,9 @@ package Usecase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
 import Entity.*;
 
 public class RoomManager implements Serializable {
@@ -54,17 +57,29 @@ public class RoomManager implements Serializable {
     public void roomList(){
         for (Room room:allRooms){
             System.out.println(room.getId());
-            for (Integer time : availableTime(room.id)){
+            for (Integer time : availableTime(room.getId())){
                 System.out.println(time);
             }
         }
     }
-    public void book(Integer roomId, Integer eventId, Integer time){
-        getRoom(roomId).book(eventId,time);
+    public boolean book(Integer roomId, Integer eventId, Integer time){
+        if(!getRoom(roomId).isBooked(time)) {
+            getRoom(roomId).getSchedule().put(time, eventId);
+            return true;
+        }
+        return false;
     }
 
-    public void cancel(Integer roomId, Integer eventId){
-        getRoom(roomId).cancel(eventId);
+    public boolean cancel(Integer roomId, Integer eventId){
+        HashMap<Integer, Integer> schedule = getRoom(roomId).getSchedule();
+        Set<Integer> temp = schedule.keySet();
+        for(Integer time: temp) {
+            if(schedule.get(time).equals(eventId)) {
+                schedule.replace(time, null);
+                return true;
+            }
+        }
+        return false;
     }
 
     //    /**

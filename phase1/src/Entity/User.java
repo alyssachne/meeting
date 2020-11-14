@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class User implements Serializable {
+public abstract class User implements Serializable {
     private String name;
     private String username;
     private String password;
@@ -31,11 +31,7 @@ public class User implements Serializable {
     }
 
     public ArrayList<String> getContacts(){
-        ArrayList<String> arr = new ArrayList<>();
-        for (String name : messageInbox.keySet()){
-            arr.add(name);
-        }
-        return arr;
+        return new ArrayList<>(messageInbox.keySet());
     }
 
     public ArrayList<String> getMessage(String username){

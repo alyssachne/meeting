@@ -59,7 +59,14 @@ public class EventManager implements Serializable {
 //     * @param attendee: the the attendee who is going to attend this event.
 //     */
     public boolean addAttendee(String username, int eventId) {
-        return getEvent(eventId).addAttendee(username);}
+        for (String name : getEvent(eventId).getAttendees()) {
+            if(username.equals(name)) {
+                return false;
+            }
+        }
+        getEvent(eventId).getAttendees().add(username);
+        return true;
+    }
 
 //    /**
 //     * Remove attendee from this event and return true if successfully removed. Else, return false.
@@ -67,7 +74,13 @@ public class EventManager implements Serializable {
 //     * @param attendee: the the attendee who is going to cancel his spot.
 //     */
     public boolean cancelSpot(String username, int eventId) {
-        return getEvent(eventId).removeAttendee(username);
+        for (String name: getEvent(eventId).getAttendees()) {
+            if(username.equals(name)) {
+                getEvent(eventId).getAttendees().remove(name);
+                return true;
+            }
+        }
+        return false;
     }
 
     // Get a list of event this person signed up for.
