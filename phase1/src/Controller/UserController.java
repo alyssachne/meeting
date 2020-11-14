@@ -2,12 +2,8 @@ package Controller;
 
 import Entity.*;
 import Usecase.*;
-import com.sun.tools.corba.se.idl.constExpr.Or;
-
-import javax.swing.text.html.parser.Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class UserController implements Serializable {
 
@@ -127,6 +123,12 @@ public class UserController implements Serializable {
         }
     }
 
+    public void eventMessage_Attendee(String message, Integer eventId){
+        for (String username: em.getEvent(eventId).getAttendees()) {
+            aa.addMessage(username,this.username,message);
+        }
+    }
+
     public void privateMessage_Speaker(String receiver, String message){
         sa.addMessage(receiver,username,message);
     }
@@ -168,6 +170,18 @@ public class UserController implements Serializable {
     public void getMessage_Attendee(String sender){
         for (String message : aa.getMessage(username,sender)){
             System.out.println(message);
+        }
+    }
+
+    public void checkAudiences(Integer eventId){
+        for(String name : em.getEvent(eventId).getAttendees()){
+            System.out.println(name);
+        }
+    }
+
+    public void checkSpeakers() {
+        for(Integer eventId: aa.getEvents(username)) {
+            System.out.println(em.getEvent(eventId).getSpeaker());
         }
     }
 }

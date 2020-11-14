@@ -142,7 +142,31 @@ public class Demo {
                         if (choice.equals("1")) {
                             uo.speakerSchedule();
                         } else if (choice.equals("2")) {
-
+                            System.out.println("1.Send group message");
+                            System.out.println("2.Send private message");
+                            System.out.println("3.Message Inbox");
+                            String option = scanner.nextLine();
+                            if (option.equals("1")){
+                                System.out.println("Please enter the eventId");
+                                String eventId = scanner.nextLine();
+                                System.out.println("Please enter your message");
+                                String message = scanner.nextLine();
+                                uo.eventMessage_Attendee(message, Integer.parseInt(eventId));
+                            } else if (option.equals("2")) {
+                                System.out.println("Please enter the eventId");
+                                String eventId = scanner.nextLine();
+                                uo.checkAudiences(Integer.parseInt(eventId));
+                                System.out.println("Here is a list of attendees who sign up for this event, please enter the username of the attendee you would like to send message to");
+                                String contact = scanner.nextLine();
+                                System.out.println("Please enter your message");
+                                String message = scanner.nextLine();
+                                uo.privateMessage_Attendee(contact, message);
+                            } else if (option.equals("3")){
+                                System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
+                                uo.checkContacts_Speaker();
+                                String contact = scanner.nextLine();
+                                uo.getMessage_Speaker(contact);
+                            }
                         } else if (choice.equals("3")) {
                             uo.logout();
                             crw.writeFile(uo);
@@ -157,7 +181,7 @@ public class Demo {
                         System.out.println("1.Show my current schedule");
                         System.out.println("2.Sign up an event");
                         System.out.println("3.Cancel an event reservation");
-                        System.out.println("4.Send a message");
+                        System.out.println("4.Message system");
                         System.out.println("5.Exit");
                         String choice = scanner.nextLine();
                         if (choice.equals("1")) {
@@ -174,7 +198,30 @@ public class Demo {
                             String eventId = scanner.nextLine();
                             uo.cancelSpot(Integer.parseInt(eventId));
                         } else if (choice.equals("4")) {
-
+                            System.out.println("1.Send message to attendee");
+                            System.out.println("2.Send message to speaker");
+                            System.out.println("3.Message Inbox");
+                            String option = scanner.nextLine();
+                            if (option.equals("1")){
+                                System.out.println("Please enter the username of the attendee");
+                                String other = scanner.nextLine();
+                                System.out.println("Please enter your message");
+                                String message = scanner.nextLine();
+                                uo.privateMessage_Attendee(message, other);
+                            } else if (option.equals("2")) {
+                                System.out.println("Here is a list of speakers you can send message to:");
+                                uo.checkSpeakers();
+                                System.out.println("Please enter the username of the speaker");
+                                String speaker = scanner.nextLine();
+                                System.out.println("Please enter your message");
+                                String message = scanner.nextLine();
+                                uo.privateMessage_Speaker(message, speaker);
+                            } else if (option.equals("3")){
+                                System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
+                                uo.checkContacts_Attendee();
+                                String contact = scanner.nextLine();
+                                uo.getMessage_Attendee(contact);
+                            }
                         } else if (choice.equals("5")) {
                             uo.logout();
                             crw.writeFile(uo);
