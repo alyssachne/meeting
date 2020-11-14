@@ -4,7 +4,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 
-public class EventManagerTest {
+public class EventManagerTester {
 
     // Event Manager constructor
     @Test(timeout = 50)
