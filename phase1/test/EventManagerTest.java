@@ -93,4 +93,13 @@ public class EventManagerTest {
     // getEvent can be tested together with create Event
     // not sure what setTime means
 
+    // addAttendee Test
+    @Test
+    public void testAddAttendee(){
+        EventManager em01 = new EventManager();
+        em01.addAttendee("a1",1);
+
+        assertTrue(em01.getEvent(1).getAttendees() == new ArrayList<String>());
+    }
+
 }

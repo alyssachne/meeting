@@ -13,7 +13,7 @@ public class AttendeeTester {
     (4) Return false if the event/room is fully booked
      */
     public void testSignUp(){
-        Event CSC207Tutorial = new Event(1);
+        Event CSC207Tutorial = new Event(1, "207TUT", 9, 1,"InstructorA");
         Room BA1130 = new Room(1,3);
         CSC207Tutorial.setRoom(1);
         Attendee Kevin = new Attendee("Kevin","Kevin8","verySafePassward");
@@ -22,8 +22,13 @@ public class AttendeeTester {
         Kevin.signUp(1);
         assertTrue(Kevin.getEvents().contains(1));
         assertEquals(CSC207Tutorial.getNumOfAttendees(),1);
-        assertEquals(BA1130.getCurrentCapacity(CSC207Tutorial.time),2,0);
+//        assertEquals(BA1130.getCurrentCapacity(CSC207Tutorial.time),2,0);
         Tom.signUp(1);
         assertFalse(WangYiBo.signUp(1));
     }
 }
+
+// It seems Event needs 5 parameters to create
+
+// Room does not have a getCurrentCapacity method, and probably we don't need one now?
+// It works as long as we can get the num of attendees, and maxCapacity of the room
