@@ -147,12 +147,16 @@ public class Demo {
                             System.out.println("3.Message Inbox");
                             String option = scanner.nextLine();
                             if (option.equals("1")){
+                                System.out.println("Here are the events you give:");
+                                uo.speakerSchedule();
                                 System.out.println("Please enter the eventId");
                                 String eventId = scanner.nextLine();
                                 System.out.println("Please enter your message");
                                 String message = scanner.nextLine();
                                 uo.eventMessage_Attendee(message, Integer.parseInt(eventId));
                             } else if (option.equals("2")) {
+                                System.out.println("Here are the events you give:");
+                                uo.speakerSchedule();
                                 System.out.println("Please enter the eventId");
                                 String eventId = scanner.nextLine();
                                 uo.checkAudiences(Integer.parseInt(eventId));
@@ -215,7 +219,7 @@ public class Demo {
                                 String speaker = scanner.nextLine();
                                 System.out.println("Please enter your message");
                                 String message = scanner.nextLine();
-                                uo.privateMessage_Speaker(message, speaker);
+                                uo.privateMessage_Speaker(speaker, message);
                             } else if (option.equals("3")){
                                 System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
                                 uo.checkContacts_Attendee();
