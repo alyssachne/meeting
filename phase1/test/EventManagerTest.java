@@ -99,7 +99,26 @@ public class EventManagerTest {
         EventManager em01 = new EventManager();
         em01.addAttendee("a1",1);
 
-        assertTrue(em01.getEvent(1).getAttendees() == new ArrayList<String>());
+        assertEquals(1, em01.getEvent(1).getAttendees().size());
+        assertTrue(em01.getEvent(1).getAttendees().contains("a1"));
+    }
+
+    // cancelSpotTest
+    @Test
+    public void testCancelSpot(){
+        EventManager em02 = new EventManager();
+        em02.addAttendee("Amy", 2);
+        em02.addAttendee("Bob", 2);
+        // First check if the attendees are correctly added
+        assertEquals(2, em02.getEvent(1).getAttendees().size());
+        assertTrue(em02.getEvent(2).getAttendees().contains("Amy"));
+        assertTrue(em02.getEvent(2).getAttendees().contains("Bob"));
+
+        em02.cancelSpot("Amy", 2);
+        // Then check whether one of the attendee's spot is cancelled correctly
+        assertEquals(1, em02.getEvent(1).getAttendees().size());
+        assertFalse(em02.getEvent(2).getAttendees().contains("Amy"));
+        assertTrue(em02.getEvent(2).getAttendees().contains("Bob"));
     }
 
 }
