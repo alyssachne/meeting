@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class SpeakerAct implements Usable, Serializable {
 
-    HashMap<String,Speaker> speakerMap;
+    public HashMap<String,Speaker> speakerMap;
     public SpeakerAct(){
         speakerMap = new HashMap<>();
     }
@@ -31,6 +31,10 @@ public class SpeakerAct implements Usable, Serializable {
         return speaker.eventList();
     }
 
+    public void addMessage(String receiver, String sender, String message){
+        getSpeaker(receiver).addMessage(sender,message);
+    }
+
     public boolean login(String username, String password){
         if (password.equals(getSpeaker(username).getPassword())){
             return true;
@@ -46,6 +50,15 @@ public class SpeakerAct implements Usable, Serializable {
             }
         }
     }
+
+    public ArrayList<String> getContacts(String username){
+        return getSpeaker(username).getContacts();
+    }
+
+    public ArrayList<String> getMessage(String receiver, String sender){
+        return getSpeaker(receiver).getMessage(sender);
+    }
+
     @Override
     public boolean signUp(String username, int eventId) {
         return getSpeaker(username).signUp(eventId);
@@ -64,27 +77,5 @@ public class SpeakerAct implements Usable, Serializable {
         return speaker.cancelEvent(event.id);
     }
 
-//    public boolean sentMessageToAttendee(Speaker speaker, ArrayList<Event> speaks, Message message){
-//        // Exception needed here
-//        speaker.sendMessage(message);
-//        for (Event speak : speaks){
-//            if (speaker.getSpeaks().contains(speak)){
-//                return false;
-//            }
-//            for (String user :speak.ListOfAttendees){
-//                // user receive messages
-//
-//            }
-//        }
-//        return true;
-//    }
-
-//    private void sentMessage(User user, ArrayList<User> receivers, Message message){
-//        //Can we import Userlist from UserOragnizer(Use case)？
-//        for (User receiver: receivers){
-//            receiver.receiveMessage(message);
-//        }
-//        user.sendMessage(message);
-//    }
 
 }

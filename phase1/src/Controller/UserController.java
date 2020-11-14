@@ -114,4 +114,60 @@ public class UserController implements Serializable {
     public void logout(){
         username = null;
     }
+
+    public void groupMessage_Speaker(String message){
+        for(String username: sa.speakerMap.keySet()){
+            sa.addMessage(username,this.username,message);
+        }
+    }
+
+    public void groupMessage_Attendee(String message){
+        for(String username: aa.attendeeMap.keySet()){
+            aa.addMessage(username,this.username,message);
+        }
+    }
+
+    public void privateMessage_Speaker(String receiver, String message){
+        sa.addMessage(receiver,username,message);
+    }
+
+    public void privateMessage_Attendee(String receiver, String message){
+        aa.addMessage(receiver,username,message);
+    }
+
+    public void checkContacts_Organizer(){
+        for(String name : oa.getContacts(username)){
+            System.out.println(name);
+        }
+    }
+
+    public void checkContacts_Speaker(){
+        for(String name : sa.getContacts(username)){
+            System.out.println(name);
+        }
+    }
+
+    public void checkContacts_Attendee(){
+        for(String name : aa.getContacts(username)){
+            System.out.println(name);
+        }
+    }
+
+    public void getMessage_Organizer(String sender){
+        for (String message : oa.getMessage(username,sender)){
+            System.out.println(message);
+        }
+    }
+
+    public void getMessage_Speaker(String sender){
+        for (String message : sa.getMessage(username,sender)){
+            System.out.println(message);
+        }
+    }
+
+    public void getMessage_Attendee(String sender){
+        for (String message : aa.getMessage(username,sender)){
+            System.out.println(message);
+        }
+    }
 }

@@ -49,7 +49,7 @@ public class Demo {
                         System.out.println("1.Create Rooms");
                         System.out.println("2.Create a Speaker Account");
                         System.out.println("3.Schedule an event");
-                        System.out.println("4.Send a message");
+                        System.out.println("4.Message System");
                         System.out.println("5.Exit");
                         String choice = scanner.nextLine();
                         if (choice.equals("1")) {
@@ -92,6 +92,38 @@ public class Demo {
                             }
                         } else if (choice.equals("4")) {
                             //message
+                            System.out.println("1.Send message to all Speakers");
+                            System.out.println("2.Send message to all Attendees");
+                            System.out.println("3.Send message to a specific Speaker");
+                            System.out.println("4.Send message to a specific Attendee");
+                            System.out.println("5.Message Inbox");
+                            String option = scanner.nextLine();
+                            if (option.equals("1")){
+                                System.out.println("Please enter your message");
+                                String message = scanner.nextLine();
+                                uo.groupMessage_Speaker(message);
+                            }else if(option.equals("2")){
+                                System.out.println("Please enter your message");
+                                String message = scanner.nextLine();
+                                uo.groupMessage_Attendee(message);
+                            }else if (option.equals("3")){
+                                System.out.println("Please enter the username of the Speaker you want to send to");
+                                String receiver = scanner.nextLine();
+                                System.out.println("Please enter your message");
+                                String message = scanner.nextLine();
+                                uo.privateMessage_Speaker(receiver,message);
+                            }else if (option.equals("4")){
+                                System.out.println("Please enter the username of the Attendee you want to send to");
+                                String receiver = scanner.nextLine();
+                                System.out.println("Please enter your message");
+                                String message = scanner.nextLine();
+                                uo.privateMessage_Attendee(receiver,message);
+                            }else if (option.equals("5")){
+                                System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
+                                uo.checkContacts_Organizer();
+                                String contact = scanner.nextLine();
+                                uo.getMessage_Organizer(contact);
+                            }
                         } else if (choice.equals("5")) {
                             uo.logout();
                             crw.writeFile(uo);
@@ -104,7 +136,7 @@ public class Demo {
                     while (handle) {
                         System.out.println("Please enter your choice below:");
                         System.out.println("1.Show my current schedule");
-                        System.out.println("2.Send a message");
+                        System.out.println("2.Message System");
                         System.out.println("3.Exit");
                         String choice = scanner.nextLine();
                         if (choice.equals("1")) {

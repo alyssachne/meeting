@@ -2,7 +2,6 @@ import Entity.Attendee;
 import Entity.Organizer;
 import Entity.Speaker;
 import Entity.User;
-import Gateway.SpeakerRW;
 
 import java.io.IOException;
 

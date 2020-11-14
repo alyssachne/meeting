@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AttendeeAct implements Usable, Serializable {
-    HashMap<String,Attendee> attendeeMap;
+    public HashMap<String,Attendee> attendeeMap;
 
     public AttendeeAct(){
         attendeeMap = new HashMap<>();
@@ -31,6 +31,18 @@ public class AttendeeAct implements Usable, Serializable {
 
     public ArrayList<Integer> getEvents(String username){
         return getAttendee(username).getEvents();
+    }
+
+    public void addMessage(String receiver, String sender, String message){
+        getAttendee(receiver).addMessage(sender,message);
+    }
+
+    public ArrayList<String> getContacts(String username){
+        return getAttendee(username).getContacts();
+    }
+
+    public ArrayList<String> getMessage(String receiver, String sender){
+        return getAttendee(receiver).getMessage(sender);
     }
 
     @Override

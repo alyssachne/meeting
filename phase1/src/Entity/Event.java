@@ -94,6 +94,7 @@ public class Event implements Serializable {
     public boolean removeAttendee(String attendee) {
         for (String name: ListOfAttendees) {
             if(attendee.equals(name)) {
+                ListOfAttendees.remove(name);
                 return true;
             }
         }

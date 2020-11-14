@@ -1,8 +1,5 @@
 package Entity;
 
-import Usecase.MessageHistory;
-import org.omg.PortableInterceptor.INACTIVE;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,18 +8,38 @@ public class User implements Serializable {
     private String name;
     private String username;
     private String password;
-    //private MessageBox InBox;
-    //private MessageBox SentBox;
-    //private HashMap<String, MessageHistory> messageList = new HashMap<>();
     public ArrayList<Integer> eventList;
-    public ArrayList<String> contacts;
+    //<username,messageList>
+    public HashMap<String,ArrayList<String>> messageInbox;
 
     public User(String name, String username, String password){
         this.name = name;
         this.username = username;
         this.password = password;
         eventList = new ArrayList<>();
-        contacts = new ArrayList<>();
+        messageInbox = new HashMap<>();
+    }
+
+    public void addMessage(String username, String message){
+        if (messageInbox.containsKey(username)){
+            messageInbox.get(username).add(message);
+        }else{
+            ArrayList<String> arr = new ArrayList<>();
+            arr.add(message);
+            messageInbox.put(username,arr);
+        }
+    }
+
+    public ArrayList<String> getContacts(){
+        ArrayList<String> arr = new ArrayList<>();
+        for (String name : messageInbox.keySet()){
+            arr.add(name);
+        }
+        return arr;
+    }
+
+    public ArrayList<String> getMessage(String username){
+        return messageInbox.get(username);
     }
 
     public String getName(){
@@ -53,10 +70,6 @@ public class User implements Serializable {
         return eventList;
     }
 
-    public ArrayList<String> getContacts() {
-        return contacts;
-    }
-
     public boolean signUp(Integer eventId) {
         if(eventList.contains(eventId)) {
             return false;
@@ -68,30 +81,6 @@ public class User implements Serializable {
     public boolean cancelSpot(Integer eventId) {
         return eventList.remove(eventId);
     }
-
-    public boolean addContact(String username) {
-        if(contacts.contains(username)) {
-            return false;
-        }
-        contacts.add(username);
-        return true;
-    }
-
-    public boolean removeContact(String username) {
-        return contacts.remove(username);
-    }
-
-//    public void sendMessage(Message message){
-//        this.SentBox.addMessage(message);
-//    }
-//
-//    public void receiveMessage(Message message){
-//        this.InBox.addMessage(message);
-//    }
-//
-//    public void viewMessageIn() {
-//        System.out.println(this.InBox);
-//    }
 
     public String typeGetter(){return "User";};
 
