@@ -1,4 +1,5 @@
 import Entity.Room;
+import Usecase.RoomManager;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,25 +19,9 @@ public class RoomTester {
         Room room1 = new Room(1, 3);
         Room room2 = new Room(2, 10);
         Room room3 = new Room(3, 2020);
-        assertEquals(3, room1.getMaxCapacity(), 0);
+        assertEquals(3, room1.getMaxCapacity(),0);
         assertEquals(10, room2.getMaxCapacity(), 0);
         assertEquals(2020, room3.getMaxCapacity(), 0);
-    }
-
-    @Test
-    public void testGetCurrentCapacity() {
-        Room room1 = new Room(1, 3);
-        assertEquals(0, room1.getCurrentCapacity(9),0);
-        room1.addAttendee("username1", 9);
-        assertEquals(1, room1.getCurrentCapacity(9),0);
-        room1.addAttendee("username2", 9);
-        assertEquals(2, room1.getCurrentCapacity(9),0);
-        room1.addAttendee("username1", 10);
-        room1.addAttendee("username1", 13);
-        room1.addAttendee("username2", 13);
-        room1.addAttendee("username3", 13);
-        assertEquals(1, room1.getCurrentCapacity(10),0);
-        assertEquals(3, room1.getCurrentCapacity(13),0);
     }
 
     @Test
@@ -50,40 +35,35 @@ public class RoomTester {
     }
 
     @Test
-    public void testIsFull() {
-        Room room1 = new Room(1, 3);
-        room1.addAttendee("username1", 9);
-        room1.addAttendee("username1", 9);
-        assertFalse(room1.isFull(9));
-        room1.addAttendee("username3", 9);
-        assertTrue(room1.isFull(9));
-    }
-
-    @Test
     public void testGetEvent() {
-        Room room1 = new Room(1, 3);
-        ArrayList<String> ListOfAttendeeOfEvent1 = new ArrayList<>();
-        ListOfAttendeeOfEvent1.add("username1");
-        ListOfAttendeeOfEvent1.add("username2");
-        ArrayList<String> ListOfAttendeeOfEvent2 = new ArrayList<>();
-        ListOfAttendeeOfEvent2.add("username1");
-        ListOfAttendeeOfEvent2.add("username2");
-        ListOfAttendeeOfEvent2.add("username3");
-        room1.Book(1, 9, ListOfAttendeeOfEvent1);
-        room1.Book(2, 15, ListOfAttendeeOfEvent2);
-        assertEquals(1, room1.getEvent(9));
-        assertEquals(2, room1.getEvent(15));
-//      assertEquals(0, room1.getEvent(12));
+        RoomManager roomManager1 = new RoomManager();
+        roomManager1.createRoom(1, 3);
+        roomManager1.book(1,1,9);
+        assertEquals(1, roomManager1.getRoom(1).getEvent(9));
+        assertEquals(0, roomManager1.getRoom(1).getEvent(10));
     }
 
     @Test
     public void testIsBooked() {
-        Room room1 = new Room(1, 3);
-        ArrayList<String> ListOfAttendeeOfEvent1 = new ArrayList<>();
-        ListOfAttendeeOfEvent1.add("username1");
-        ListOfAttendeeOfEvent1.add("username2");
-        room1.Book(1, 9, ListOfAttendeeOfEvent1);
-        assertTrue(room1.isBooked(9));
-        assertFalse(room1.isBooked(12));
+        RoomManager roomManager1 = new RoomManager();
+        roomManager1.createRoom(1, 3);
+        roomManager1.book(1,1,9);
+        assertTrue(roomManager1.getRoom(1).isBooked(9));
+        assertFalse(roomManager1.getRoom(1).isBooked(10));
+    }
+
+    @Test
+    public void testGetAvailableTime() {
+        RoomManager roomManager1 = new RoomManager();
+        roomManager1.createRoom(1, 3);
+        roomManager1.book(1,1,9);
+        ArrayList<Integer> expected1 = new ArrayList<>();
+        expected1.add(10);
+        expected1.add(11);
+        expected1.add(12);
+        expected1.add(13);
+        expected1.add(14);
+        expected1.add(15);
+        assertEquals(expected1, roomManager1.getRoom(1).getAvailableTime());
     }
 }
