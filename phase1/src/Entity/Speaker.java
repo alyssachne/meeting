@@ -17,40 +17,7 @@ public class Speaker extends User {
         }
     }
 
-    @Override
-    public boolean signUp(Integer eventId) {
-        Set<Integer> given = events.keySet();
-        if(eventList.contains(eventId) || given.contains(eventId)) {
-            return false;
-        }
-        eventList.add(eventId);
-        return true;
-    }
-
-    public boolean giveEvent(Integer eventId, Integer time){
-        if(events.get(time) != null) {
-            return false;
-        }
-        events.put(time, eventId);
-        return true;
-    }
-
-    public boolean cancelEvent(Integer eventId) {
-        Set<Integer> temp = events.keySet();
-        for(Integer time: temp) {
-            if(events.get(time).equals(eventId)) {
-                events.replace(time, null);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public HashMap<Integer, Integer> getEvents() {
-        return events;
-    }
-
-    public ArrayList<Integer> available() {
+    public ArrayList<Integer> getAvailable() {
         ArrayList<Integer> acc = new ArrayList<>();
         Set<Integer> temp = events.keySet();
         for (Integer time: temp) {
@@ -61,7 +28,7 @@ public class Speaker extends User {
         return acc;
     }
 
-    public ArrayList<Integer> eventList(){
+    public ArrayList<Integer> getGiveEvents(){
         ArrayList<Integer> eventId = new ArrayList<>();
         Set<Integer> temp = events.keySet();
         for (Integer time: temp) {

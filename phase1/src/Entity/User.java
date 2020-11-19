@@ -20,16 +20,6 @@ public abstract class User implements Serializable {
         messageInbox = new HashMap<>();
     }
 
-    public void addMessage(String username, String message){
-        if (messageInbox.containsKey(username)){
-            messageInbox.get(username).add(message);
-        }else{
-            ArrayList<String> arr = new ArrayList<>();
-            arr.add(message);
-            messageInbox.put(username,arr);
-        }
-    }
-
     public ArrayList<String> getContacts(){
         return new ArrayList<>(messageInbox.keySet());
     }
@@ -62,20 +52,8 @@ public abstract class User implements Serializable {
         this.password = password;
     }
 
-    public ArrayList<Integer> getEventList() {
+    public ArrayList<Integer> getSignUp() {
         return eventList;
-    }
-
-    public boolean signUp(Integer eventId) {
-        if(eventList.contains(eventId)) {
-            return false;
-        }
-        eventList.add(eventId);
-        return true;
-    }
-
-    public boolean cancelSpot(Integer eventId) {
-        return eventList.remove(eventId);
     }
 
     public String typeGetter(){return "User";};

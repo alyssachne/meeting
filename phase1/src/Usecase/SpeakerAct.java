@@ -5,41 +5,44 @@ import Entity.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
-public class SpeakerAct implements Usable, Serializable {
+public class SpeakerAct extends Act implements Serializable {
 
     public HashMap<String,Speaker> speakerMap;
     public SpeakerAct(){
         speakerMap = new HashMap<>();
     }
-    public void createSpeaker(String name, String username, String password) {
+
+    @Override
+    public void createUser(String name, String username, String password) {
         Speaker speaker = new Speaker(name, username, password);
         speakerMap.put(speaker.getUsername(),speaker);
     }
 
-    public Speaker getSpeaker(String username){
+    @Override
+    public User getUser(String username) {
         return speakerMap.get(username);
     }
 
+    @Override
+    public boolean signUp(String username, Integer eventId) {
+        ArrayList<Integer> given = getUser(username).getSignUp();
+        if(getUser(username).eventList.contains(eventId) || given.contains(eventId)) {
+            return false;
+        }
+        getUser(username).eventList.add(eventId);
+        return true;
+    }
+
     public ArrayList<Integer> availableTime(String username){
-        Speaker speaker = getSpeaker(username);
-        return speaker.available();
+        Speaker speaker = (Speaker) getUser(username);
+        return speaker.getAvailable();
     }
 
     public ArrayList<Integer> eventList(String username){
-        Speaker speaker = getSpeaker(username);
-        return speaker.eventList();
-    }
-
-    public void addMessage(String receiver, String sender, String message){
-        getSpeaker(receiver).addMessage(sender,message);
-    }
-
-    public boolean login(String username, String password){
-        if (password.equals(getSpeaker(username).getPassword())){
-            return true;
-        }
-        return false;
+        Speaker speaker = (Speaker) getUser(username);
+        return speaker.getGiveEvents();
     }
 
     public void speakerList(){
@@ -51,31 +54,25 @@ public class SpeakerAct implements Usable, Serializable {
         }
     }
 
-    public ArrayList<String> getContacts(String username){
-        return getSpeaker(username).getContacts();
+    public boolean giveEvent(String username,Integer eventId, Integer time){
+        Speaker speaker = (Speaker) getUser(username);
+        if(speaker.getAvailable().contains(time)) {
+            speaker.events.put(time, eventId);
+            return true;
+        }
+        return false;
     }
 
-    public ArrayList<String> getMessage(String receiver, String sender){
-        return getSpeaker(receiver).getMessage(sender);
+    public boolean cancelEvent(String username, Integer eventId) {
+        Speaker speaker = (Speaker) getUser(username);
+        Set<Integer> temp = speaker.events.keySet();
+        for(Integer time: temp) {
+            if(speaker.events.get(time).equals(eventId)) {
+                speaker.events.replace(time, null);
+                return true;
+            }
+        }
+        return false;
     }
-
-    @Override
-    public boolean signUp(String username, int eventId) {
-        return getSpeaker(username).signUp(eventId);
-    }
-
-    @Override
-    public boolean cancelSpot(String username, int eventId) {
-        return getSpeaker(username).cancelSpot(eventId);
-    }
-
-    public void giveEvent(String username,Integer eventId, Integer time){
-        speakerMap.get(username).giveEvent(eventId,time);
-    }
-
-    public boolean cancelEvent(Event event, Speaker speaker) {
-        return speaker.cancelEvent(event.getId());
-    }
-
 
 }

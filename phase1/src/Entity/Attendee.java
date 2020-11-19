@@ -8,15 +8,6 @@ public class Attendee extends User {
         super(name, username, password);
     }
 
-    public ArrayList<Integer> getEvents() {
-        return eventList;
-    }
-
-    public String toString(){
-        return "Attendee: " + getUsername();
-    }
-
-
     @Override
     public String typeGetter(){return "Attendee";};
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class OrganizerAct implements Usable, Serializable {
+public class OrganizerAct extends Act implements Serializable {
 
     HashMap<String,Organizer> organizerMap;
 
@@ -15,43 +15,24 @@ public class OrganizerAct implements Usable, Serializable {
         organizerMap = new HashMap<>();
     }
 
-    public void createOrganizer(String name, String username, String password){
+    @Override
+    public void createUser(String name, String username, String password) {
         Organizer organizer = new Organizer(name,username,password);
         organizerMap.put(organizer.getUsername(),organizer);
     }
 
-    public boolean login(String username, String password){
-        if (password.equals(getOrganizer(username).getPassword())){
-            return true;
-        }
-        return false;
-    }
-
-    public void addMessage(String receiver, String sender, String message){
-        getOrganizer(receiver).addMessage(sender,message);
-    }
-
-    public ArrayList<String> getContacts(String username){
-        return getOrganizer(username).getContacts();
-    }
-
-    public ArrayList<String> getMessage(String receiver, String sender){
-        return getOrganizer(receiver).getMessage(sender);
-    }
-
-    public Organizer getOrganizer(String username){
+    @Override
+    public User getUser(String username) {
         return organizerMap.get(username);
     }
 
     @Override
-    public boolean signUp(String username, int eventId) {
-        return getOrganizer(username).signUp(eventId);
+    public boolean signUp(String username, Integer eventId) {
+        if(getUser(username).getSignUp().contains(eventId)) {
+            return false;
+        }
+        getUser(username).eventList.add(eventId);
+        return true;
     }
-
-    @Override
-    public boolean cancelSpot(String username, int eventId) {
-        return getOrganizer(username).cancelSpot(eventId);
-    }
-
 
 }

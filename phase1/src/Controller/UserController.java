@@ -15,7 +15,7 @@ public class UserController implements Serializable {
     String username;
 
     public UserController(){
-        oa.createOrganizer("admin","admin","admin");
+        oa.createUser("admin","admin","admin");
     }
 
     public boolean login(String username, String password, String userType){
@@ -47,11 +47,11 @@ public class UserController implements Serializable {
     }
 
     public void createSpeaker(String name, String username, String password){
-        sa.createSpeaker(name,username,password);
+        sa.createUser(name,username,password);
     }
 
     public void createAttendee(String name, String username, String password){
-        aa.createAttendee(name,username,password);
+        aa.createUser(name,username,password);
     }
 
     public boolean createEvent(String username, int eventId, String title, int time, int roomId){
