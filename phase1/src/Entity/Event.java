@@ -24,7 +24,8 @@ public class Event implements Serializable {
         ListOfAttendees = new ArrayList<>();
     }
 
-    // Get the id of the event.
+    /** Get the id of the event.
+     */
     public int getId() {
         return id;
     }

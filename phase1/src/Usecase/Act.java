@@ -1,6 +1,6 @@
 package Usecase;
 
-import Entity.*;
+import Entity.User;
 
 import java.util.ArrayList;
 
