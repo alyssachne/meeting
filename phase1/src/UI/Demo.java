@@ -1,9 +1,7 @@
 package UI;
 
-import Controller.UserController;
-import Entity.Organizer;
+import Controller.ControllerFacade;
 import Gateway.ControllerRW;
-import Presenter.OrganizerPresenter;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -11,11 +9,11 @@ import java.util.Scanner;
 public class Demo {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ControllerRW crw = new ControllerRW();
-        UserController uo;
+        ControllerFacade uo;
         if (crw.readFile()!=null){
             uo = crw.readFile();
         }else{
-            uo = new UserController();
+            uo = new ControllerFacade();
         }
 //        uo.createOrganizer();
         Scanner scanner = new Scanner(System.in);
@@ -101,28 +99,28 @@ public class Demo {
                             if (option.equals("1")){
                                 System.out.println("Please enter your message");
                                 String message = scanner.nextLine();
-                                uo.groupMessage_Speaker(message);
+                                uo.groupMessageTo(message,"Speaker");
                             }else if(option.equals("2")){
                                 System.out.println("Please enter your message");
                                 String message = scanner.nextLine();
-                                uo.groupMessage_Attendee(message);
+                                uo.groupMessageTo(message,"Attendee");
                             }else if (option.equals("3")){
                                 System.out.println("Please enter the username of the Speaker you want to send to");
                                 String receiver = scanner.nextLine();
                                 System.out.println("Please enter your message");
                                 String message = scanner.nextLine();
-                                uo.privateMessage_Speaker(receiver,message);
+                                uo.privateMessageTo(receiver,"Speaker",message);
                             }else if (option.equals("4")){
                                 System.out.println("Please enter the username of the Attendee you want to send to");
                                 String receiver = scanner.nextLine();
                                 System.out.println("Please enter your message");
                                 String message = scanner.nextLine();
-                                uo.privateMessage_Attendee(receiver,message);
+                                uo.privateMessageTo(receiver,"Attendee",message);
                             }else if (option.equals("5")){
                                 System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
-                                uo.checkContacts_Organizer();
+                                uo.checkContacts();
                                 String contact = scanner.nextLine();
-                                uo.getMessage_Organizer(contact);
+                                uo.getMessage(contact);
                             }
                         } else if (choice.equals("5")) {
                             uo.logout();
@@ -164,12 +162,12 @@ public class Demo {
                                 String contact = scanner.nextLine();
                                 System.out.println("Please enter your message");
                                 String message = scanner.nextLine();
-                                uo.privateMessage_Attendee(contact, message);
+                                uo.privateMessageTo(contact,"Attendee", message);
                             } else if (option.equals("3")){
                                 System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
-                                uo.checkContacts_Speaker();
+                                uo.checkContacts();
                                 String contact = scanner.nextLine();
-                                uo.getMessage_Speaker(contact);
+                                uo.getMessage(contact);
                             }
                         } else if (choice.equals("3")) {
                             uo.logout();
@@ -211,7 +209,7 @@ public class Demo {
                                 String other = scanner.nextLine();
                                 System.out.println("Please enter your message");
                                 String message = scanner.nextLine();
-                                uo.privateMessage_Attendee(message, other);
+                                uo.privateMessageTo(other,"Attendee", message);
                             } else if (option.equals("2")) {
                                 System.out.println("Here is a list of speakers you can send message to:");
                                 uo.checkSpeakers();
@@ -219,12 +217,12 @@ public class Demo {
                                 String speaker = scanner.nextLine();
                                 System.out.println("Please enter your message");
                                 String message = scanner.nextLine();
-                                uo.privateMessage_Speaker(speaker, message);
+                                uo.privateMessageTo(speaker,"Speaker", message);
                             } else if (option.equals("3")){
                                 System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
-                                uo.checkContacts_Attendee();
+                                uo.checkContacts();
                                 String contact = scanner.nextLine();
-                                uo.getMessage_Attendee(contact);
+                                uo.getMessage(contact);
                             }
                         } else if (choice.equals("5")) {
                             uo.logout();

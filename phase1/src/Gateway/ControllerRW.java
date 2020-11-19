@@ -1,10 +1,8 @@
 package Gateway;
 
-import Controller.UserController;
-import Entity.User;
+import Controller.ControllerFacade;
 
 import java.io.*;
-import java.net.SocketTimeoutException;
 
 public class ControllerRW {
     ObjectInputStream Reader;
@@ -19,16 +17,16 @@ public class ControllerRW {
         }
     }
 
-    public UserController readFile() throws IOException, ClassNotFoundException {
-        UserController uc = null;
+    public ControllerFacade readFile() throws IOException, ClassNotFoundException {
+        ControllerFacade uc = null;
         if (file.length()!=0){
             Reader = new ObjectInputStream(new FileInputStream(file));
-            uc = (UserController)Reader.readObject();
+            uc = (ControllerFacade)Reader.readObject();
         }
         return uc;
     }
 
-    public void writeFile(UserController uc) throws IOException {
+    public void writeFile(ControllerFacade uc) throws IOException {
         Writer = new ObjectOutputStream(new FileOutputStream(file));
         Writer.writeObject(uc);
         Writer.close();

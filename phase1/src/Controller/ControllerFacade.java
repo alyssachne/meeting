@@ -5,7 +5,7 @@ import Usecase.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserController implements Serializable {
+public class ControllerFacade implements Serializable {
 
     RoomManager rm = new RoomManager();
     EventManager em = new EventManager();
@@ -13,8 +13,9 @@ public class UserController implements Serializable {
     OrganizerAct oa = new OrganizerAct();
     AttendeeAct aa = new AttendeeAct();
     String username;
+    String type;
 
-    public UserController(){
+    public ControllerFacade(){
         oa.createUser("admin","admin","admin");
     }
 
@@ -23,23 +24,31 @@ public class UserController implements Serializable {
             //go to OrganizerAct to check
             if (oa.login(username,password)){
                 this.username = username;
+                type = "Organizer";
                 return true;
             }
         }else if(userType.equalsIgnoreCase("Speaker")){
             //go to SpeakerAct to check
             if(sa.login(username,password)){
                 this.username = username;
+                type = "Speaker";
                 return true;
             }
         }else if(userType.equalsIgnoreCase("Attendee")){
             //go to AttendeeAct to check
             if (aa.login(username,password)){
                 this.username = username;
+                type = "Attendee";
                 return true;
             }
 
         }
         return false;
+    }
+
+    public void logout(){
+        username = null;
+        type = null;
     }
 
     public void createRoom(int id,int capacity){
@@ -107,20 +116,17 @@ public class UserController implements Serializable {
         em.cancelSpot(username,eventId);
     }
 
-    public void logout(){
-        username = null;
-    }
-
-    public void groupMessage_Speaker(String message){
-        for(String username: sa.speakerMap.keySet()){
-            sa.addMessage(username,this.username,message);
+    public void groupMessageTo(String message,String userType){
+        if (userType.equals("Speaker")){
+            for(String username: sa.speakerMap.keySet()){
+                sa.addMessage(username,this.username,message);
+            }
+        }else if (userType.equals("Attendee")){
+            for(String username: aa.attendeeMap.keySet()){
+                aa.addMessage(username,this.username,message);
+            }
         }
-    }
 
-    public void groupMessage_Attendee(String message){
-        for(String username: aa.attendeeMap.keySet()){
-            aa.addMessage(username,this.username,message);
-        }
     }
 
     public void eventMessage_Attendee(String message, Integer eventId){
@@ -129,47 +135,43 @@ public class UserController implements Serializable {
         }
     }
 
-    public void privateMessage_Speaker(String receiver, String message){
-        sa.addMessage(receiver,username,message);
-    }
-
-    public void privateMessage_Attendee(String receiver, String message){
-        aa.addMessage(receiver,username,message);
-    }
-
-    public void checkContacts_Organizer(){
-        for(String name : oa.getContacts(username)){
-            System.out.println(name);
+    public void privateMessageTo(String receiver, String userType, String message){
+        if (userType.equals("Speaker")){
+            sa.addMessage(receiver,username,message);
+        }else if (userType.equals("Attendee")){
+            aa.addMessage(receiver,username,message);
         }
     }
 
-    public void checkContacts_Speaker(){
-        for(String name : sa.getContacts(username)){
-            System.out.println(name);
+    public void checkContacts(){
+        if (type.equals("Organizer")){
+            for(String name : oa.getContacts(username)){
+                System.out.println(name);
+            }
+        }else if (type.equals("Speaker")){
+            for(String name : sa.getContacts(username)){
+                System.out.println(name);
+            }
+        }else if (type.equals("Attendee")){
+            for(String name : aa.getContacts(username)){
+                System.out.println(name);
+            }
         }
     }
 
-    public void checkContacts_Attendee(){
-        for(String name : aa.getContacts(username)){
-            System.out.println(name);
-        }
-    }
-
-    public void getMessage_Organizer(String sender){
-        for (String message : oa.getMessage(username,sender)){
-            System.out.println(message);
-        }
-    }
-
-    public void getMessage_Speaker(String sender){
-        for (String message : sa.getMessage(username,sender)){
-            System.out.println(message);
-        }
-    }
-
-    public void getMessage_Attendee(String sender){
-        for (String message : aa.getMessage(username,sender)){
-            System.out.println(message);
+    public void getMessage(String sender){
+        if (type.equals("Organizer")){
+            for (String message : oa.getMessage(username,sender)){
+                System.out.println(message);
+            }
+        }else if (type.equals("Speaker")){
+            for (String message : sa.getMessage(username,sender)){
+                System.out.println(message);
+            }
+        }else if (type.equals("Attendee")){
+            for (String message : aa.getMessage(username,sender)){
+                System.out.println(message);
+            }
         }
     }
 
