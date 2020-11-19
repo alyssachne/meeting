@@ -12,6 +12,22 @@ public class ControllerFacade implements Serializable {
     SpeakerAct sa = new SpeakerAct();
     OrganizerAct oa = new OrganizerAct();
     AttendeeAct aa = new AttendeeAct();
+    Act act = new Act() {
+        @Override
+        public void createUser(String name, String username, String password) {
+
+        }
+
+        @Override
+        public User getUser(String username) {
+            return null;
+        }
+
+        @Override
+        public boolean signUp(String username, Integer eventId) {
+            return false;
+        }
+    };
     String username;
     String type;
 
@@ -86,7 +102,7 @@ public class ControllerFacade implements Serializable {
     public void speakerSchedule(){
 //        System.out.println(em.getEvent(1).toString());
         for (int id : sa.eventList(username)){
-            //sa.eventList(username) is arraylist of eventids
+            //sa.eventList(username) is arraylist of eventIds
             System.out.println(em.getEvent(id).toString());
         }
     }
@@ -136,43 +152,49 @@ public class ControllerFacade implements Serializable {
     }
 
     public void privateMessageTo(String receiver, String userType, String message){
-        if (userType.equals("Speaker")){
-            sa.addMessage(receiver,username,message);
-        }else if (userType.equals("Attendee")){
-            aa.addMessage(receiver,username,message);
-        }
+        aa.addMessage(receiver,this.username,message);
+//        if (userType.equals("Speaker")){
+//            sa.addMessage(receiver,username,message);
+//        }else if (userType.equals("Attendee")){
+//            aa.addMessage(receiver,username,message);
+//        }
     }
 
     public void checkContacts(){
-        if (type.equals("Organizer")){
-            for(String name : oa.getContacts(username)){
-                System.out.println(name);
-            }
-        }else if (type.equals("Speaker")){
-            for(String name : sa.getContacts(username)){
-                System.out.println(name);
-            }
-        }else if (type.equals("Attendee")){
-            for(String name : aa.getContacts(username)){
-                System.out.println(name);
-            }
+        for(String name : act.getContacts(username)){
+            System.out.println(name);
+//        if (type.equals("Organizer")){
+//            for(String name : oa.getContacts(username)){
+//                System.out.println(name);
+//            }
+//        }else if (type.equals("Speaker")){
+//            for(String name : sa.getContacts(username)){
+//                System.out.println(name);
+//            }
+//        }else if (type.equals("Attendee")){
+//            for(String name : aa.getContacts(username)){
+//                System.out.println(name);
+//            }
         }
     }
 
     public void getMessage(String sender){
-        if (type.equals("Organizer")){
-            for (String message : oa.getMessage(username,sender)){
-                System.out.println(message);
-            }
-        }else if (type.equals("Speaker")){
-            for (String message : sa.getMessage(username,sender)){
-                System.out.println(message);
-            }
-        }else if (type.equals("Attendee")){
-            for (String message : aa.getMessage(username,sender)){
-                System.out.println(message);
-            }
+        for (String message : act.getMessage(username,sender)) {
+            System.out.println(message);
         }
+//        if (type.equals("Organizer")){
+//            for (String message : oa.getMessage(username,sender)){
+//                System.out.println(message);
+//            }
+//        }else if (type.equals("Speaker")){
+//            for (String message : sa.getMessage(username,sender)){
+//                System.out.println(message);
+//            }
+//        }else if (type.equals("Attendee")){
+//            for (String message : aa.getMessage(username,sender)){
+//                System.out.println(message);
+//            }
+//        }
     }
 
     public void checkAudiences(Integer eventId){
