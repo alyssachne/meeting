@@ -81,29 +81,5 @@ public class RoomManager implements Serializable {
         }
         return false;
     }
-
-    //    /**
-//     * Add one attendee to this room, increase the current capacity by 1, and return true if the room is not full. Else,
-//     * return false.,
-//     * @param room: the room the attendee is going to be add in.
-//     * @param attendee: the attendee who is going to be added into this room.
-//     */
-//    public boolean addAttendee(Room room, Attendee attendee, Event event) {
-//        String username = attendee.getUsername();
-//        Integer time = event.time;
-//        return room.addAttendee(username, time);
-//    }
-
-//    /**
-//     * Remove one attendee to this room, decrease the current capacity by 1, and return true if the room is not empty.
-//     * Else, return false.
-//     * @param room: the room the attendee is going to be remove from.
-//     * @param attendee: the attendee who is going to be removed from this room.
-//     */
-//    public boolean removeAttendee(Room room, Attendee attendee, Event event) {
-//        String username = attendee.getUsername();
-//        Integer time = event.time;
-//        return room.removeAttendee(username, time);
-//    }
 }
 
