@@ -15,6 +15,14 @@ public class Event implements Serializable {
     private String speaker;
     private ArrayList<String> ListOfAttendees;
 
+    /**
+     * Class constructor.
+     * @param id The id of the event.
+     * @param title The title of the event.
+     * @param time The starting time of the event.
+     * @param roomId The id of the room of the event.
+     * @param speaker The username of the speaker who talks at the event.
+     */
     public Event(int id, String title, int time, int roomId, String speaker) {
         this.title = title;
         this.time = time;
@@ -24,61 +32,98 @@ public class Event implements Serializable {
         ListOfAttendees = new ArrayList<>();
     }
 
-    /** Get the id of the event.
+    /**
+     * Get the id of the event.
+     * @return id The id of the event.
      */
     public int getId() {
         return id;
     }
 
-    // Get the title of the event.
+    /**
+     * Get the title of the event.
+     * @return title The title of the event.
+     */
     public String getTitle() {
         return title;
     }
 
-    // Get the start time of the event.
+    /**
+     * Get the start time of the event.
+     * @return time The time of the event.
+     */
     public Integer getTime() {
         return time;
     }
 
-    // Get the id of the room where the event take place.
+    /**
+     * Get the id of the room where the event take place.
+     * @return roomId The id of the room of the event.
+     */
     public int getRoom() {
         return roomId;
     }
 
-    // Get the name and username of the speaker who give the talk.
+    /**
+     * Get the username of the speaker who talks at the event.
+     * @return speaker The username of the speaker who talks at the event.
+     */
     public String getSpeaker() {
         return speaker;
     }
 
-    // Get the list of usernames of the attendees of this talk.
+    /**
+     * Get the list of usernames of the attendees of this event.
+     * @return ListOfAttendees The list of attendees of the event.
+     */
     public ArrayList<String> getAttendees() {
         return ListOfAttendees;
     }
-    // Get the number of attendees who attend this talk.
+
+    /**
+     * Get the number of attendees who attend this event.
+     * @return The number of attendees who attend this event.
+     */
     public int getNumOfAttendees() {
         return ListOfAttendees.size();
     }
 
-    // Get the title of this event.
+    /**
+     * Get the title of this event.
+     * @param title The title of the event.
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
-    // Set the start time of this event.
+    /**
+     * Set the start time of this event.
+     * @param time The starting time of the event.
+     */
     public void setTime(Integer time) {
         this.time = time;
     }
-    
-    // Set the id of the room where the event takes place.
+
+    /**
+     * Set the id of the room where the event takes place.
+     * @param roomId The id of the room where the event takes place.
+     */
     public void setRoom(int roomId) {
         this.roomId = roomId;
     }
 
-    // Set the username of the speaker who gives this event.
+    /**
+     * Set the username of the speaker who talks at this event.
+     * @param username The username of the speaker who talks at the event.
+     */
     public void setSpeaker(String username) {
         this.speaker = username;
     }
 
+    /**
+     * To override the toString method to describe an event by including its details.
+     * @return The string description of an event.
+     */
     @Override
     public String toString() {
         String s = speaker;
