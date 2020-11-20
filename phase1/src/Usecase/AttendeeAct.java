@@ -10,10 +10,19 @@ import java.util.Set;
 public class AttendeeAct extends Act implements Serializable {
     public HashMap<String,Attendee> attendeeMap;
 
+    /**
+     * Initialize an AttendeeAct.
+     */
     public AttendeeAct(){
         attendeeMap = new HashMap<>();
     }
 
+    /**
+     * Create a new attendee and return true if the creation is successful.
+     * @param name: the name of the attendee.
+     * @param username: the username of the attendee.
+     * @param password: the password of the attendee.
+     */
     @Override
     public boolean createUser(String name, String username, String password) {
         if(attendeeMap.containsKey(username)) {
@@ -24,11 +33,20 @@ public class AttendeeAct extends Act implements Serializable {
         return true;
     }
 
+    /**
+     * Return an attendee by the username.
+     * @param username: the username of the attendee.
+     */
     @Override
     public User getUser(String username) {
             return attendeeMap.get(username);
         }
 
+    /**
+     * Sign up a event for an attendee and return true if signup successful.
+     * @param username: the username of the attendee.
+     * @param eventId: the id of the event.
+     */
     @Override
     public boolean signUp(String username, Integer eventId) {
         if(getUser(username).getSignUp().contains(eventId)) {
