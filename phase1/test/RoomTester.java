@@ -51,19 +51,4 @@ public class RoomTester {
         assertTrue(roomManager1.getRoom(1).isBooked(9));
         assertFalse(roomManager1.getRoom(1).isBooked(10));
     }
-
-    @Test
-    public void testGetAvailableTime() {
-        RoomManager roomManager1 = new RoomManager();
-        roomManager1.createRoom(1, 3);
-        roomManager1.book(1,1,9);
-        ArrayList<Integer> expected1 = new ArrayList<>();
-        expected1.add(10);
-        expected1.add(11);
-        expected1.add(12);
-        expected1.add(13);
-        expected1.add(14);
-        expected1.add(15);
-        assertEquals(expected1, roomManager1.getRoom(1).getAvailableTime());
-    }
 }
