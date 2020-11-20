@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Usecase</OriginalElement>
+  <nodes>
+    <node x="293.0" y="335.0">Usecase.OrganizerAct</node>
+    <node x="301.0" y="556.0">Usecase.EventManager</node>
+    <node x="0.0" y="556.0">Usecase.RoomManager</node>
+    <node x="292.0" y="0.0">Usecase.Act</node>
+    <node x="596.0" y="335.0">Usecase.AttendeeAct</node>
+    <node x="0.0" y="280.0">Usecase.SpeakerAct</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Usecase.AttendeeAct" target="Usecase.Act">
+      <point x="0.0" y="-60.5" />
+      <point x="734.0" y="255.0" />
+      <point x="529.5" y="255.0" />
+      <point x="95.0" y="115.0" />
+    </edge>
+    <edge source="Usecase.OrganizerAct" target="Usecase.Act">
+      <point x="0.0" y="-60.5" />
+      <point x="0.0" y="115.0" />
+    </edge>
+    <edge source="Usecase.SpeakerAct" target="Usecase.Act">
+      <point x="0.0" y="-115.5" />
+      <point x="136.5" y="255.0" />
+      <point x="339.5" y="255.0" />
+      <point x="-95.0" y="115.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="402.5" y="291.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
