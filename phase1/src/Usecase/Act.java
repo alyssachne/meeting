@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class Act {
 
-    public abstract void createUser(String name, String username, String password);
+    public abstract boolean createUser(String name, String username, String password);
 
     public boolean login(String username, String password){
         return password.equals(getUser(username).getPassword());

@@ -121,11 +121,15 @@ public class Demo {
                                 uo.checkContacts();
                                 String contact = scanner.nextLine();
                                 uo.getMessage(contact);
+                            }else {
+                                System.out.println("This is not an valid option, please give a number from 1 to 5.");
                             }
                         } else if (choice.equals("5")) {
                             uo.logout();
                             crw.writeFile(uo);
                             handle = false;
+                        } else {
+                            System.out.println("This is not an valid option, please give a number from 1 to 5.");
                         }
                     }
                 } else if (uo.login(username, password, userType) && userType.equalsIgnoreCase("Speaker")) {
@@ -168,11 +172,15 @@ public class Demo {
                                 uo.checkContacts();
                                 String contact = scanner.nextLine();
                                 uo.getMessage(contact);
+                            }else {
+                                System.out.println("This is not an valid option, please give a number from 1 to 3.");
                             }
                         } else if (choice.equals("3")) {
                             uo.logout();
                             crw.writeFile(uo);
                             handle = false;
+                        }else {
+                            System.out.println("This is not an valid option, please give a number from 1 to 3.");
                         }
                     }
                 } else if (uo.login(username, password, userType) && userType.equalsIgnoreCase("Attendee")) {
@@ -223,11 +231,15 @@ public class Demo {
                                 uo.checkContacts();
                                 String contact = scanner.nextLine();
                                 uo.getMessage(contact);
+                            }else {
+                                System.out.println("This is not an valid option, please give a number from 1 to 3.");
                             }
                         } else if (choice.equals("5")) {
                             uo.logout();
                             crw.writeFile(uo);
                             handle = false;
+                        }else {
+                            System.out.println("This is not an valid option, please give a number from 1 to 5.");
                         }
                     }
                 } else {

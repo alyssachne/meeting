@@ -56,11 +56,15 @@ public class ControllerFacade implements Serializable {
     }
 
     public void createSpeaker(String name, String username, String password){
-        sa.createUser(name,username,password);
+        if(!sa.createUser(name,username,password)){
+            System.out.println("This username has already been taken, please choose a new username.");
+        }
     }
 
     public void createAttendee(String name, String username, String password){
-        aa.createUser(name,username,password);
+        if(!aa.createUser(name,username,password)) {
+            System.out.println("This username has already been taken, please choose a new username.");
+        }
     }
 
     public boolean createEvent(String username, int eventId, String title, int time, int roomId){
@@ -86,7 +90,7 @@ public class ControllerFacade implements Serializable {
     public void speakerSchedule(){
 //        System.out.println(em.getEvent(1).toString());
         for (int id : sa.eventList(username)){
-            //sa.eventList(username) is arraylist of eventids
+            //sa.eventList(username) is arraylist of eventIds
             System.out.println(em.getEvent(id).toString());
         }
     }

@@ -79,28 +79,6 @@ public class Event implements Serializable {
         this.speaker = username;
     }
 
-//    // Add the username of the given attendee to the Attendees list if the attendee is not on the list.
-//    public boolean addAttendee(String attendee) {
-//        for (String name : ListOfAttendees) {
-//            if(attendee.equals(name)) {
-//                return false;
-//            }
-//        }
-//        ListOfAttendees.add(attendee);
-//        return true;
-//    }
-
-//    // Remove the username of the given attendee from the Attendees list if the attendee is on the list.
-//    public boolean removeAttendee(String attendee) {
-//        for (String name: ListOfAttendees) {
-//            if(attendee.equals(name)) {
-//                ListOfAttendees.remove(name);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
     @Override
     public String toString() {
         String s = speaker;

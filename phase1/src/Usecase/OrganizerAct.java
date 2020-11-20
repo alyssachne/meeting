@@ -16,9 +16,13 @@ public class OrganizerAct extends Act implements Serializable {
     }
 
     @Override
-    public void createUser(String name, String username, String password) {
+    public boolean createUser(String name, String username, String password) {
+        if(organizerMap.containsKey(username)) {
+            return false;
+        }
         Organizer organizer = new Organizer(name,username,password);
         organizerMap.put(organizer.getUsername(),organizer);
+        return true;
     }
 
     @Override

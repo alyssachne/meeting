@@ -15,9 +15,13 @@ public class SpeakerAct extends Act implements Serializable {
     }
 
     @Override
-    public void createUser(String name, String username, String password) {
+    public boolean createUser(String name, String username, String password) {
+        if(speakerMap.containsKey(username)) {
+            return false;
+        }
         Speaker speaker = new Speaker(name, username, password);
         speakerMap.put(speaker.getUsername(),speaker);
+        return true;
     }
 
     @Override

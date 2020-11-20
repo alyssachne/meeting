@@ -52,24 +52,4 @@ public class Room implements Serializable {
             return available;
     }
 
-//    // If this room is not booked at the given time, add the event to the schedule, add the list of attendee to the
-//    // ListOfAttendee, and return True. Else, return false.
-//    public boolean book(Integer eventId, Integer time) {
-//        if(!isBooked(time)) {
-//            schedule.put(time, eventId);
-//            return true;
-//        }
-//        return false;
-//    }
-
-//    public boolean cancel(Integer eventId) {
-//        Set<Integer> temp = schedule.keySet();
-//        for(Integer time: temp) {
-//            if(schedule.get(time).equals(eventId)) {
-//                schedule.replace(time, null);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 }

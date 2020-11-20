@@ -15,9 +15,13 @@ public class AttendeeAct extends Act implements Serializable {
     }
 
     @Override
-    public void createUser(String name, String username, String password) {
-            Attendee attendee = new Attendee(name, username, password);
-            attendeeMap.put(attendee.getUsername(),attendee);
+    public boolean createUser(String name, String username, String password) {
+        if(attendeeMap.containsKey(username)) {
+            return false;
+        }
+        Attendee attendee = new Attendee(name, username, password);
+        attendeeMap.put(attendee.getUsername(),attendee);
+        return true;
     }
 
     @Override
