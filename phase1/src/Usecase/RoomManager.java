@@ -46,14 +46,26 @@ public class RoomManager implements Serializable {
         return null;
     }
 
+    /**
+     * Return the maximum capacity of this room.
+     * @param id: the unique id of the room.
+     */
     public Integer getMaxCapacity(int id){
         return getRoom(id).getMaxCapacity();
     }
+
+    /**
+     * Return a list of integers which represent the available time of this room.
+     * @param roomId: the unique id of the room.
+     */
     public ArrayList<Integer> availableTime(int roomId){
         Room room = getRoom(roomId);
         return room.getAvailableTime();
     }
 
+    /**
+     * Printout all the rooms and the available time of each room.
+     */
     public void roomList(){
         for (Room room:allRooms){
             System.out.println(room.getId());
@@ -62,6 +74,14 @@ public class RoomManager implements Serializable {
             }
         }
     }
+
+    /**
+     * Book the room for a certain event at a certain time, return true if there is no time conflict;
+     * else, return false.
+     * @param roomId: the unique id of the room.
+     * @param eventId: the unique id of the event happen in this room.
+     * @param time: the start time of the event.
+     */
     public boolean book(Integer roomId, Integer eventId, Integer time){
         if(!getRoom(roomId).isBooked(time)) {
             getRoom(roomId).getSchedule().put(time, eventId);
@@ -70,6 +90,11 @@ public class RoomManager implements Serializable {
         return false;
     }
 
+    /**
+     * Cancel an event scheduled in the room, return true if this event is successfully removed; else, return false.
+     * @param roomId: the unique id of the room.
+     * @param eventId: the unique id of the event that is going to be cancelled.
+     */
     public boolean cancel(Integer roomId, Integer eventId){
         HashMap<Integer, Integer> schedule = getRoom(roomId).getSchedule();
         Set<Integer> temp = schedule.keySet();

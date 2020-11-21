@@ -15,13 +15,6 @@ public class EventManager implements Serializable {
     public EventManager() {
         allEvents = new ArrayList<>();
     }
-//    /**
-//     * Adds a given event to this event manager.
-//     * @param event: the event being added to the ArrayList.
-//     */
-//    public void addEvent(Event event) {
-//        allEvents.add(event);
-//    }
 
     /**
      * Create a new event.
@@ -50,14 +43,20 @@ public class EventManager implements Serializable {
         return null;
     }
 
+    /**
+     * Set the strat time of the selected event.
+     * @param id: the id of the event.
+     * @param time: the new start time of the event.
+     */
     public void setTime(int id, int time){
         getEvent(id).setTime(time);
     }
-//    /**
-//     * Add the attendee to this event and return true if successfully added in. Else, return false.
-//     * @param event: the event the attendee is going to attend.
-//     * @param attendee: the the attendee who is going to attend this event.
-//     */
+
+    /**
+     * Add the attendee to this event and return true if successfully added in. Else, return false.
+     * @param username: the username of the attendee who is going to attend this event.
+     * @param eventId: the unique Id of the event the attendee is going to attend.
+     */
     public boolean addAttendee(String username, int eventId) {
         for (String name : getEvent(eventId).getAttendees()) {
             if(username.equals(name)) {
@@ -68,11 +67,11 @@ public class EventManager implements Serializable {
         return true;
     }
 
-//    /**
-//     * Remove attendee from this event and return true if successfully removed. Else, return false.
-//     * @param event: the event the attendee is going to be removed from.
-//     * @param attendee: the the attendee who is going to cancel his spot.
-//     */
+    /**
+     * Remove attendee from this event and return true if successfully removed. Else, return false.
+     * @param username: the username of the attendee who is going to cancel his spot.
+     * @param eventId: the unique Id of the event the attendee is going to be removed from.
+     */
     public boolean cancelSpot(String username, int eventId) {
         for (String name: getEvent(eventId).getAttendees()) {
             if(username.equals(name)) {
@@ -82,16 +81,5 @@ public class EventManager implements Serializable {
         }
         return false;
     }
-
-    // Get a list of event this person signed up for.
-//    public ArrayList<Event> getSignUp(String username) {
-//        ArrayList<Event> acc = new ArrayList<>();
-//        for (Event event: allEvents) {
-//            if(event.ListOfAttendees.contains(username)) {
-//                acc.add(event);
-//            }
-//        }
-//        return acc;
-//    }
 
 }
