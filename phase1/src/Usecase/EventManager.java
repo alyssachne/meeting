@@ -5,6 +5,17 @@ import Entity.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Miscellaneous {@link Event} methods
+ *
+ *<p>
+ *     This class provides the essential functionalities associates with {@link Event} class, such
+ *     as creating an Event object and set relavent instance variables. It also provides services to
+ *     look for these information inside an entity Event object.
+ *</p>
+ *
+ **/
+
 public class EventManager implements Serializable {
 
     public ArrayList<Event> allEvents;
