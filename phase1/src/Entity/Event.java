@@ -5,6 +5,15 @@ import javafx.util.Pair;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * The entity class for event: event object, getters, setters & toString methods
+ *
+ * This class mainly interacts with {@link Usecase.EventManager}: when a new event is created or existed event is modified;
+ * Interact with {@link Room}: when new event is assigned to a room or the participant in an event is changed;
+ * Interact with {@link Speaker}: when a Speaker is set for the event;
+ * Interact with {@link Attendee}: when an Attendee sign up for the event;
+ */
+
 public class Event implements Serializable {
 
     private Integer id;
