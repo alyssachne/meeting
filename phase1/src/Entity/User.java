@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The abstract entity class for all Users, the parent class of {@link Attendee},{@link Speaker} and {@link Organizer}
+ *
+ * Defines the structure that all User type objects should share: getters, setters & framework of interaction with
+ * message.
+ */
+
 public abstract class User implements Serializable {
     private String name;
     private String username;
@@ -29,6 +36,7 @@ public abstract class User implements Serializable {
     /**
      * Get a list of usernames of the users who had sent message to this user.
      */
+
     public ArrayList<String> getContacts(){
         return new ArrayList<>(messageInbox.keySet());
     }
@@ -96,6 +104,6 @@ public abstract class User implements Serializable {
     /**
      * Get the type of the user.
      */
-    public String typeGetter(){return "User";};
+    public String typeGetter(){return "User";}
 
 }
