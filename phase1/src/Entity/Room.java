@@ -6,6 +6,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * The entity class for room
+ *
+ * This class stands for a room object, mainly used for event scheduling and check if event capacity is met.
+ * Methods include getters and setters of a Room object as well as an isbooked method to check for availability.
+ * A Hashmap is used to store the schedule of a room.
+ */
+
+
 public class Room implements Serializable {
     private final int MaxCapacity;
     private final int id;
@@ -77,5 +86,4 @@ public class Room implements Serializable {
         }}
             return available;
     }
-
 }
