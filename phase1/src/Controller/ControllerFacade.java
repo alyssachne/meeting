@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public class ControllerFacade implements Serializable {
 
-    RoomManager rm = new RoomManager();
-    EventManager em = new EventManager();
-    SpeakerAct sa = new SpeakerAct();
-    OrganizerAct oa = new OrganizerAct();
-    AttendeeAct aa = new AttendeeAct();
-    String username;
-    String type;
+    protected RoomManager rm = new RoomManager();
+    protected EventManager em = new EventManager();
+    protected SpeakerAct sa = new SpeakerAct();
+    protected OrganizerAct oa = new OrganizerAct();
+    protected AttendeeAct aa = new AttendeeAct();
+    protected String username;
+    protected String type;
 
     /**
      * Class constructor: create a default Organizer account whose name, username, and password are all "admin".
@@ -69,7 +69,7 @@ public class ControllerFacade implements Serializable {
      * @param capacity The maximum capacity of the room.
      */
     public void createRoom(int id,int capacity){
-        rm.createRoom(id,capacity);
+        EntityConstructors.createRoom(id,capacity,rm);
     }
 
     /**
@@ -78,11 +78,10 @@ public class ControllerFacade implements Serializable {
      * @param name The name of the speaker.
      * @param username The username of the speaker.
      * @param password The password of the speaker.
+     *
      */
     public void createSpeaker(String name, String username, String password){
-        if(!sa.createUser(name,username,password)){
-            System.out.println("This username has already been taken, please choose a new username.");
-        }
+        EntityConstructors.createSpeaker(name, username , password, this.sa);
     }
 
     /**
@@ -93,9 +92,7 @@ public class ControllerFacade implements Serializable {
      * @param password The password of the attendee.
      */
     public void createAttendee(String name, String username, String password){
-        if(!aa.createUser(name,username,password)) {
-            System.out.println("This username has already been taken, please choose a new username.");
-        }
+        EntityConstructors.createAttendee(name,username,password, this.aa);
     }
 
     /**
@@ -108,48 +105,35 @@ public class ControllerFacade implements Serializable {
      * @param roomId The unique Id of the room where this event takes place.
      */
     public boolean createEvent(String username, int eventId, String title, int time, int roomId){
-        ArrayList<Integer> spTime = sa.availableTime(username);
-        ArrayList<Integer> roomTime = rm.availableTime(roomId);
-        if (spTime.contains(time) && roomTime.contains(time)) {
-            em.createEvent(eventId,title,time,roomId,username);
-            sa.giveEvent(username,eventId,time);
-            rm.book(roomId,eventId,time);
-            return true;
-        }
-        return false;
+        return EntityConstructors.createEvent(username,eventId,title,time,roomId,this.rm,this.sa,this.em);
     }
 
     /**
      * printout all speakers and their available times.
      */
     public void speakerList(){
-        sa.speakerList();
+        ScheduleGetter.speakerList(this.sa);
     }
 
     /**
      * printout all rooms and their available times.
      */
     public void roomList(){
-        rm.roomList();
+        ScheduleGetter.roomList(this.rm);
     }
 
     /**
      * printout all events this speaker is going to give. This schedule is only shown to the speaker.
      */
     public void speakerSchedule(){
-        for (int id : sa.eventList(username)){
-            //sa.eventList(username) is arraylist of eventIds
-            System.out.println(em.getEvent(id).toString());
-        }
+        ScheduleGetter.speakerSchedule(this.sa,this.username,this.em);
     }
 
     /**
      * printout all events this attendee signed up for. This schedule is only shown to this attendee.
      */
     public void attendeeSchedule(){
-        for (int id : aa.getEvents(username)){
-            System.out.println(em.getEvent(id).toString());
-        }
+        ScheduleGetter.attendeeSchedule(this.aa,this.username,this.em);
     }
 
     /**
@@ -158,14 +142,7 @@ public class ControllerFacade implements Serializable {
      * yet.
      */
     public void getAvailableEvent(){
-        //events that are not full
-        for (Event event: em.allEvents){
-           if ((!event.getAttendees().contains(username))&&
-                   rm.getMaxCapacity(event.getRoom())>event.getAttendees().size()){
-               //check if the attendee has signed up the event or not and if the event reaches its room's maxCapacity
-               System.out.println(em.getEvent(event.getId()).toString());
-           }
-        }
+        ScheduleGetter.getAvailableEvent(this.rm,this.username,this.em);
     }
 
     /**
@@ -173,8 +150,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the event this attendee wants to sign up for.
      */
     public void signUp(int eventId){
-        aa.signUp(username,eventId);
-        em.addAttendee(username,eventId);
+        EventSigner.signUp(this.aa,this.em,this.username);
     }
 
     /**
@@ -182,8 +158,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the event this attendee wants to be removed from.
      */
     public void cancelSpot(int eventId){
-        aa.cancelSpot(username,eventId);
-        em.cancelSpot(username,eventId);
+        EventSigner.cancelSpot(eventId,this.aa,this.em,this.username);
     }
 
     /**
@@ -192,16 +167,7 @@ public class ControllerFacade implements Serializable {
      * @param userType The type of users this organizer wants to send to, i.e. Speaker or Attendee.
      */
     public void groupMessageTo(String message,String userType){
-        if (userType.equals("Speaker")){
-            for(String username: sa.speakerMap.keySet()){
-                sa.addMessage(username,this.username,message);
-            }
-        }else if (userType.equals("Attendee")){
-            for(String username: aa.attendeeMap.keySet()){
-                aa.addMessage(username,this.username,message);
-            }
-        }
-
+        Messagers.groupMessageTo(message,userType,this.sa,this.aa,this.username);
     }
 
     /**
@@ -210,9 +176,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the certain event this speaker choose.
      */
     public void eventMessage_Attendee(String message, Integer eventId){
-        for (String username: em.getEvent(eventId).getAttendees()) {
-            aa.addMessage(username,this.username,message);
-        }
+        Messagers.eventMessage_Attendee(message,eventId,this.aa,this.em,this.username);
     }
 
     /**
@@ -222,30 +186,14 @@ public class ControllerFacade implements Serializable {
      * @param message The message this user wants to send.
      */
     public void privateMessageTo(String receiver, String userType, String message){
-        if (userType.equals("Speaker")){
-            sa.addMessage(receiver,username,message);
-        }else if (userType.equals("Attendee")){
-            aa.addMessage(receiver,username,message);
-        }
+        Messagers.privateMessageTo(receiver,userType,message,this.sa,this.aa,this.username);
     }
 
     /**
      * printout all usernames of users who had sent messages to this user.
      */
     public void checkContacts(){
-        if (type.equals("Organizer")){
-            for(String name : oa.getContacts(username)){
-                System.out.println(name);
-            }
-        }else if (type.equals("Speaker")){
-            for(String name : sa.getContacts(username)){
-                System.out.println(name);
-            }
-        }else if (type.equals("Attendee")){
-            for(String name : aa.getContacts(username)){
-                System.out.println(name);
-            }
-        }
+        UserCheckers.checkContacts(type,this.oa,this.sa,this.aa,this.username);
     }
 
     /**
@@ -253,19 +201,7 @@ public class ControllerFacade implements Serializable {
      * @param sender The username of the user who sent messages to this user.
      */
     public void getMessage(String sender){
-        if (type.equals("Organizer")){
-            for (String message : oa.getMessage(username,sender)){
-                System.out.println(message);
-            }
-        }else if (type.equals("Speaker")){
-            for (String message : sa.getMessage(username,sender)){
-                System.out.println(message);
-            }
-        }else if (type.equals("Attendee")){
-            for (String message : aa.getMessage(username,sender)){
-                System.out.println(message);
-            }
-        }
+        Messagers.getMessage(sender,this.sa,this.aa,this.oa,this.type,this.username);
     }
 
     /**
@@ -273,17 +209,12 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the certain event that is being chosen.
      */
     public void checkAudiences(Integer eventId){
-        for(String name : em.getEvent(eventId).getAttendees()){
-            System.out.println(name);
-        }
+        UserCheckers.checkAudiences(eventId,this.em);
     }
 
     /**
      * Printout all usernames of speakers who give the events this attendee signed up for.
      */
     public void checkSpeakers() {
-        for(Integer eventId: aa.getEvents(username)) {
-            System.out.println(em.getEvent(eventId).getSpeaker());
-        }
-    }
+    UserCheckers.checkSpeakers(this.aa, this.username, this.em);}
 }
