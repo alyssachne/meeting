@@ -2,7 +2,7 @@ package Controller;
 
 import Usecase.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class EntityConstructors {
 
@@ -50,12 +50,14 @@ public class EntityConstructors {
      * @param time The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public static boolean createEvent(String username, int eventId, String title, int time, int roomId, RoomManager rm,
-                                      SpeakerAct sa, EventManager em){
+    public static boolean createEvent(String username, int eventId, String title, int time, int roomId, int maxCapacity,
+                                      RoomManager rm, SpeakerAct sa, EventManager em){
         ArrayList<Integer> spTime = sa.availableTime(username);
         ArrayList<Integer> roomTime = rm.availableTime(roomId);
         if (spTime.contains(time) && roomTime.contains(time)) {
-            em.createEvent(eventId,title,time,roomId,username);
+            List<String> speakers = new ArrayList<>();
+            speakers.add(username);
+            em.createEvent(eventId,title,time,roomId,speakers, maxCapacity);
             sa.giveEvent(username,eventId,time);
             rm.book(roomId,eventId,time);
             return true;

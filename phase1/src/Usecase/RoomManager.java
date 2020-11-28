@@ -3,6 +3,7 @@ package Usecase;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import Entity.*;
@@ -115,6 +116,17 @@ public class RoomManager implements Serializable {
             }
         }
         return false;
+    }
+
+    // return rooms whose capacity is bigger than event's capacity so that organizer can choose.
+    public List<Integer> SuitableRooms(int maxCapacity) {
+        List<Integer> temp = new ArrayList<>();
+        for(Room room: allRooms) {
+            if (room.getMaxCapacity() >= maxCapacity) {
+                temp.add(room.getId());
+            }
+        }
+        return temp;
     }
 }
 

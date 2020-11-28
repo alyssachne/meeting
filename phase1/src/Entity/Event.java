@@ -4,6 +4,7 @@ import javafx.util.Pair;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The entity class for event: event object, getters, setters & toString methods
@@ -14,15 +15,16 @@ import java.util.ArrayList;
  * Interact with {@link Attendee}: when an Attendee sign up for the event;
  */
 
-public class Event implements Serializable {
+public abstract class Event implements Serializable {
 
     private Integer id;
     private String title;
     private Integer time;
     private int roomId;
-    // The first string is the username of the speaker and the second string is the name of the speaker.
-    private String speaker;
-    private ArrayList<String> ListOfAttendees;
+//    private int duration;
+    private List<String> speakers;
+    private List<String> ListOfAttendees;
+    private int maxCapacity;
 
     /**
      * Class constructor.
@@ -30,15 +32,18 @@ public class Event implements Serializable {
      * @param title The title of the event.
      * @param time The starting time of the event.
      * @param roomId The id of the room of the event.
-     * @param speaker The username of the speaker who talks at the event.
+     * @param speakers The username of the speaker who talks at the event.
+     * @param maxCapacity The maximum capacity of the event.
      */
-    public Event(int id, String title, int time, int roomId, String speaker) {
+    public Event(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity) {
         this.title = title;
         this.time = time;
         this.roomId = roomId;
+//        this.duration = duration;
         this.id = id;
-        this.speaker = speaker;
+        this.speakers = speakers;
         ListOfAttendees = new ArrayList<>();
+        this.maxCapacity = maxCapacity;
     }
 
     /**
@@ -65,6 +70,14 @@ public class Event implements Serializable {
         return time;
     }
 
+//    /**
+//     * Get the duration of the event.
+//     * @return duration The duration of the event.
+//     */
+//    public Integer getDuration() {
+//        return duration;
+//    }
+
     /**
      * Get the id of the room where the event take place.
      * @return roomId The id of the room of the event.
@@ -77,15 +90,15 @@ public class Event implements Serializable {
      * Get the username of the speaker who talks at the event.
      * @return speaker The username of the speaker who talks at the event.
      */
-    public String getSpeaker() {
-        return speaker;
+    public List<String> getSpeaker() {
+        return speakers;
     }
 
     /**
      * Get the list of usernames of the attendees of this event.
      * @return ListOfAttendees The list of attendees of the event.
      */
-    public ArrayList<String> getAttendees() {
+    public List<String> getAttendees() {
         return ListOfAttendees;
     }
 
@@ -96,6 +109,8 @@ public class Event implements Serializable {
     public int getNumOfAttendees() {
         return ListOfAttendees.size();
     }
+
+    public int getMaxCapacity() {return maxCapacity;}
 
     /**
      * Get the title of this event.
@@ -122,20 +137,17 @@ public class Event implements Serializable {
     }
 
     /**
-     * Set the username of the speaker who talks at this event.
-     * @param username The username of the speaker who talks at the event.
-     */
-    public void setSpeaker(String username) {
-        this.speaker = username;
-    }
-
-    /**
      * To override the toString method to describe an event by including its details.
      * @return The string description of an event.
      */
+
+    public void setMaxCapacity(int newMax) {maxCapacity = newMax;}
+
+    public boolean isFull() {return maxCapacity == getNumOfAttendees();}
+
     @Override
     public String toString() {
-        String s = speaker;
+        List<String> s = speakers;
 
         return "Event ID:"+id+" This event is about " + title + ", given by " + s + ". It starts at " + time + " on Room"
                 + roomId + " and it lasts for 1 hour." ;

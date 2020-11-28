@@ -4,6 +4,7 @@ import Entity.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Miscellaneous {@link Event} methods
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  *
  **/
 
-public class EventManager implements Serializable {
+public abstract class EventManager implements Serializable {
 
     public ArrayList<Event> allEvents;
 
@@ -31,10 +32,7 @@ public class EventManager implements Serializable {
      * Create a new event.
      * @param id: the id of the event.
      */
-    public void createEvent(int id, String title, int time, int roomId, String speaker){
-        Event event = new Event(id, title, time, roomId, speaker);
-        allEvents.add(event);
-    }
+    public abstract void createEvent(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity);
 
     /**
      * Return the event of the corresponding id, raise error if not found.
@@ -69,10 +67,9 @@ public class EventManager implements Serializable {
      * @param eventId: the unique Id of the event the attendee is going to attend.
      */
     public boolean addAttendee(String username, int eventId) {
-        for (String name : getEvent(eventId).getAttendees()) {
-            if(username.equals(name)) {
-                return false;
-            }
+        // if the event is full or the username is in the list
+        if(getEvent(eventId).isFull() | getEvent(eventId).getAttendees().contains(username)) {
+            return false;
         }
         getEvent(eventId).getAttendees().add(username);
         return true;

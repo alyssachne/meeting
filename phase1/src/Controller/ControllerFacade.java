@@ -4,11 +4,17 @@ import Entity.*;
 import Usecase.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerFacade implements Serializable {
 
     protected RoomManager rm = new RoomManager();
-    protected EventManager em = new EventManager();
+    protected EventManager em = new EventManager() {
+        @Override
+        public void createEvent(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity) {
+
+        }
+    };
     protected SpeakerAct sa = new SpeakerAct();
     protected OrganizerAct oa = new OrganizerAct();
     protected AttendeeAct aa = new AttendeeAct();
@@ -104,8 +110,8 @@ public class ControllerFacade implements Serializable {
      * @param time The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public boolean createEvent(String username, int eventId, String title, int time, int roomId){
-        return EntityConstructors.createEvent(username,eventId,title,time,roomId,this.rm,this.sa,this.em);
+    public boolean createEvent(String username, int eventId, String title, int time, int roomId, int maxCapacity){
+        return EntityConstructors.createEvent(username,eventId,title,time,roomId,maxCapacity,this.rm,this.sa,this.em);
     }
 
     /**

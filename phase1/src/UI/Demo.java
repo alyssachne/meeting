@@ -83,11 +83,11 @@ public class Demo {
                             String eventId = scanner.nextLine();
                             String title = scanner.nextLine();
                             String time = scanner.nextLine();
-                            if (uo.createEvent(su, Integer.parseInt(eventId), title, Integer.parseInt(time), Integer.parseInt(roomId))) {
-                                System.out.println("Event created successfully");
-                            } else {
-                                System.out.println("There is a time conflict exist");
-                            }
+//                            if (uo.createEvent(su, Integer.parseInt(eventId), title, Integer.parseInt(time), Integer.parseInt(roomId)) {
+//                                System.out.println("Event created successfully");
+//                            } else {
+//                                System.out.println("There is a time conflict exist");
+//                            }
                         } else if (choice.equals("4")) {
                             //message
                             System.out.println("1.Send message to all Speakers");
