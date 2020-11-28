@@ -1,28 +1,16 @@
 package Entity;
 
-import javafx.util.Pair;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * The entity class for event: event object, getters, setters & toString methods
- *
- * This class mainly interacts with {@link Usecase.EventManager}: when a new event is created or existed event is modified;
- * Interact with {@link Room}: when new event is assigned to a room or the participant in an event is changed;
- * Interact with {@link Speaker}: when a Speaker is set for the event;
- * Interact with {@link Attendee}: when an Attendee sign up for the event;
- */
-
-public class Event implements Serializable {
-
-    private Integer id;
-    private String title;
-    private Integer time;
-    private int roomId;
+public abstract class EventParent implements Serializable {
+    protected Integer id;
+    protected String title;
+    protected Integer time;
+    protected int roomId;
     // The first string is the username of the speaker and the second string is the name of the speaker.
-    private String speaker;
-    private ArrayList<String> ListOfAttendees;
+    protected String speaker;
+    protected ArrayList<String> ListOfAttendees;
 
     /**
      * Class constructor.
@@ -32,7 +20,7 @@ public class Event implements Serializable {
      * @param roomId The id of the room of the event.
      * @param speaker The username of the speaker who talks at the event.
      */
-    public Event(int id, String title, int time, int roomId, String speaker) {
+    public EventParent(int id, String title, int time, int roomId, String speaker) {
         this.title = title;
         this.time = time;
         this.roomId = roomId;
@@ -42,7 +30,7 @@ public class Event implements Serializable {
     }
 
     /**
-     * Get the id of the event.
+     * Get the id of the EventParent.
      * @return id The id of the event.
      */
     public int getId() {
@@ -50,7 +38,7 @@ public class Event implements Serializable {
     }
 
     /**
-     * Get the title of the event.
+     * Get the title of the EventParent.
      * @return title The title of the event.
      */
     public String getTitle() {
@@ -134,12 +122,16 @@ public class Event implements Serializable {
      * @return The string description of an event.
      */
     @Override
-    public String toString() {
-        String s = speaker;
+    /** The toString method allows the use case class to get a customized description of the event. To be implemented in
+     * child class {@link Event} and {@link VipEvent}independently
+     */
+    public abstract String toString();
 
-        return "Event ID:"+id+" This event is about " + title + ", given by " + s + ". It starts at " + time + " on Room"
-                + roomId + " and it lasts for 1 hour." ;
-    }
+    /**
+     * This method allows the use case class to get the type of event, mainly used to realize the function that allows
+     * VIP users to sign up for exclusive events.
+     * To be implemented in {@link Event} and {@link VipEvent}
+     */
+    public abstract String getType();
 }
-
 
