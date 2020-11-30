@@ -47,7 +47,7 @@ public class Speaker extends User {
     }
 
     /**
-     * returns an array list of time that events are holden.
+     * returns an array list of events that are given.
      *
      * @return the array list
      */

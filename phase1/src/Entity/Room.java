@@ -2,9 +2,7 @@ package Entity;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The entity class for room
@@ -57,6 +55,11 @@ public class Room implements Serializable {
      */
     public int getEvent(Integer time) {
         return schedule.get(time);
+    }
+
+    // return all events in this room.
+    public Collection<Integer> getAllEvents() {
+        return schedule.values();
     }
 
     /**

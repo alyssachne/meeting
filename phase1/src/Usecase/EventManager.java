@@ -34,6 +34,14 @@ public abstract class EventManager implements Serializable {
      */
     public abstract void createEvent(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity);
 
+    public boolean cancelEvent(int id){
+        if(allEvents.contains(getEvent(id))) {
+            allEvents.remove(getEvent(id));
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Return the event of the corresponding id, raise error if not found.
      * @param id: the id of the event.

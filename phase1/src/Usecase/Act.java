@@ -1,8 +1,11 @@
 package Usecase;
 
+import Entity.Event;
 import Entity.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class Act {
 
@@ -86,5 +89,15 @@ public abstract class Act {
      */
     public void cancelSpot(String username, int eventId) {
         getUser(username).eventList.remove(eventId);
+    }
+
+// in controller, get the username of attendees of this event and speakers of this event.
+    public void eventCanceled(int eventId, List<String> attendees, List<String> speakers) {
+        for(String a: attendees) {
+            getUser(a).getSignUp().remove(eventId);
+        }
+        for(String s: speakers) {
+            getUser(s).eventList.remove(eventId);
+        }
     }
 }

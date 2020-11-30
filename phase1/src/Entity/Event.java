@@ -1,10 +1,9 @@
 package Entity;
 
-import javafx.util.Pair;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 /**
  * The entity class for event: event object, getters, setters & toString methods
@@ -19,8 +18,9 @@ public abstract class Event implements Serializable {
 
     private Integer id;
     private String title;
-    private Integer time;
+    private int time;
     private int roomId;
+//    // duration is measured in minutes
 //    private int duration;
     private List<String> speakers;
     private List<String> ListOfAttendees;
@@ -66,16 +66,22 @@ public abstract class Event implements Serializable {
      * Get the start time of the event.
      * @return time The time of the event.
      */
-    public Integer getTime() {
+    public int getTime() {
         return time;
     }
-
+//
 //    /**
 //     * Get the duration of the event.
 //     * @return duration The duration of the event.
 //     */
-//    public Integer getDuration() {
+//    public int getDuration() {
 //        return duration;
+//    }
+
+//    public Date getEndTime() {
+//        int hours = time.getHours() + duration / 60;
+//        int minutes = time.getMinutes() + duration % 60;
+//        return
 //    }
 
     /**
