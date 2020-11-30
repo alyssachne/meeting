@@ -3,8 +3,11 @@ package Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 
-public class MessageBox implements Serializable {
+//Todo: Implement Observer design pattern for message system
+
+public class MessageBox extends Observable implements Serializable {
     public String user;
     public HashMap<String, ArrayList<String>> ReadMessage;
     public HashMap<String, ArrayList<String>> UnreadMessage;
