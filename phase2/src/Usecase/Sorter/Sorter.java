@@ -1,4 +1,4 @@
-package Sorter;
+package Usecase.Sorter;
 
 import Entity.Event;
 
