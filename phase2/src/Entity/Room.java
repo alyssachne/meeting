@@ -13,6 +13,9 @@ import java.util.*;
  */
 
 
+/**
+ * A room where events can take place.
+ */
 public class Room implements Serializable {
     private final int MaxCapacity;
     private final int id;
