@@ -42,7 +42,7 @@ public class VipAct extends Act implements Serializable {
      *
      * @param username : the username of the user
      * @param eventId  : the event id
-     * @return if the user sign up succesfully
+     * @return if the user sign up successfully
      */
     @Override
     public boolean signUp(String username, Integer eventId) {
