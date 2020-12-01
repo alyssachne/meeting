@@ -11,7 +11,7 @@ import java.util.List;
  *
  *<p>
  *     This class provides the essential functionalities associates with {@link Event} class, such
- *     as creating an Event object and set relavent instance variables. It also provides services to
+ *     as creating an Event object and set relevant instance variables. It also provides services to
  *     look for these information inside an entity Event object.
  *</p>
  *
@@ -19,14 +19,6 @@ import java.util.List;
 
 public abstract class EventManager implements Serializable {
 
-    public ArrayList<Event> allEvents;
-
-    /**
-     * Creates an empty talk manager.
-     */
-    public EventManager() {
-        allEvents = new ArrayList<>();
-    }
 
     /**
      * Create a new event.
@@ -34,34 +26,17 @@ public abstract class EventManager implements Serializable {
      */
     public abstract void createEvent(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity);
 
-    public boolean cancelEvent(int id){
-        if(allEvents.contains(getEvent(id))) {
-            allEvents.remove(getEvent(id));
-            return true;
-        }
-        return false;
-    }
+    public abstract boolean cancelEvent(int id);
 
+    public abstract boolean containEvent(int id);
     /**
      * Return the event of the corresponding id, raise error if not found.
      * @param id: the id of the event.
      */
-    public Event getEvent(int id) {
-        try {
-            for (Event event: allEvents) {
-                if(event.getId() == id) {
-                    return event;
-                }
-            }
-        }
-        catch (Exception e) {
-            System.out.println("This talk does not exist.");
-        }
-        return null;
-    }
+    public abstract Event getEvent(int id);
 
     /**
-     * Set the strat time of the selected event.
+     * Set the start time of the selected event.
      * @param id: the id of the event.
      * @param time: the new start time of the event.
      */

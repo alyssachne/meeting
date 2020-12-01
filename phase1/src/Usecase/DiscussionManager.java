@@ -5,10 +5,12 @@ import Entity.Event;
 import Entity.Party;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiscussionManager extends EventManager implements Serializable {
 
+    public ArrayList<Event> allDiscussions;
     /**
      * Create a new talk. The length of speakers should be greater than 1.
      *
@@ -16,7 +18,7 @@ public class DiscussionManager extends EventManager implements Serializable {
      */
     public void createEvent(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity) {
         Event discussion = new Discussion(id, title, time, roomId, speakers, maxCapacity);
-        allEvents.add(discussion);
+        allDiscussions.add(discussion);
     }
 
     public boolean addSpeaker(Integer eventId, String username) {
@@ -32,6 +34,40 @@ public class DiscussionManager extends EventManager implements Serializable {
     public boolean removeSpeaker(Integer eventId, String username) {
         if(getEvent(eventId).getSpeaker().contains(username) && getEvent(eventId).getSpeaker().size() >= 2) {
             getEvent(eventId).getSpeaker().remove(username);
+        }
+        return false;
+    }
+
+    public boolean cancelEvent(int id) {
+        if(allDiscussions.contains(getEvent(id))) {
+            allDiscussions.remove(getEvent(id));
+            return true;
+        }
+        System.out.println("This discussion does not exist.");
+        return false;
+    }
+
+    /**
+     * Return the event of the corresponding id, raise error if not found.
+     * @param id: the id of the event.
+     */
+    public Event getEvent(int id) {
+        try {
+            for (Event event: allDiscussions) {
+                if(event.getId() == id) {
+                    return event;
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println("This discussion does not exist.");
+        }
+        return null;
+    }
+
+    public boolean containEvent(int id){
+        if(allDiscussions.contains(id)) {
+            return true;
         }
         return false;
     }

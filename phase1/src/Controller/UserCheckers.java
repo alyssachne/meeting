@@ -8,9 +8,10 @@ public class UserCheckers {
     /**
      * Printout all usernames of speakers who give the events this attendee signed up for.
      */
-    public static void checkSpeakers(AttendeeAct aa, String username, EventManager em) {
+    public static void checkSpeakers(AttendeeAct aa, String username, DiscussionManager dm, TalkManager tm,
+                                     PartyManager pm) {
         for(Integer eventId: aa.getEvents(username)) {
-            System.out.println(em.getEvent(eventId).getSpeaker());
+            System.out.println(checkEventType(eventId,dm,tm,pm).getEvent(eventId).getSpeaker());
         }
     }
 
@@ -43,4 +44,13 @@ public class UserCheckers {
         }
     }
 
+    public static EventManager checkEventType(int id, DiscussionManager dm, TalkManager tm,PartyManager pm) {
+        if(pm.containEvent(id)) {
+            return pm;
+        } else if(tm.containEvent(id)) {
+            return tm;
+        } else {
+            return dm;
+        }
+    }
 }

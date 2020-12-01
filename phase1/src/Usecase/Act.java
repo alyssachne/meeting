@@ -34,7 +34,7 @@ public abstract class Act {
      * Sign up for an event.
      * @param username: the username of the user
      * @param eventId: the event id
-     * @return if the user sign up succesfully
+     * @return if the user sign up successfully
      */
     public abstract boolean signUp(String username, Integer eventId);
 
@@ -100,4 +100,6 @@ public abstract class Act {
             getUser(s).eventList.remove(eventId);
         }
     }
+
+    public abstract boolean checkUsernameTaken(String username);
 }

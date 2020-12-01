@@ -4,15 +4,11 @@ import Usecase.*;
 
 public class EventSigner {
 
-
-    public static void signUp(AttendeeAct aa, EventManager em, String username) {
-    }
-
     /**
      * Signup this attendee to the event.
      * @param eventId The Id of the event this attendee wants to sign up for.
      */
-    public void signUp(int eventId,AttendeeAct aa,EventManager em,String username){
+    public static void signUp(int eventId,AttendeeAct aa,EventManager em,String username){
         aa.signUp(username,eventId);
         em.addAttendee(username,eventId);
     }

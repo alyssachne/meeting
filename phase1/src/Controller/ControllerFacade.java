@@ -2,6 +2,8 @@ package Controller;
 
 import Entity.*;
 import Usecase.*;
+
+import javax.rmi.PortableRemoteObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +11,9 @@ import java.util.List;
 public class ControllerFacade implements Serializable {
 
     protected RoomManager rm = new RoomManager();
-    protected EventManager em = new EventManager() {
-        @Override
-        public void createEvent(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity) {
-
-        }
-    };
+    protected PartyManager pm = new PartyManager();
+    protected TalkManager tm = new TalkManager();
+    protected DiscussionManager dm = new DiscussionManager();
     protected SpeakerAct sa = new SpeakerAct();
     protected OrganizerAct oa = new OrganizerAct();
     protected AttendeeAct aa = new AttendeeAct();
@@ -87,7 +86,7 @@ public class ControllerFacade implements Serializable {
      *
      */
     public void createSpeaker(String name, String username, String password){
-        EntityConstructors.createSpeaker(name, username , password, this.sa);
+        EntityConstructors.createSpeaker(name, username , password, this.sa, aa, oa);
     }
 
     /**
@@ -98,7 +97,7 @@ public class ControllerFacade implements Serializable {
      * @param password The password of the attendee.
      */
     public void createAttendee(String name, String username, String password){
-        EntityConstructors.createAttendee(name,username,password, this.aa);
+        EntityConstructors.createAttendee(name,username,password, this.aa, sa, oa);
     }
 
     /**
@@ -110,8 +109,14 @@ public class ControllerFacade implements Serializable {
      * @param time The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public boolean createEvent(String username, int eventId, String title, int time, int roomId, int maxCapacity){
-        return EntityConstructors.createEvent(username,eventId,title,time,roomId,maxCapacity,this.rm,this.sa,this.em);
+    public boolean createEvent(List<String> username, int eventId, String title, int time, int roomId, int maxCapacity){
+        if(username.size() == 0) {
+            return EntityConstructors.createEvent(username,eventId,title,time,roomId,maxCapacity,this.rm,this.sa,this.pm);
+        } else if(username.size() == 1) {
+            return EntityConstructors.createEvent(username,eventId,title,time,roomId,maxCapacity,this.rm,this.sa,this.tm);
+        } else {
+            return EntityConstructors.createEvent(username, eventId, title, time, roomId, maxCapacity, this.rm, this.sa, this.dm);
+        }
     }
 
     /**
@@ -132,14 +137,14 @@ public class ControllerFacade implements Serializable {
      * printout all events this speaker is going to give. This schedule is only shown to the speaker.
      */
     public void speakerSchedule(){
-        ScheduleGetter.speakerSchedule(this.sa,this.username,this.em);
+        ScheduleGetter.speakerSchedule(this.sa,this.username,this.dm,this.tm,this.pm);
     }
 
     /**
      * printout all events this attendee signed up for. This schedule is only shown to this attendee.
      */
     public void attendeeSchedule(){
-        ScheduleGetter.attendeeSchedule(this.aa,this.username,this.em);
+        ScheduleGetter.attendeeSchedule(this.aa,this.username,this.dm,this.tm,this.pm);
     }
 
     /**
@@ -148,7 +153,7 @@ public class ControllerFacade implements Serializable {
      * yet.
      */
     public void getAvailableEvent(){
-        ScheduleGetter.getAvailableEvent(this.rm,this.username,this.em);
+        ScheduleGetter.getAvailableEvent(this.rm,this.username,this.dm,this.tm,this.pm);
     }
 
     /**
@@ -156,7 +161,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the event this attendee wants to sign up for.
      */
     public void signUp(int eventId){
-        EventSigner.signUp(this.aa,this.em,this.username);
+        EventSigner.signUp(eventId,this.aa,checkEventType(eventId, dm, tm, pm),this.username);
     }
 
     /**
@@ -164,7 +169,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the event this attendee wants to be removed from.
      */
     public void cancelSpot(int eventId){
-        EventSigner.cancelSpot(eventId,this.aa,this.em,this.username);
+        EventSigner.cancelSpot(eventId,this.aa,checkEventType(eventId, dm, tm, pm),this.username);
     }
 
     /**
@@ -182,7 +187,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the certain event this speaker choose.
      */
     public void eventMessage_Attendee(String message, Integer eventId){
-        Messagers.eventMessage_Attendee(message,eventId,this.aa,this.em,this.username);
+        Messagers.eventMessage_Attendee(message,eventId,this.aa,checkEventType(eventId, dm, tm, pm),this.username);
     }
 
     /**
@@ -215,12 +220,22 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the certain event that is being chosen.
      */
     public void checkAudiences(Integer eventId){
-        UserCheckers.checkAudiences(eventId,this.em);
+        UserCheckers.checkAudiences(eventId,checkEventType(eventId, dm, tm, pm));
     }
 
     /**
      * Printout all usernames of speakers who give the events this attendee signed up for.
      */
     public void checkSpeakers() {
-    UserCheckers.checkSpeakers(this.aa, this.username, this.em);}
+    UserCheckers.checkSpeakers(this.aa, this.username, this.dm,this.tm,this.pm);}
+
+    public static EventManager checkEventType(int id, DiscussionManager dm, TalkManager tm,PartyManager pm) {
+        if(pm.containEvent(id)) {
+            return pm;
+        } else if(tm.containEvent(id)) {
+            return tm;
+        } else {
+            return dm;
+        }
+    }
 }

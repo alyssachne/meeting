@@ -56,4 +56,11 @@ public class AttendeeAct extends Act implements Serializable {
         return true;
     }
 
+    public boolean checkUsernameTaken(String username) {
+        if(attendeeMap.containsKey(username)) {
+            System.out.println("This username has been taken.");
+            return true;
+        }
+        return false;
+    }
 }

@@ -43,7 +43,7 @@ public class SpeakerAct extends Act implements Serializable {
     }
 
     /**
-     * Gets user from Speakermap by its id.
+     * Gets user from speakerMap by its id.
      *
      * @param username the username
      * @return the user
@@ -140,4 +140,10 @@ public class SpeakerAct extends Act implements Serializable {
         return false;
     }
 
+    public boolean checkUsernameTaken(String username) {
+        if(speakerMap.containsKey(username)) {
+            return true;
+        }
+        return false;
+    }
 }
