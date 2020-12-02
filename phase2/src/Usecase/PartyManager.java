@@ -44,7 +44,7 @@ public class PartyManager extends EventManager implements Serializable {
             }
         }
         catch (Exception e) {
-            System.out.println("This talk does not exist.");
+            System.out.println("This party does not exist.");
         }
         return null;
     }

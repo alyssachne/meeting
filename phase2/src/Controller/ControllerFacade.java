@@ -1,11 +1,8 @@
 package Controller;
 
-import Entity.*;
 import Usecase.*;
 
-import javax.rmi.PortableRemoteObject;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerFacade implements Serializable {
@@ -14,6 +11,7 @@ public class ControllerFacade implements Serializable {
     protected PartyManager pm = new PartyManager();
     protected TalkManager tm = new TalkManager();
     protected DiscussionManager dm = new DiscussionManager();
+    protected RequestManager reqm = new RequestManager();
     protected SpeakerAct sa = new SpeakerAct();
     protected OrganizerAct oa = new OrganizerAct();
     protected AttendeeAct aa = new AttendeeAct();
@@ -229,7 +227,15 @@ public class ControllerFacade implements Serializable {
     public void checkSpeakers() {
     UserCheckers.checkSpeakers(this.aa, this.username, this.dm,this.tm,this.pm);}
 
-    public static EventManager checkEventType(int id, DiscussionManager dm, TalkManager tm,PartyManager pm) {
+    public void checkAllRequest() {
+        RequestDealer.checkAllRequest(reqm);
+    }
+
+    public void tagRequest(int id) {
+        RequestDealer.tagRequest(id, reqm);
+    }
+
+    private EventManager checkEventType(int id, DiscussionManager dm, TalkManager tm,PartyManager pm) {
         if(pm.containEvent(id)) {
             return pm;
         } else if(tm.containEvent(id)) {
