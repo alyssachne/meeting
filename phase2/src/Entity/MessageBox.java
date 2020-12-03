@@ -24,27 +24,25 @@ public class MessageBox extends Observable implements Serializable {
         return user;
     }
 
-    public HashMap<String, ArrayList<String>> getAllReadMessage() {
-        return ReadMessage;
+    public HashMap<String, ArrayList<String>> getMessage(String boxType) {
+        if(boxType == "Read") {
+            return ReadMessage;
+        } else if(boxType == "Unread") {
+            return UnreadMessage;
+        } else {
+            return ArchivedMessage;
+        }
     }
 
-    public HashMap<String, ArrayList<String>> getUnreadMessage() {
-        return UnreadMessage;
+    public ArrayList<String> getMessageFromOne(String sender, String boxType) {
+        if(boxType == "Read") {
+            return ReadMessage.get(sender);
+        } else if(boxType == "Unread") {
+            return UnreadMessage.get(sender);
+        } else {
+            return ArchivedMessage.get(sender);
+        }
+
     }
 
-    public HashMap<String, ArrayList<String>> getArchivedMessage() {
-        return ArchivedMessage;
-    }
-
-    public ArrayList<String> getReadMessage_One(String sender) {
-        return ReadMessage.get(sender);
-    }
-
-    public ArrayList<String> getUnreadMessage_One(String sender) {
-        return UnreadMessage.get(sender);
-    }
-
-    public ArrayList<String> getArchivedMessage_One(String sender) {
-        return ArchivedMessage.get(sender);
-    }
 }

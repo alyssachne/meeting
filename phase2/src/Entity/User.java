@@ -3,6 +3,7 @@ package Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * The abstract entity class for all Users, the parent class of {@link Attendee},{@link Speaker} and {@link Organizer}
@@ -16,6 +17,7 @@ public abstract class User implements Serializable {
     private String username;
     private String password;
     public ArrayList<Integer> eventList;
+    private List<Integer> likedEvent;
     //<username,messageList>
     public HashMap<String,ArrayList<String>> messageInbox;
 
@@ -30,6 +32,7 @@ public abstract class User implements Serializable {
         this.username = username;
         this.password = password;
         eventList = new ArrayList<>();
+        likedEvent = new ArrayList<>();
         messageInbox = new HashMap<>();
     }
 
@@ -80,10 +83,10 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Get the password of this user.
+     * Validate the password of this user.
      */
-    public String getPassword(){
-        return password;
+    public boolean validatePassword(String password){
+        return this.password.equals(password);
     }
 
     /**
@@ -99,6 +102,10 @@ public abstract class User implements Serializable {
      */
     public ArrayList<Integer> getSignUp() {
         return eventList;
+    }
+
+    public List<Integer> getLikedEvents() {
+        return likedEvent;
     }
 
     /**

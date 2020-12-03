@@ -9,11 +9,11 @@ import java.util.Set;
 import Entity.*;
 
 /**
- * The usecase class for the {@link Room} method
+ * The use case class for the {@link Room} method
  *
  * <p>
  *     This class provides the essential functionalities associates with {@link Room} class, such
- *     as creating a Room object and set relavent instance variables. It also provides services to
+ *     as creating a Room object and set relevant instance variables. It also provides services to
  *     look for these information inside an entity Room object.
  *</p>
  * */
@@ -80,6 +80,7 @@ public class RoomManager implements Serializable {
     public void roomList(){
         for (Room room:allRooms){
             System.out.println(room.getId());
+            System.out.println(room.getConstraints());
             for (Integer time : availableTime(room.getId())){
                 System.out.println(time);
             }
@@ -127,6 +128,23 @@ public class RoomManager implements Serializable {
             }
         }
         return temp;
+    }
+
+    public List<String> seeConstraints(int roomId) {
+        return getRoom(roomId).getConstraints();
+    }
+
+
+    public boolean addNewFeature(int roomId, String newFeature) {
+        if(getRoom(roomId).getConstraints().contains(newFeature)) {
+            return false;
+        }
+        getRoom(roomId).getConstraints().add(newFeature);
+        return true;
+    }
+
+    public boolean removeFeature(int roomId, String feature) {
+        return getRoom(roomId).getConstraints().remove(feature);
     }
 }
 

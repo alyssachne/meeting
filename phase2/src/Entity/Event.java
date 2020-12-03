@@ -3,7 +3,6 @@ package Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 
 /**
  * The entity class for event: event object, getters, setters & toString methods
@@ -16,7 +15,7 @@ import java.util.Date;
 
 public abstract class Event implements Serializable {
 
-    private Integer id;
+    private final Integer id;
     private String title;
     private int time;
     private int roomId;
@@ -142,15 +141,14 @@ public abstract class Event implements Serializable {
         this.roomId = roomId;
     }
 
-    /**
-     * To override the toString method to describe an event by including its details.
-     * @return The string description of an event.
-     */
-
     public void setMaxCapacity(int newMax) {maxCapacity = newMax;}
 
     public boolean isFull() {return maxCapacity == getNumOfAttendees();}
 
+    /**
+     * To override the toString method to describe an event by including its details.
+     * @return The string description of an event.
+     */
     @Override
     public String toString() {
         List<String> s = speakers;

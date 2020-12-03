@@ -21,6 +21,7 @@ public class Room implements Serializable {
     private final int id;
     //time, eventId
     private final HashMap<Integer, Integer> schedule = new HashMap<>(8);
+    private List<String> constraints = new ArrayList<>();
 
     /**
      * Class constructor
@@ -92,4 +93,9 @@ public class Room implements Serializable {
         }}
             return available;
     }
+
+    public List<String> getConstraints() {
+        return this.constraints;
+    }
+
 }

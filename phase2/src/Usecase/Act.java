@@ -21,7 +21,7 @@ public abstract class Act {
      * @return boolean that whether the password is correct or not.
      */
     public boolean login(String username, String password){
-        return password.equals(getUser(username).getPassword());
+        return getUser(username).validatePassword(password);
     }
 
     /**
@@ -102,4 +102,16 @@ public abstract class Act {
     }
 
     public abstract boolean checkUsernameTaken(String username);
+
+    public List<Integer> checkLikedEvents(String username) {
+        return getUser(username).getLikedEvents();
+    }
+
+    public boolean likeEvent(String username, int eventId) {
+        if(getUser(username).getLikedEvents().contains(eventId)) {
+            return false;
+        }
+        getUser(username).getLikedEvents().add(eventId);
+        return true;
+    }
 }
