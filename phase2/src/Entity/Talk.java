@@ -13,7 +13,8 @@ public class Talk extends Event implements Serializable {
      * @param roomId   The id of the room of the event.
      * @param speakers The username of the speaker who talks at the event.
      */
-    public Talk(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity) {
-        super(id, title, time, roomId, speakers, maxCapacity);
+    public Talk(int id, String title, int time, int roomId, List<String> speakers, int duration, int maxCapacity,
+                String eventAccess) {
+        super(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess);
     }
 }

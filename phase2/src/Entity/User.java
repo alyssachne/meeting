@@ -18,8 +18,7 @@ public abstract class User implements Serializable {
     private String password;
     public ArrayList<Integer> eventList;
     private List<Integer> likedEvent;
-    //<username,messageList>
-    public HashMap<String,ArrayList<String>> messageInbox;
+    private String access;
 
     /**
      * Initialize an user.
@@ -33,23 +32,6 @@ public abstract class User implements Serializable {
         this.password = password;
         eventList = new ArrayList<>();
         likedEvent = new ArrayList<>();
-        messageInbox = new HashMap<>();
-    }
-
-    /**
-     * Get a list of usernames of the users who had sent message to this user.
-     */
-
-    public ArrayList<String> getContacts(){
-        return new ArrayList<>(messageInbox.keySet());
-    }
-
-    /**
-     * Get a list of messages sent from the sender of this username.
-     * @param username: the username of the message sender.
-     */
-    public ArrayList<String> getMessage(String username){
-        return messageInbox.get(username);
     }
 
     /**
@@ -106,6 +88,14 @@ public abstract class User implements Serializable {
 
     public List<Integer> getLikedEvents() {
         return likedEvent;
+    }
+
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String newAccess) {
+        access = newAccess;
     }
 
     /**

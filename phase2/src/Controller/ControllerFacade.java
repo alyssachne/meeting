@@ -12,6 +12,7 @@ public class ControllerFacade implements Serializable {
     protected TalkManager tm = new TalkManager();
     protected DiscussionManager dm = new DiscussionManager();
     protected RequestManager reqm = new RequestManager();
+    protected MessageManager mm = new MessageManager();
     protected SpeakerAct sa = new SpeakerAct();
     protected OrganizerAct oa = new OrganizerAct();
     protected AttendeeAct aa = new AttendeeAct();
@@ -107,13 +108,17 @@ public class ControllerFacade implements Serializable {
      * @param time The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public boolean createEvent(List<String> username, int eventId, String title, int time, int roomId, int maxCapacity){
+    public boolean createEvent(List<String> username, int eventId, String title, int time, int roomId, int maxCapacity,
+                               int duration, String eventAccess){
         if(username.size() == 0) {
-            return EntityConstructors.createEvent(username,eventId,title,time,roomId,maxCapacity,this.rm,this.sa,this.pm);
+            return EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
+                    this.rm,this.sa,this.pm);
         } else if(username.size() == 1) {
-            return EntityConstructors.createEvent(username,eventId,title,time,roomId,maxCapacity,this.rm,this.sa,this.tm);
+            return EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
+                    this.rm,this.sa,this.pm);
         } else {
-            return EntityConstructors.createEvent(username, eventId, title, time, roomId, maxCapacity, this.rm, this.sa, this.dm);
+            return EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
+                    this.rm,this.sa,this.pm);
         }
     }
 
@@ -176,7 +181,7 @@ public class ControllerFacade implements Serializable {
      * @param userType The type of users this organizer wants to send to, i.e. Speaker or Attendee.
      */
     public void groupMessageTo(String message,String userType){
-        Messagers.groupMessageTo(message,userType,this.sa,this.aa,this.username);
+        Messagers.groupMessageTo(message,userType,this.sa,this.aa,this.mm,this.username);
     }
 
     /**
@@ -185,7 +190,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the certain event this speaker choose.
      */
     public void eventMessage_Attendee(String message, Integer eventId){
-        Messagers.eventMessage_Attendee(message,eventId,this.aa,checkEventType(eventId, dm, tm, pm),this.username);
+        Messagers.eventMessage_Attendee(message,eventId,this.aa,checkEventType(eventId, dm, tm, pm),this.mm,this.username);
     }
 
     /**
@@ -195,14 +200,14 @@ public class ControllerFacade implements Serializable {
      * @param message The message this user wants to send.
      */
     public void privateMessageTo(String receiver, String userType, String message){
-        Messagers.privateMessageTo(receiver,userType,message,this.sa,this.aa,this.username);
+        Messagers.privateMessageTo(receiver,message,this.mm,this.username);
     }
 
     /**
      * printout all usernames of users who had sent messages to this user.
      */
     public void checkContacts(){
-        UserCheckers.checkContacts(type,this.oa,this.sa,this.aa,this.username);
+        UserCheckers.checkContacts(this.mm,this.username);
     }
 
     /**
@@ -210,7 +215,7 @@ public class ControllerFacade implements Serializable {
      * @param sender The username of the user who sent messages to this user.
      */
     public void getMessage(String sender){
-        Messagers.getMessage(sender,this.sa,this.aa,this.oa,this.type,this.username);
+        Messagers.getMessage(sender,this.mm,this.username);
     }
 
     /**

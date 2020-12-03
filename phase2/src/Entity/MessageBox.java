@@ -1,9 +1,7 @@
 package Entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Observable;
+import java.util.*;
 
 //Todo: Implement Observer design pattern for message system
 
@@ -24,7 +22,7 @@ public class MessageBox extends Observable implements Serializable {
         return user;
     }
 
-    public HashMap<String, ArrayList<String>> getMessage(String boxType) {
+    public HashMap<String, ArrayList<String>> getAllMessage(String boxType) {
         if(boxType == "Read") {
             return ReadMessage;
         } else if(boxType == "Unread") {
@@ -43,6 +41,36 @@ public class MessageBox extends Observable implements Serializable {
             return ArchivedMessage.get(sender);
         }
 
+    }
+
+
+    /**
+     * Get a list of usernames of the users who had sent message to this user.
+     */
+
+    public Set<String> getContacts(){
+        Set<String> contacts = ReadMessage.keySet();
+        for(String username: UnreadMessage.keySet()) {
+            if(!contacts.contains(username)) {
+                contacts.add(username);
+            }
+        }
+        for(String username: ArchivedMessage.keySet()) {
+            if(!contacts.contains(username)) {
+                contacts.add(username);
+            }
+        }
+        return contacts;
+    }
+
+    public void addMessage(String sender, String message) {
+        if (ReadMessage.containsKey(sender)){
+            ReadMessage.get(sender).add(message);
+        }else{
+            ArrayList<String> arr = new ArrayList<>();
+            arr.add(message);
+            ReadMessage.put(sender,arr);
+        }
     }
 
 }

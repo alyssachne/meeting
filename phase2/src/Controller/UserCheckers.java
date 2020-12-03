@@ -28,19 +28,9 @@ public class UserCheckers {
     /**
      * printout all usernames of users who had sent messages to this user.
      */
-    public static void checkContacts(String type, OrganizerAct oa, SpeakerAct sa, AttendeeAct aa, String username){
-        if (type.equals("Organizer")){
-            for(String name : oa.getContacts(username)){
-                System.out.println(name);
-            }
-        }else if (type.equals("Speaker")){
-            for(String name : sa.getContacts(username)){
-                System.out.println(name);
-            }
-        }else if (type.equals("Attendee")){
-            for(String name : aa.getContacts(username)){
-                System.out.println(name);
-            }
+    public static void checkContacts(MessageManager mm, String username) {
+        for (String name : mm.getContacts(username)) {
+            System.out.println(name);
         }
     }
 

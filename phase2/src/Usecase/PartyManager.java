@@ -17,8 +17,9 @@ public class PartyManager extends EventManager implements Serializable {
      *
      * @param id: the id of the event.
      */
-    public void createEvent(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity) {
-        Event party = new Party(id, title, time, roomId, speakers, maxCapacity);
+    public void createEvent(int id, String title, int time, int roomId, List<String> speakers, int duration,
+                            int maxCapacity, String eventAccess) {
+        Event party = new Party(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess);
         allParties.add(party);
     }
 

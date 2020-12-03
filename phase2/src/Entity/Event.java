@@ -19,11 +19,12 @@ public abstract class Event implements Serializable {
     private String title;
     private int time;
     private int roomId;
-//    // duration is measured in minutes
-//    private int duration;
+    // duration is measured in hours
+    private int duration;
     private List<String> speakers;
     private List<String> ListOfAttendees;
     private int maxCapacity;
+    private String eventAccess;
 
     /**
      * Class constructor.
@@ -31,18 +32,21 @@ public abstract class Event implements Serializable {
      * @param title The title of the event.
      * @param time The starting time of the event.
      * @param roomId The id of the room of the event.
+     * @param duration The duration of the event.
      * @param speakers The username of the speaker who talks at the event.
      * @param maxCapacity The maximum capacity of the event.
      */
-    public Event(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity) {
+    public Event(int id, String title, int time, int roomId, List<String> speakers, int duration, int maxCapacity,
+                 String eventAccess) {
         this.title = title;
         this.time = time;
         this.roomId = roomId;
-//        this.duration = duration;
+        this.duration = duration;
         this.id = id;
         this.speakers = speakers;
         ListOfAttendees = new ArrayList<>();
         this.maxCapacity = maxCapacity;
+       this.eventAccess = eventAccess;
     }
 
     /**
@@ -68,20 +72,18 @@ public abstract class Event implements Serializable {
     public int getTime() {
         return time;
     }
-//
-//    /**
-//     * Get the duration of the event.
-//     * @return duration The duration of the event.
-//     */
-//    public int getDuration() {
-//        return duration;
-//    }
 
-//    public Date getEndTime() {
-//        int hours = time.getHours() + duration / 60;
-//        int minutes = time.getMinutes() + duration % 60;
-//        return
-//    }
+    /**
+     * Get the duration of the event.
+     * @return duration The duration of the event.
+     */
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getEndTime() {
+        return getTime() + duration;
+    }
 
     /**
      * Get the id of the room where the event take place.
@@ -117,6 +119,8 @@ public abstract class Event implements Serializable {
 
     public int getMaxCapacity() {return maxCapacity;}
 
+    public String getEventAccess() {return eventAccess;}
+
     /**
      * Get the title of this event.
      * @param title The title of the event.
@@ -144,6 +148,10 @@ public abstract class Event implements Serializable {
     public void setMaxCapacity(int newMax) {maxCapacity = newMax;}
 
     public boolean isFull() {return maxCapacity == getNumOfAttendees();}
+
+    public void setEventType(String newType) {
+        eventAccess = newType;
+    }
 
     /**
      * To override the toString method to describe an event by including its details.

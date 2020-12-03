@@ -57,7 +57,8 @@ public class EntityConstructors {
      * @param roomId The unique Id of the room where this event takes place.
      */
     public static boolean createEvent(List<String> speaker, int eventId, String title, int time, int roomId,
-                                      int maxCapacity, RoomManager rm, SpeakerAct sa, EventManager em){
+                                      int duration, int maxCapacity, String eventAccess, RoomManager rm, SpeakerAct sa,
+                                      EventManager em){
         Set<Integer> temp = new HashSet<>();
         List<Integer> spTime = new ArrayList<>();
         // collect all available times for each speaker
@@ -71,14 +72,17 @@ public class EntityConstructors {
             }
         }
         ArrayList<Integer> roomTime = rm.availableTime(roomId);
-        if (spTime.contains(time) && roomTime.contains(time)) {
-            List<String> speakers = speaker;
-            em.createEvent(eventId,title,time,roomId,speakers, maxCapacity);
-            for(String s: speaker) {
-                sa.giveEvent(s,eventId,time);
+        for(int i=0; i <= duration - 1; i++) {
+            if (!spTime.contains(time + i) | !roomTime.contains(time + i)) {
+                return false;
             }
-
-            rm.book(roomId,eventId,time);
+        }
+        em.createEvent(eventId,title,time,roomId,speaker, duration, maxCapacity, eventAccess);
+        for(int i=0; i <= duration - 1; i++) {
+            for(String s: speaker) {
+                sa.giveEvent(s,eventId,time+i);
+            }
+            rm.book(roomId,eventId,time+i);
             return true;
         }
         return false;

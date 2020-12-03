@@ -48,41 +48,6 @@ public abstract class Act {
     }
 
     /**
-     * Add a new message to the messageInbox
-     * @param receiver: User who receive the message
-     * @param sender: User who send the message
-     * @param message: The content of the message
-     */
-    public void addMessage(String receiver, String sender, String message){
-        if (getUser(receiver).messageInbox.containsKey(sender)){
-            getUser(receiver).messageInbox.get(sender).add(message);
-        }else{
-            ArrayList<String> arr = new ArrayList<>();
-            arr.add(message);
-            getUser(receiver).messageInbox.put(sender,arr);
-        }
-    }
-
-    /**
-     * Get the list of contact of the user
-     * @param username: the username of the user
-     * @return list of user in User's contact
-     */
-    public ArrayList<String> getContacts(String username){
-        return getUser(username).getContacts();
-    }
-
-    /**
-     * Get list of message between two users
-     * @param receiver: the user who receive the message
-     * @param sender: the user who send the message
-     * @return the list of message between two users
-     */
-    public ArrayList<String> getMessage(String receiver, String sender){
-        return getUser(receiver).getMessage(sender);
-    }
-
-    /**
      * Cancel an event in the eventList of user
      * @param username: the username of the user
      * @param eventId: the event id that user want to remove
@@ -113,5 +78,12 @@ public abstract class Act {
         }
         getUser(username).getLikedEvents().add(eventId);
         return true;
+    }
+    public String checkAccess(String username) {
+        return getUser(username).getAccess();
+    }
+
+    public void changeAccess(String username, String access) {
+        getUser(username).setAccess(access);
     }
 }

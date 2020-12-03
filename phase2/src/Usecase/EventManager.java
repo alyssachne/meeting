@@ -3,7 +3,6 @@ package Usecase;
 import Entity.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +23,8 @@ public abstract class EventManager implements Serializable {
      * Create a new event.
      * @param id: the id of the event.
      */
-    public abstract void createEvent(int id, String title, int time, int roomId, List<String> speakers, int maxCapacity);
+    public abstract void createEvent(int id, String title, int time, int roomId, List<String> speakers, int duration,
+                                     int maxCapacity, String eventAccess);
 
     public abstract boolean cancelEvent(int id);
 
@@ -71,6 +71,14 @@ public abstract class EventManager implements Serializable {
             }
         }
         return false;
+    }
+
+    public String checkAccess(int eventId) {
+        return getEvent(eventId).getEventAccess();
+    }
+
+    public void changeAccess(int eventId, String access) {
+        getEvent(eventId).setEventType(access);
     }
 
 }

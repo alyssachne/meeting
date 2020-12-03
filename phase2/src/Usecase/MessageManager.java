@@ -4,6 +4,7 @@ import Entity.*;
 import com.sun.xml.internal.ws.api.message.Message;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class MessageManager {
 
@@ -36,7 +37,7 @@ public class MessageManager {
     }
 
 
-    public void getMessageFromOne(String username, String sender, String box) {
+    public void seeMessageFromOne(String username, String sender, String box) {
         System.out.println("Here are the messages from" + sender + ":");
         for (int i = 0; i < getMessageBox(username).getMessageFromOne(sender, box).size(); i++) {
             System.out.println("Message" + i + 1 + ": " + getMessageBox(username).getMessageFromOne(sender, box).get(i));
@@ -59,22 +60,41 @@ public class MessageManager {
 
     private void addTo(String username, String message, String sender, String destination) {
         MessageBox messageBox = getMessageBox(username);
-        if (messageBox.getMessage(destination).containsKey(sender)) {
+        if (messageBox.getAllMessage(destination).containsKey(sender)) {
             messageBox.getMessageFromOne(sender, destination).add(message);
         } else {
             ArrayList<String> temp = new ArrayList<>();
             temp.add(message);
-            messageBox.getMessage(destination).put(sender, temp);
+            messageBox.getAllMessage(destination).put(sender, temp);
         }
     }
 
     private void removeFrom(String username, String sender, String message, String destination) {
         MessageBox messageBox = getMessageBox(username);
-        if (messageBox.getMessage(destination).get(sender).size() == 1) {
-            messageBox.getMessage(destination).remove(sender);
+        if (messageBox.getAllMessage(destination).get(sender).size() == 1) {
+            messageBox.getAllMessage(destination).remove(sender);
         } else {
             messageBox.getMessageFromOne(sender, destination).remove(message);
         }
+    }
+
+    /**
+     * Add a new message to the messageInbox
+     * @param receiver: User who receive the message
+     * @param sender: User who send the message
+     * @param message: The content of the message
+     */
+    public void addMessage(String receiver, String sender, String message){
+       getMessageBox(receiver).addMessage(sender, message);
+    }
+
+    /**
+     * Get the list of contact of the user
+     * @param username: the username of the user
+     * @return list of user in User's contact
+     */
+    public Set<String> getContacts(String username){
+        return getMessageBox(username).getContacts();
     }
 
 }
