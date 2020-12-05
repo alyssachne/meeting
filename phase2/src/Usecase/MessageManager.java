@@ -44,20 +44,37 @@ public class MessageManager {
         }
     }
 
-    public void MarkAsUnread(String username, Integer MessageIndex, String sender) {
+    public boolean MarkAsUnread(String username, Integer MessageIndex, String sender) {
         MessageBox messageBox = getMessageBox(username);
-        String message = messageBox.getMessageFromOne(sender, "Read").get(MessageIndex - 1);
-        removeFrom(username, sender, message, "Read");
-        addTo(username, message, sender, "Unread");
+        if(MessageIndex - 1 <= messageBox.getAllMessage("Read").size()) {
+            String message = messageBox.getMessageFromOne(sender, "Read").get(MessageIndex - 1);
+            removeFrom(username, sender, message, "Read");
+            addTo(username, message, sender, "Unread");
+            return true;
+        }
+        return false;
     }
 
-    public void archiveMessage(String username, Integer MessageIndex, String sender) {
+    public boolean archiveMessage(String username, Integer MessageIndex, String sender) {
         MessageBox messageBox = getMessageBox(username);
-        String message = messageBox.getMessageFromOne(sender, "Read").get(MessageIndex - 1);
-        removeFrom(username, sender, message, "Read");
-        addTo(username, message, sender, "Archive");
+        if(MessageIndex - 1 <= messageBox.getAllMessage("Read").size()) {
+            String message = messageBox.getMessageFromOne(sender, "Read").get(MessageIndex - 1);
+            removeFrom(username, sender, message, "Read");
+            addTo(username, message, sender, "Archive");
+            return true;
+        }
+        return false;
     }
 
+    public boolean deleteMessage(String username, Integer messageIndex, String sender, String destination) {
+        MessageBox messageBox = getMessageBox(username);
+        if(messageIndex - 1 <= messageBox.getAllMessage(destination).size()) {
+            String message = messageBox.getMessageFromOne(sender, destination).get(messageIndex - 1);
+            removeFrom(username, sender, message, destination);
+            return true;
+        }
+        return false;
+    }
     private void addTo(String username, String message, String sender, String destination) {
         MessageBox messageBox = getMessageBox(username);
         if (messageBox.getAllMessage(destination).containsKey(sender)) {

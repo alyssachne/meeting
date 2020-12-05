@@ -4,6 +4,9 @@ import Controller.ControllerFacade;
 import Gateway.ControllerRW;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Demo {
@@ -72,8 +75,12 @@ public class Demo {
                             //Schedule an event
                             System.out.println("Here is a list of username of current speakers along with their free time slot");
                             uo.speakerList();
+                            System.out.println("Please enter the maximum capacity you want for the room");
+                            String max = scanner.nextLine();
+                            System.out.println("Please enter the constraints for the event");
+                            String cons = scanner.nextLine();
                             System.out.println("Here is a list of ids of the room as well as their empty time slot");
-                            uo.roomList();
+                            uo.roomList(Integer.parseInt(max), new ArrayList<String>(Arrays.asList(cons.split(","))));
                             System.out.println("Please enter the username of the speaker you want to schedule for");
                             String su = scanner.nextLine();
                             System.out.println("Please enter the room id you wish the event to be hold");

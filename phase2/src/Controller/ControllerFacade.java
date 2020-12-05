@@ -132,8 +132,8 @@ public class ControllerFacade implements Serializable {
     /**
      * printout all rooms and their available times.
      */
-    public void roomList(){
-        ScheduleGetter.roomList(this.rm);
+    public void roomList(int maxCapacity, List<String> constraints){
+        ScheduleGetter.roomList(this.rm, maxCapacity, constraints);
     }
 
     /**

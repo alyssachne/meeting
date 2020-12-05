@@ -4,6 +4,8 @@ import Entity.Discussion;
 import Entity.Event;
 import Usecase.*;
 
+import java.util.List;
+
 public class ScheduleGetter {
 
     /**
@@ -16,8 +18,8 @@ public class ScheduleGetter {
     /**
      * printout all rooms and their available times.
      */
-    public static void roomList(RoomManager rm){
-        rm.roomList();
+    public static void roomList(RoomManager rm, int maxCapacity, List<String> constraints){
+        rm.suggestedRooms(maxCapacity, constraints);
     }
 
     /**

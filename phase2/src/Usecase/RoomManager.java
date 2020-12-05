@@ -75,14 +75,15 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Printout all the rooms and the available time of each room.
+     * Printout all the rooms that suit the requirement of the event and the available time of each room.
      */
-    public void roomList(){
+    public void suggestedRooms(int maxCapacity, List<String> constraints){
         for (Room room:allRooms){
-            System.out.println(room.getId());
-            System.out.println(room.getConstraints());
-            for (Integer time : availableTime(room.getId())){
-                System.out.println(time);
+            if (room.getMaxCapacity() >= maxCapacity && room.getConstraints().containsAll(constraints)) {
+                System.out.println(room.getId());
+                for (Integer time : availableTime(room.getId())){
+                    System.out.println(time);
+                }
             }
         }
     }
@@ -117,17 +118,6 @@ public class RoomManager implements Serializable {
             }
         }
         return false;
-    }
-
-    // return rooms whose capacity is bigger than event's capacity so that organizer can choose.
-    public List<Integer> SuitableRooms(int maxCapacity) {
-        List<Integer> temp = new ArrayList<>();
-        for(Room room: allRooms) {
-            if (room.getMaxCapacity() >= maxCapacity) {
-                temp.add(room.getId());
-            }
-        }
-        return temp;
     }
 
     public List<String> seeConstraints(int roomId) {
