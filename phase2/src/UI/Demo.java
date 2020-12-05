@@ -193,6 +193,7 @@ public class Demo {
                         System.out.println("3.Cancel an event reservation");
                         System.out.println("4.Message system");
                         System.out.println("5.Exit");
+                        System.out.println("6. View enrollment Statistics");
                         String choice = scanner.nextLine();
                         if (choice.equals("1")) {
                             System.out.println("Here is your current schedule");
@@ -238,7 +239,22 @@ public class Demo {
                             uo.logout();
                             crw.writeFile(uo);
                             handle = false;
-                        }else {
+                        } else if(choice.equals("6")){
+                            System.out.println("1. view top-5 list");
+                            System.out.println("2. view App traffic statistics");
+                            System.out.println("3. view enrollment statistics");
+                            String option = scanner.nextLine();
+                            if (option.equals("1")){
+                                uo.getTopFiveLists();
+                            } else if(option.equals("2")){
+                                uo.getAppTraffic();
+                            } else if(option.equals("3")){
+                                uo.getEnrollmentStatistics();
+                            } else{
+                                System.out.println("This is not an valid option, please give a number from 1 to 3.");
+                            }
+                        }
+                        else {
                             System.out.println("This is not an valid option, please give a number from 1 to 5.");
                         }
                     }

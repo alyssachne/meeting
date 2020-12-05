@@ -159,6 +159,17 @@ public class ControllerFacade implements Serializable {
         ScheduleGetter.getAvailableEvent(this.rm,this.username,this.dm,this.tm,this.pm);
     }
 
+    public void getEnrollmentStatistics(){
+        ScheduleGetter.enrollmentStatistics(this.dm,this.tm,this.pm);
+    }
+
+    public void getTopFiveLists(){
+        ScheduleGetter.getTopFiveEvents(this.dm,this.tm,this.pm);
+    }
+
+    public void getAppTraffic(){
+        ScheduleGetter.getAppTraffic(this.dm,this.tm,this.pm);
+    }
     /**
      * Signup this attendee to the event.
      * @param eventId The Id of the event this attendee wants to sign up for.
