@@ -39,4 +39,5 @@ public class PrintSchedule {
                     ",Duration " + e.getDuration() + ",Speaker(s) " + e.getSpeaker() + ".");
         }
     }
+
 }
