@@ -5,11 +5,12 @@ import org.omg.CORBA.Any;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class OrganizerAct extends Act implements Serializable {
 
-    HashMap<String,Organizer> organizerMap;
+    public static HashMap<String,Organizer> organizerMap;
 
     /**
      * Initialize an OrganizerAct.
@@ -31,6 +32,10 @@ public class OrganizerAct extends Act implements Serializable {
         }
         Organizer organizer = new Organizer(name,username,password);
         organizerMap.put(organizer.getUsername(),organizer);
+        Collection<SpecialRequests> existingSpecialRequests= SpecialRequestManager.specialRequestsHashMap.values();
+        for (SpecialRequests specialRequests : existingSpecialRequests){
+            specialRequests.addObserver(organizer);
+        }
         return true;
     }
 

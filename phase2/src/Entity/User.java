@@ -19,6 +19,7 @@ public abstract class User implements Serializable {
     public ArrayList<Integer> eventList;
     private List<Integer> likedEvent;
     private String access;
+    private String dietaryHabit;
 
     /**
      * Initialize an user.
@@ -102,5 +103,13 @@ public abstract class User implements Serializable {
      * Get the type of the user.
      */
     public String typeGetter(){return "User";}
+
+    /**
+     * DietaryHabit setter, used to document the user's dietary habit if special accommodation need to be made.
+     * @param habit: a string representing the dietary habit of the user
+     */
+    public void setDietaryHabit(String habit){
+        this.dietaryHabit = habit;
+    }
 
 }
