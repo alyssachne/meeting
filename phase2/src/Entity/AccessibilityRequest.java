@@ -1,6 +1,6 @@
 package Entity;
 
-public class accessibilityRequest extends specialRequests {
+public class AccessibilityRequest extends SpecialRequests {
     /**
      * An abstract constructor for the specialRequest class
      *
@@ -9,7 +9,7 @@ public class accessibilityRequest extends specialRequests {
      *                    <p>
      *                    The constructor will constructor a request that has Id equal to the preexisting number of requests plus one and
      */
-    public accessibilityRequest(String description, String username) {
+    public AccessibilityRequest(String description, String username) {
         super(description, username);
         this.type = "Accessibility Request";
     }

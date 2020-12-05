@@ -1,6 +1,6 @@
 package Entity;
 
-public class dietaryRequest extends specialRequests {
+public class DietaryRequest extends SpecialRequests {
 
 
     /**
@@ -11,7 +11,7 @@ public class dietaryRequest extends specialRequests {
      *                    <p>
      *                    The constructor will constructor a request that has Id equal to the preexisting number of requests plus one and
      */
-    public dietaryRequest(String description, String username) {
+    public DietaryRequest(String description, String username) {
         super(description, username);
         this.type = "Dietary Request";
     }

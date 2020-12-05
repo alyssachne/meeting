@@ -26,9 +26,12 @@ public abstract class Act {
 
     /**
      * Get the user information from the map.
+     *
      * @param username: the username of the user
      */
-    public abstract User getUser(String username);
+    public User getUser(String username) {
+        return null;
+    }
 
     /**
      * Sign up for an event.

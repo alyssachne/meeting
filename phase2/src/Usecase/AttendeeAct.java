@@ -14,8 +14,9 @@ public class AttendeeAct extends Act implements Serializable {
      * Initialize an AttendeeAct.
      */
     public AttendeeAct(){
-        attendeeMap = new HashMap<>();
+      attendeeMap = new HashMap<>();
     }
+
 
     /**
      * Create a new attendee and return true if the creation is successful.

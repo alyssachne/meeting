@@ -13,9 +13,9 @@ public class VipAct extends Act implements Serializable {
     /**
      * Create a new VIP user.
      *
-     * @param name
-     * @param username
-     * @param password
+     * @param name: the name of this VipUser
+     * @param username: the username of this VipUser
+     * @param password: the password of this user
      */
     @Override
     public boolean createUser(String name, String username, String password) {
@@ -51,5 +51,10 @@ public class VipAct extends Act implements Serializable {
         }
         getUser(username).eventList.add(eventId);
         return true;
+    }
+
+    @Override
+    public boolean checkUsernameTaken(String username) {
+        return vipMap.containsKey(username);
     }
 }

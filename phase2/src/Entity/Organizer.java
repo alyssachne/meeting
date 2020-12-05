@@ -1,8 +1,10 @@
 package Entity;
 
+import Usecase.SpecialRequestManager;
 import sun.lwawt.macosx.CSystemTray;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
 

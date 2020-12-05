@@ -5,7 +5,7 @@ import Usecase.OrganizerAct;
 import java.util.Collection;
 import java.util.Observable;
 
-public abstract class specialRequests extends Observable {
+public abstract class SpecialRequests extends Observable {
     private boolean addressed;
     private int requestId;
     private String description;
@@ -23,7 +23,7 @@ public abstract class specialRequests extends Observable {
      *                have the address status set as not addresses.
      */
 
-    public specialRequests(String description,String username) {
+    public SpecialRequests(String description,String username) {
         this.addressed = false;
         this.requestId = numberOfRequest +1;
         this.description = description;
@@ -43,6 +43,18 @@ public abstract class specialRequests extends Observable {
         this.setChanged();
         this.setChanged();
         this.notifyObservers(" successfully addressed!");
+    }
+
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public String getUsername(){
+        return this.username;
+    }
+
+    public String getDescription(){
+        return this.description;
     }
 
 }
