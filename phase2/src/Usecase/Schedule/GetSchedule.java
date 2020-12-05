@@ -6,7 +6,7 @@ import Usecase.Sorter.EventSpeakerSorter;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Schedule {
+public interface GetSchedule {
 
     void getSchedule();
 

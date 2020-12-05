@@ -8,7 +8,7 @@ import Usecase.TalkManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class getScheduleBySpeaker {
+public class GetScheduleBySpeaker {
 
     public ArrayList<Event> getSchedule (String speaker, PartyManager partymanager, TalkManager talkmanager, DiscussionManager discussionManager){
 

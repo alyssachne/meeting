@@ -5,7 +5,7 @@ import Usecase.EventManager;
 
 import java.util.ArrayList;
 
-public class getScheduleSignUp {
+public class GetScheduleSignUp {
 
     public ArrayList<Event> getSchedule(User user, EventManager eventManager){
         ArrayList<Event> scheduleList = new ArrayList<>();
