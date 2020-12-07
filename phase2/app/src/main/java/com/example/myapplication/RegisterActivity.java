@@ -15,6 +15,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText username;
     EditText password;
     private Intent registerIntent;
+    ControllerRW crw;
+    ControllerFacade uo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +28,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         username = (EditText)findViewById(R.id.register_username);
         password = (EditText)findViewById(R.id.register_password);
         registerButton.setOnClickListener(this);
+        init();
     }
 
+    public void init() {
+        crw = new ControllerRW(this.getApplicationContext());
+        uo = crw.readFile();
+    }
     @Override
     public void onClick(View v) {
-
-        ControllerRW crw = new ControllerRW(this.getApplicationContext());
-        ControllerFacade uo = null;
-        if (crw.readFile()!=null){
-            uo = crw.readFile();
-        }else{
-            uo = new ControllerFacade();
-        }
         //check if the username exist
         uo.createAttendee(name.getText().toString(),username.getText().toString(),password.getText().toString());
         crw.writeFile(uo);

@@ -1,11 +1,12 @@
 package Usecase;
 import Entity.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CalendarManager {
+public class CalendarManager implements Serializable {
 
     public List<Calendar> allCalendars;
 

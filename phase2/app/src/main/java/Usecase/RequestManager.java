@@ -3,9 +3,10 @@ package Usecase;
 import Entity.Event;
 import Entity.Request;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RequestManager {
+public class RequestManager implements Serializable {
     public List<Request> allRequests;
 
     public void createRequest(String request, String username, int id) {

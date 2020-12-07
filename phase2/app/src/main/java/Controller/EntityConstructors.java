@@ -3,7 +3,7 @@ package Controller;
 import Entity.Attendee;
 import Usecase.*;
 
-import javax.management.remote.rmi._RMIConnection_Stub;
+//import javax.management.remote.rmi._RMIConnection_Stub;
 import java.util.*;
 
 public class EntityConstructors {

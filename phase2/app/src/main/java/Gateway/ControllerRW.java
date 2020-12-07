@@ -10,7 +10,7 @@ import java.io.*;
 public class ControllerRW {
     ObjectInputStream Reader;
     ObjectOutputStream Writer;
-//    File file;
+    File file;
     private Context appContext;
 
 //    /**
@@ -19,6 +19,14 @@ public class ControllerRW {
 //     */
     public ControllerRW(Context context){
         appContext = context;
+        file = new File("/data/user/0/com.example.myapplication/files/ControllerData.txt");
+        try{
+            if (!file.exists()){
+                file.createNewFile();
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     /**
@@ -30,11 +38,11 @@ public class ControllerRW {
     public ControllerFacade readFile(){
         ControllerFacade uc = null;
         try{
-            InputStream inputStream = appContext.openFileInput("ControllerData.txt");
-            if (inputStream!=null){
-                Reader = new ObjectInputStream(inputStream);
+//            InputStream inputStream = appContext.openFileInput("ControllerData.txt");
+            if (file.length()!=0){
+                Reader = new ObjectInputStream(new FileInputStream(file));
                 uc = (ControllerFacade)Reader.readObject();
-                inputStream.close();
+                Reader.close();
             }
         }catch (Exception e){
             System.out.println(e);
@@ -49,7 +57,7 @@ public class ControllerRW {
      */
     public void writeFile(ControllerFacade uc){
         try{
-            Writer = new ObjectOutputStream(appContext.openFileOutput("ControllerData.txt", MODE_PRIVATE));
+            Writer = new ObjectOutputStream(new FileOutputStream(file));
             Writer.writeObject(uc);
             Writer.close();
         }catch (Exception e){
