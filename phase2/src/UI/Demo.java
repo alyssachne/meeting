@@ -59,7 +59,8 @@ public class Demo {
                             System.out.println("Please enter the max capacity of the room:");
                             String MaxCapacity = scanner.nextLine();
                             //create the room
-                            uo.createRoom(Integer.parseInt(id), Integer.parseInt(MaxCapacity));
+                            List<String> constraints = new ArrayList<>();
+                            uo.createRoom(Integer.parseInt(id), Integer.parseInt(MaxCapacity),constraints);
                             System.out.println("Room has been created successfully!");
                         } else if (choice.equals("2")) {
                             //speaker

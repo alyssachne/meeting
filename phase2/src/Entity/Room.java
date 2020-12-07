@@ -30,12 +30,13 @@ public class Room implements Serializable {
      * @param id The id of the room.
      * @param MaxCapacity The max capacity of the room.
      */
-    public Room(int id, int MaxCapacity) {
+    public Room(int id, int MaxCapacity, List<String> constraints) {
         this.MaxCapacity = MaxCapacity;
         this.id = id;
         for (int i = 9; i < 16; i++) {
             schedule.put(i, null);
         }
+        this.constraints = constraints;
     }
 
     /**

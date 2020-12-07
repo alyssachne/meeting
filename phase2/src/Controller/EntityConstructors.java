@@ -13,8 +13,8 @@ public class EntityConstructors {
      * @param id The unique Id of the room.
      * @param capacity The maximum capacity of the room.
      */
-    public static void createRoom(int id, int capacity, RoomManager rm){
-        rm.createRoom(id,capacity);
+    public static void createRoom(int id, int capacity, List<String> constraints, RoomManager rm){
+        rm.createRoom(id,capacity,constraints);
     }
 
     /**
@@ -25,11 +25,14 @@ public class EntityConstructors {
      * @param password The password of the speaker.
      */
     public static void createSpeaker(String name, String username, String password, SpeakerAct sa, AttendeeAct aa,
-                                     OrganizerAct oa){
+                                     OrganizerAct oa, MessageManager mm){
         // check if the username is taken by any user
         if(oa.checkUsernameTaken(username) && aa.checkUsernameTaken(username) &&
                 !sa.createUser(name,username,password)){
             System.out.println("This username has already been taken, please choose a new username.");
+        } else {
+            sa.createUser(name,username,password);
+            mm.createMessageBox(username);
         }
     }
 
@@ -41,13 +44,15 @@ public class EntityConstructors {
      * @param password The password of the attendee.
      */
     public static void createAttendee(String name, String username, String password, AttendeeAct aa, SpeakerAct sa,
-                                      OrganizerAct oa){
-        if(oa.checkUsernameTaken(username) && sa.checkUsernameTaken(username) &&
-                !aa.createUser(name,username,password)) {
+                                      OrganizerAct oa, MessageManager mm) {
+        if (oa.checkUsernameTaken(username) && sa.checkUsernameTaken(username) &&
+                !aa.createUser(name, username, password)) {
             System.out.println("This username has already been taken, please choose a new username.");
+        } else {
+            sa.createUser(name, username, password);
+            mm.createMessageBox(username);
         }
     }
-
     /**
      * Create a new event with given username of the speaker, the Id of the event, the title of the event, the start
      * time of the event, and the Id of the room.
@@ -78,6 +83,7 @@ public class EntityConstructors {
 //                return false;
 //            }
 //        }
+
         // check if all speakers are free from the beginning of the event to the end of the event
         // if the room is free from the beginning of the event to the end of the event/
         // if the room satisfies all constraints the event need

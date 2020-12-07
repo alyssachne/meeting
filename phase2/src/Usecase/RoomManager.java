@@ -34,8 +34,8 @@ public class RoomManager implements Serializable {
      * @param id: the id of the room.
      * @param MaxCapacity: the maximum capacity of the room.
      */
-    public void createRoom(int id, int MaxCapacity){
-        Room room = new Room(id, MaxCapacity);
+    public void createRoom(int id, int MaxCapacity, List<String> constraints){
+        Room room = new Room(id, MaxCapacity, constraints);
         allRooms.add(room);
     }
 

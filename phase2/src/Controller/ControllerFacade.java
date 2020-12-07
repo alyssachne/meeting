@@ -23,6 +23,7 @@ public class ControllerFacade implements Serializable {
      */
     public ControllerFacade(){
         oa.createUser("admin","admin","admin");
+        mm.createMessageBox("admin");
     }
 
     /**
@@ -71,8 +72,8 @@ public class ControllerFacade implements Serializable {
      * @param id The unique Id of the room.
      * @param capacity The maximum capacity of the room.
      */
-    public void createRoom(int id,int capacity){
-        EntityConstructors.createRoom(id,capacity,rm);
+    public void createRoom(int id,int capacity, List<String> constraints){
+        EntityConstructors.createRoom(id,capacity,constraints,rm);
     }
 
     /**
@@ -84,7 +85,7 @@ public class ControllerFacade implements Serializable {
      *
      */
     public void createSpeaker(String name, String username, String password){
-        EntityConstructors.createSpeaker(name, username , password, this.sa, aa, oa);
+        EntityConstructors.createSpeaker(name, username , password, sa, aa, oa, mm);
     }
 
     /**
@@ -95,7 +96,7 @@ public class ControllerFacade implements Serializable {
      * @param password The password of the attendee.
      */
     public void createAttendee(String name, String username, String password){
-        EntityConstructors.createAttendee(name,username,password, this.aa, sa, oa);
+        EntityConstructors.createAttendee(name,username,password, aa, sa, oa,mm);
     }
 
     /**
