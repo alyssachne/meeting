@@ -1,4 +1,4 @@
-package Usecase.Schedule;
+package Controller.Schedule;
 
 import Entity.*;
 import Usecase.EventManager;

@@ -142,40 +142,40 @@ public class RoomManager implements Serializable {
 
 
 
-    public boolean addTechnology(int roomId, String new_technology, Integer number) {
-        if (getRoom(roomId).getTechnology().containsKey(new_technology)) {
-            return false;
-        }
-        getRoom(roomId).getTechnology().put(new_technology, number);
-        return true;
-    }
-
-    public boolean changeTechnology(int roomId, String technology, Integer new_number) {
-        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
-            return false;
-        }
-        getRoom(roomId).getTechnology().replace(technology, new_number);
-        return true;
-    }
-
-    public boolean removeTechnology(int roomId, String technology) {
-        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
-            return false;
-        }
-        getRoom(roomId).getTechnology().remove(technology);
-        return true;
-    }
-
-    public Integer checkTechnology(int roomId, String technology) {
-        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
-            return 0;
-        }
-        return getRoom(roomId).getTechnology().get(technology);
-    }
-
-    public HashMap<String, Integer> seeTechnology(int roomId) {
-        return getRoom(roomId).getTechnology();
-    }
+//    public boolean addTechnology(int roomId, String new_technology, Integer number) {
+//        if (getRoom(roomId).getTechnology().containsKey(new_technology)) {
+//            return false;
+//        }
+//        getRoom(roomId).getTechnology().put(new_technology, number);
+//        return true;
+//    }
+////
+//    public boolean changeTechnology(int roomId, String technology, Integer new_number) {
+//        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
+//            return false;
+//        }
+//        getRoom(roomId).getTechnology().replace(technology, new_number);
+//        return true;
+//    }
+//
+//    public boolean removeTechnology(int roomId, String technology) {
+//        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
+//            return false;
+//        }
+//        getRoom(roomId).getTechnology().remove(technology);
+//        return true;
+//    }
+//
+//    public Integer checkTechnology(int roomId, String technology) {
+//        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
+//            return 0;
+//        }
+//        return getRoom(roomId).getTechnology().get(technology);
+//    }
+//
+//    public HashMap<String, Integer> seeTechnology(int roomId) {
+//        return getRoom(roomId).getTechnology();
+//    }
 
 }
 

@@ -34,7 +34,7 @@ public class UserCheckers {
         }
     }
 
-    public static EventManager checkEventType(int id, DiscussionManager dm, TalkManager tm,PartyManager pm) {
+    private static EventManager checkEventType(int id, DiscussionManager dm, TalkManager tm,PartyManager pm) {
         if(pm.containEvent(id)) {
             return pm;
         } else if(tm.containEvent(id)) {

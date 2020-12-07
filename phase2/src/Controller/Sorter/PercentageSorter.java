@@ -1,10 +1,10 @@
-package Usecase.Sorter;
+package Controller.Sorter;
 
 import Entity.Event;
 
 import java.util.ArrayList;
 
-public class EventEnrollmentSorter implements Sorter {
+public class PercentageSorter implements Sorter {
     @Override
     public void sort(ArrayList<Event> tl) {
         for (int i = 0; i < tl.size() - 1; i++) {
@@ -13,7 +13,9 @@ public class EventEnrollmentSorter implements Sorter {
             // indices i and tl.size() - 1 inclusive.
             int indexMin = i;
             for (int j = i + 1; j < tl.size(); j++) {
-                if (tl.get(indexMin).getNumOfAttendees() > tl.get(j).getNumOfAttendees()) {
+                float percentmin = (float)tl.get(indexMin).getNumOfAttendees() / tl.get(indexMin).getMaxCapacity();
+                float percentj = tl.get(j).getNumOfAttendees() / tl.get(j).getMaxCapacity();
+                if ( percentmin> percentj ) {
                     indexMin = j;
                 }
             }

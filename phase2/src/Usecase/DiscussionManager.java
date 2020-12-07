@@ -2,7 +2,6 @@ package Usecase;
 
 import Entity.Discussion;
 import Entity.Event;
-import Entity.Party;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,10 +13,11 @@ public class DiscussionManager extends EventManager implements Serializable {
     /**
      * Create a new talk. The length of speakers should be greater than 1.
      *
-     * @param id: the id of the event.
+     * @param id : the id of the event.
+     * @param constraints
      */
     public void createEvent(int id, String title, int time, int roomId, List<String> speakers, int duration,
-                            int maxCapacity, String eventAccess) {
+                            int maxCapacity, String eventAccess, List<String> constraints) {
         Event discussion = new Discussion(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess);
         allDiscussions.add(discussion);
     }

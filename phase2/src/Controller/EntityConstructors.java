@@ -3,6 +3,7 @@ package Controller;
 import Entity.Attendee;
 import Usecase.*;
 
+import javax.management.remote.rmi._RMIConnection_Stub;
 import java.util.*;
 
 public class EntityConstructors {
@@ -57,35 +58,46 @@ public class EntityConstructors {
      * @param roomId The unique Id of the room where this event takes place.
      */
     public static boolean createEvent(List<String> speaker, int eventId, String title, int time, int roomId,
-                                      int duration, int maxCapacity, String eventAccess, RoomManager rm, SpeakerAct sa,
-                                      EventManager em){
-        Set<Integer> temp = new HashSet<>();
-        List<Integer> spTime = new ArrayList<>();
-        // collect all available times for each speaker
-        for(String s: speaker) {
-            temp.addAll(sa.availableTime(s));
-        }
-        // find out the time that all speakers are free.
-        for(Integer i: temp) {
-            if (Collections.frequency(temp,i) == speaker.size()) {
-                spTime.add(i);
+                                      int duration, int maxCapacity, String eventAccess, List<String> constraints,
+                                      RoomManager rm, SpeakerAct sa, EventManager em){
+//        Set<Integer> temp = new HashSet<>();
+//        List<Integer> spTime = new ArrayList<>();
+//        // collect all available times for each speaker
+//        for(String s: speaker) {
+//            temp.addAll(sa.availableTime(s));
+//        }
+//        // find out the time that all speakers are free.
+//        for(Integer i: temp) {
+//            if (Collections.frequency(temp,i) == speaker.size()) {
+//                spTime.add(i);
+//            }
+//        }
+//        ArrayList<Integer> roomTime = rm.availableTime(roomId);
+//        for(int i=0; i <= duration - 1; i++) {
+//            if (!spTime.contains(time + i) | !roomTime.contains(time + i)) {
+//                return false;
+//            }
+//        }
+        // check if all speakers are free from the beginning of the event to the end of the event
+        // if the room is free from the beginning of the event to the end of the event/
+        // if the room satisfies all constraints the event need
+        for(String sp: speaker) {
+            for(int i=0; i <= duration - 1; i++) {
+                if (!sa.availableTime(sp).contains(i) | !rm.getRoom(roomId).getAvailableTime().contains(time) |
+                !rm.getRoom(roomId).getConstraints().containsAll(constraints)) {
+                    return false;
+                }
             }
         }
-        ArrayList<Integer> roomTime = rm.availableTime(roomId);
-        for(int i=0; i <= duration - 1; i++) {
-            if (!spTime.contains(time + i) | !roomTime.contains(time + i)) {
-                return false;
-            }
-        }
-        em.createEvent(eventId,title,time,roomId,speaker, duration, maxCapacity, eventAccess);
+        em.createEvent(eventId,title,time,roomId,speaker, duration, maxCapacity, eventAccess, constraints);
+        // add the event to the speakers' given list and room's list.
         for(int i=0; i <= duration - 1; i++) {
             for(String s: speaker) {
                 sa.giveEvent(s,eventId,time+i);
             }
             rm.book(roomId,eventId,time+i);
-            return true;
         }
-        return false;
+        return true;
     }
 
 }

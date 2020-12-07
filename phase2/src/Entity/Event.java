@@ -25,6 +25,7 @@ public abstract class Event implements Serializable {
     private List<String> ListOfAttendees;
     private int maxCapacity;
     private String eventAccess;
+    private List<String> constraints;
 
     /**
      * Class constructor.
@@ -37,7 +38,7 @@ public abstract class Event implements Serializable {
      * @param maxCapacity The maximum capacity of the event.
      */
     public Event(int id, String title, int time, int roomId, List<String> speakers, int duration, int maxCapacity,
-                 String eventAccess) {
+                 String eventAccess, List<String> constraints) {
         this.title = title;
         this.time = time;
         this.roomId = roomId;
@@ -46,7 +47,8 @@ public abstract class Event implements Serializable {
         this.speakers = speakers;
         ListOfAttendees = new ArrayList<>();
         this.maxCapacity = maxCapacity;
-       this.eventAccess = eventAccess;
+        this.eventAccess = eventAccess;
+        this.constraints = constraints;
     }
 
     /**

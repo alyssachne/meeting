@@ -1,4 +1,4 @@
-package Usecase.Sorter;
+package Controller.Sorter;
 
 import Entity.Event;
 

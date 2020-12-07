@@ -3,9 +3,7 @@ package Entity;
 import java.io.Serializable;
 import java.util.*;
 
-//Todo: Implement Observer design pattern for message system
-
-public class MessageBox extends Observable implements Serializable {
+public class MessageBox implements Serializable {
     public String user;
     public HashMap<String, ArrayList<String>> ReadMessage;
     public HashMap<String, ArrayList<String>> UnreadMessage;
@@ -70,6 +68,24 @@ public class MessageBox extends Observable implements Serializable {
             ArrayList<String> arr = new ArrayList<>();
             arr.add(message);
             ReadMessage.put(sender,arr);
+        }
+    }
+
+    public void addTo(String username, String message, String sender, String destination) {
+        if (getAllMessage(destination).containsKey(sender)) {
+            getMessageFromOne(sender, destination).add(message);
+        } else {
+            ArrayList<String> temp = new ArrayList<>();
+            temp.add(message);
+            getAllMessage(destination).put(sender, temp);
+        }
+    }
+
+    public void removeFrom(String username, String sender, String message, String destination) {
+        if (getAllMessage(destination).get(sender).size() == 1) {
+            getAllMessage(destination).remove(sender);
+        } else {
+            getMessageFromOne(sender, destination).remove(message);
         }
     }
 

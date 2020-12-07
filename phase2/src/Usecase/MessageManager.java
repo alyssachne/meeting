@@ -4,9 +4,10 @@ import Entity.*;
 import com.sun.xml.internal.ws.api.message.Message;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Set;
 
-public class MessageManager {
+public class MessageManager extends Observable {
 
     public ArrayList<MessageBox> allMessages;
 
@@ -44,55 +45,21 @@ public class MessageManager {
         }
     }
 
-    public boolean MarkAsUnread(String username, Integer MessageIndex, String sender) {
-        MessageBox messageBox = getMessageBox(username);
-        if(MessageIndex - 1 <= messageBox.getAllMessage("Read").size()) {
-            String message = messageBox.getMessageFromOne(sender, "Read").get(MessageIndex - 1);
-            removeFrom(username, sender, message, "Read");
-            addTo(username, message, sender, "Unread");
-            return true;
-        }
-        return false;
+    public void MarkAsUnread(String username, String message, String sender) {
+        getMessageBox(username).removeFrom(username, sender, message, "Read");
+        getMessageBox(username).addTo(username, message, sender, "Unread");
+        System.out.println("You have marked the message as unread");
     }
 
-    public boolean archiveMessage(String username, Integer MessageIndex, String sender) {
-        MessageBox messageBox = getMessageBox(username);
-        if(MessageIndex - 1 <= messageBox.getAllMessage("Read").size()) {
-            String message = messageBox.getMessageFromOne(sender, "Read").get(MessageIndex - 1);
-            removeFrom(username, sender, message, "Read");
-            addTo(username, message, sender, "Archive");
-            return true;
-        }
-        return false;
+    public void archiveMessage(String username, String message, String sender) {
+        getMessageBox(username).removeFrom(username, sender, message, "Read");
+        getMessageBox(username).addTo(username, message, sender, "Archive");
+        System.out.println("You have archived the message");
     }
 
-    public boolean deleteMessage(String username, Integer messageIndex, String sender, String destination) {
-        MessageBox messageBox = getMessageBox(username);
-        if(messageIndex - 1 <= messageBox.getAllMessage(destination).size()) {
-            String message = messageBox.getMessageFromOne(sender, destination).get(messageIndex - 1);
-            removeFrom(username, sender, message, destination);
-            return true;
-        }
-        return false;
-    }
-    private void addTo(String username, String message, String sender, String destination) {
-        MessageBox messageBox = getMessageBox(username);
-        if (messageBox.getAllMessage(destination).containsKey(sender)) {
-            messageBox.getMessageFromOne(sender, destination).add(message);
-        } else {
-            ArrayList<String> temp = new ArrayList<>();
-            temp.add(message);
-            messageBox.getAllMessage(destination).put(sender, temp);
-        }
-    }
-
-    private void removeFrom(String username, String sender, String message, String destination) {
-        MessageBox messageBox = getMessageBox(username);
-        if (messageBox.getAllMessage(destination).get(sender).size() == 1) {
-            messageBox.getAllMessage(destination).remove(sender);
-        } else {
-            messageBox.getMessageFromOne(sender, destination).remove(message);
-        }
+    public void deleteMessage(String username, String message, String sender, String destination) {
+        getMessageBox(username).removeFrom(username, sender, message, destination);
+        System.out.println("You have deleted the message");
     }
 
     /**

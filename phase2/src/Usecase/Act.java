@@ -2,12 +2,14 @@ package Usecase;
 
 import Entity.Event;
 import Entity.User;
+import javafx.beans.Observable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observer;
 
-public abstract class Act {
+public abstract class Act implements Observer {
 
     /**
      * Create a new user.
@@ -51,22 +53,12 @@ public abstract class Act {
     }
 
     /**
-     * Cancel an event in the eventList of user
+     * Remove an event in the eventList of user
      * @param username: the username of the user
      * @param eventId: the event id that user want to remove
      */
-    public void cancelSpot(String username, int eventId) {
-        getUser(username).eventList.remove(eventId);
-    }
-
-// in controller, get the username of attendees of this event and speakers of this event.
-    public void eventCanceled(int eventId, List<String> attendees, List<String> speakers) {
-        for(String a: attendees) {
-            getUser(a).getSignUp().remove(eventId);
-        }
-        for(String s: speakers) {
-            getUser(s).eventList.remove(eventId);
-        }
+    public void removeFromEvent(String username, int eventId) {
+        getUser(username).getSignUp().remove(eventId);
     }
 
     public abstract boolean checkUsernameTaken(String username);

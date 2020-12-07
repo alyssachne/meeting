@@ -21,10 +21,11 @@ public abstract class EventManager implements Serializable {
 
     /**
      * Create a new event.
-     * @param id: the id of the event.
+     * @param id : the id of the event.
+     * @param constraints
      */
     public abstract void createEvent(int id, String title, int time, int roomId, List<String> speakers, int duration,
-                                     int maxCapacity, String eventAccess);
+                                     int maxCapacity, String eventAccess, List<String> constraints);
 
     public abstract boolean cancelEvent(int id);
 
@@ -77,8 +78,12 @@ public abstract class EventManager implements Serializable {
         return getEvent(eventId).getEventAccess();
     }
 
-    public void changeAccess(int eventId, String access) {
+    public boolean changeAccess(int eventId, String access) {
+        if(getEvent(eventId).getEventAccess() == access){
+            return false;
+        }
         getEvent(eventId).setEventType(access);
+        return true;
     }
 
 }

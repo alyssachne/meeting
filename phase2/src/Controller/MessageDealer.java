@@ -2,7 +2,7 @@ package Controller;
 
 import Usecase.*;
 
-public class Messagers {
+public class MessageDealer {
 
     /**
      * Allow the organizer to send messages to all attendees or all speakers.
@@ -28,7 +28,7 @@ public class Messagers {
      * @param message The message this speaker wants to send.
      * @param eventId The Id of the certain event this speaker choose.
      */
-    public static void eventMessage_Attendee(String message, Integer eventId, AttendeeAct aa, EventManager em,
+    public static void eventMessage_Attendee(String message, Integer eventId, EventManager em,
                                              MessageManager mm, String sender){
         for (String receiver: em.getEvent(eventId).getAttendees()) {
             mm.addMessage(receiver,sender,message);
@@ -58,4 +58,15 @@ public class Messagers {
         mm.seeMessageFromOne(username,sender, "Archived");
     }
 
+    public static void markAsUnread(String sender, MessageManager mm, String receiver, String message) {
+        mm.MarkAsUnread(receiver, message, sender);
+    }
+
+    public static void deleteMessage(String sender, MessageManager mm, String receiver, String message, String box) {
+        mm.deleteMessage(receiver, message, sender, box);
+    }
+
+    public static void archiveMessage(String sender, MessageManager mm, String receiver, String message) {
+        mm.archiveMessage(receiver, message, sender);
+    }
 }

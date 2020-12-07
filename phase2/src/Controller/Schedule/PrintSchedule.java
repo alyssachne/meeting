@@ -1,4 +1,4 @@
-package Usecase.Schedule;
+package Controller.Schedule;
 
 import Usecase.DiscussionManager;
 import Usecase.EventManager;

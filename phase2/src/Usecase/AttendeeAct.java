@@ -3,11 +3,9 @@ package Usecase;
 import Entity.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
-public class AttendeeAct extends Act implements Serializable {
+public class AttendeeAct extends Act implements Serializable, Observer {
     public HashMap<String,Attendee> attendeeMap;
 
     /**
@@ -63,5 +61,10 @@ public class AttendeeAct extends Act implements Serializable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("You have a new message from " + arg);
     }
 }

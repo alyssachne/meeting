@@ -1,9 +1,8 @@
-package Usecase.Sorter;
+package Controller.Sorter;
 
 import Entity.Event;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EventSpeakerSorter implements Sorter {
 

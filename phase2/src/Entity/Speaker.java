@@ -62,6 +62,9 @@ public class Speaker extends User {
         return eventId;
     }
 
+    public HashMap<Integer, Integer> getTimetable() {
+        return events;
+    }
     /**
      * To string method. Returns only speaker's name
      *

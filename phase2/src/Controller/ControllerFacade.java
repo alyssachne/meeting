@@ -1,7 +1,6 @@
 package Controller;
 
 import Usecase.*;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -108,17 +107,17 @@ public class ControllerFacade implements Serializable {
      * @param time The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public boolean createEvent(List<String> username, int eventId, String title, int time, int roomId, int maxCapacity,
-                               int duration, String eventAccess){
+    public void createEvent(List<String> username, int eventId, String title, int time, int roomId, int maxCapacity,
+                               int duration, String eventAccess, List<String> constraints){
         if(username.size() == 0) {
-            return EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
-                    this.rm,this.sa,this.pm);
+            EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
+                    constraints, this.rm,this.sa,this.pm);
         } else if(username.size() == 1) {
-            return EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
-                    this.rm,this.sa,this.pm);
+            EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
+                    constraints, this.rm,this.sa,this.tm);
         } else {
-            return EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
-                    this.rm,this.sa,this.pm);
+            EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
+                    constraints, this.rm,this.sa,this.dm);
         }
     }
 
@@ -160,30 +159,32 @@ public class ControllerFacade implements Serializable {
     }
 
     public void getEnrollmentStatistics(){
-        ScheduleGetter.enrollmentStatistics(this.dm,this.tm,this.pm);
+        StatisticGetter.enrollmentStatistics(this.dm,this.tm,this.pm);
     }
 
     public void getTopFiveLists(){
-        ScheduleGetter.getTopFiveEvents(this.dm,this.tm,this.pm);
+        StatisticGetter.getTopFiveEvents(this.dm,this.tm,this.pm);
     }
 
     public void getAppTraffic(){
-        ScheduleGetter.getAppTraffic(this.dm,this.tm,this.pm);
+        StatisticGetter.getAppTraffic(this.dm,this.tm,this.pm);
     }
     /**
      * Signup this attendee to the event.
      * @param eventId The Id of the event this attendee wants to sign up for.
      */
     public void signUp(int eventId){
-        EventSigner.signUp(eventId,this.aa,checkEventType(eventId, dm, tm, pm),this.username);
+        EventDealer.signUp(eventId,this.aa,checkEventType(eventId),this.username);
     }
+
+
 
     /**
      * Remove this attendee from the event.
      * @param eventId The Id of the event this attendee wants to be removed from.
      */
     public void cancelSpot(int eventId){
-        EventSigner.cancelSpot(eventId,this.aa,checkEventType(eventId, dm, tm, pm),this.username);
+        EventDealer.cancelSpot(eventId,this.aa,checkEventType(eventId),this.username);
     }
 
     /**
@@ -192,7 +193,7 @@ public class ControllerFacade implements Serializable {
      * @param userType The type of users this organizer wants to send to, i.e. Speaker or Attendee.
      */
     public void groupMessageTo(String message,String userType){
-        Messagers.groupMessageTo(message,userType,this.sa,this.aa,this.mm,this.username);
+        MessageDealer.groupMessageTo(message,userType,this.sa,this.aa,this.mm,this.username);
     }
 
     /**
@@ -201,7 +202,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the certain event this speaker choose.
      */
     public void eventMessage_Attendee(String message, Integer eventId){
-        Messagers.eventMessage_Attendee(message,eventId,this.aa,checkEventType(eventId, dm, tm, pm),this.mm,this.username);
+        MessageDealer.eventMessage_Attendee(message,eventId,checkEventType(eventId),this.mm,this.username);
     }
 
     /**
@@ -211,7 +212,7 @@ public class ControllerFacade implements Serializable {
      * @param message The message this user wants to send.
      */
     public void privateMessageTo(String receiver, String userType, String message){
-        Messagers.privateMessageTo(receiver,message,this.mm,this.username);
+        MessageDealer.privateMessageTo(receiver,message,this.mm,this.username);
     }
 
     /**
@@ -226,7 +227,7 @@ public class ControllerFacade implements Serializable {
      * @param sender The username of the user who sent messages to this user.
      */
     public void getMessage(String sender){
-        Messagers.getMessage(sender,this.mm,this.username);
+        MessageDealer.getMessage(sender,this.mm,this.username);
     }
 
     /**
@@ -234,7 +235,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the certain event that is being chosen.
      */
     public void checkAudiences(Integer eventId){
-        UserCheckers.checkAudiences(eventId,checkEventType(eventId, dm, tm, pm));
+        UserCheckers.checkAudiences(eventId,checkEventType(eventId));
     }
 
     /**
@@ -251,7 +252,29 @@ public class ControllerFacade implements Serializable {
         RequestDealer.tagRequest(id, reqm);
     }
 
-    private EventManager checkEventType(int id, DiscussionManager dm, TalkManager tm,PartyManager pm) {
+    public void updateRoom(List<String> newFeatures,int roomId) {RoomDealer.updateRoom(newFeatures, rm, roomId);}
+
+    public void cleanRoom(List<String> oldFeatures, int roomId) {RoomDealer.cleanRoom(oldFeatures, rm, roomId);}
+
+    public void markAsUnread(String sender, String message) {
+        MessageDealer.markAsUnread(username,mm, message, sender);
+    }
+
+    public void deleteMessage(String sender, String message, String box) {
+        MessageDealer.deleteMessage(username,mm, message, sender, box);
+    }
+
+    public void archiveMessage(String sender, String message) {
+        MessageDealer.archiveMessage(username,mm, message, sender);
+    }
+
+    public void cancelEvent(int eventId) {
+        EventDealer.cancelEvent(eventId, checkEventType(eventId), sa, aa, rm);
+    }
+
+    public void changeAccess(int eventId,String access){EventDealer.changeAccess(eventId,checkEventType(eventId), access);}
+
+    private EventManager checkEventType(int id) {
         if(pm.containEvent(id)) {
             return pm;
         } else if(tm.containEvent(id)) {

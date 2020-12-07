@@ -3,14 +3,12 @@ package Usecase;
 import Entity.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The type Speaker act.
  */
-public class SpeakerAct extends Act implements Serializable {
+public class SpeakerAct extends Act implements Serializable, Observer {
 
     /**
      * The Speaker map that maps speakers' id and Speaker class.
@@ -130,10 +128,10 @@ public class SpeakerAct extends Act implements Serializable {
      */
     public boolean cancelEvent(String username, Integer eventId) {
         Speaker speaker = (Speaker) getUser(username);
-        Set<Integer> temp = speaker.events.keySet();
+        Set<Integer> temp = speaker.getTimetable().keySet();
         for(Integer time: temp) {
-            if(speaker.events.get(time).equals(eventId)) {
-                speaker.events.replace(time, null);
+            if(speaker.getTimetable().get(time).equals(eventId)) {
+                speaker.getTimetable().replace(time, null);
                 return true;
             }
         }
@@ -145,5 +143,10 @@ public class SpeakerAct extends Act implements Serializable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("You have a new message from " + arg);
     }
 }

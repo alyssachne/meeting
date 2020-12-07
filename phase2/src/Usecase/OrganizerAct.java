@@ -3,14 +3,11 @@ import Entity.*;
 import org.omg.CORBA.Any;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
-public class OrganizerAct extends Act implements Serializable {
+public class OrganizerAct extends Act implements Serializable, Observer {
 
-    public static HashMap<String,Organizer> organizerMap;
+    HashMap<String,Organizer> organizerMap;
 
     /**
      * Initialize an OrganizerAct.
@@ -32,10 +29,6 @@ public class OrganizerAct extends Act implements Serializable {
         }
         Organizer organizer = new Organizer(name,username,password);
         organizerMap.put(organizer.getUsername(),organizer);
-        Collection<SpecialRequests> existingSpecialRequests= SpecialRequestManager.specialRequestsHashMap.values();
-        for (SpecialRequests specialRequests : existingSpecialRequests){
-            specialRequests.addObserver(organizer);
-        }
         return true;
     }
 
@@ -68,5 +61,10 @@ public class OrganizerAct extends Act implements Serializable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("You have a new message from " + arg);
     }
 }
