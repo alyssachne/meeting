@@ -2,6 +2,7 @@ package Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public abstract class Event implements Serializable {
 
     private final Integer id;
     private String title;
+    private Date date;
     private int time;
     private int roomId;
     // duration is measured in hours
@@ -37,9 +39,10 @@ public abstract class Event implements Serializable {
      * @param speakers The username of the speaker who talks at the event.
      * @param maxCapacity The maximum capacity of the event.
      */
-    public Event(int id, String title, int time, int roomId, List<String> speakers, int duration, int maxCapacity,
+    public Event(int id, String title, Date date, int time, int roomId, List<String> speakers, int duration, int maxCapacity,
                  String eventAccess, List<String> constraints) {
         this.title = title;
+        this.date = date;
         this.time = time;
         this.roomId = roomId;
         this.duration = duration;
@@ -65,6 +68,14 @@ public abstract class Event implements Serializable {
      */
     public String getTitle() {
         return title;
+    }
+
+    /**
+     * Get the date the event happen.
+     * @return date the date the event happen.
+     */
+    public Date getDate() {
+        return date;
     }
 
     /**

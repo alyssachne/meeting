@@ -1,7 +1,7 @@
 package Entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 
 public class Discussion extends Event implements Serializable {
     /**
@@ -13,8 +13,8 @@ public class Discussion extends Event implements Serializable {
      * @param roomId   The id of the room of the event.
      * @param speakers The username of the speaker who talks at the event.
      */
-    public Discussion(int id, String title, int time, int roomId, List<String> speakers, int duration, int maxCapacity,
+    public Discussion(int id, String title, Date date,int time, int roomId, List<String> speakers, int duration, int maxCapacity,
                       String eventAccess, List<String> constraints) {
-        super(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess, constraints);
+        super(id, title, date,time, roomId, speakers, duration, maxCapacity, eventAccess, constraints);
     }
 }

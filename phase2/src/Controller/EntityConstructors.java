@@ -96,7 +96,7 @@ public class EntityConstructors {
                 }
             }
         }
-        em.createEvent(eventId,title,time,roomId,speaker, duration, maxCapacity, eventAccess, constraints);
+        em.createEvent(eventId,title,date,time,roomId,speaker, duration, maxCapacity, eventAccess, constraints);
         // add the event to the speakers' given list and room's list.
         for(int i=0; i <= duration - 1; i++) {
             for(String s: speaker) {

@@ -4,8 +4,7 @@ import Entity.Discussion;
 import Entity.Event;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DiscussionManager extends EventManager implements Serializable {
 
@@ -16,9 +15,9 @@ public class DiscussionManager extends EventManager implements Serializable {
      * @param id : the id of the event.
      * @param constraints
      */
-    public void createEvent(int id, String title, int time, int roomId, List<String> speakers, int duration,
+    public void createEvent(int id, String title, Date date, int time, int roomId, List<String> speakers, int duration,
                             int maxCapacity, String eventAccess, List<String> constraints) {
-        Event discussion = new Discussion(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess, constraints);
+        Event discussion = new Discussion(id, title, date, time, roomId, speakers, duration, maxCapacity, eventAccess, constraints);
         allDiscussions.add(discussion);
     }
 
@@ -64,6 +63,15 @@ public class DiscussionManager extends EventManager implements Serializable {
             System.out.println("This discussion does not exist.");
         }
         return null;
+    }
+
+    @Override
+    public List<Integer> getAllEvents() {
+        List<Integer> all = new ArrayList<>();
+        for(Event e: allDiscussions) {
+            all.add(e.getId());
+        }
+        return all;
     }
 
     public boolean containEvent(int id){

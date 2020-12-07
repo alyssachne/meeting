@@ -14,12 +14,6 @@ public class GetScheduleBySpeaker {
 
         ArrayList<Event> scheduleList = new ArrayList<>();
 
-        if (speaker.equals("")){
-            scheduleList.addAll(partymanager.allParties);
-        }
-        // Parties do not have speakers, so we want to return all the parties if and only if the input is
-        // an empty string
-
         for (int i = 0; i < talkmanager.allTalks.size(); i++){
             Event e = talkmanager.allTalks.get(i);
             List<String> speakerList = e.getSpeaker();

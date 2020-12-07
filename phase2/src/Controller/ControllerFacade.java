@@ -2,7 +2,6 @@ package Controller;
 
 import Usecase.*;
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -129,28 +128,28 @@ public class ControllerFacade implements Serializable {
      * printout all speakers and their available times.
      */
     public void speakerAvailable(Date date){
-        ScheduleGetter.speakerAvailable(this.sa, date, cm);
+        Getter.speakerAvailable(this.sa, date, cm);
     }
 
     /**
      * printout all rooms and their available times.
      */
     public void roomList(int maxCapacity, List<String> constraints){
-        ScheduleGetter.roomList(this.rm, maxCapacity, constraints);
+        Getter.roomList(this.rm, maxCapacity, constraints);
     }
 
     /**
      * printout all events this speaker is going to give. This schedule is only shown to the speaker.
      */
     public void speakerSchedule(){
-        ScheduleGetter.speakerSchedule(this.sa,this.username,this.dm,this.tm,this.pm);
+        Getter.speakerSchedule(this.sa,this.username,this.dm,this.tm,this.pm);
     }
 
     /**
      * printout all events this attendee signed up for. This schedule is only shown to this attendee.
      */
     public void attendeeSchedule(){
-        ScheduleGetter.attendeeSchedule(this.aa,this.username,this.dm,this.tm,this.pm);
+        Getter.attendeeSchedule(this.aa,this.username,this.dm,this.tm,this.pm);
     }
 
     /**
@@ -158,20 +157,20 @@ public class ControllerFacade implements Serializable {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public void getAvailableEvent(){
-        ScheduleGetter.getAvailableEvent(this.rm,this.username,this.dm,this.tm,this.pm);
+    public void getAvailableEvent(String sort){
+        Getter.getAvailableEvent(this.rm,this.username,sort,this.dm,this.tm,this.pm);
     }
 
     public void getEnrollmentStatistics(){
-        StatisticGetter.enrollmentStatistics(this.dm,this.tm,this.pm);
+        Getter.enrollmentStatistics(this.dm,this.tm,this.pm);
     }
 
     public void getTopFiveLists(){
-        StatisticGetter.getTopFiveEvents(this.dm,this.tm,this.pm);
+        Getter.getTopFiveEvents(this.dm,this.tm,this.pm);
     }
 
     public void getAppTraffic(){
-        StatisticGetter.getAppTraffic(this.dm,this.tm,this.pm);
+        Getter.getAppTraffic(this.dm,this.tm,this.pm);
     }
     /**
      * Signup this attendee to the event.

@@ -208,7 +208,7 @@ public class Demo {
                             uo.attendeeSchedule();
                         } else if (choice.equals("2")) {
                             System.out.println("Here is a list of events you can sign up");
-                            uo.getAvailableEvent();
+                            uo.getAvailableEvent("Speaker");
                             System.out.println("Please enter the eventId you would like to sign up");
                             String eventId = scanner.nextLine();
                             uo.signUp(Integer.parseInt(eventId));
