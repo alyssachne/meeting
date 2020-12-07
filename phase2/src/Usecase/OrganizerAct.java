@@ -7,7 +7,7 @@ import java.util.*;
 
 public class OrganizerAct extends Act implements Serializable, Observer {
 
-    HashMap<String,Organizer> organizerMap;
+    public static HashMap<String,Organizer> organizerMap;
 
     /**
      * Initialize an OrganizerAct.
