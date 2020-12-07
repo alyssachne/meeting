@@ -1,13 +1,14 @@
 package Usecase;
 
 import Entity.*;
-import com.sun.xml.internal.ws.api.message.Message;
+//import com.sun.xml.internal.ws.api.message.Message;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Set;
 
-public class MessageManager extends Observable {
+public class MessageManager extends Observable implements Serializable {
 
     public ArrayList<MessageBox> allMessages;
 

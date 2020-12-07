@@ -4,7 +4,7 @@ import Controller.Schedule.GetScheduleBySpeaker;
 import Entity.Event;
 import Entity.Talk;
 import Usecase.*;
-import com.sun.org.apache.xerces.internal.impl.xs.SchemaNamespaceSupport;
+//import com.sun.org.apache.xerces.internal.impl.xs.SchemaNamespaceSupport;
 
 import java.util.ArrayList;
 import java.util.Date;

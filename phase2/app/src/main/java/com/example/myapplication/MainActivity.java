@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText password;
     private Intent loginIntent;
     private Intent registerIntent;
+    ControllerRW crw;
+    ControllerFacade uo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +30,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         password = (EditText)findViewById(R.id.password);
         loginButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
+        init();
     }
 
+    public void init() {
+        crw = new ControllerRW(this.getApplicationContext());
+        if (crw.readFile()==null){
+            uo = new ControllerFacade();
+            crw.writeFile(uo);
+        }else{
+            uo = crw.readFile();
+        }
+    }
     @Override
     public void onClick(View v) {
-
-        ControllerRW crw = new ControllerRW(this.getApplicationContext());
-        ControllerFacade uo = null;
-        if (crw.readFile()!=null){
-            uo = crw.readFile();
-        }else{
-            uo = new ControllerFacade();
-        }
 
         switch(v.getId()) {
 
@@ -47,20 +51,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (username.getText().toString().equalsIgnoreCase("Organizer")){
                         loginIntent = new Intent(MainActivity.this, OrganizerActivity.class);
                         startActivity(loginIntent);
-                        crw.writeFile(uo);
+//                        crw.writeFile(uo);
                         finish();
                         break;
                     }else if (username.getText().toString().equalsIgnoreCase("Speaker")){
                         loginIntent = new Intent(MainActivity.this,SpeakerActivity.class);
                         startActivity(loginIntent);
-                        crw.writeFile(uo);
+//                        crw.writeFile(uo);
                         finish();
                         break;
                     }else if (uo.login(username.getText().toString(), password.getText().toString(), "Attendee")){
 //                        username.getText().toString().equalsIgnoreCase("Attendee")
                         loginIntent = new Intent(MainActivity.this, AttendeeActivity.class);
                         startActivity(loginIntent);
-                        crw.writeFile(uo);
+//                        crw.writeFile(uo);
                         finish();
                         break;
                     }else{
