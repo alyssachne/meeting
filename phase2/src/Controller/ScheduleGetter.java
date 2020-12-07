@@ -5,15 +5,21 @@ import Usecase.*;
 
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.List;
 
 public class ScheduleGetter {
 
     /**
-     * printout all speakers and their available times.
+     * printout all speakers and their available times on the selected date.
      */
-    public static void speakerList(SpeakerAct sa){
-        sa.speakerList();
+    public static void speakerAvailable(SpeakerAct sa, Date date, CalendarManager cm){
+        for(String s: sa.speakerList()) {
+            System.out.println(s);
+            for(Integer time: cm.getAvailable(date, sa.getEvents(s))) {
+                System.out.println(time);
+            };
+        }
     }
 
     /**
@@ -27,10 +33,13 @@ public class ScheduleGetter {
      * printout all events this speaker is going to give. This schedule is only shown to the speaker.
      */
     public static void speakerSchedule(SpeakerAct sa, String username, DiscussionManager dm, TalkManager tm,
-                                       PartyManager pm){
-        for (int id : sa.eventList(username)){
-            //sa.eventList(username) is arraylist of eventIds
-            System.out.println(checkEventType(id, dm, tm, pm).getEvent(id).toString());
+                                       PartyManager pm) {
+        for (Date date : sa.allEventList(username).keySet()) {
+            System.out.println("On " + date);
+            for (int id : sa.allEventList(username).get(date)) {
+                //sa.eventList(username) is arraylist of eventIds
+                System.out.println(checkEventType(id, dm, tm, pm).getEvent(id).toString());
+            }
         }
     }
 
@@ -77,6 +86,41 @@ public class ScheduleGetter {
             }
         }
     }
+
+    //
+//    public static void seeEvents_Filter(String filter, PartyManager pm,TalkManager tm,DiscussionManager dm) {
+//        if (filter == "Speaker") {
+//            List<Integer> scheduleList = new ArrayList<Integer>();
+//
+//            for (int i = 0; i < tm.allTalks.size(); i++){
+//                Event e = tm.allTalks.get(i);
+//                List<String> speakerList = e.getSpeaker();
+//                if (speakerList.size() != 0){
+//                    for (String s : speakerList) {
+//                        if (s.equals(speaker)) {
+//                            scheduleList.add(e);
+//                        }
+//                    }
+//                }
+//            }
+//            // Adding the talks with the speaker
+//
+//            for (int i = 0; i < discussionManager.allDiscussions.size(); i++){
+//                Event e = discussionManager.allDiscussions.get(i);
+//                List<String> speakerList = e.getSpeaker();
+//                if (speakerList.size() != 0){
+//                    for (String s : speakerList) {
+//                        if (s.equals(speaker)) {
+//                            scheduleList.add(e);
+//                        }
+//                    }
+//                }
+//            }
+//            // Adding the discussions with the speaker
+//
+//            return scheduleList;
+//        }
+//    }
 
     private static EventManager checkEventType(int id, DiscussionManager dm, TalkManager tm,PartyManager pm) {
         if(pm.containEvent(id)) {

@@ -75,7 +75,7 @@ public class Demo {
                         } else if (choice.equals("3")) {
                             //Schedule an event
                             System.out.println("Here is a list of username of current speakers along with their free time slot");
-                            uo.speakerList();
+//                            uo.speakerList();
                             System.out.println("Please enter the maximum capacity you want for the room");
                             String max = scanner.nextLine();
                             System.out.println("Please enter the constraints for the event");

@@ -19,8 +19,8 @@ import java.util.*;
 public class Room implements Serializable {
     private final int MaxCapacity;
     private final int id;
-    //time, eventId
-    private final HashMap<Integer, Integer> schedule = new HashMap<>(8);
+    //date, list of eventId
+    private final Map<Date, List<Integer>> schedule;
     private List<String> constraints = new ArrayList<>();
 
     private final HashMap<String, Integer> technology = new HashMap<>();
@@ -33,10 +33,8 @@ public class Room implements Serializable {
     public Room(int id, int MaxCapacity, List<String> constraints) {
         this.MaxCapacity = MaxCapacity;
         this.id = id;
-        for (int i = 9; i < 16; i++) {
-            schedule.put(i, null);
-        }
         this.constraints = constraints;
+        this.schedule = new HashMap<>();
     }
 
     /**
@@ -54,20 +52,15 @@ public class Room implements Serializable {
     public int getId() {
         return id;
     }
-
-    /**
-     * Get the id of the event happens in this room at the given time.
-     * @param time The starting time of an event.
-     * @return The id of the event happens in this room at the given time.
-     */
-    public int getEvent(Integer time) {
-        return schedule.get(time);
-    }
-
-    // return all events in this room.
-    public Collection<Integer> getAllEvents() {
-        return schedule.values();
-    }
+//
+//    /**
+//     * Get the id of the event happens in this room at the given time.
+//     * @param date The date the event happen.
+//     * @return The id of the event happens in this room at the given time.
+//     */
+//    public List<Integer> getEvent(Date date) {
+//        return schedule.get(date);
+//    }
 
     /**
      * Check whether this room is booked at certain time or not.
@@ -79,23 +72,25 @@ public class Room implements Serializable {
     }
 
     /**
-     * Get the schedule of the room.
+     * Get the schedule of the room at the given date.
      * @return The hashmap of the schedule of a certain room.
      */
-    public HashMap<Integer, Integer> getSchedule() {return schedule;}
-
-    /**
-     * Get a list of available time of this room.
-     * @return An arraylist of available time of the room.
-     */
-    public ArrayList<Integer> getAvailableTime() {
-        ArrayList<Integer> available = new ArrayList<>();
-        for (HashMap.Entry<Integer,Integer> time: schedule.entrySet()) {
-            if(time.getValue() == null) {
-                available.add(time.getKey());
-        }}
-            return available;
+    public List<Integer> getSchedule(Date date) {
+        return schedule.get(date);
     }
+
+//    /**
+//     * Get a list of available time of this room.
+//     * @return An arraylist of available time of the room.
+//     */
+//    public ArrayList<Integer> getAvailableTime() {
+//        ArrayList<Integer> available = new ArrayList<>();
+//        for (HashMap.Entry<Integer,Integer> time: schedule.entrySet()) {
+//            if(time.getValue() == null) {
+//                available.add(time.getKey());
+//        }}
+//            return available;
+//    }
 
     public List<String> getConstraints() {
         return this.constraints;

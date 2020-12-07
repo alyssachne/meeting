@@ -18,7 +18,7 @@ public class TalkManager extends EventManager implements Serializable {
      */
     public void createEvent(int id, String title, int time, int roomId, List<String> speakers, int duration,
                             int maxCapacity, String eventAccess, List<String> constraints) {
-        Event talk = new Talk(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess);
+        Event talk = new Talk(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess, constraints);
         allTalks.add(talk);
     }
 

@@ -18,7 +18,7 @@ public class DiscussionManager extends EventManager implements Serializable {
      */
     public void createEvent(int id, String title, int time, int roomId, List<String> speakers, int duration,
                             int maxCapacity, String eventAccess, List<String> constraints) {
-        Event discussion = new Discussion(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess);
+        Event discussion = new Discussion(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess, constraints);
         allDiscussions.add(discussion);
     }
 

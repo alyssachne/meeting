@@ -1,10 +1,7 @@
 package Usecase;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import Entity.*;
 
@@ -65,14 +62,14 @@ public class RoomManager implements Serializable {
         return getRoom(id).getMaxCapacity();
     }
 
-    /**
-     * Return a list of integers which represent the available time of this room.
-     * @param roomId: the unique id of the room.
-     */
-    public ArrayList<Integer> availableTime(int roomId){
-        Room room = getRoom(roomId);
-        return room.getAvailableTime();
-    }
+//    /**
+//     * Return a list of integers which represent the available time of this room.
+//     * @param roomId: the unique id of the room.
+//     */
+//    public ArrayList<Integer> availableTime(int roomId){
+//        Room room = getRoom(roomId);
+//        return room.getAvailableTime();
+//    }
 
     /**
      * Printout all the rooms that suit the requirement of the event and the available time of each room.
@@ -81,9 +78,9 @@ public class RoomManager implements Serializable {
         for (Room room:allRooms){
             if (room.getMaxCapacity() >= maxCapacity && room.getConstraints().containsAll(constraints)) {
                 System.out.println(room.getId());
-                for (Integer time : availableTime(room.getId())){
-                    System.out.println(time);
-                }
+//                for (Integer time : availableTime(room.getId())){
+//                    System.out.println(time);
+//                }
             }
         }
     }
@@ -93,31 +90,20 @@ public class RoomManager implements Serializable {
      * else, return false.
      * @param roomId: the unique id of the room.
      * @param eventId: the unique id of the event happen in this room.
-     * @param time: the start time of the event.
+     * @param date: the date the event happen.
      */
-    public boolean book(Integer roomId, Integer eventId, Integer time){
-        if(!getRoom(roomId).isBooked(time)) {
-            getRoom(roomId).getSchedule().put(time, eventId);
-            return true;
-        }
-        return false;
+    public void book(Integer roomId, Integer eventId, Date date){
+        getRoom(roomId).getSchedule(date).add(eventId);
     }
 
     /**
      * Cancel an event scheduled in the room, return true if this event is successfully removed; else, return false.
      * @param roomId: the unique id of the room.
      * @param eventId: the unique id of the event that is going to be cancelled.
+     * @param date: the date the event happen.
      */
-    public boolean cancel(Integer roomId, Integer eventId){
-        HashMap<Integer, Integer> schedule = getRoom(roomId).getSchedule();
-        Set<Integer> temp = schedule.keySet();
-        for(Integer time: temp) {
-            if(schedule.get(time).equals(eventId)) {
-                schedule.replace(time, null);
-                return true;
-            }
-        }
-        return false;
+    public void cancel(Integer roomId, Integer eventId, Date date){
+        getRoom(roomId).getSchedule(date).remove(eventId);
     }
 
     public List<String> seeConstraints(int roomId) {

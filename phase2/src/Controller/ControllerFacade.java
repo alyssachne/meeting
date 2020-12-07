@@ -2,6 +2,8 @@ package Controller;
 
 import Usecase.*;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ControllerFacade implements Serializable {
@@ -15,6 +17,7 @@ public class ControllerFacade implements Serializable {
     protected SpeakerAct sa = new SpeakerAct();
     protected OrganizerAct oa = new OrganizerAct();
     protected AttendeeAct aa = new AttendeeAct();
+    protected CalendarManager cm = new CalendarManager();
     protected String username;
     protected String type;
 
@@ -108,25 +111,25 @@ public class ControllerFacade implements Serializable {
      * @param time The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public void createEvent(List<String> username, int eventId, String title, int time, int roomId, int maxCapacity,
+    public void createEvent(List<String> username, int eventId, String title, Date date, int time, int roomId, int maxCapacity,
                                int duration, String eventAccess, List<String> constraints){
         if(username.size() == 0) {
-            EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
-                    constraints, this.rm,this.sa,this.pm);
+            EntityConstructors.createEvent(username,eventId,title,date,time,roomId,duration,maxCapacity,eventAccess,
+                    constraints, this.rm,this.sa,this.pm, cm);
         } else if(username.size() == 1) {
-            EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
-                    constraints, this.rm,this.sa,this.tm);
+            EntityConstructors.createEvent(username,eventId,title,date,time,roomId,duration,maxCapacity,eventAccess,
+                    constraints, this.rm,this.sa,this.tm,cm);
         } else {
-            EntityConstructors.createEvent(username,eventId,title,time,roomId,duration,maxCapacity,eventAccess,
-                    constraints, this.rm,this.sa,this.dm);
+            EntityConstructors.createEvent(username,eventId,title,date,time,roomId,duration,maxCapacity,eventAccess,
+                    constraints, this.rm,this.sa,this.dm,cm);
         }
     }
 
     /**
      * printout all speakers and their available times.
      */
-    public void speakerList(){
-        ScheduleGetter.speakerList(this.sa);
+    public void speakerAvailable(Date date){
+        ScheduleGetter.speakerAvailable(this.sa, date, cm);
     }
 
     /**
@@ -269,8 +272,8 @@ public class ControllerFacade implements Serializable {
         MessageDealer.archiveMessage(username,mm, message, sender);
     }
 
-    public void cancelEvent(int eventId) {
-        EventDealer.cancelEvent(eventId, checkEventType(eventId), sa, aa, rm);
+    public void cancelEvent(int eventId, Date date) {
+        EventDealer.cancelEvent(eventId, date, checkEventType(eventId), sa, aa, rm, cm);
     }
 
     public void changeAccess(int eventId,String access){EventDealer.changeAccess(eventId,checkEventType(eventId), access);}

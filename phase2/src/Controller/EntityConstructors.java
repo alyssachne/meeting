@@ -62,9 +62,9 @@ public class EntityConstructors {
      * @param time The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public static boolean createEvent(List<String> speaker, int eventId, String title, int time, int roomId,
+    public static boolean createEvent(List<String> speaker, int eventId, String title, Date date, int time, int roomId,
                                       int duration, int maxCapacity, String eventAccess, List<String> constraints,
-                                      RoomManager rm, SpeakerAct sa, EventManager em){
+                                      RoomManager rm, SpeakerAct sa, EventManager em, CalendarManager cm){
 //        Set<Integer> temp = new HashSet<>();
 //        List<Integer> spTime = new ArrayList<>();
 //        // collect all available times for each speaker
@@ -89,7 +89,8 @@ public class EntityConstructors {
         // if the room satisfies all constraints the event need
         for(String sp: speaker) {
             for(int i=0; i <= duration - 1; i++) {
-                if (!sa.availableTime(sp).contains(i) | !rm.getRoom(roomId).getAvailableTime().contains(time) |
+                if (!cm.getAvailable(date, sa.getEvents(sp)).contains(i) |
+                        !cm.getAvailable(date, rm.getRoom(roomId).getSchedule(date)).contains(i) |
                 !rm.getRoom(roomId).getConstraints().containsAll(constraints)) {
                     return false;
                 }
@@ -99,9 +100,10 @@ public class EntityConstructors {
         // add the event to the speakers' given list and room's list.
         for(int i=0; i <= duration - 1; i++) {
             for(String s: speaker) {
-                sa.giveEvent(s,eventId,time+i);
+                sa.giveEvent(s,eventId,date);
             }
-            rm.book(roomId,eventId,time+i);
+            rm.book(roomId,eventId,date);
+            cm.newEvent(date, i, eventId);
         }
         return true;
     }

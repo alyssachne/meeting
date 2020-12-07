@@ -68,55 +68,51 @@ public class SpeakerAct extends Act implements Serializable, Observer {
         return true;
     }
 
-    /**
-     * returns an array list of available time from a speaker.
-     *
-     * @param username the username
-     * @return the array list
-     */
-    public ArrayList<Integer> availableTime(String username){
-        Speaker speaker = (Speaker) getUser(username);
-        return speaker.getAvailable();
-    }
+//    /**
+//     * returns an array list of available time from a speaker.
+//     *
+//     * @param username the username
+//     * @return the array list
+//     */
+//    public ArrayList<Integer> availableTime(String username){
+//        Speaker speaker = (Speaker) getUser(username);
+//        return speaker.getAvailable();
+//    }
 
     /**
-     * Returns an array list of events that the speaker will present.
+     * Returns an hash map of events that the speaker will present.
      *
      * @param username the username
-     * @return the array list
+     * @return the hash map
      */
-    public ArrayList<Integer> eventList(String username){
+    public HashMap<Date, ArrayList<Integer>> allEventList(String username){
         Speaker speaker = (Speaker) getUser(username);
-        return speaker.getGiveEvents();
+        return speaker.getAllGivenEvents();
     }
 
     /**
      * printout all speakers and their available times.
      */
-    public void speakerList(){
-        for (String username:speakerMap.keySet()){
-            System.out.println(username);
-            for (Integer time: availableTime(username)){
-                System.out.println(time);
-            }
-        }
+    public Set<String> speakerList() {
+        return speakerMap.keySet();
     }
+//            for (Integer time: availableTime(username)){
+//                System.out.println(time);
+//            }
+//        }
+//    }
 
     /**
      * Puts an event in speaker's events list. If the speaker are available to add the event, return True.
      *
      * @param username the username
      * @param eventId  the event id
-     * @param time     the time
+     * @param date     the date
      * @return the boolean
      */
-    public boolean giveEvent(String username,Integer eventId, Integer time){
+    public void giveEvent(String username,Integer eventId, Date date){
         Speaker speaker = (Speaker) getUser(username);
-        if(speaker.getAvailable().contains(time)) {
-            speaker.events.put(time, eventId);
-            return true;
-        }
-        return false;
+        speaker.getGiveEvents_OneDay(date).add(eventId);
     }
 
     /**
@@ -126,16 +122,9 @@ public class SpeakerAct extends Act implements Serializable, Observer {
      * @param eventId  the event id
      * @return the boolean
      */
-    public boolean cancelEvent(String username, Integer eventId) {
+    public void cancelEvent(String username, Integer eventId, Date date) {
         Speaker speaker = (Speaker) getUser(username);
-        Set<Integer> temp = speaker.getTimetable().keySet();
-        for(Integer time: temp) {
-            if(speaker.getTimetable().get(time).equals(eventId)) {
-                speaker.getTimetable().replace(time, null);
-                return true;
-            }
-        }
-        return false;
+        speaker.getGiveEvents_OneDay(date).remove(eventId);
     }
 
     public boolean checkUsernameTaken(String username) {

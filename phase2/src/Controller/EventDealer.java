@@ -4,8 +4,10 @@ import Controller.Schedule.GetScheduleBySpeaker;
 import Entity.Event;
 import Entity.Talk;
 import Usecase.*;
+import com.sun.org.apache.xerces.internal.impl.xs.SchemaNamespaceSupport;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EventDealer {
@@ -23,40 +25,6 @@ public class EventDealer {
         }
 
     }
-//
-//    public static void seeEvents_Filter(String filter, PartyManager pm,TalkManager tm,DiscussionManager dm) {
-//        if (filter == "Speaker") {
-//            List<Integer> scheduleList = new ArrayList<Integer>();
-//
-//            for (int i = 0; i < tm.allTalks.size(); i++){
-//                Event e = tm.allTalks.get(i);
-//                List<String> speakerList = e.getSpeaker();
-//                if (speakerList.size() != 0){
-//                    for (String s : speakerList) {
-//                        if (s.equals(speaker)) {
-//                            scheduleList.add(e);
-//                        }
-//                    }
-//                }
-//            }
-//            // Adding the talks with the speaker
-//
-//            for (int i = 0; i < discussionManager.allDiscussions.size(); i++){
-//                Event e = discussionManager.allDiscussions.get(i);
-//                List<String> speakerList = e.getSpeaker();
-//                if (speakerList.size() != 0){
-//                    for (String s : speakerList) {
-//                        if (s.equals(speaker)) {
-//                            scheduleList.add(e);
-//                        }
-//                    }
-//                }
-//            }
-//            // Adding the discussions with the speaker
-//
-//            return scheduleList;
-//        }
-//    }
 
     /**
      * Remove this attendee from the event.
@@ -67,15 +35,19 @@ public class EventDealer {
         em.cancelSpot(username,eventId);
     }
 
-    public static void cancelEvent(int eventId, EventManager em, SpeakerAct sa, AttendeeAct aa, RoomManager rm) {
-        em.cancelEvent(eventId);
-        for(String s: em.getEvent(eventId).getSpeaker()) {
-            sa.cancelEvent(s, eventId);
+    public static void cancelEvent(int eventId, Date date, EventManager em, SpeakerAct sa, AttendeeAct aa, RoomManager rm,
+                                   CalendarManager cm) {
+        for (String s : em.getEvent(eventId).getSpeaker()) {
+            sa.cancelEvent(s, eventId, date);
         }
-        for(String a: em.getEvent(eventId).getAttendees()) {
+        for (String a : em.getEvent(eventId).getAttendees()) {
             aa.removeFromEvent(a, eventId);
         }
-        rm.cancel(em.getEvent(eventId).getRoom(), eventId);
+        rm.cancel(em.getEvent(eventId).getRoom(), eventId, date);
+        for (int i = 0; i < em.getEvent(eventId).getDuration() - 1; i++) {
+            cm.cancelEvent(date, i, eventId);
+            em.cancelEvent(eventId);
+        }
     }
 
     public static void changeAccess(int eventId, EventManager em, String access) {
