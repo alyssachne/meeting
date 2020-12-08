@@ -4,9 +4,11 @@ import Controller.Sorter.SorterStrategy;
 import Entity.User;
 import Usecase.*;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ControllerFacade implements Serializable {
@@ -53,7 +55,7 @@ public class ControllerFacade implements Serializable {
      * Create a new room with given room Id and maximum capacity.
      * @param capacity The maximum capacity of the room.
      */
-    public void createRoom(int capacity, List<String> constraints){
+    public void createRoom(int capacity, ArrayList<String> constraints){
         EntityConstructors.createRoom(capacity,constraints,rm);
     }
 
@@ -83,13 +85,13 @@ public class ControllerFacade implements Serializable {
     /**
      * Create a new event with given username of the speaker, the Id of the event, the title of the event, the start
      * time of the event, and the Id of the room.
-     * @param username The username of the speaker who is going to give the event.
+     * @param speakers The ArrayList of username of the speakers who are going to give the event.
      * @param title The title of the event.
      * @param date The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public void createEvent(List<String> username, String title, Date date, int roomId, int duration, String eventAccess,List<String> constraints){
-            EntityConstructors.createEvent(username,title,date,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
+    public void createEvent(ArrayList<String> speakers, String title, Date date, int roomId, int duration, String eventAccess, ArrayList<String> constraints){
+            EntityConstructors.createEvent(speakers,title,date,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
     }
 
     /**
@@ -102,7 +104,7 @@ public class ControllerFacade implements Serializable {
     /**
      * printout all rooms and their available times.
      */
-    public void roomList(int maxCapacity, List<String> constraints){
+    public void roomList(int maxCapacity, ArrayList<String> constraints){
         Getter.roomList(this.rm, maxCapacity, constraints);
     }
 
@@ -231,9 +233,9 @@ public class ControllerFacade implements Serializable {
         RequestDealer.tagRequest(id, reqm);
     }
 
-    public void updateRoom(List<String> newFeatures,int roomId) {RoomDealer.updateRoom(newFeatures, rm, roomId);}
+    public void updateRoom(ArrayList<String> newFeatures,int roomId) {RoomDealer.updateRoom(newFeatures, rm, roomId);}
 
-    public void cleanRoom(List<String> oldFeatures, int roomId) {RoomDealer.cleanRoom(oldFeatures, rm, roomId);}
+    public void cleanRoom(ArrayList<String> oldFeatures, int roomId) {RoomDealer.cleanRoom(oldFeatures, rm, roomId);}
 
     public void markAsUnread(String sender, String message) {
         MessageDealer.markAsUnread(username,mm, message, sender);

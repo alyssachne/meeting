@@ -26,13 +26,10 @@ public class ScheduleGetter {
      * printout selected events this attendee signed up for in the order this person wants. T
      * his schedule is only shown to this attendee.
      */
-    public static void attendeeSchedule(ActFactory af, String username, EventFactory ef, SorterStrategy sort,
+    public static void attendeeSchedule(ActFactory af, String username, EventFactory ef, SorterStrategy strategy,
                                         Map<String, String> filter) throws ParseException {
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int id : af.getEvents(username)){
-            temp.add(id);
-        }
-        filterAndSort(sort, filter, temp, ef);
+        ArrayList<Integer> temp = new ArrayList<>(af.getEvents(username));
+        filterAndSort(strategy, filter, temp, ef);
         for(int i: temp) {
             System.out.println(ef.getEvent(i).toString());
         }
@@ -44,29 +41,27 @@ public class ScheduleGetter {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public static void getAvailableEvent(RoomManager rm, String username, SorterStrategy sort,EventFactory ef){
+    public static void getAvailableEvent(RoomManager rm, String username, SorterStrategy strategy,EventFactory ef){
         ArrayList<Integer> all = availableEvent(rm,username,ef);
-        SorterStrategy strategy = sort;
         strategy.sort(all,ef);
         for(Integer i: all) {
             System.out.println(ef.getEvent(i).toString());}
     }
 
 
-    public static void getAllSelectedEvents(SorterStrategy sort, Map<String, String> filter, EventFactory ef) throws ParseException {
-        filterAndSort(sort, filter, ef.getAllEvents(),ef);
+    public static void getAllSelectedEvents(SorterStrategy strategy, Map<String, String> filter, EventFactory ef) throws ParseException {
+        filterAndSort(strategy, filter, ef.getAllEvents(),ef);
     }
 
-    public static void getLikedEvents(String username, SorterStrategy sort, Map<String, String> filter, ActFactory af,
+    public static void getLikedEvents(String username, SorterStrategy strategy, Map<String, String> filter, ActFactory af,
                                       EventFactory ef) throws ParseException {
-        filterAndSort(sort, filter, af.checkLikedEvents(username),ef);
+        filterAndSort(strategy, filter, af.checkLikedEvents(username),ef);
     }
 
-    private static void filterAndSort(SorterStrategy sort, Map<String, String> filter, ArrayList<Integer> lst, EventFactory ef) throws ParseException {
+    private static void filterAndSort(SorterStrategy strategy, Map<String, String> filter, ArrayList<Integer> lst, EventFactory ef) throws ParseException {
         for (String f: filter.keySet()) {
             lst = filterEvents(lst, f, filter.get(f),ef);
         }
-        SorterStrategy strategy = sort;
         strategy.sort(lst,ef);
         for(Integer i: lst) {
             System.out.println(ef.getEvent(i).toString());

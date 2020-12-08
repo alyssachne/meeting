@@ -11,7 +11,7 @@ public class EntityConstructors {
      * Create a new room with given room Id and maximum capacity.
      * @param capacity The maximum capacity of the room.
      */
-    public static void createRoom(int capacity, List<String> constraints, RoomManager rm){
+    public static void createRoom(int capacity, ArrayList<String> constraints, RoomManager rm){
         rm.createRoom(capacity,constraints);
     }
 //
@@ -58,11 +58,11 @@ public class EntityConstructors {
      * @param date The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public static boolean createEvent(List<String> speaker, String title, Date date, int roomId,
-                                      int duration, String eventAccess, List<String> constraints,
+    public static boolean createEvent(ArrayList<String> speaker, String title, Date date, int roomId,
+                                      int duration, String eventAccess, ArrayList<String> constraints,
                                       RoomManager rm, ActFactory af, EventFactory ef, CalendarManager cm){
 //        Set<Integer> temp = new HashSet<>();
-//        List<Integer> spTime = new ArrayList<>();
+//        ArrayList<Integer> spTime = new ArrayList<>();
 //        // collect all available times for each speaker
 //        for(String s: speaker) {
 //            temp.addAll(sa.availableTime(s));
@@ -93,7 +93,7 @@ public class EntityConstructors {
             }
         }
         int eventId = ef.createEvent(title,date,roomId,speaker, duration, eventAccess, constraints);
-        // add the event to the speakers' given list and room's list.
+        // add the event to the speakers' given ArrayList and room's ArrayList.
         for(int i=0; i <= duration - 1; i++) {
             for(String s: speaker) {
                 af.giveEvent(s,eventId,date);

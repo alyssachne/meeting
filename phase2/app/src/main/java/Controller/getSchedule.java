@@ -16,7 +16,7 @@ public class getSchedule {
     public ArrayList<Integer> getScheduleBySpeaker (String speaker, ArrayList<Integer> lst, EventFactory ef) {
         ArrayList<Integer> scheduleList = new ArrayList<>();
         for (Integer i:lst) {
-            if (ef.getEvent(i).getSpeaker().contains(speaker)) {
+            if (ef.containSpeaker(i,speaker)) {
                 scheduleList.add(i);
             }
         }

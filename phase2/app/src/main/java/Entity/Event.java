@@ -5,7 +5,7 @@ import Usecase.EventFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * The entity class for event: event object, getters, setters & toString methods
@@ -13,10 +13,10 @@ import java.util.List;
  * This class mainly interacts with {@link EventFactory}: when a new event is created or existed event is modified;
  * Interact with {@link Room}: when new event is assigned to a room or the participant in an event is changed;
  * Interact with {@link Speaker}: when a Speaker is set for the event;
- * Interact with {@link Attendee}: when an Attendee sign up for the event;
+ * Interact with {@link User}: when an Attendee sign up for the event;
  */
 
-public abstract class Event implements Serializable {
+public class Event implements Serializable {
 
     private final Integer id;
     private String title;
@@ -24,9 +24,9 @@ public abstract class Event implements Serializable {
     private int roomId;
     // duration is measured in hours
     private int duration;
-    private List<String> speakers;
-    private List<String> ListOfAttendees;
-    private List<String> constraints;
+    private ArrayList<String> speakers;
+    private ArrayList<String> ListOfAttendees;
+    private ArrayList<String> constraints;
     private String eventAccess;
 
     /**
@@ -38,8 +38,8 @@ public abstract class Event implements Serializable {
      * @param duration The duration of the event.
      * @param speakers The username of the speaker who talks at the event.
      */
-    public Event(int id, String title, Date date, int roomId, List<String> speakers, int duration, String eventAccess,
-                 List<String> constraints) {
+    public Event(int id, String title, Date date, int roomId, ArrayList<String> speakers, int duration, String eventAccess,
+                 ArrayList<String> constraints) {
         this.title = title;
         this.date = date;
         this.roomId = roomId;
@@ -107,15 +107,15 @@ public abstract class Event implements Serializable {
      * Get the username of the speaker who talks at the event.
      * @return speaker The username of the speaker who talks at the event.
      */
-    public List<String> getSpeaker() {
+    public ArrayList<String> getSpeaker() {
         return speakers;
     }
 
     /**
-     * Get the list of usernames of the attendees of this event.
-     * @return ListOfAttendees The list of attendees of the event.
+     * Get the ArrayList of usernames of the attendees of this event.
+     * @return ListOfAttendees The ArrayList of attendees of the event.
      */
-    public List<String> getAttendees() {
+    public ArrayList<String> getAttendees() {
         return ListOfAttendees;
     }
 
@@ -129,7 +129,14 @@ public abstract class Event implements Serializable {
 
     public String getEventAccess() {return eventAccess;}
 
-    public List<String> getConstraints() {return constraints;}
+    public ArrayList<String> getConstraints() {return constraints;}
+
+//
+//    /**
+//     * Get the username of the speaker who talks at the event.
+//     * @return speaker The username of the speaker who talks at the event.
+//     */
+//    public abstract Object getSpeaker();
 
     /**
      * Get the title of this event.
@@ -157,7 +164,7 @@ public abstract class Event implements Serializable {
      */
     @Override
     public String toString() {
-        List<String> s = speakers;
+        ArrayList<String> s = speakers;
 
         return "Event ID:"+id+" This event is about " + title + ", given by " + s + ". It starts at " + date + " on Room"
                 + roomId + " and it lasts for 1 hour." ;
