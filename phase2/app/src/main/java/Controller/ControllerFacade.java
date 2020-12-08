@@ -10,9 +10,7 @@ import java.util.Map;
 public class ControllerFacade implements Serializable {
 
     protected RoomManager rm = new RoomManager();
-    protected PartyManager pm = new PartyManager();
-    protected TalkManager tm = new TalkManager();
-    protected DiscussionManager dm = new DiscussionManager();
+    protected EventFactory ef = new EventFactory();
     protected RequestManager reqm = new RequestManager();
     protected MessageManager mm = new MessageManager();
     protected SpeakerAct sa = new SpeakerAct();
@@ -109,21 +107,11 @@ public class ControllerFacade implements Serializable {
      * @param username The username of the speaker who is going to give the event.
      * @param eventId The unique Id of the event.
      * @param title The title of the event.
-     * @param time The start time of the event.
+     * @param date The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public void createEvent(List<String> username, int eventId, String title, Date date, int time, int roomId, int maxCapacity,
-                               int duration, String eventAccess, List<String> constraints){
-        if(username.size() == 0) {
-            EntityConstructors.createEvent(username,eventId,title,date,time,roomId,duration,maxCapacity,eventAccess,
-                    constraints, this.rm,this.sa,this.pm, cm);
-        } else if(username.size() == 1) {
-            EntityConstructors.createEvent(username,eventId,title,date,time,roomId,duration,maxCapacity,eventAccess,
-                    constraints, this.rm,this.sa,this.tm,cm);
-        } else {
-            EntityConstructors.createEvent(username,eventId,title,date,time,roomId,duration,maxCapacity,eventAccess,
-                    constraints, this.rm,this.sa,this.dm,cm);
-        }
+    public void createEvent(List<String> username, int eventId, String title, Date date, int roomId, int duration, String eventAccess,List<String> constraints){
+            EntityConstructors.createEvent(username,eventId,title,date,roomId,duration,eventAccess,constraints,this.rm,this.sa,ef,cm);
     }
 
     /**
@@ -144,18 +132,18 @@ public class ControllerFacade implements Serializable {
      * printout all events this speaker is going to give. This schedule is only shown to the speaker.
      */
     public void speakerSchedule(){
-        ScheduleGetter.speakerSchedule(this.sa,this.username,this.dm,this.tm,this.pm);
+        ScheduleGetter.speakerSchedule(this.sa,this.username,ef);
     }
 
     /**
      * printout all events this attendee signed up for. This schedule is only shown to this attendee.
      */
     public void attendeeSchedule(String sort, Map<String, String> filter) throws ParseException {
-        ScheduleGetter.attendeeSchedule(this.aa,this.username,this.dm,this.tm,this.pm,sort,filter);
+        ScheduleGetter.attendeeSchedule(this.aa,this.username,ef,sort,filter);
     }
 
     public void getAllSelectedEvents(String sort, Map<String, String> filter) throws ParseException {
-        ScheduleGetter.getAllSelectedEvents(sort,filter, dm, tm,pm);
+        ScheduleGetter.getAllSelectedEvents(sort,filter, ef);
     }
 
     /**
@@ -164,26 +152,26 @@ public class ControllerFacade implements Serializable {
      * yet.
      */
     public void getAvailableEvent(String sort){
-        ScheduleGetter.getAvailableEvent(this.rm,this.username,sort,this.dm,this.tm,this.pm);
+        ScheduleGetter.getAvailableEvent(this.rm,this.username,sort,ef);
     }
 
     public void getEnrollmentStatistics(){
-        Getter.enrollmentStatistics(this.dm,this.tm,this.pm);
+        Getter.enrollmentStatistics(ef);
     }
 
     public void getTopFiveLists(){
-        Getter.getTopFiveEvents(this.dm,this.tm,this.pm);
+        Getter.getTopFiveEvents(ef);
     }
 
     public void getAppTraffic(){
-        Getter.getAppTraffic(this.dm,this.tm,this.pm);
+        Getter.getAppTraffic(ef);
     }
     /**
      * Signup this attendee to the event.
      * @param eventId The Id of the event this attendee wants to sign up for.
      */
     public void signUp(int eventId){
-        EventDealer.signUp(eventId,this.aa,checkEventType(eventId),this.username);
+        EventDealer.signUp(eventId,this.aa,ef,this.username);
     }
 
 
@@ -193,7 +181,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the event this attendee wants to be removed from.
      */
     public void cancelSpot(int eventId){
-        EventDealer.cancelSpot(eventId,this.aa,checkEventType(eventId),this.username);
+        EventDealer.cancelSpot(eventId,this.aa,ef,this.username);
     }
 
     /**
@@ -211,7 +199,7 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the certain event this speaker choose.
      */
     public void eventMessage_Attendee(String message, Integer eventId){
-        MessageDealer.eventMessage_Attendee(message,eventId,checkEventType(eventId),this.mm,this.username);
+        MessageDealer.eventMessage_Attendee(message,eventId,ef,this.mm,this.username);
     }
 
     /**
@@ -244,14 +232,14 @@ public class ControllerFacade implements Serializable {
      * @param eventId The Id of the certain event that is being chosen.
      */
     public void checkAudiences(Integer eventId){
-        UserCheckers.checkAudiences(eventId,checkEventType(eventId));
+        UserCheckers.checkAudiences(eventId,ef);
     }
 
     /**
      * Printout all usernames of speakers who give the events this attendee signed up for.
      */
     public void checkSpeakers() {
-    UserCheckers.checkSpeakers(this.aa, this.username, this.dm,this.tm,this.pm);}
+    UserCheckers.checkSpeakers(this.aa, this.username, ef);}
 
     public void checkAllRequest() {
         RequestDealer.checkAllRequest(reqm);
@@ -278,18 +266,9 @@ public class ControllerFacade implements Serializable {
     }
 
     public void cancelEvent(int eventId, Date date) {
-        EventDealer.cancelEvent(eventId, date, checkEventType(eventId), sa, aa, rm, cm);
+        EventDealer.cancelEvent(eventId, date, ef, sa, aa, rm, cm);
     }
 
-    public void changeAccess(int eventId,String access){EventDealer.changeAccess(eventId,checkEventType(eventId), access);}
+    public void changeAccess(int eventId,String access){EventDealer.changeAccess(eventId,ef, access);}
 
-    private EventManager checkEventType(int id) {
-        if(pm.containEvent(id)) {
-            return pm;
-        } else if(tm.containEvent(id)) {
-            return tm;
-        } else {
-            return dm;
-        }
-    }
 }

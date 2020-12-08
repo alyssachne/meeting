@@ -28,7 +28,7 @@ public class MessageDealer {
      * @param message The message this speaker wants to send.
      * @param eventId The Id of the certain event this speaker choose.
      */
-    public static void eventMessage_Attendee(String message, Integer eventId, EventManager em,
+    public static void eventMessage_Attendee(String message, Integer eventId, EventFactory em,
                                              MessageManager mm, String sender){
         for (String receiver: em.getEvent(eventId).getAttendees()) {
             mm.addMessage(receiver,sender,message);

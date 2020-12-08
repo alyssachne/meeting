@@ -4,7 +4,7 @@
   <OriginalElement>Usecase</OriginalElement>
   <nodes>
     <node x="293.0" y="335.0">Usecase.OrganizerAct</node>
-    <node x="301.0" y="556.0">Usecase.EventManager</node>
+    <node x="301.0" y="556.0">Usecase.EventFactory</node>
     <node x="0.0" y="556.0">Usecase.RoomManager</node>
     <node x="292.0" y="0.0">Usecase.Act</node>
     <node x="596.0" y="335.0">Usecase.AttendeeAct</node>

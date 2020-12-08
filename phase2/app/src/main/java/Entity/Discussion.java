@@ -9,12 +9,12 @@ public class Discussion extends Event implements Serializable {
      *
      * @param id       The id of the event.
      * @param title    The title of the event.
-     * @param time     The starting time of the event.
+     * @param date     The start time of the event.
      * @param roomId   The id of the room of the event.
      * @param speakers The username of the speaker who talks at the event.
      */
-    public Discussion(int id, String title, Date date,int time, int roomId, List<String> speakers, int duration, int maxCapacity,
-                      String eventAccess, List<String> constraints) {
-        super(id, title, date,time, roomId, speakers, duration, maxCapacity, eventAccess, constraints);
+    public Discussion(int id, String title, Date date, int roomId, List<String> speakers, int duration, String eventAccess,
+                      List<String> constraints) {
+        super(id, title, date, roomId, speakers, duration, eventAccess,constraints);
     }
 }

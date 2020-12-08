@@ -1,5 +1,7 @@
 package Entity;
 
+import Usecase.EventFactory;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,7 +10,7 @@ import java.util.List;
 /**
  * The entity class for event: event object, getters, setters & toString methods
  *
- * This class mainly interacts with {@link Usecase.EventManager}: when a new event is created or existed event is modified;
+ * This class mainly interacts with {@link EventFactory}: when a new event is created or existed event is modified;
  * Interact with {@link Room}: when new event is assigned to a room or the participant in an event is changed;
  * Interact with {@link Speaker}: when a Speaker is set for the event;
  * Interact with {@link Attendee}: when an Attendee sign up for the event;
@@ -19,39 +21,34 @@ public abstract class Event implements Serializable {
     private final Integer id;
     private String title;
     private Date date;
-    private int time;
     private int roomId;
     // duration is measured in hours
     private int duration;
     private List<String> speakers;
     private List<String> ListOfAttendees;
-    private int maxCapacity;
-    private String eventAccess;
     private List<String> constraints;
+    private String eventAccess;
 
     /**
      * Class constructor.
      * @param id The id of the event.
      * @param title The title of the event.
-     * @param time The starting time of the event.
+     * @param date The starting time of the event.
      * @param roomId The id of the room of the event.
      * @param duration The duration of the event.
      * @param speakers The username of the speaker who talks at the event.
-     * @param maxCapacity The maximum capacity of the event.
      */
-    public Event(int id, String title, Date date, int time, int roomId, List<String> speakers, int duration, int maxCapacity,
-                 String eventAccess, List<String> constraints) {
+    public Event(int id, String title, Date date, int roomId, List<String> speakers, int duration, String eventAccess,
+                 List<String> constraints) {
         this.title = title;
         this.date = date;
-        this.time = time;
         this.roomId = roomId;
         this.duration = duration;
         this.id = id;
         this.speakers = speakers;
         ListOfAttendees = new ArrayList<>();
-        this.maxCapacity = maxCapacity;
-        this.eventAccess = eventAccess;
         this.constraints = constraints;
+        this.eventAccess = eventAccess;
     }
 
     /**
@@ -83,7 +80,7 @@ public abstract class Event implements Serializable {
      * @return time The time of the event.
      */
     public int getTime() {
-        return time;
+        return date.getHours();
     }
 
     /**
@@ -130,9 +127,9 @@ public abstract class Event implements Serializable {
         return ListOfAttendees.size();
     }
 
-    public int getMaxCapacity() {return maxCapacity;}
-
     public String getEventAccess() {return eventAccess;}
+
+    public List<String> getConstraints() {return constraints;}
 
     /**
      * Get the title of this event.
@@ -143,24 +140,12 @@ public abstract class Event implements Serializable {
     }
 
     /**
-     * Set the start time of this event.
-     * @param time The starting time of the event.
-     */
-    public void setTime(Integer time) {
-        this.time = time;
-    }
-
-    /**
      * Set the id of the room where the event takes place.
      * @param roomId The id of the room where the event takes place.
      */
     public void setRoom(int roomId) {
         this.roomId = roomId;
     }
-
-    public void setMaxCapacity(int newMax) {maxCapacity = newMax;}
-
-    public boolean isFull() {return maxCapacity == getNumOfAttendees();}
 
     public void setEventType(String newType) {
         eventAccess = newType;
@@ -174,7 +159,7 @@ public abstract class Event implements Serializable {
     public String toString() {
         List<String> s = speakers;
 
-        return "Event ID:"+id+" This event is about " + title + ", given by " + s + ". It starts at " + time + " on Room"
+        return "Event ID:"+id+" This event is about " + title + ", given by " + s + ". It starts at " + date + " on Room"
                 + roomId + " and it lasts for 1 hour." ;
     }
 }

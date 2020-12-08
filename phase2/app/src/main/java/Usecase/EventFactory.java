@@ -3,6 +3,8 @@ package Usecase;
 import Entity.*;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,36 +19,68 @@ import java.util.List;
  *
  **/
 
-public abstract class EventManager implements Serializable {
-
+public class EventFactory implements Serializable {
+    public ArrayList<Event> allEvents;
 
     /**
      * Create a new event.
      * @param id : the id of the event.
-     * @param constraints
      */
-    public abstract void createEvent(int id, String title, Date date, int time, int roomId, List<String> speakers, int duration,
-                                     int maxCapacity, String eventAccess, List<String> constraints);
+    public void createEvent(int id, String title, Date date, int roomId, List<String> speakers, int duration,
+                            String eventAccess,List<String> constraints) {
+        if(speakers.size() == 0) {
+            Event party = new Party(id,title,date,roomId,speakers,duration,eventAccess,constraints);
+            allEvents.add(party);
+        } else if(speakers.size() == 1) {
+            Event talk = new Talk(id,title,date,roomId,speakers,duration,eventAccess,constraints);
+            allEvents.add(talk);
+        } else {
+            Event discussion = new Discussion(id,title,date,roomId,speakers,duration,eventAccess,constraints);
+            allEvents.add(discussion);
+        }
+    };
 
-    public abstract boolean cancelEvent(int id);
+    public boolean cancelEvent(int id) {
+        if(allEvents.contains(getEvent(id))) {
+            allEvents.remove(getEvent(id));
+            return true;
+        }
+        System.out.println("This party does not exist.");
+        return false;
+    }
 
-    public abstract boolean containEvent(int id);
+    public boolean containEvent(int id) {
+        if(allEvents.contains(id)) {
+            return true;
+        }
+        return false;
+    }
     /**
      * Return the event of the corresponding id, raise error if not found.
      * @param id: the id of the event.
      */
-    public abstract Event getEvent(int id);
-
-    public abstract List<Integer> getAllEvents();
-
-    /**
-     * Set the start time of the selected event.
-     * @param id: the id of the event.
-     * @param time: the new start time of the event.
-     */
-    public void setTime(int id, int time){
-        getEvent(id).setTime(time);
+    public Event getEvent(int id) {
+        try {
+            for (Event event: allEvents) {
+                if(event.getId() == id) {
+                    return event;
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println("This event does not exist.");
+        }
+        return null;
     }
+
+    public ArrayList<Integer> getAllEvents() {
+        ArrayList<Integer> all = new ArrayList<>();
+        for(Event e: allEvents) {
+            all.add(e.getId());
+        }
+        return all;
+    }
+
 
     /**
      * Add the attendee to this event and return true if successfully added in. Else, return false.
@@ -54,8 +88,8 @@ public abstract class EventManager implements Serializable {
      * @param eventId: the unique Id of the event the attendee is going to attend.
      */
     public boolean addAttendee(String username, int eventId) {
-        // if the event is full or the username is in the list
-        if(getEvent(eventId).isFull() | getEvent(eventId).getAttendees().contains(username)) {
+        // if the username is in the list
+        if(getEvent(eventId).getAttendees().contains(username)) {
             return false;
         }
         getEvent(eventId).getAttendees().add(username);

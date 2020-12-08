@@ -1,6 +1,5 @@
 package Controller;
 
-import Entity.Attendee;
 import Usecase.*;
 
 //import javax.management.remote.rmi._RMIConnection_Stub;
@@ -59,12 +58,12 @@ public class EntityConstructors {
      * @param speaker The username of the speaker who is going to give the event.
      * @param eventId The unique Id of the event.
      * @param title The title of the event.
-     * @param time The start time of the event.
+     * @param date The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public static boolean createEvent(List<String> speaker, int eventId, String title, Date date, int time, int roomId,
-                                      int duration, int maxCapacity, String eventAccess, List<String> constraints,
-                                      RoomManager rm, SpeakerAct sa, EventManager em, CalendarManager cm){
+    public static boolean createEvent(List<String> speaker, int eventId, String title, Date date, int roomId,
+                                      int duration, String eventAccess, List<String> constraints,
+                                      RoomManager rm, SpeakerAct sa, EventFactory ef, CalendarManager cm){
 //        Set<Integer> temp = new HashSet<>();
 //        List<Integer> spTime = new ArrayList<>();
 //        // collect all available times for each speaker
@@ -96,7 +95,7 @@ public class EntityConstructors {
                 }
             }
         }
-        em.createEvent(eventId,title,date,time,roomId,speaker, duration, maxCapacity, eventAccess, constraints);
+        ef.createEvent(eventId,title,date,roomId,speaker, duration, eventAccess, constraints);
         // add the event to the speakers' given list and room's list.
         for(int i=0; i <= duration - 1; i++) {
             for(String s: speaker) {

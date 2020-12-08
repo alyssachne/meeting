@@ -1,6 +1,6 @@
 package Controller;
 
-import Controller.Schedule.*;
+import Controller.getSchedule;
 import Controller.Sorter.*;
 import Entity.Event;
 import Usecase.*;
@@ -12,13 +12,12 @@ public class ScheduleGetter {
     /**
      * printout all events this speaker is going to give. This schedule is only shown to the speaker.
      */
-    public static void speakerSchedule(SpeakerAct sa, String username, DiscussionManager dm, TalkManager tm,
-                                       PartyManager pm) {
+    public static void speakerSchedule(SpeakerAct sa, String username, EventFactory ef) {
         for (Date date : sa.allEventList(username).keySet()) {
             System.out.println("On " + date);
             for (int id : sa.allEventList(username).get(date)) {
                 //sa.eventList(username) is arraylist of eventIds
-                System.out.println(checkEventType(id, dm, tm, pm).getEvent(id).toString());
+                System.out.println(ef.getEvent(id).toString());
             }
         }
     }
@@ -27,15 +26,15 @@ public class ScheduleGetter {
      * printout selected events this attendee signed up for in the order this person wants. T
      * his schedule is only shown to this attendee.
      */
-    public static void attendeeSchedule(AttendeeAct aa, String username, DiscussionManager dm, TalkManager tm,
-                                        PartyManager pm, String sort, Map<String, String> filter) throws ParseException {
-        ArrayList<Event> temp = new ArrayList<>();
+    public static void attendeeSchedule(AttendeeAct aa, String username, EventFactory ef, String sort,
+                                        Map<String, String> filter) throws ParseException {
+        ArrayList<Integer> temp = new ArrayList<>();
         for (int id : aa.getEvents(username)){
-            temp.add(checkEventType(id, dm, tm, pm).getEvent(id));
+            temp.add(id);
         }
-        filterAndSort(sort, filter, temp);
-        for(Event e: temp) {
-            System.out.println(e.toString());
+        filterAndSort(sort, filter, temp, ef);
+        for(int i: temp) {
+            System.out.println(ef.getEvent(i).toString());
         }
 
     }
@@ -45,57 +44,52 @@ public class ScheduleGetter {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public static void getAvailableEvent(RoomManager rm, String username, String sort,
-                                         DiscussionManager dm, TalkManager tm, PartyManager pm){
-        ArrayList<Event> all = availableEvent(rm,username,dm,tm,pm);
+    public static void getAvailableEvent(RoomManager rm, String username, String sort,EventFactory ef){
+        ArrayList<Integer> all = availableEvent(rm,username,ef);
         sortEvents(all, sort);
-        for(Event e: all) {
-            System.out.println(e.toString());}
+        for(Integer i: all) {
+            System.out.println(ef.getEvent(i).toString());}
     }
 
-    public static void getAllSelectedEvents(String sort, Map<String, String> filter, DiscussionManager dm, TalkManager tm,
-                                    PartyManager pm) throws ParseException {
-        filterAndSort(sort, filter, getAllEvents(dm,tm,pm));
+    public static void getAllSelectedEvents(String sort, Map<String, String> filter, EventFactory ef) throws ParseException {
+        filterAndSort(sort, filter, ef.getAllEvents(),ef);
     }
 
-    private static void filterAndSort(String sort, Map<String, String> filter, ArrayList<Event> lst) throws ParseException {
+    private static void filterAndSort(String sort, Map<String, String> filter, ArrayList<Integer> lst, EventFactory ef) throws ParseException {
         for (String f: filter.keySet()) {
-            lst = filterEvents(lst, f, filter.get(f));
+            lst = filterEvents(lst, f, filter.get(f),ef);
         }
         sortEvents(lst,sort);
-        for(Event e: lst) {
-            System.out.println(e.toString());
+        for(Integer i: lst) {
+            System.out.println(ef.getEvent(i).toString());
         }
     }
-    private static ArrayList<Event> availableEvent(RoomManager rm, String username, DiscussionManager dm, TalkManager tm,
-                                                   PartyManager pm){
+    private static ArrayList<Integer> availableEvent(RoomManager rm, String username, EventFactory ef){
         //events that are not full
-        ArrayList<Event> temp = new ArrayList<>();
-        for (Event event: getAllEvents(dm,tm,pm)){
+        ArrayList<Integer> temp = new ArrayList<>();
+        for (Integer i: ef.getAllEvents()){
             //check if the attendee has signed up the event or not and if the event reaches its room's maxCapacity
-            if ((!event.getAttendees().contains(username))&&
-                    rm.getMaxCapacity(event.getRoom())>event.getAttendees().size()){
-                temp.add(event);
+            if ((!ef.getEvent(i).getAttendees().contains(username))&&
+                    rm.getMaxCapacity(ef.getEvent(i).getRoom())>ef.getEvent(i).getAttendees().size()){
+                temp.add(i);
             }
         }
         return temp;
     }
 
     // pass in a copy of lst
-    private static ArrayList<Event> filterEvents(ArrayList<Event> lst, String filter, String restriction) throws ParseException {
+    private static ArrayList<Integer> filterEvents(ArrayList<Integer> lst, String filter, String restriction, EventFactory ef) throws ParseException {
+        getSchedule gs = new getSchedule();
         if(filter.equals("Day")) {
-            GetScheduleByDay gs = new GetScheduleByDay();
-            return gs.getSchedule(restriction, lst);
+            return gs.getScheduleByDay(restriction, lst, ef);
         } else if (filter.equals("Speaker")) {
-            GetScheduleBySpeaker gs = new GetScheduleBySpeaker();
-            return gs.getSchedule(restriction, lst);
+            return gs.getScheduleBySpeaker(restriction, lst, ef);
         } else {
-            GetScheduleByTime gs = new GetScheduleByTime();
-            return gs.getSchedule(restriction, lst);
+            return gs.getScheduleByTime(restriction, lst, ef);
         }
     }
 
-    private static void sortEvents(ArrayList<Event> lst, String sort){
+    private static void sortEvents(ArrayList<Integer> lst, String sort){
         switch (sort) {
             case "eventId": {
                 EventIdSorter sorter = new EventIdSorter();
@@ -126,22 +120,4 @@ public class ScheduleGetter {
         }
     }
 
-    private static ArrayList<Event> getAllEvents(DiscussionManager dm , TalkManager tm, PartyManager pm){
-        ArrayList<Event> eventArrayList = new ArrayList<>();
-        eventArrayList.addAll(dm.allDiscussions);
-        eventArrayList.addAll(tm.allTalks);
-        eventArrayList.addAll(pm.allParties);
-        return eventArrayList;
-    }
-
-
-    private static EventManager checkEventType(int id, DiscussionManager dm, TalkManager tm,PartyManager pm) {
-        if(pm.containEvent(id)) {
-            return pm;
-        } else if(tm.containEvent(id)) {
-            return tm;
-        } else {
-            return dm;
-        }
-    }
 }

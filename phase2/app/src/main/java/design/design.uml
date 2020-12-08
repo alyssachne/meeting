@@ -13,7 +13,7 @@
     <node x="707.5" y="347.5">Usecase.SpeakerAct</node>
     <node x="119.50000000000023" y="412.0000000000001">Entity.Organizer</node>
     <node x="96.00000000000023" y="729.4999999999999">Entity.Event</node>
-    <node x="1005.0" y="783.5000000000001">Usecase.EventManager</node>
+    <node x="1005.0" y="783.5000000000001">Usecase.EventFactory</node>
     <node x="404.5" y="402.5">Usecase.OrganizerAct</node>
     <node x="-136.49999999999977" y="107.00000000000011">Entity.User</node>
     <node x="701.5" y="67.49999999999997">Usecase.Act</node>

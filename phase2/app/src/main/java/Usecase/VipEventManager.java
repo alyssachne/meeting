@@ -1,14 +1,13 @@
 package Usecase;
 
 import Entity.Event;
-import Entity.EventParent;
 import Entity.VipEvent;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class VipEventManager extends EventManager implements Serializable {
+public class VipEventManager extends EventFactory implements Serializable {
 
     private HashMap<Integer, VipEvent> VipEventHashMap;
 

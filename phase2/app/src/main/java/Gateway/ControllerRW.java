@@ -3,6 +3,9 @@ package Gateway;
 import Controller.ControllerFacade;
 import android.content.Context;
 import android.os.Environment;
+
+import javax.naming.Context;
+
 import static android.content.Context.MODE_PRIVATE;
 
 import java.io.*;
