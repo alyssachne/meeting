@@ -2,8 +2,10 @@ package Controller;
 
 import Usecase.*;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class ControllerFacade implements Serializable {
 
@@ -142,14 +144,18 @@ public class ControllerFacade implements Serializable {
      * printout all events this speaker is going to give. This schedule is only shown to the speaker.
      */
     public void speakerSchedule(){
-        Getter.speakerSchedule(this.sa,this.username,this.dm,this.tm,this.pm);
+        ScheduleGetter.speakerSchedule(this.sa,this.username,this.dm,this.tm,this.pm);
     }
 
     /**
      * printout all events this attendee signed up for. This schedule is only shown to this attendee.
      */
-    public void attendeeSchedule(){
-        Getter.attendeeSchedule(this.aa,this.username,this.dm,this.tm,this.pm);
+    public void attendeeSchedule(String sort, Map<String, String> filter) throws ParseException {
+        ScheduleGetter.attendeeSchedule(this.aa,this.username,this.dm,this.tm,this.pm,sort,filter);
+    }
+
+    public void getAllSelectedEvents(String sort, Map<String, String> filter) throws ParseException {
+        ScheduleGetter.getAllSelectedEvents(sort,filter, dm, tm,pm);
     }
 
     /**
@@ -158,7 +164,7 @@ public class ControllerFacade implements Serializable {
      * yet.
      */
     public void getAvailableEvent(String sort){
-        Getter.getAvailableEvent(this.rm,this.username,sort,this.dm,this.tm,this.pm);
+        ScheduleGetter.getAvailableEvent(this.rm,this.username,sort,this.dm,this.tm,this.pm);
     }
 
     public void getEnrollmentStatistics(){
