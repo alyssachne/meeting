@@ -24,10 +24,10 @@ public class EventFactory implements Serializable {
 
     /**
      * Create a new event.
-     * @param id : the id of the event.
      */
-    public void createEvent(int id, String title, Date date, int roomId, List<String> speakers, int duration,
+    public int createEvent(String title, Date date, int roomId, List<String> speakers, int duration,
                             String eventAccess,List<String> constraints) {
+        int id = allEvents.size() + 1;
         if(speakers.size() == 0) {
             Event party = new Party(id,title,date,roomId,speakers,duration,eventAccess,constraints);
             allEvents.add(party);
@@ -38,6 +38,7 @@ public class EventFactory implements Serializable {
             Event discussion = new Discussion(id,title,date,roomId,speakers,duration,eventAccess,constraints);
             allEvents.add(discussion);
         }
+        return id;
     };
 
     public boolean cancelEvent(int id) {

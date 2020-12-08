@@ -9,14 +9,14 @@ public class MessageDealer {
      * @param message The message this organizer wants to send.
      * @param userType The type of users this organizer wants to send to, i.e. Speaker or Attendee.
      */
-    public static void groupMessageTo(String message, String userType, SpeakerAct sa, AttendeeAct aa, MessageManager mm,
+    public static void groupMessageTo(String message, String userType, ActFactory af, MessageManager mm,
                                       String sender){
         if (userType.equals("Speaker")){
-            for(String receiver: sa.speakerMap.keySet()){
+            for(String receiver: af.speakerList()){
                 mm.addMessage(receiver,sender,message);
             }
         }else if (userType.equals("Attendee")){
-            for(String receiver: aa.attendeeMap.keySet()){
+            for(String receiver: af.attendeeList()){
                 mm.addMessage(receiver,sender,message);
             }
         }

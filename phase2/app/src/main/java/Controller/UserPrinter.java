@@ -2,14 +2,14 @@ package Controller;
 
 import Usecase.*;
 
-public class UserCheckers {
+public class UserPrinter {
 
 
     /**
      * Printout all usernames of speakers who give the events this attendee signed up for.
      */
-    public static void checkSpeakers(AttendeeAct aa, String username, EventFactory ef) {
-        for(Integer eventId: aa.getEvents(username)) {
+    public static void checkSpeakers(ActFactory af, String username, EventFactory ef) {
+        for(Integer eventId: af.getEvents(username)) {
             System.out.println(ef.getEvent(eventId).getSpeaker());
         }
     }
@@ -33,4 +33,7 @@ public class UserCheckers {
         }
     }
 
+    public static void changeUserAccess(String username, ActFactory af, String access) {
+        af.changeAccess(username, access);
+    }
 }

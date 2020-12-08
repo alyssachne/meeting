@@ -12,10 +12,10 @@ public class ScheduleGetter {
     /**
      * printout all events this speaker is going to give. This schedule is only shown to the speaker.
      */
-    public static void speakerSchedule(SpeakerAct sa, String username, EventFactory ef) {
-        for (Date date : sa.allEventList(username).keySet()) {
+    public static void speakerSchedule(ActFactory af, String username, EventFactory ef) {
+        for (Date date : af.allEventList(username).keySet()) {
             System.out.println("On " + date);
-            for (int id : sa.allEventList(username).get(date)) {
+            for (int id : af.allEventList(username).get(date)) {
                 //sa.eventList(username) is arraylist of eventIds
                 System.out.println(ef.getEvent(id).toString());
             }
@@ -26,10 +26,10 @@ public class ScheduleGetter {
      * printout selected events this attendee signed up for in the order this person wants. T
      * his schedule is only shown to this attendee.
      */
-    public static void attendeeSchedule(AttendeeAct aa, String username, EventFactory ef, String sort,
+    public static void attendeeSchedule(ActFactory af, String username, EventFactory ef, SorterStrategy sort,
                                         Map<String, String> filter) throws ParseException {
         ArrayList<Integer> temp = new ArrayList<>();
-        for (int id : aa.getEvents(username)){
+        for (int id : af.getEvents(username)){
             temp.add(id);
         }
         filterAndSort(sort, filter, temp, ef);
@@ -44,22 +44,30 @@ public class ScheduleGetter {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public static void getAvailableEvent(RoomManager rm, String username, String sort,EventFactory ef){
+    public static void getAvailableEvent(RoomManager rm, String username, SorterStrategy sort,EventFactory ef){
         ArrayList<Integer> all = availableEvent(rm,username,ef);
-        sortEvents(all, sort);
+        SorterStrategy strategy = sort;
+        strategy.sort(all,ef);
         for(Integer i: all) {
             System.out.println(ef.getEvent(i).toString());}
     }
 
-    public static void getAllSelectedEvents(String sort, Map<String, String> filter, EventFactory ef) throws ParseException {
+
+    public static void getAllSelectedEvents(SorterStrategy sort, Map<String, String> filter, EventFactory ef) throws ParseException {
         filterAndSort(sort, filter, ef.getAllEvents(),ef);
     }
 
-    private static void filterAndSort(String sort, Map<String, String> filter, ArrayList<Integer> lst, EventFactory ef) throws ParseException {
+    public static void getLikedEvents(String username, SorterStrategy sort, Map<String, String> filter, ActFactory af,
+                                      EventFactory ef) throws ParseException {
+        filterAndSort(sort, filter, af.checkLikedEvents(username),ef);
+    }
+
+    private static void filterAndSort(SorterStrategy sort, Map<String, String> filter, ArrayList<Integer> lst, EventFactory ef) throws ParseException {
         for (String f: filter.keySet()) {
             lst = filterEvents(lst, f, filter.get(f),ef);
         }
-        sortEvents(lst,sort);
+        SorterStrategy strategy = sort;
+        strategy.sort(lst,ef);
         for(Integer i: lst) {
             System.out.println(ef.getEvent(i).toString());
         }
@@ -86,37 +94,6 @@ public class ScheduleGetter {
             return gs.getScheduleBySpeaker(restriction, lst, ef);
         } else {
             return gs.getScheduleByTime(restriction, lst, ef);
-        }
-    }
-
-    private static void sortEvents(ArrayList<Integer> lst, String sort){
-        switch (sort) {
-            case "eventId": {
-                EventIdSorter sorter = new EventIdSorter();
-                sorter.sort(lst);
-                break;
-            }
-            case "RoomId": {
-                EventRoomSorter sorter = new EventRoomSorter();
-                sorter.sort(lst);
-                break;
-            }
-            case "Speaker": {
-                EventSpeakerSorter sorter = new EventSpeakerSorter();
-                sorter.sort(lst);
-                break;
-            }
-            case "Title": {
-                EventTitleSorter sorter = new EventTitleSorter();
-                sorter.sort(lst);
-                break;
-            }
-            case "": {
-                // by default, it is sorted by time.
-                EventTimeSorter sorter = new EventTimeSorter();
-                sorter.sort(lst);
-                break;
-            }
         }
     }
 

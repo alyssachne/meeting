@@ -12,12 +12,12 @@ import java.util.List;
  * message.
  */
 
-public abstract class User implements Serializable {
+public class User implements Serializable {
     private String name;
     private String username;
     private String password;
     public ArrayList<Integer> eventList;
-    private List<Integer> likedEvent;
+    private ArrayList<Integer> likedEvent;
     private String access;
     private String dietaryHabit;
 
@@ -87,7 +87,7 @@ public abstract class User implements Serializable {
         return eventList;
     }
 
-    public List<Integer> getLikedEvents() {
+    public ArrayList<Integer> getLikedEvents() {
         return likedEvent;
     }
 

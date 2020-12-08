@@ -31,6 +31,7 @@ public class Organizer extends User implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("This special request is " + arg);
+        System.out.println("Organizer " + getUsername() + " , the request" + o + " is updated");
+        System.out.println(arg);
     }
 }

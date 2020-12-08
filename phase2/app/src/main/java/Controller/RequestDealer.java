@@ -10,6 +10,10 @@ public class RequestDealer {
         return rm.getAllRequests();
     }
 
+    public static void madeRequest(RequestManager rm, String request, String username) {
+        rm.createRequest(request, username);
+    }
+
     public static void tagRequest(int id, RequestManager rm) {
         rm.tag(id);
     }

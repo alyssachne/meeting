@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Observable;
 
-public class VipAct extends Act implements Serializable {
+public class VipAct extends ActFactory implements Serializable {
     public HashMap<String, VIP> vipMap;
 
 

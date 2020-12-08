@@ -1,8 +1,9 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.Observable;
 
-public class Request implements Serializable {
+public class Request extends Observable implements Serializable {
     private String statue;
     private String request;
     private String username;
@@ -29,6 +30,7 @@ public class Request implements Serializable {
 
     public void setStatue() {
         statue = "addressed";
+        notifyObservers("This request " + request + " made by" + username + " is addressed.");
     }
 
     @Override

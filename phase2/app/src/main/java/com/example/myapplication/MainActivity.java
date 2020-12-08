@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        crw.writeFile(uo);
                         finish();
                         break;
-                    }else if (uo.login(username.getText().toString(), password.getText().toString(), "Attendee")){
+                    }else if (uo.login(username.getText().toString(), password.getText().toString())){
 //                        username.getText().toString().equalsIgnoreCase("Attendee")
                         loginIntent = new Intent(MainActivity.this, AttendeeActivity.class);
                         startActivity(loginIntent);

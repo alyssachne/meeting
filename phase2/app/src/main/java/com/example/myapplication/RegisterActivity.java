@@ -38,7 +38,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         //check if the username exist
-        uo.createAttendee(name.getText().toString(),username.getText().toString(),password.getText().toString());
+        // instead of calling different method, passing the usertype
+        uo.create(name.getText().toString(),username.getText().toString(),password.getText().toString(),"Attendee");
         crw.writeFile(uo);
         registerIntent = new Intent(RegisterActivity.this,MainActivity.class);
         startActivity(registerIntent);

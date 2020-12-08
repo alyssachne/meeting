@@ -2,16 +2,20 @@ package Usecase;
 
 import Entity.Event;
 import Entity.Request;
+import com.sun.java.accessibility.util.AccessibilityListenerList;
+import javafx.beans.InvalidationListener;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Observable;
 
 public class RequestManager implements Serializable {
     public List<Request> allRequests;
 
-    public void createRequest(String request, String username, int id) {
-        Request req = new Request(request, username, id);
+    public int createRequest(String request, String username) {
+        Request req = new Request(request, username, allRequests.size() + 1);
         allRequests.add(req);
+        return req.getId();
     }
 
     public void tag(int id) {
