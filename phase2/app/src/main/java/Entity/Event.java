@@ -36,19 +36,17 @@ public class Event implements Serializable {
      * @param date The starting time of the event.
      * @param roomId The id of the room of the event.
      * @param duration The duration of the event.
-     * @param speakers The username of the speaker who talks at the event.
      */
-    public Event(int id, String title, Date date, int roomId, ArrayList<String> speakers, int duration, String eventAccess,
-                 ArrayList<String> constraints) {
+    public Event(int id, String title, Date date, int roomId,int duration) {
         this.title = title;
         this.date = date;
         this.roomId = roomId;
         this.duration = duration;
         this.id = id;
-        this.speakers = speakers;
-        ListOfAttendees = new ArrayList<>();
-        this.constraints = constraints;
-        this.eventAccess = eventAccess;
+//        this.speakers = speakers;
+//        ListOfAttendees = new ArrayList<>();
+//        this.constraints = constraints;
+//        this.eventAccess = eventAccess;
     }
 
     /**
@@ -157,6 +155,14 @@ public class Event implements Serializable {
     public void setEventType(String newType) {
         eventAccess = newType;
     }
+
+    public void setSpeakers(ArrayList<String> speakers){this.speakers= speakers;}
+
+    public void setConstraints(ArrayList<String> constraints){this.constraints = constraints;}
+
+    public void setListOfAttendees(ArrayList<String> attendeeList){this.ListOfAttendees=attendeeList;}
+
+    public void setEventAccess(String Access){this.eventAccess=Access;}
 
     /**
      * To override the toString method to describe an event by including its details.

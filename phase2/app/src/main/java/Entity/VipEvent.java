@@ -17,8 +17,8 @@ public class VipEvent extends Event implements Serializable {
      * @param eventAccess:-
      * @param constraints:-
      */
-    public VipEvent(int id, String title, int time, int roomId, List<String> speakers, int duration, int maxCapacity, String eventAccess, List<String> constraints) {
-        super(id, title, time, roomId, speakers, duration, maxCapacity, eventAccess, constraints);
+    public VipEvent(int id, String title, int time, int roomId, List<String> speakers) {
+        super(id, title, time, roomId, speakers);
     }
 //    /**
 //     * Class constructor.
