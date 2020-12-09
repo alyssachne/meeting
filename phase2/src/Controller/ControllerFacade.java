@@ -67,7 +67,7 @@ public class ControllerFacade implements Serializable {
      * @param password The password of the user.
      *
      */
-    public void createSpeaker(String name, String username, String password, String userType){
+    public void createUser(String name, String username, String password, String userType){
         EntityConstructors.createUser(name, username , password, af, mm, userType);
     }
 //
@@ -90,7 +90,7 @@ public class ControllerFacade implements Serializable {
      * @param date The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public void createEvent(ArrayList<String> speakers, String title, Date date, int time, int roomId, int duration, String eventAccess, ArrayList<String> constraints){
+    public boolean createEvent(ArrayList<String> speakers, String title, Date date, int time, int roomId, int duration, String eventAccess, ArrayList<String> constraints){
             EntityConstructors.createEvent(speakers,title,date,time,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
     }
 
@@ -263,6 +263,6 @@ public class ControllerFacade implements Serializable {
         EventDealer.likeEvent(eventId,af,username);
     }
 
-    public void changeUserAccess(String access){
+    public void changeUserAccess(String username, String access){
         UserPrinter.changeUserAccess(username,af,access);}
 }
