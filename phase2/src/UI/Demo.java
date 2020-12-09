@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Demo {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args){
         ControllerRW crw = new ControllerRW();
         ControllerFacade uo;
         if (crw.readFile()!=null){

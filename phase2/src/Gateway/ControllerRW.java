@@ -13,9 +13,10 @@ public class ControllerRW {
      * Find the ControllerData.txt file
      * @throws IOException If file not found
      */
-    public ControllerRW() throws IOException {
+    public ControllerRW(){
         try {
-            file = new File("./phase1/src/ControllerData.txt");
+            file = new File("./phase2/src/ControllerData.txt");
+            file.createNewFile();
         } catch (Exception e) {
             System.out.println("File not founded!");
         }
@@ -27,11 +28,15 @@ public class ControllerRW {
      * @throws IOException If file not found
      * @throws ClassNotFoundException If Class not found
      */
-    public ControllerFacade readFile() throws IOException, ClassNotFoundException {
+    public ControllerFacade readFile(){
         ControllerFacade uc = null;
-        if (file.length()!=0){
-            Reader = new ObjectInputStream(new FileInputStream(file));
-            uc = (ControllerFacade)Reader.readObject();
+        try{
+            if (file.length()!=0){
+                Reader = new ObjectInputStream(new FileInputStream(file));
+                uc = (ControllerFacade)Reader.readObject();
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
         return uc;
     }
@@ -41,9 +46,14 @@ public class ControllerRW {
      * @param uc: a ControllerFacade of the file
      * @throws IOException if file not found
      */
-    public void writeFile(ControllerFacade uc) throws IOException {
-        Writer = new ObjectOutputStream(new FileOutputStream(file));
-        Writer.writeObject(uc);
-        Writer.close();
+    public void writeFile(ControllerFacade uc){
+        try{
+            Writer = new ObjectOutputStream(new FileOutputStream(file));
+            Writer.writeObject(uc);
+            Writer.close();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
     }
 }
