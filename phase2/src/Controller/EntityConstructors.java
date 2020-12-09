@@ -58,7 +58,7 @@ public class EntityConstructors {
      * @param date The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public static boolean createEvent(ArrayList<String> speaker, String title, Date date, int roomId,
+    public static boolean createEvent(ArrayList<String> speaker, String title, Date date, int time, int roomId,
                                       int duration, String eventAccess, ArrayList<String> constraints,
                                       RoomManager rm, ActFactory af, EventFactory ef, CalendarManager cm){
 //        Set<Integer> temp = new HashSet<>();
@@ -92,6 +92,7 @@ public class EntityConstructors {
                 }
             }
         }
+        date.setHours(time);
         int eventId = ef.createEvent(title,date,roomId,speaker, duration, eventAccess, constraints);
         // add the event to the speakers' given ArrayList and room's ArrayList.
         for(int i=0; i <= duration - 1; i++) {

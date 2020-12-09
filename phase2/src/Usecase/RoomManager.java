@@ -1,6 +1,7 @@
 package Usecase;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.*;
 
 import Entity.*;
@@ -30,7 +31,7 @@ public class RoomManager implements Serializable {
      * Create a new room.
      * @param MaxCapacity: the maximum capacity of the room.
      */
-    public int createRoom(int MaxCapacity, List<String> constraints){
+    public int createRoom(int MaxCapacity, ArrayList<String> constraints){
         Room room = new Room(allRooms.size() + 1, MaxCapacity, constraints);
         allRooms.add(room);
         return room.getId();
@@ -62,6 +63,14 @@ public class RoomManager implements Serializable {
         return getRoom(id).getMaxCapacity();
     }
 
+    /**
+     * Return the schedule of this room on the given date.
+     * @param id: the unique id of the room.
+     */
+    public ArrayList<Integer> seeSchedule(int id, Date date){
+        return getRoom(id).getSchedule(date);
+    }
+
 //    /**
 //     * Return a list of integers which represent the available time of this room.
 //     * @param roomId: the unique id of the room.
@@ -74,15 +83,17 @@ public class RoomManager implements Serializable {
     /**
      * Printout all the rooms that suit the requirement of the event and the available time of each room.
      */
-    public void suggestedRooms(int maxCapacity, List<String> constraints){
+    public ArrayList<Integer> suggestedRooms(int maxCapacity, List<String> constraints){
+        ArrayList<Integer> acc = new ArrayList<>();
         for (Room room:allRooms){
             if (room.getMaxCapacity() >= maxCapacity && room.getConstraints().containsAll(constraints)) {
-                System.out.println(room.getId());
+                acc.add(room.getId());
 //                for (Integer time : availableTime(room.getId())){
 //                    System.out.println(time);
 //                }
             }
         }
+        return acc;
     }
 
     /**
@@ -106,7 +117,7 @@ public class RoomManager implements Serializable {
         getRoom(roomId).getSchedule(date).remove(eventId);
     }
 
-    public List<String> seeConstraints(int roomId) {
+    public ArrayList<String> seeConstraints(int roomId) {
         return getRoom(roomId).getConstraints();
     }
 

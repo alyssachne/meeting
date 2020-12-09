@@ -90,8 +90,8 @@ public class ControllerFacade implements Serializable {
      * @param date The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public void createEvent(ArrayList<String> speakers, String title, Date date, int roomId, int duration, String eventAccess, ArrayList<String> constraints){
-            EntityConstructors.createEvent(speakers,title,date,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
+    public void createEvent(ArrayList<String> speakers, String title, Date date, int time, int roomId, int duration, String eventAccess, ArrayList<String> constraints){
+            EntityConstructors.createEvent(speakers,title,date,time,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
     }
 
     /**
@@ -104,8 +104,8 @@ public class ControllerFacade implements Serializable {
     /**
      * printout all rooms and their available times.
      */
-    public void roomList(int maxCapacity, ArrayList<String> constraints){
-        Getter.roomList(this.rm, maxCapacity, constraints);
+    public void roomList(Date date, int maxCapacity, ArrayList<String> constraints){
+        Getter.roomList(date, this.rm, maxCapacity, constraints,cm);
     }
 
     /**

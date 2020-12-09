@@ -22,8 +22,12 @@ public class Getter {
     /**
      * printout all rooms and their available times.
      */
-    public static void roomList(RoomManager rm, int maxCapacity, List<String> constraints){
-        rm.suggestedRooms(maxCapacity, constraints);
+    public static void roomList(Date date, RoomManager rm, int maxCapacity, List<String> constraints,
+                                CalendarManager cm){
+        for(int id: rm.suggestedRooms(maxCapacity, constraints)) {
+            System.out.println("Room " + id + " ：");
+            cm.getAvailable(date, rm.seeSchedule(id, date));
+        }
     }
 
     public static void getTopFiveEvents(EventFactory ef){

@@ -19,9 +19,9 @@ import java.util.*;
 public class Room implements Serializable {
     private final int MaxCapacity;
     private final int id;
-    //date, list of eventId
-    private final Map<Date, List<Integer>> schedule;
-    private List<String> constraints = new ArrayList<>();
+    //date, ArrayList of eventId
+    private final Map<Date, ArrayList<Integer>> schedule;
+    private ArrayList<String> constraints;
 
     private final HashMap<String, Integer> technology = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class Room implements Serializable {
      * @param id The id of the room.
      * @param MaxCapacity The max capacity of the room.
      */
-    public Room(int id, int MaxCapacity, List<String> constraints) {
+    public Room(int id, int MaxCapacity, ArrayList<String> constraints) {
         this.MaxCapacity = MaxCapacity;
         this.id = id;
         this.constraints = constraints;
@@ -58,29 +58,29 @@ public class Room implements Serializable {
 //     * @param date The date the event happen.
 //     * @return The id of the event happens in this room at the given time.
 //     */
-//    public List<Integer> getEvent(Date date) {
+//    public ArrayList<Integer> getEvent(Date date) {
 //        return schedule.get(date);
 //    }
-
-    /**
-     * Check whether this room is booked at certain time or not.
-     * @param time The starting time of a certain time slot.
-     * @return The boolean value of whether this room is booked at certain time or not.
-     */
-    public boolean isBooked(Integer time) {
-        return schedule.get(time) != null;
-    }
+//
+//    /**
+//     * Check whether this room is booked at certain time or not.
+//     * @param time The starting time of a certain time slot.
+//     * @return The boolean value of whether this room is booked at certain time or not.
+//     */
+//    public boolean isBooked(Integer time) {
+//        return schedule.get(time) != null;
+//    }
 
     /**
      * Get the schedule of the room at the given date.
      * @return The hashmap of the schedule of a certain room.
      */
-    public List<Integer> getSchedule(Date date) {
+    public ArrayList<Integer> getSchedule(Date date) {
         return schedule.get(date);
     }
 
 //    /**
-//     * Get a list of available time of this room.
+//     * Get a ArrayList of available time of this room.
 //     * @return An arraylist of available time of the room.
 //     */
 //    public ArrayList<Integer> getAvailableTime() {
@@ -92,7 +92,7 @@ public class Room implements Serializable {
 //            return available;
 //    }
 
-    public List<String> getConstraints() {
+    public ArrayList<String> getConstraints() {
         return this.constraints;
     }
 

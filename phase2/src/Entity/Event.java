@@ -44,7 +44,7 @@ public class Event implements Serializable {
         this.duration = duration;
         this.id = id;
 //        this.speakers = speakers;
-//        ListOfAttendees = new ArrayList<>();
+        ListOfAttendees = new ArrayList<>();
 //        this.constraints = constraints;
 //        this.eventAccess = eventAccess;
     }
@@ -160,8 +160,6 @@ public class Event implements Serializable {
 
     public void setConstraints(ArrayList<String> constraints){this.constraints = constraints;}
 
-    public void setListOfAttendees(ArrayList<String> attendeeList){this.ListOfAttendees=attendeeList;}
-
     public void setEventAccess(String Access){this.eventAccess=Access;}
 
     /**
@@ -172,8 +170,8 @@ public class Event implements Serializable {
     public String toString() {
         ArrayList<String> s = speakers;
 
-        return "Event ID:"+id+" This event is about " + title + ", given by " + s + ". It starts at " + date + " on Room"
-                + roomId + " and it lasts for 1 hour." ;
+        return "Event ID:"+id+" This event is about " + title + ", given by " + s + ". It starts at " + date  + " on Room"
+                + roomId + " , it lasts for" + duration + " hour and ends at " + getEndTime() + " ." ;
     }
 }
 
