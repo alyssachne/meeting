@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 public class EventIdSorter implements SorterStrategy {
 
-    public EventIdSorter(){}
-
-
     @Override
     // Selection Sort
     public void sort(ArrayList<Integer> tl, EventFactory ef) {

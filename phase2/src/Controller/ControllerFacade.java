@@ -1,7 +1,5 @@
 package Controller;
 
-import Controller.Sorter.SorterStrategy;
-import Entity.User;
 import Usecase.*;
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -123,15 +121,15 @@ public class ControllerFacade implements Serializable {
     /**
      * printout all events this attendee signed up for. This schedule is only shown to this attendee.
      */
-    public void attendeeSchedule(SorterStrategy sort, Map<String, String> filter) throws ParseException {
+    public void attendeeSchedule(String sort, Map<String, String> filter) throws ParseException {
         ScheduleGetter.attendeeSchedule(this.af,this.username,ef,sort,filter);
     }
 
-    public void getAllSelectedEvents(SorterStrategy sort, Map<String, String> filter) throws ParseException {
+    public void getAllSelectedEvents(String sort, Map<String, String> filter) throws ParseException {
         ScheduleGetter.getAllSelectedEvents(sort,filter, ef);
     }
 
-    public void getLikedEvents(SorterStrategy sort, Map<String, String> filter) throws ParseException {
+    public void getLikedEvents(String sort, Map<String, String> filter) throws ParseException {
         ScheduleGetter.getLikedEvents(username, sort, filter, af, ef);
     }
 
@@ -140,7 +138,7 @@ public class ControllerFacade implements Serializable {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public void getAvailableEvent(SorterStrategy sort){
+    public void getAvailableEvent(String sort) throws ParseException {
 
         ScheduleGetter.getAvailableEvent(this.rm,this.username,sort,ef);
     }
@@ -195,7 +193,6 @@ public class ControllerFacade implements Serializable {
     /**
      * Allow the user to send messages to a specific user.
      * @param receiver The username of the user who is going to receive this message.
-     * @param userType The type of users this organizer wants to send to, i.e. Speaker, organizer, or Attendee.
      * @param message The message this user wants to send.
      */
     public void privateMessageTo(String receiver, String message){
