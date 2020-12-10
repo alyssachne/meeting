@@ -62,15 +62,15 @@ public class MessageDealer {
         mm.seeAllMessage(username, box);
     }
 
-    public static void markAsUnread(String sender, MessageManager mm, String receiver, String message) {
-        mm.MarkAsUnread(receiver, message, sender);
+    public static void markAsUnread(String sender, MessageManager mm, String receiver, int index, String box) {
+        mm.MarkAsUnread(receiver, index, sender, box);
     }
 
-    public static void deleteMessage(String sender, MessageManager mm, String receiver, String message, String box) {
-        mm.deleteMessage(receiver, message, sender, box);
+    public static void deleteMessage(String sender, MessageManager mm, String receiver, int index, String box) {
+        mm.deleteMessage(receiver, index, sender, box);
     }
 
-    public static void archiveMessage(String sender, MessageManager mm, String receiver, String message) {
-        mm.archiveMessage(receiver, message, sender);
+    public static void archiveMessage(String sender, MessageManager mm, String receiver, int index, String box) {
+        mm.archiveMessage(receiver, index, sender,box);
     }
 }

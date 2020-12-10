@@ -9,6 +9,10 @@ public class MessageBox implements Serializable {
     public HashMap<String, ArrayList<String>> UnreadMessage;
     public HashMap<String, ArrayList<String>> ArchivedMessage;
 
+    /**
+     * Initialize a MessageBox
+     * @param username: the name of the user
+     */
     public MessageBox(String username) {
         user = username;
         ReadMessage = new HashMap<>();
@@ -16,10 +20,18 @@ public class MessageBox implements Serializable {
         ArchivedMessage = new HashMap<>();
     }
 
+    /**
+     * Get the User of the MessageBox
+     */
     public String getUser() {
         return user;
     }
 
+    /**
+     * Get all messages by type
+     * @param boxType: the type of message
+     * @return all messages in one type
+     */
     public HashMap<String, ArrayList<String>> getAllMessage(String boxType) {
         if(boxType == "Read") {
             return ReadMessage;
@@ -30,6 +42,12 @@ public class MessageBox implements Serializable {
         }
     }
 
+    /**
+     * Get all messages from one specific sender by type
+     * @param sender: User who send the message
+     * @param boxType: Message's type
+     * @return
+     */
     public ArrayList<String> getMessageFromOne(String sender, String boxType) {
         if(boxType == "Read") {
             return ReadMessage.get(sender);
@@ -45,7 +63,6 @@ public class MessageBox implements Serializable {
     /**
      * Get a list of usernames of the users who had sent message to this user.
      */
-
     public Set<String> getAllContacts(){
         Set<String> contacts = ReadMessage.keySet();
         for(String username: UnreadMessage.keySet()) {
@@ -61,6 +78,11 @@ public class MessageBox implements Serializable {
         return contacts;
     }
 
+    /**
+     * Get a list of usernames of the user who had sent message to this user
+     * by message type
+     * @param box: type of message
+     */
     public Set<String> getContacts(String box) {
         if(box.equals("Read")){
             return ReadMessage.keySet();
@@ -71,6 +93,12 @@ public class MessageBox implements Serializable {
         }
     }
 
+    /**
+     * Send messages to other users. If sender is already in the contact list, then add the new message to the list.
+     * Other wise, create a new Arraylist of the sender and add the message.
+     * @param sender: the User who send the message
+     * @param message: the Content of the message
+     */
     public void sendMessage(String sender, String message) {
         if (ReadMessage.containsKey(sender)){
             ReadMessage.get(sender).add(message);
@@ -81,6 +109,12 @@ public class MessageBox implements Serializable {
         }
     }
 
+    /**
+     * Add a message to destination
+     * @param message: the Content of the message
+     * @param sender: the User who send the message
+     * @param destination: type of message that the User want it to be
+     */
     public void addTo(String message, String sender, String destination) {
         if (getAllMessage(destination).containsKey(sender)) {
             getMessageFromOne(sender, destination).add(message);
@@ -91,6 +125,12 @@ public class MessageBox implements Serializable {
         }
     }
 
+    /**
+     * Remove a message from the destination
+     * @param sender: the User who send the message
+     * @param message: the Content of the message
+     * @param destination: type of message that the User want it to be
+     */
     public void removeFrom(String sender, String message, String destination) {
         if (getAllMessage(destination).get(sender).size() == 1) {
             getAllMessage(destination).remove(sender);
