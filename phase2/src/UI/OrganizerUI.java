@@ -179,27 +179,60 @@ public class OrganizerUI {
                     System.out.println("3.Archived message");
                     System.out.println("Please choose which box you want to access");
                     String box = scanner.nextLine();
-                    System.out.println("You want to see all message or message from one person? If you want to see all" +
-                            "please input 'all'. ");
-                    String sender = scanner.nextLine();
-                    // can read message in each box
-                    if(sender.equals("all")) {
-                        System.out.println("Here are messages in" + box + " :");
-                        uo.readAllMessage(box);
-                    } else {
-                        System.out.println("Here is a list of your contacts, please enter their username to check " +
-                                "unread message from them");
-                        uo.checkContacts(box);
-                        String contact = scanner.nextLine();
-                        uo.getMessage(contact,box);
+                    if (box.equals("1")) {
+                        System.out.println("Here is a list of contacts that messages are unread");
+                        uo.checkContacts("Unread");
+                        System.out.println("Please enter the username to check the message");
+                        String sender = scanner.nextLine();
+                        uo.getMessage(sender,"Unread");
+                        System.out.print("These messages are marked as read! If you want to delete these message, please go to Read Message Box");
+                    }else if (box.equals("2")){
+                        System.out.println("Here is a list of contacts that messages are unread");
+                        uo.checkContacts("Read");
+                        String sender = scanner.nextLine();
+                        uo.getMessage(sender,"Read");
+                        System.out.println("Please choose the message number you want to modify(you can enter exit to skip this option)");
+                        String modifyOption = scanner.nextLine();
+                        if (!modifyOption.equalsIgnoreCase("exit")){
+                            System.out.println("1.Delete this message");
+                            System.out.println("2.Archive this message");
+                            System.out.println("3.Mark as unread");
+                            String modify = scanner.nextLine();
+                            if (modify.equals("1")){
+                                uo.deleteMessage(sender,modifyOption,"Read");//need to modify
+                            }else if (modify.equals("2")){
+                                uo.archiveMessage(sender, modifyOption);//need to modify
+                            }else if (modify.equals("3")){
+                                uo.markAsUnread(sender,modifyOption);//need to modify
+                            }else{
+                                System.out.println("This is not an valid option, please give a number from 1 to 3.");
+                            }
+                        }
+                    }else if (box.equals("3")){
+                        System.out.println("Here is a list of contacts that messages are Archived");
+                        uo.checkContacts("Archived");
+                        String sender = scanner.nextLine();
+                        uo.getMessage(sender,"Archived");
+                        System.out.println("Please choose the message number you want to modify(you can enter exit to skip this option)");
+                        String modifyOption = scanner.nextLine();
+                        if (!modifyOption.equalsIgnoreCase("exit")){
+                            System.out.println("1.Delete this message");
+                            System.out.println("2.Archive this message");
+                            System.out.println("3.Mark as unread");
+                            String modify = scanner.nextLine();
+                            if (modify.equals("1")){
+                                uo.deleteMessage(sender,modifyOption,"Read");//need to modify
+                            }else if (modify.equals("2")){
+                                uo.archiveMessage(sender, modifyOption);//need to modify
+                            }else if (modify.equals("3")){
+                                uo.markAsUnread(sender,modifyOption);//need to modify
+                            }else{
+                                System.out.println("This is not an valid option, please give a number from 1 to 3.");
+                            }
+                        }
+                    }else{
+                        System.out.println("This is not an valid option, please give a number from 1 to 3.");
                     }
-
-                    // need an else here to handle exception for number from 1 to 3
-
-//                    System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
-//                    uo.checkContacts(box);
-//                    String contact = scanner.nextLine();
-//                    uo.getMessage(contact);
                 } else {
                     System.out.println("This is not an valid option, please give a number from 1 to 2.");
                 }
