@@ -12,13 +12,15 @@ public class EventDealer {
      * @param eventId The Id of the event this attendee wants to sign up for.
      */
     public static void signUp(int eventId, ActFactory af, EventFactory em, String username){
-        if (af.checkAccess(username).equals(em.checkAccess(eventId))) {
+        if (af.checkAccess(username).equals("VIP")) {
             af.signUp(username,eventId);
             em.addAttendee(username,eventId);
-        } else {
+        } else if(af.checkAccess(username).equals(em.checkAccess(eventId))) {
+            af.signUp(username,eventId);
+            em.addAttendee(username,eventId);
+        } else{
             System.out.println("This event is not open to you.");
         }
-
     }
 
     /**

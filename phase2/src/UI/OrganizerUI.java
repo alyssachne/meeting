@@ -206,7 +206,9 @@ public class OrganizerUI {
             } else if(choice.equals("5")) {
                 System.out.println("Here are all requests: ");
                 uo.checkAllRequest();
-
+                System.out.println("Please enter the id of the request you want to address");
+                String id = scanner.nextLine();
+                uo.addressRequest(Integer.parseInt(id));
             } else if(choice.equals("6")){
                 System.out.println("1.Enrollment Statistics");
                 System.out.println("2.Top Five Event Lists");

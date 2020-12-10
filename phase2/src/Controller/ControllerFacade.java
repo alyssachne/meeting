@@ -244,8 +244,10 @@ public class ControllerFacade implements Serializable {
         RequestDealer.checkAllRequest(reqm);
     }
 
-    public void tagRequest(int id) {
-        RequestDealer.tagRequest(id, reqm);
+    public void checkMyRequest(){RequestDealer.checkMyRequest(username,reqm);}
+
+    public void addressRequest(int requestId) {
+        RequestDealer.tagRequest(requestId, reqm);
     }
 
     public void updateRoom(ArrayList<String> newFeatures,int roomId) {RoomDealer.updateRoom(newFeatures, rm, roomId);}

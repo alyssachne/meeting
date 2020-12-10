@@ -45,7 +45,7 @@ public class SpeakerUI {
                         uo.checkAudiences(Integer.parseInt(eventId));
                         System.out.println("Here is a list of attendees who sign up for this event, please enter the username of the attendee you would like to send message to");
                         String contact = scanner.nextLine();
-                        uo.privateMessageTo(contact, "Attendee", message);
+                        uo.privateMessageTo(contact, message);
                     } else {
                         System.out.println("This is not an valid option, please give a number from 1 to 2.");
                     }

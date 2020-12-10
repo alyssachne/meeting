@@ -43,7 +43,7 @@ public class ScheduleGetter {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public static void getAvailableEvent(RoomManager rm, String username, String strategy,EventFactory ef) throws ParseException {
+    public static void getAvailableEvent(RoomManager rm, String username, String strategy,EventFactory ef){
         ArrayList<Integer> all = availableEvent(rm,username,ef);
         sortEvent(strategy,all,ef);
         for(Integer i: all) {
@@ -60,7 +60,7 @@ public class ScheduleGetter {
         sortAndFilter(strategy, af.checkLikedEvents(username),filter,ef);
     }
 
-    private static void sortEvent(String strategy, ArrayList<Integer> lst, EventFactory ef) throws ParseException {
+    private static void sortEvent(String strategy, ArrayList<Integer> lst, EventFactory ef){
         if(strategy.equals("Id")){
             SorterStrategy sorter = new EventIdSorter();
             sorter.sort(lst,ef);
@@ -73,7 +73,7 @@ public class ScheduleGetter {
         }else if(strategy.equals("Time")){
             SorterStrategy sorter = new EventTimeSorter();
             sorter.sort(lst,ef);
-        }else{
+        }else if(strategy.equals("Title")){
             SorterStrategy sorter = new EventTitleSorter();
             sorter.sort(lst,ef);
         }

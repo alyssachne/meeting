@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class EventTimeSorter implements SorterStrategy {
 
-    public EventTimeSorter(){}
 
     @Override
     // Selection Sort

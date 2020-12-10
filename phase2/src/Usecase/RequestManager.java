@@ -37,7 +37,8 @@ public class RequestManager implements Serializable {
     }
 
     public void getAllRequests() {
-       for(Request request: allRequests){
+        System.out.println("Here are all requests: ");
+        for(Request request: allRequests){
            System.out.println(request);
        };
     }
