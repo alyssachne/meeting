@@ -13,11 +13,11 @@ public class AttendeeUI {
 
     public void AttendeeDemo() {
         ControllerRW crw = new ControllerRW();
-        ControllerFacade uo;
+        ControllerFacade uo = null;
         if (crw.readFile() != null) {
             uo = crw.readFile();
-        } else {
-            uo = new ControllerFacade();
+        } else{
+            System.out.println("Read File Error");
         }
 
         Scanner scanner = new Scanner(System.in);
@@ -25,6 +25,7 @@ public class AttendeeUI {
 
         boolean handle = true;
         while (handle) {
+            uo = crw.readFile();
             if (uo.checkAccess().equalsIgnoreCase("VIP")){
                 System.out.print("Welcome VIP!");
             }
@@ -95,10 +96,8 @@ public class AttendeeUI {
                     String message = scanner.nextLine();
                     uo.privateMessageTo(other, message);
                 } else if (option.equals("2")) {
-                    System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
-                    uo.checkContacts();
-                    String contact = scanner.nextLine();
-                    uo.getMessage(contact);
+                    MessageUI mu = new MessageUI();
+                    mu.MessageDemo();
                 } else {
                     System.out.println("This is not an valid option, please give a number from 1 to 2.");
                 }
@@ -116,15 +115,14 @@ public class AttendeeUI {
                 } else {
                     System.out.println("This is not an valid option, please give a number from 1 to 2.");
                 }
-
             }else if (choice.equals("5")) {
                     uo.logout();
-                    crw.writeFile(uo);
+//                    crw.writeFile(uo);
                     handle = false;
                 }else{
                     System.out.println("This is not an valid option, please give a number from 1 to 6.");
                 }
+            crw.writeFile(uo);
             }
         }
-    }
 }

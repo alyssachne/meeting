@@ -9,14 +9,17 @@ public class SpeakerUI {
 
     public void SpeakerDemo() {
         ControllerRW crw = new ControllerRW();
-        ControllerFacade uo;
+        ControllerFacade uo= null;
         if (crw.readFile() != null) {
             uo = crw.readFile();
+        }else {
+            System.out.println("Read File Error");
         }
 
         Scanner scanner = new Scanner(System.in);
         boolean handle = true;
         while (handle) {
+            uo = crw.readFile();
             System.out.println("Please enter your choice below:");
             System.out.println("1.Show my current schedule");
             System.out.println("2.Message System");
@@ -51,40 +54,19 @@ public class SpeakerUI {
                     }
 
                 } else if (decision.equals("2")) {
-                    System.out.println("1.New message");
-                    System.out.println("2.Read message");
-                    System.out.println("3.Archived message");
-                    System.out.println("Please choose which box you want to access");
-                    String box = scanner.nextLine();
-                    System.out.println("You want to see all message or message from one person? If you want to see all" +
-                            "please input 'all'. ");
-                    String sender = scanner.nextLine();
-                    // can read message in each box
-                    if (sender.equals("all")) {
-                        System.out.println("Here are messages in" + box + " :");
-                        uo.readAllMessage(box);
-                    } else {
-                        System.out.println("Here is a list of your contacts, please enter their username to check " +
-                                "unread message from them");
-                        uo.checkContacts(box);
-                        String contact = scanner.nextLine();
-                        uo.getMessage(contact, box);
-                    }
-
-                    // need an else here to handle exception for number from 1 to 3
-
-
+                    MessageUI mu = new MessageUI();
+                    mu.MessageDemo();
                 } else {
-                    System.out.println("This is not an valid option, please give a number from 1 to 2.");
+                    System.out.println("This is not an valid option, please give a number from 1 to 3.");
                 }
             } else if (choice.equals("3")) {
                 uo.logout();
-                crw.writeFile(uo);
+//                crw.writeFile(uo);
                 handle = false;
             } else {
                 System.out.println("This is not an valid option, please give a number from 1 to 3.");
             }
+            crw.writeFile(uo);
         }
     }
-
-    }
+}
