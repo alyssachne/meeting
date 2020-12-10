@@ -19,8 +19,6 @@ public class OrganizerUI {
         ControllerFacade uo;
         if (crw.readFile()!=null){
             uo = crw.readFile();
-        }else{
-            uo = new ControllerFacade();
         }
 
         Scanner scanner = new Scanner(System.in);
@@ -160,63 +158,23 @@ public class OrganizerUI {
                 if (decision.equals("1")) {
                     System.out.println("1.Send message to all Speakers");
                     System.out.println("2.Send message to all Attendees");
-                    System.out.println("3.Send message to a specific Speaker");
-                    System.out.println("4.Send message to a specific Attendee");
+                    System.out.println("3.Send message to a specific User");
                     String option = scanner.nextLine();
                     System.out.println("Please enter your message");
                     String message = scanner.nextLine();
                     if (option.equals("1")) {
-//                        System.out.println("Please enter your message");
-//                        String message = scanner.nextLine();
                         uo.groupMessageTo(message, "Speaker");
                     } else if (option.equals("2")) {
-//                        System.out.println("Please enter your message");
-//                        String message = scanner.nextLine();
                         uo.groupMessageTo(message, "Attendee");
                     } else if (option.equals("3")) {
-                        System.out.println("Please enter the username of the Speaker you want to send to");
+                        System.out.println("Please enter the username of the User you want to send to");
                         String receiver = scanner.nextLine();
-//                        System.out.println("Please enter your message");
-//                        String message = scanner.nextLine();
-                        uo.privateMessageTo(receiver, "Speaker", message);
-                    } else if (option.equals("4")) {
-                        System.out.println("Please enter the username of the Attendee you want to send to");
-                        String receiver = scanner.nextLine();
-//                        System.out.println("Please enter your message");
-//                        String message = scanner.nextLine();
-                        uo.privateMessageTo(receiver, "Attendee", message);
+                        uo.privateMessageTo(receiver, message);
                     } else {
-                        System.out.println("Please choose a number from 1 to 4");
+                        System.out.println("This is not an valid option. Please choose a number from 1 to 3");
                     }
-
-//                System.out.println("1.Send message to all Speakers");
-//                System.out.println("2.Send message to all Attendees");
-//                System.out.println("3.Send message to a specific Speaker");
-//                System.out.println("4.Send message to a specific Attendee");
-//                System.out.println("5.Message Inbox");
-//                String option = scanner.nextLine();
-//                if (option.equals("1")) {
-//                    System.out.println("Please enter your message");
-//                    String message = scanner.nextLine();
-//                    uo.groupMessageTo(message, "Speaker");
-//                } else if (option.equals("2")) {
-//                    System.out.println("Please enter your message");
-//                    String message = scanner.nextLine();
-//                    uo.groupMessageTo(message, "Attendee");
-//                } else if (option.equals("3")) {
-//                    System.out.println("Please enter the username of the Speaker you want to send to");
-//                    String receiver = scanner.nextLine();
-//                    System.out.println("Please enter your message");
-//                    String message = scanner.nextLine();
-//                    uo.privateMessageTo(receiver, "Speaker", message);
-//                } else if (option.equals("4")) {
-//                    System.out.println("Please enter the username of the Attendee you want to send to");
-//                    String receiver = scanner.nextLine();
-//                    System.out.println("Please enter your message");
-//                    String message = scanner.nextLine();
-//                    uo.privateMessageTo(receiver, "Attendee", message);
                 } else if (decision.equals("2")) {
-                    System.out.println("1.New message");
+                    System.out.println("1.Unread message");
                     System.out.println("2.Read message");
                     System.out.println("3.Archived message");
                     System.out.println("Please choose which box you want to access");

@@ -12,8 +12,6 @@ public class SpeakerUI {
         ControllerFacade uo;
         if (crw.readFile() != null) {
             uo = crw.readFile();
-        } else {
-            uo = new ControllerFacade();
         }
 
         Scanner scanner = new Scanner(System.in);

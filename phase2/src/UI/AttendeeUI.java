@@ -20,6 +20,9 @@ public class AttendeeUI {
 
         boolean handle = true;
         while (handle) {
+            if (uo.checkAccess().equalsIgnoreCase("VIP")){
+                System.out.print("Welcome VIP!");
+            }
             System.out.println("Please enter your choice below:");
             System.out.println("1.Show my current schedule");
             System.out.println("2.Sign up an event");
@@ -47,12 +50,12 @@ public class AttendeeUI {
                 System.out.println("2.Send message to speaker");
                 System.out.println("3.Message Inbox");
                 String option = scanner.nextLine();
-                if (option.equals("1")){
+                if (option.equals("1")) {
                     System.out.println("Please enter the username of the attendee");
                     String other = scanner.nextLine();
                     System.out.println("Please enter your message");
                     String message = scanner.nextLine();
-                    uo.privateMessageTo(other,"Attendee", message);
+                    uo.privateMessageTo(other, "Attendee", message);
                 } else if (option.equals("2")) {
                     System.out.println("Here is a list of speakers you can send message to:");
                     uo.checkSpeakers();
@@ -60,15 +63,16 @@ public class AttendeeUI {
                     String speaker = scanner.nextLine();
                     System.out.println("Please enter your message");
                     String message = scanner.nextLine();
-                    uo.privateMessageTo(speaker,"Speaker", message);
-                } else if (option.equals("3")){
+                    uo.privateMessageTo(speaker, "Speaker", message);
+                } else if (option.equals("3")) {
                     System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
                     uo.checkContacts();
                     String contact = scanner.nextLine();
                     uo.getMessage(contact);
-                }else {
+                } else {
                     System.out.println("This is not an valid option, please give a number from 1 to 3.");
                 }
-
+            }
+        }
     }
 }

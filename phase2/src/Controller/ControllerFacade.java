@@ -20,7 +20,7 @@ public class ControllerFacade implements Serializable {
     protected ActFactory af = new ActFactory();
     protected CalendarManager cm = new CalendarManager();
     protected String username;
-//    protected String type;
+    protected String type;
 
     /**
      * Class constructor: create a default Organizer account whose name, username, and password are all "admin".
@@ -38,9 +38,14 @@ public class ControllerFacade implements Serializable {
     public boolean login(String username, String password){
         if(af.login(username,password)){
             this.username = username;
+            type = af.getUser(username).typeGetter();
             return true;
         }
         return false;
+    }
+
+    public String typeGetter(){
+        return type;
     }
 
     /**
@@ -48,7 +53,7 @@ public class ControllerFacade implements Serializable {
      */
     public void logout(){
         username = null;
-//        type = null;
+        type = null;
     }
 
     /**
@@ -136,6 +141,7 @@ public class ControllerFacade implements Serializable {
      * yet.
      */
     public void getAvailableEvent(SorterStrategy sort){
+
         ScheduleGetter.getAvailableEvent(this.rm,this.username,sort,ef);
     }
 
@@ -192,7 +198,7 @@ public class ControllerFacade implements Serializable {
      * @param userType The type of users this organizer wants to send to, i.e. Speaker, organizer, or Attendee.
      * @param message The message this user wants to send.
      */
-    public void privateMessageTo(String receiver, String userType, String message){
+    public void privateMessageTo(String receiver, String message){
         MessageDealer.privateMessageTo(receiver,message,this.mm,this.username);
     }
 
@@ -268,5 +274,10 @@ public class ControllerFacade implements Serializable {
     }
 
     public void changeUserAccess(String username, String access){
-        UserPrinter.changeUserAccess(username,af,access);}
+        UserPrinter.changeUserAccess(username,af,access);
+    }
+
+    public String checkAccess(){
+        return af.checkAccess(username);
+    }
 }

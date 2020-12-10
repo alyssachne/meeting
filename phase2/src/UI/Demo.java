@@ -17,6 +17,7 @@ public class Demo {
             uo = crw.readFile();
         }else{
             uo = new ControllerFacade();
+            crw.writeFile(uo);
         }
 //        uo.createOrganizer();
         Scanner scanner = new Scanner(System.in);
@@ -33,72 +34,27 @@ public class Demo {
                 String username = scanner.nextLine();
                 System.out.println("Please enter your password:");
                 String password = scanner.nextLine();
-                uo.createAttendee(name,username,password);
+                uo.createUser(name, username, password, "Attendee");
                 crw.writeFile(uo);
             }else if (loginChoice.equals("1")){
                 System.out.println("Please enter your username:");
                 String username = scanner.nextLine();
                 System.out.println("Please enter your password:");
                 String password = scanner.nextLine();
-                System.out.println("Please enter your usertype:");
-                String userType = scanner.nextLine();
 
-                if (uo.login(username, password, userType) && userType.equalsIgnoreCase("Organizer")) {
+                if (uo.login(username, password)) {
+                    crw.writeFile(uo);
+                    if (uo.typeGetter().equalsIgnoreCase("Organizer")){
+                        OrganizerUI ou = new OrganizerUI();
+                        ou.OrganizerDemo();
+                    }else if (uo.typeGetter().equalsIgnoreCase("Speaker")){
+                        SpeakerUI su = new SpeakerUI();
+                        su.SpeakerDemo();
+                    }else if (uo.typeGetter().equalsIgnoreCase("Attendee")){
 
-                    while (handle) {
-
+                    }else{
+                        System.out.print("User Type Error!");
                     }
-                } else if (uo.login(username, password, userType) && userType.equalsIgnoreCase("Speaker")) {
-                    //call Speaker Presenter
-//                    boolean handle = true;
-//                    while (handle) {
-//                        System.out.println("Please enter your choice below:");
-//                        System.out.println("1.Show my current schedule");
-//                        System.out.println("2.Message System");
-//                        System.out.println("3.Exit");
-//                        String choice = scanner.nextLine();
-//                        if (choice.equals("1")) {
-//                            uo.speakerSchedule();
-//                        } else if (choice.equals("2")) {
-//                            System.out.println("1.Send group message");
-//                            System.out.println("2.Send private message");
-//                            System.out.println("3.Message Inbox");
-//                            String option = scanner.nextLine();
-//                            if (option.equals("1")){
-//                                System.out.println("Here are the events you give:");
-//                                uo.speakerSchedule();
-//                                System.out.println("Please enter the eventId");
-//                                String eventId = scanner.nextLine();
-//                                System.out.println("Please enter your message");
-//                                String message = scanner.nextLine();
-//                                uo.eventMessage_Attendee(message, Integer.parseInt(eventId));
-//                            } else if (option.equals("2")) {
-//                                System.out.println("Here are the events you give:");
-//                                uo.speakerSchedule();
-//                                System.out.println("Please enter the eventId");
-//                                String eventId = scanner.nextLine();
-//                                uo.checkAudiences(Integer.parseInt(eventId));
-//                                System.out.println("Here is a list of attendees who sign up for this event, please enter the username of the attendee you would like to send message to");
-//                                String contact = scanner.nextLine();
-//                                System.out.println("Please enter your message");
-//                                String message = scanner.nextLine();
-//                                uo.privateMessageTo(contact,"Attendee", message);
-//                            } else if (option.equals("3")){
-//                                System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
-//                                uo.checkContacts();
-//                                String contact = scanner.nextLine();
-//                                uo.getMessage(contact);
-//                            }else {
-//                                System.out.println("This is not an valid option, please give a number from 1 to 3.");
-//                            }
-//                        } else if (choice.equals("3")) {
-//                            uo.logout();
-//                            crw.writeFile(uo);
-//                            handle = false;
-//                        }else {
-//                            System.out.println("This is not an valid option, please give a number from 1 to 3.");
-//                        }
-//                    }
                 } else if (uo.login(username, password, userType) && userType.equalsIgnoreCase("Attendee")) {
                     //call Attendee Presenter
                     boolean handle = true;
