@@ -254,16 +254,16 @@ public class ControllerFacade implements Serializable {
 
     public void cleanRoom(ArrayList<String> oldFeatures, int roomId) {RoomDealer.cleanRoom(oldFeatures, rm, roomId);}
 
-    public void markAsUnread(String sender, String message) {
-        MessageDealer.markAsUnread(username,mm, message, sender);
+    public void markAsUnread(String sender, int index,String box) {
+        MessageDealer.markAsUnread(username,mm,sender,index,box);
     }
 
-    public void deleteMessage(String sender, String message, String box) {
-        MessageDealer.deleteMessage(username,mm, message, sender, box);
+    public void deleteMessage(String sender, int index, String box) {
+        MessageDealer.deleteMessage(username,mm, sender,index, box);
     }
 
-    public void archiveMessage(String sender, String message) {
-        MessageDealer.archiveMessage(username,mm, message, sender);
+    public void archiveMessage(String sender, int index, String box) {
+        MessageDealer.archiveMessage(username,mm, sender,index, box);
     }
 
     public void cancelEvent(int eventId, Date date) {

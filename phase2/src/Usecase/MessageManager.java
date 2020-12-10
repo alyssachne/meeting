@@ -67,20 +67,20 @@ public class MessageManager extends Observable implements Serializable {
         }
     }
 
-    public void MarkAsUnread(String username, String message, String sender) {
-        getMessageBox(username).removeFrom(sender, message, "Read");
-        getMessageBox(username).addTo(message, sender, "Unread");
+    public void MarkAsUnread(String username, int index, String sender, String box) {
+        getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,box), box);
+        getMessageBox(username).addTo(getMessage(username,index,sender,box), sender, "Unread");
         System.out.println("You have marked the message as unread");
     }
 
-    public void archiveMessage(String username, String message, String sender) {
-        getMessageBox(username).removeFrom(sender, message, "Read");
-        getMessageBox(username).addTo(message, sender, "Archive");
+    public void archiveMessage(String username, int index, String sender, String box) {
+        getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,box), "Read");
+        getMessageBox(username).addTo(getMessage(username,index,sender,box), sender, "Archive");
         System.out.println("You have archived the message");
     }
 
-    public void deleteMessage(String username, String message, String sender, String destination) {
-        getMessageBox(username).removeFrom(sender, message, destination);
+    public void deleteMessage(String username, int index, String sender, String destination) {
+        getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,destination), destination);
         System.out.println("You have deleted the message");
     }
 
@@ -105,5 +105,9 @@ public class MessageManager extends Observable implements Serializable {
 
     public Set<String> getContacts(String username, String box){
         return getMessageBox(username).getContacts(box);
+    }
+
+    private String getMessage(String username, int index, String sender, String box){
+        return getMessageBox(username).getMessageFromOne(sender,box).get(index-1);
     }
 }
