@@ -3,9 +3,10 @@ package Controller;
 import Usecase.*;
 //import com.sun.org.apache.xerces.internal.impl.xs.SchemaNamespaceSupport;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class EventDealer {
+public class EventDealer implements Serializable {
 
     /**
      * Signup this attendee to the event.

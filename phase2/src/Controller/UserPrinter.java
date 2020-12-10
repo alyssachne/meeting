@@ -2,7 +2,9 @@ package Controller;
 
 import Usecase.*;
 
-public class UserPrinter {
+import java.io.Serializable;
+
+public class UserPrinter implements Serializable {
 
 
     /**

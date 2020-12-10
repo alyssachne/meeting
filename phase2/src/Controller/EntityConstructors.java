@@ -3,9 +3,10 @@ package Controller;
 import Usecase.*;
 
 //import javax.management.remote.rmi._RMIConnection_Stub;
+import java.io.Serializable;
 import java.util.*;
 
-public class EntityConstructors {
+public class EntityConstructors implements Serializable {
 
     /**
      * Create a new room with given room Id and maximum capacity.

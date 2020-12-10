@@ -3,9 +3,10 @@ package Controller;
 import Entity.Request;
 import Usecase.RequestManager;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RequestDealer {
+public class RequestDealer implements Serializable {
     public static void checkAllRequest(RequestManager rm) {
         rm.getAllRequests();
     }

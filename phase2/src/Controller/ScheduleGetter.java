@@ -5,10 +5,11 @@ import Controller.Sorter.*;
 import Entity.Event;
 import Usecase.*;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.*;
 
-public class ScheduleGetter {
+public class ScheduleGetter implements Serializable {
 
     /**
      * printout all events this speaker is going to give. This schedule is only shown to the speaker.

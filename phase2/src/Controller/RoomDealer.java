@@ -3,9 +3,10 @@ package Controller;
 import Entity.Room;
 import Usecase.RoomManager;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RoomDealer {
+public class RoomDealer implements Serializable {
     public static void updateRoom(List<String> newFeatures, RoomManager rm, int roomId) {
         try {
             for(String f: newFeatures) {

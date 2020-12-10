@@ -2,7 +2,9 @@ package Controller;
 
 import Usecase.*;
 
-public class MessageDealer {
+import java.io.Serializable;
+
+public class MessageDealer implements Serializable {
 
     /**
      * Allow the organizer to send messages to all attendees or all speakers.

@@ -4,6 +4,7 @@ import Controller.ControllerFacade;
 import Gateway.ControllerRW;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,12 +13,14 @@ import java.util.Scanner;
 public class Demo {
     public static void main(String[] args){
         ControllerRW crw = new ControllerRW();
-        ControllerFacade uo;
+        ControllerFacade uo = null;
         if (crw.readFile()!=null){
             uo = crw.readFile();
         }else{
+//            System.out.println("Hello");
             uo = new ControllerFacade();
             crw.writeFile(uo);
+//            System.out.println("Hello");
         }
 //        uo.createOrganizer();
         Scanner scanner = new Scanner(System.in);
@@ -49,10 +52,11 @@ public class Demo {
                     }else if (uo.typeGetter().equalsIgnoreCase("Speaker")){
                         SpeakerUI su = new SpeakerUI();
                         su.SpeakerDemo();
-                    }else if (uo.typeGetter().equalsIgnoreCase("Attendee")){
+                    }else if (uo.typeGetter().equalsIgnoreCase("User")){
                         AttendeeUI au = new AttendeeUI();
                         au.AttendeeDemo();
                     }else{
+//                        System.out.println(uo.typeGetter());
                         System.out.print("User Type Error!");
                     }
                 }else {

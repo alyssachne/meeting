@@ -3,9 +3,11 @@ package Controller;
 import Controller.Sorter.*;
 import Entity.*;
 import Usecase.*;
+
+import java.io.Serializable;
 import java.util.*;
 
-public class Getter {
+public class Getter implements Serializable {
 
     /**
      * printout all speakers and their available times on the selected date.

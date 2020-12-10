@@ -3,12 +3,13 @@ package Controller;
 import Entity.Event;
 import Usecase.EventFactory;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class getSchedule {
+public class getSchedule implements Serializable {
     public getSchedule() {
 
     }

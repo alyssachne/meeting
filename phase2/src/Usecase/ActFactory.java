@@ -2,12 +2,13 @@ package Usecase;
 
 import Entity.*;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class ActFactory {
+public class ActFactory implements Serializable {
 
-    public HashMap<String,User> userHashMap;
+    public HashMap<String,User> userHashMap = new HashMap<>();
     /**
      * Create a new user and return true if the creation is successful.
      * @param name: the name of the attendee.

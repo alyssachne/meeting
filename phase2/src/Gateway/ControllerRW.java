@@ -3,6 +3,8 @@ package Gateway;
 import Controller.ControllerFacade;
 
 import java.io.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 public class ControllerRW {
     ObjectInputStream Reader;
@@ -15,8 +17,12 @@ public class ControllerRW {
      */
     public ControllerRW() {
         try {
-            file = new File("./phase2/src/ControllerData.txt");
-            file.createNewFile();
+            file = new File("ControllerData.txt");
+            if (file.createNewFile()){
+                System.out.println("File has been created");
+            }else{
+                System.out.println("File already exists.");
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
