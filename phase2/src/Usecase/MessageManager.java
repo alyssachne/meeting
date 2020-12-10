@@ -19,11 +19,20 @@ public class MessageManager extends Observable implements Serializable {
         allMessages = new ArrayList<>();
     }
 
+    /**
+     * Create a new message box
+     * @param username: the username of the user
+     */
     public void createMessageBox(String username) {
         MessageBox messageBox = new MessageBox(username);
         allMessages.add(messageBox);
     }
 
+    /**
+     * Get a user's message box
+     * @param username: the username of the User
+     * @return
+     */
     public MessageBox getMessageBox(String username) {
         try {
             for (MessageBox m : allMessages) {
@@ -38,7 +47,11 @@ public class MessageManager extends Observable implements Serializable {
         return null;
     }
 
-
+    /**
+     * Print all messages from one type of message
+     * @param username: the username of the User
+     * @param box: the type of message
+     */
     public void seeAllMessage(String username, String box) {
         System.out.println("Here are the messages in " + box + " :");
         for (int i = 0; i < getMessageBox(username).getAllMessage(box).size(); i++) {
@@ -50,6 +63,13 @@ public class MessageManager extends Observable implements Serializable {
             }
         }
     }
+
+    /**
+     * Print all messages from one user by messagebox type
+     * @param username: the username of the user
+     * @param sender: the username of the User who send the message
+     * @param box: the type of message
+     */
     public void seeMessageFromOne(String username, String sender, String box) {
         System.out.println("Here are the messages from" + sender + ":");
         for (int i = 0; i < getMessageBox(username).getMessageFromOne(sender, box).size(); i++) {
@@ -60,6 +80,11 @@ public class MessageManager extends Observable implements Serializable {
         }
     }
 
+    /**
+     * Print all unread messages
+     * @param username: the username of the User
+     * @param sender: the username of the Sender
+     */
     private void seeUnreadMessage(String username, String sender ){
         for(String m: getMessageBox(username).getMessageFromOne(sender, "Unread")){
             getMessageBox(username).addTo(sender,m,"Read");
@@ -67,18 +92,39 @@ public class MessageManager extends Observable implements Serializable {
         }
     }
 
+    /**
+     * Set the message as unread
+     * @param username: the username of the User
+     * @param index: MessageManager
+     * @param sender: the username of the sender
+     * @param box: the original type of message
+     */
     public void MarkAsUnread(String username, int index, String sender, String box) {
         getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,box), box);
         getMessageBox(username).addTo(getMessage(username,index,sender,box), sender, "Unread");
         System.out.println("You have marked the message as unread");
     }
 
+    /**
+     * Archive a message
+     * @param username: the username of the User
+     * @param index: MessageManager
+     * @param sender: the username of the sender
+     * @param box: the original messagebox type
+     */
     public void archiveMessage(String username, int index, String sender, String box) {
         getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,box), "Read");
         getMessageBox(username).addTo(getMessage(username,index,sender,box), sender, "Archive");
         System.out.println("You have archived the message");
     }
 
+    /**
+     * Delete a message from one destination
+     * @param username: the username of the User
+     * @param index: MessageManager
+     * @param sender: the username of the sender
+     * @param destination: the original message type where you want to delete from.
+     */
     public void deleteMessage(String username, int index, String sender, String destination) {
         getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,destination), destination);
         System.out.println("You have deleted the message");
@@ -103,10 +149,23 @@ public class MessageManager extends Observable implements Serializable {
         return getMessageBox(username).getAllContacts();
     }
 
+    /**
+     * Get a list of username of the user (list of contact) from the messages sended
+     * @param username: the username of the User
+     * @param box: the messagebox's type
+     * @return
+     */
     public Set<String> getContacts(String username, String box){
         return getMessageBox(username).getContacts(box);
     }
 
+    /**
+     * Get a specific message from the list of messages from one user
+     * @param username: the username of the User
+     * @param index: the index of the message
+     * @param sender: the username of the User
+     * @param box: the type of message want to search from
+     */
     private String getMessage(String username, int index, String sender, String box){
         return getMessageBox(username).getMessageFromOne(sender,box).get(index-1);
     }
