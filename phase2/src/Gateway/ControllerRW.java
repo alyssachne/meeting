@@ -13,12 +13,12 @@ public class ControllerRW {
      * Find the ControllerData.txt file
      * @throws IOException If file not found
      */
-    public ControllerRW(){
+    public ControllerRW() {
         try {
             file = new File("./phase2/src/ControllerData.txt");
             file.createNewFile();
         } catch (Exception e) {
-            System.out.println("File not founded!");
+            System.out.println(e);
         }
     }
 

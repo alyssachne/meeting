@@ -42,11 +42,11 @@ public class MessageUI {
                     System.out.println("3.Mark as unread");
                     String modify = scanner.nextLine();
                     if (modify.equals("1")){
-                        uo.deleteMessage(sender,modifyOption,"Read");//need to modify
+                        uo.deleteMessage(sender,Integer.parseInt(modifyOption),"Read");//need to modify
                     }else if (modify.equals("2")){
-                        uo.archiveMessage(sender, modifyOption);//need to modify
+                        uo.archiveMessage(sender, Integer.parseInt(modifyOption),"Read");//need to modify
                     }else if (modify.equals("3")){
-                        uo.markAsUnread(sender,modifyOption);//need to modify
+                        uo.markAsUnread(sender,Integer.parseInt(modifyOption), "Read");//need to modify
                     }else{
                         System.out.println("This is not an valid option, please give a number from 1 to 3.");
                     }
@@ -63,9 +63,9 @@ public class MessageUI {
                     System.out.println("2.Mark as unread");
                     String modify = scanner.nextLine();
                     if (modify.equals("1")){
-                        uo.deleteMessage(sender,modifyOption,"Read");//need to modify
+                        uo.deleteMessage(sender,Integer.parseInt(modifyOption),"Archived");//need to modify
                     }else if (modify.equals("2")){
-                        uo.markAsUnread(sender,modifyOption);//need to modify
+                        uo.markAsUnread(sender,Integer.parseInt(modifyOption),"Archived");//need to modify
                     }else{
                         System.out.println("This is not an valid option, please give a number from 1 to 2.");
                     }
