@@ -43,7 +43,7 @@ public class MessageBox implements Serializable {
     }
 
     /**
-     * Get all messages from one specific sender by type
+     * Get a list of all messages from one specific sender by type
      * @param sender: User who send the message
      * @param boxType: Message's type
      * @return
