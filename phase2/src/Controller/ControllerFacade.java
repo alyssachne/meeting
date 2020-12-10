@@ -121,8 +121,12 @@ public class ControllerFacade implements Serializable {
     /**
      * printout all events this attendee signed up for. This schedule is only shown to this attendee.
      */
-    public void attendeeSchedule(String sort, Map<String, String> filter) throws ParseException {
-        ScheduleGetter.attendeeSchedule(this.af,this.username,ef,sort,filter);
+    public void attendeeSchedule(String sort, Map<String, String> filter) {
+        try {
+            ScheduleGetter.attendeeSchedule(this.af, this.username, ef, sort, filter);
+        }catch (Exception e){
+            System.out.print("Not a valid input!");
+        }
     }
 
     public void getAllSelectedEvents(String sort, Map<String, String> filter) throws ParseException {
@@ -138,9 +142,13 @@ public class ControllerFacade implements Serializable {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public void getAvailableEvent(String sort) throws ParseException {
+    public void getAvailableEvent(String sort) {
 
-        ScheduleGetter.getAvailableEvent(this.rm,this.username,sort,ef);
+        try {
+            ScheduleGetter.getAvailableEvent(this.rm, this.username, sort, ef);
+        }catch (Exception e){
+            System.out.print("Not a valid format!");
+        }
     }
 
     public void getEnrollmentStatistics(){
