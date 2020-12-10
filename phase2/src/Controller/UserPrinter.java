@@ -27,9 +27,15 @@ public class UserPrinter {
     /**
      * printout all usernames of users who had sent messages to this user.
      */
-    public static void checkContacts(MessageManager mm, String username) {
-        for (String name : mm.getContacts(username)) {
-            System.out.println(name);
+    public static void checkContacts(MessageManager mm, String username, String box) {
+        if (box.equals("all")) {
+            for (String name : mm.getAllContacts(username)) {
+                System.out.println(name);
+            }
+        } else {
+            for (String name:mm.getContacts(username,box)) {
+                System.out.println(name);
+            }
         }
     }
 

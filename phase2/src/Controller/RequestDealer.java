@@ -6,8 +6,8 @@ import Usecase.RequestManager;
 import java.util.List;
 
 public class RequestDealer {
-    public static List<Request> checkAllRequest(RequestManager rm) {
-        return rm.getAllRequests();
+    public static void checkAllRequest(RequestManager rm) {
+        rm.getAllRequests();
     }
 
     public static void madeRequest(RequestManager rm, String request, String username) {

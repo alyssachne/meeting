@@ -91,7 +91,7 @@ public class ControllerFacade implements Serializable {
      * @param roomId The unique Id of the room where this event takes place.
      */
     public boolean createEvent(ArrayList<String> speakers, String title, Date date, int time, int roomId, int duration, String eventAccess, ArrayList<String> constraints){
-            EntityConstructors.createEvent(speakers,title,date,time,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
+            return EntityConstructors.createEvent(speakers,title,date,time,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
     }
 
     /**
@@ -199,16 +199,20 @@ public class ControllerFacade implements Serializable {
     /**
      * printout all usernames of users who had sent messages to this user.
      */
-    public void checkContacts(){
-        UserPrinter.checkContacts(this.mm,this.username);
+    public void checkContacts(String box){
+        UserPrinter.checkContacts(this.mm,this.username,box);
     }
 
     /**
      * Printout all messages sent from this user.
      * @param sender The username of the user who sent messages to this user.
      */
-    public void getMessage(String sender){
-        MessageDealer.getMessage(sender,this.mm,this.username);
+    public void getMessage(String sender, String box){
+        MessageDealer.getMessage(sender,this.mm,this.username,box);
+    }
+
+    public void readAllMessage(String box){
+        MessageDealer.readAllMessage(box,username,mm);
     }
 
     /**

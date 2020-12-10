@@ -31,7 +31,9 @@ public class OrganizerUI {
             System.out.println("2.Create an Account");
             System.out.println("3.Schedule an event");
             System.out.println("4.Message System");
-            System.out.println("5.Exit");
+            System.out.println("5.Request System");
+            System.out.println("6.Statistics Summary");
+            System.out.println("7.Exit");
             String choice = scanner.nextLine();
             if (choice.equals("1")) {
                 System.out.println("Please enter the max capacity of the room:");
@@ -152,46 +154,122 @@ public class OrganizerUI {
                 }
             } else if (choice.equals("4")) {
                 //message
-                System.out.println("1.Send message to all Speakers");
-                System.out.println("2.Send message to all Attendees");
-                System.out.println("3.Send message to a specific Speaker");
-                System.out.println("4.Send message to a specific Attendee");
-                System.out.println("5.Message Inbox");
-                String option = scanner.nextLine();
-                if (option.equals("1")) {
+                System.out.println("1.Send message");
+                System.out.println("2.Message Inbox");
+                String decision = scanner.nextLine();
+                if (decision.equals("1")) {
+                    System.out.println("1.Send message to all Speakers");
+                    System.out.println("2.Send message to all Attendees");
+                    System.out.println("3.Send message to a specific Speaker");
+                    System.out.println("4.Send message to a specific Attendee");
+                    String option = scanner.nextLine();
                     System.out.println("Please enter your message");
                     String message = scanner.nextLine();
-                    uo.groupMessageTo(message, "Speaker");
-                } else if (option.equals("2")) {
-                    System.out.println("Please enter your message");
-                    String message = scanner.nextLine();
-                    uo.groupMessageTo(message, "Attendee");
-                } else if (option.equals("3")) {
-                    System.out.println("Please enter the username of the Speaker you want to send to");
-                    String receiver = scanner.nextLine();
-                    System.out.println("Please enter your message");
-                    String message = scanner.nextLine();
-                    uo.privateMessageTo(receiver, "Speaker", message);
-                } else if (option.equals("4")) {
-                    System.out.println("Please enter the username of the Attendee you want to send to");
-                    String receiver = scanner.nextLine();
-                    System.out.println("Please enter your message");
-                    String message = scanner.nextLine();
-                    uo.privateMessageTo(receiver, "Attendee", message);
-                } else if (option.equals("5")) {
-                    System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
-                    uo.checkContacts();
-                    String contact = scanner.nextLine();
-                    uo.getMessage(contact);
+                    if (option.equals("1")) {
+//                        System.out.println("Please enter your message");
+//                        String message = scanner.nextLine();
+                        uo.groupMessageTo(message, "Speaker");
+                    } else if (option.equals("2")) {
+//                        System.out.println("Please enter your message");
+//                        String message = scanner.nextLine();
+                        uo.groupMessageTo(message, "Attendee");
+                    } else if (option.equals("3")) {
+                        System.out.println("Please enter the username of the Speaker you want to send to");
+                        String receiver = scanner.nextLine();
+//                        System.out.println("Please enter your message");
+//                        String message = scanner.nextLine();
+                        uo.privateMessageTo(receiver, "Speaker", message);
+                    } else if (option.equals("4")) {
+                        System.out.println("Please enter the username of the Attendee you want to send to");
+                        String receiver = scanner.nextLine();
+//                        System.out.println("Please enter your message");
+//                        String message = scanner.nextLine();
+                        uo.privateMessageTo(receiver, "Attendee", message);
+                    } else {
+                        System.out.println("Please choose a number from 1 to 4");
+                    }
+
+//                System.out.println("1.Send message to all Speakers");
+//                System.out.println("2.Send message to all Attendees");
+//                System.out.println("3.Send message to a specific Speaker");
+//                System.out.println("4.Send message to a specific Attendee");
+//                System.out.println("5.Message Inbox");
+//                String option = scanner.nextLine();
+//                if (option.equals("1")) {
+//                    System.out.println("Please enter your message");
+//                    String message = scanner.nextLine();
+//                    uo.groupMessageTo(message, "Speaker");
+//                } else if (option.equals("2")) {
+//                    System.out.println("Please enter your message");
+//                    String message = scanner.nextLine();
+//                    uo.groupMessageTo(message, "Attendee");
+//                } else if (option.equals("3")) {
+//                    System.out.println("Please enter the username of the Speaker you want to send to");
+//                    String receiver = scanner.nextLine();
+//                    System.out.println("Please enter your message");
+//                    String message = scanner.nextLine();
+//                    uo.privateMessageTo(receiver, "Speaker", message);
+//                } else if (option.equals("4")) {
+//                    System.out.println("Please enter the username of the Attendee you want to send to");
+//                    String receiver = scanner.nextLine();
+//                    System.out.println("Please enter your message");
+//                    String message = scanner.nextLine();
+//                    uo.privateMessageTo(receiver, "Attendee", message);
+                } else if (decision.equals("2")) {
+                    System.out.println("1.New message");
+                    System.out.println("2.Read message");
+                    System.out.println("3.Archived message");
+                    System.out.println("Please choose which box you want to access");
+                    String box = scanner.nextLine();
+                    System.out.println("You want to see all message or message from one person? If you want to see all" +
+                            "please input 'all'. ");
+                    String sender = scanner.nextLine();
+                    // can read message in each box
+                    if(sender.equals("all")) {
+                        System.out.println("Here are messages in" + box + " :");
+                        uo.readAllMessage(box);
+                    } else {
+                        System.out.println("Here is a list of your contacts, please enter their username to check " +
+                                "unread message from them");
+                        uo.checkContacts(box);
+                        String contact = scanner.nextLine();
+                        uo.getMessage(contact,box);
+                    }
+
+                    // need an else here to handle exception for number from 1 to 3
+
+//                    System.out.println("Here is a list of your contacts, please enter their username to check message they sent to you");
+//                    uo.checkContacts(box);
+//                    String contact = scanner.nextLine();
+//                    uo.getMessage(contact);
                 } else {
-                    System.out.println("This is not an valid option, please give a number from 1 to 5.");
+                    System.out.println("This is not an valid option, please give a number from 1 to 2.");
                 }
-            } else if (choice.equals("5")) {
+            } else if(choice.equals("5")) {
+                System.out.println("Here are all requests: ");
+                uo.checkAllRequest();
+
+            } else if(choice.equals("6")){
+                System.out.println("1.Enrollment Statistics");
+                System.out.println("2.Top Five Event Lists");
+                System.out.println("3.App Traffic");
+                String stat = scanner.nextLine();
+                if(stat.equals("1")){
+                    uo.getEnrollmentStatistics();
+                } else if(stat.equals("2")){
+                    uo.getTopFiveLists();
+                } else if(stat.equals("3")) {
+                    uo.getAppTraffic();
+                } else {
+                    System.out.println("This is not an valid option, please give a number from 1 to 3.");
+                }
+
+            } else if (choice.equals("7")) {
                 uo.logout();
                 crw.writeFile(uo);
                 handle = false;
             } else {
-                System.out.println("This is not an valid option, please give a number from 1 to 5.");
+                System.out.println("This is not an valid option, please give a number from 1 to 7.");
             }
         }
     }

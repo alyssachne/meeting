@@ -39,27 +39,48 @@ public class MessageManager extends Observable implements Serializable {
     }
 
 
+    public void seeAllMessage(String username, String box) {
+        System.out.println("Here are the messages in " + box + " :");
+        for (int i = 0; i < getMessageBox(username).getAllMessage(box).size(); i++) {
+            System.out.println("Message" + i + 1 + ": " + getMessageBox(username).getAllMessage(box).get(i));
+        }
+        if(box.equals("Unread")){
+            for(String sender: getMessageBox(username).getAllMessage("Unread").keySet()){
+                seeUnreadMessage(username, sender);
+            }
+        }
+    }
     public void seeMessageFromOne(String username, String sender, String box) {
         System.out.println("Here are the messages from" + sender + ":");
         for (int i = 0; i < getMessageBox(username).getMessageFromOne(sender, box).size(); i++) {
             System.out.println("Message" + i + 1 + ": " + getMessageBox(username).getMessageFromOne(sender, box).get(i));
         }
+        if(box.equals("Unread")){
+            seeUnreadMessage(username, sender);
+        }
+    }
+
+    private void seeUnreadMessage(String username, String sender ){
+        for(String m: getMessageBox(username).getMessageFromOne(sender, "Unread")){
+            getMessageBox(username).addTo(sender,m,"Read");
+            getMessageBox(username).removeFrom(sender,m,"Unread");
+        }
     }
 
     public void MarkAsUnread(String username, String message, String sender) {
-        getMessageBox(username).removeFrom(username, sender, message, "Read");
-        getMessageBox(username).addTo(username, message, sender, "Unread");
+        getMessageBox(username).removeFrom(sender, message, "Read");
+        getMessageBox(username).addTo(message, sender, "Unread");
         System.out.println("You have marked the message as unread");
     }
 
     public void archiveMessage(String username, String message, String sender) {
-        getMessageBox(username).removeFrom(username, sender, message, "Read");
-        getMessageBox(username).addTo(username, message, sender, "Archive");
+        getMessageBox(username).removeFrom(sender, message, "Read");
+        getMessageBox(username).addTo(message, sender, "Archive");
         System.out.println("You have archived the message");
     }
 
     public void deleteMessage(String username, String message, String sender, String destination) {
-        getMessageBox(username).removeFrom(username, sender, message, destination);
+        getMessageBox(username).removeFrom(sender, message, destination);
         System.out.println("You have deleted the message");
     }
 
@@ -69,8 +90,8 @@ public class MessageManager extends Observable implements Serializable {
      * @param sender: User who send the message
      * @param message: The content of the message
      */
-    public void addMessage(String receiver, String sender, String message){
-       getMessageBox(receiver).addMessage(sender, message);
+    public void sendMessage(String receiver, String sender, String message){
+       getMessageBox(receiver).sendMessage(sender, message);
     }
 
     /**
@@ -78,8 +99,11 @@ public class MessageManager extends Observable implements Serializable {
      * @param username: the username of the user
      * @return list of user in User's contact
      */
-    public Set<String> getContacts(String username){
-        return getMessageBox(username).getContacts();
+    public Set<String> getAllContacts(String username){
+        return getMessageBox(username).getAllContacts();
     }
 
+    public Set<String> getContacts(String username, String box){
+        return getMessageBox(username).getContacts(box);
+    }
 }

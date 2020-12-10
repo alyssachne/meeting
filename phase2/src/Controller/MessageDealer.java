@@ -13,11 +13,11 @@ public class MessageDealer {
                                       String sender){
         if (userType.equals("Speaker")){
             for(String receiver: af.speakerList()){
-                mm.addMessage(receiver,sender,message);
+                mm.sendMessage(receiver,sender,message);
             }
         }else if (userType.equals("Attendee")){
             for(String receiver: af.attendeeList()){
-                mm.addMessage(receiver,sender,message);
+                mm.sendMessage(receiver,sender,message);
             }
         }
 
@@ -31,7 +31,7 @@ public class MessageDealer {
     public static void eventMessage_Attendee(String message, Integer eventId, EventFactory em,
                                              MessageManager mm, String sender){
         for (String receiver: em.getEvent(eventId).getAttendees()) {
-            mm.addMessage(receiver,sender,message);
+            mm.sendMessage(receiver,sender,message);
         }
     }
 
@@ -42,20 +42,24 @@ public class MessageDealer {
      * @param message The message this user wants to send.
      */
     public static void privateMessageTo(String receiver, String message, MessageManager mm, String sender){
-        mm.addMessage(receiver,sender,message);
+        mm.sendMessage(receiver,sender,message);
     }
 
     /**
      * Printout all messages sent from this user.
      * @param sender The username of the user who sent messages to this user.
      */
-    public static void getMessage(String sender, MessageManager mm, String username){
-        System.out.println("Here are the unread messages from this person");
-        mm.seeMessageFromOne(username,sender, "Unread");
-        System.out.println("Here are the read messages from this person");
-        mm.seeMessageFromOne(username,sender, "Read");
-        System.out.println("Here are the archived messages from this person");
-        mm.seeMessageFromOne(username,sender, "Archived");
+    public static void getMessage(String sender, MessageManager mm, String username, String box){
+        System.out.println("Here are the " + box + " messages from this person");
+        mm.seeMessageFromOne(username,sender, box);
+//        System.out.println("Here are the read messages from this person");
+//        mm.seeMessageFromOne(username,sender, "Read");
+//        System.out.println("Here are the archived messages from this person");
+//        mm.seeMessageFromOne(username,sender, "Archived");
+    }
+
+    public static void readAllMessage(String box, String username, MessageManager mm){
+        mm.seeAllMessage(username, box);
     }
 
     public static void markAsUnread(String sender, MessageManager mm, String receiver, String message) {
