@@ -64,15 +64,15 @@ public class MessageDealer implements Serializable {
         mm.seeAllMessage(username, box);
     }
 
-    public static void markAsUnread(String sender, MessageManager mm, String receiver, int index, String box) {
+    public static void markAsUnread(String receiver, MessageManager mm, String sender, int index, String box) {
         mm.MarkAsUnread(receiver, index, sender, box);
     }
 
-    public static void deleteMessage(String sender, MessageManager mm, String receiver, int index, String box) {
+    public static void deleteMessage(String receiver, MessageManager mm, String sender, int index, String box) {
         mm.deleteMessage(receiver, index, sender, box);
     }
 
-    public static void archiveMessage(String sender, MessageManager mm, String receiver, int index, String box) {
+    public static void archiveMessage(String receiver, MessageManager mm, String sender, int index, String box) {
         mm.archiveMessage(receiver, index, sender,box);
     }
 }
