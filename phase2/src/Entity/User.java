@@ -31,6 +31,7 @@ public class User implements Serializable {
         this.name = name;
         this.username = username;
         this.password = password;
+        this.access = "Normal";
         eventList = new ArrayList<>();
         likedEvent = new ArrayList<>();
     }

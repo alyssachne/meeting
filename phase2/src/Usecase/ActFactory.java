@@ -39,7 +39,7 @@ public class ActFactory implements Serializable {
      * @return boolean that whether the password is correct or not.
      */
     public boolean login(String username, String password){
-        if(getUser(username) == null){
+        if (getUser(username)==null) {
             return false;
         }
         return getUser(username).validatePassword(password);
@@ -51,10 +51,6 @@ public class ActFactory implements Serializable {
      * @param username: the username of the user
      */
     public User getUser(String username) {
-        if(!userHashMap.containsKey(username)) {
-            System.out.println("User not found");
-            return null;
-        }
         return userHashMap.get(username);
     }
 
@@ -92,6 +88,7 @@ public class ActFactory implements Serializable {
 
     public boolean checkUsernameTaken(String username) {
         if(userHashMap.containsKey(username)) {
+            System.out.println("This username has been taken.");
             return true;
         }
         return false;
