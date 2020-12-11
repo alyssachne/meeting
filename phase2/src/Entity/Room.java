@@ -95,14 +95,16 @@ public class Room implements Serializable {
 //            return available;
 //    }
 
+    /**
+     * Get the room's constraints
+     */
     public ArrayList<String> getConstraints() {
         return this.constraints;
     }
 
-
-
-
-
+    /**
+     * Get the Technology in the room
+     */
     public HashMap<String, Integer> getTechnology() {
         return this.technology;
     }

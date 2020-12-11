@@ -9,6 +9,10 @@ public class Calendar implements Serializable {
     // key is the start time, value is the list of eventId that starts ar that time.
     private Map<Integer, ArrayList<Integer>> schedule;
 
+    /**
+     * Initialize a Calendar
+     * @param date: the date of the Calendar
+     */
     public Calendar(Date date) {
         this.date = date;
         schedule = new HashMap<>();
@@ -17,10 +21,16 @@ public class Calendar implements Serializable {
         }
     }
 
+    /**
+     * Get the date of the Calendar
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     * Get the schedule of the date
+     */
     public Map<Integer, ArrayList<Integer>> getSchedule() {
         return schedule;
     }
