@@ -24,13 +24,18 @@ public class Getter implements Serializable {
     /**
      * printout all rooms and their available times.
      */
-    public static void roomList(Date date, RoomManager rm, int maxCapacity, List<String> constraints,
+    public static boolean roomList(Date date, RoomManager rm, int maxCapacity, List<String> constraints,
                                 CalendarManager cm){
-        for(int id: rm.suggestedRooms(maxCapacity, constraints)) {
-            System.out.println("Room " + id + " ：");
-            for(Integer time: cm.getAvailable(date, rm.seeSchedule(id, date))){
-                System.out.println(time);
+        if(rm.suggestedRooms(maxCapacity, constraints).isEmpty()){
+            return false;
+        }else {
+            for (int id : rm.suggestedRooms(maxCapacity, constraints)) {
+                System.out.println("Room " + id + " ：");
+                for (Integer time : cm.getAvailable(date, rm.seeSchedule(id, date))) {
+                    System.out.println(time);
+                }
             }
+            return true;
         }
     }
 

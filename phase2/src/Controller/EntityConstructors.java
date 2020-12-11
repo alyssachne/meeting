@@ -84,30 +84,42 @@ public class EntityConstructors implements Serializable {
         // check if all speakers are free from the beginning of the event to the end of the event
         // if the room is free from the beginning of the event to the end of the event/
         // if the room satisfies all constraints the event need
-        for(String sp: speaker) {
-            for(int i=9; i <= 9 + duration - 1; i++) {
+
+        for(int i=time; i <= time + duration - 1; i++) {
 //                System.out.println(cm.getAvailable(date, af.getEvents(sp)).contains(i));
 //                System.out.println(cm.getAvailable(date, rm.getRoom(roomId).getSchedule(date)).contains(i));
 //                System.out.println(rm.getRoom(roomId).getConstraints().containsAll(constraints));
-
-                if (!cm.getAvailable(date, af.getEvents(sp)).contains(i) |
-                        !cm.getAvailable(date, rm.getRoom(roomId).getSchedule(date)).contains(i) |
+            for(String sp: speaker) {
+                if (!cm.getAvailable(date, af.givenEvents(sp,date)).contains(i)){
+                    return false;
+                }
+            }
+            if(!cm.getAvailable(date, rm.getRoom(roomId).getSchedule(date)).contains(i) |
                 !rm.getRoom(roomId).getConstraints().containsAll(constraints)) {
                     return false;
                 }
             }
-        }
+
+        Date copy = (Date) date.clone();
         date.setHours(time);
         int eventId = ef.createEvent(title,date,roomId,speaker, duration, eventAccess, constraints);
         // add the event to the speakers' given ArrayList and room's ArrayList.
-        for(int i=9; i <= 9 + duration - 1; i++) {
+        for(int i=time; i <= time + duration - 1; i++) {
             for(String s: speaker) {
-                af.giveEvent(s,eventId,date);
+                af.giveEvent(s,eventId,copy);
             }
-            rm.book(roomId,eventId,date);
-            cm.newEvent(date, i, eventId);
+            rm.book(roomId,eventId,copy);
+            cm.newEvent(copy, i, eventId);
         }
         return true;
+    }
+
+    public static boolean validSpeaker(String speaker, ActFactory af){
+        return af.speakerList().contains(speaker);
+    }
+
+    public static boolean validRoom(int roomId, RoomManager rm){
+        return rm.allRooms.contains(rm.getRoom((roomId)));
     }
 
     public static boolean hasSpeakers(ActFactory af) {

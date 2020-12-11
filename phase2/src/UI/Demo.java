@@ -46,17 +46,17 @@ public class Demo {
                 String username = scanner.nextLine();
                 System.out.println("Please enter your password:");
                 String password = scanner.nextLine();
-                uo.login(username, password);
-                crw.writeFile(uo);
-                if (uo.typeGetter().equalsIgnoreCase("Organizer")){
-                    OrganizerUI ou = new OrganizerUI();
-                    ou.OrganizerDemo(uo);
-                }else if (uo.typeGetter().equalsIgnoreCase("Speaker")){
-                    SpeakerUI su = new SpeakerUI();
-                    su.SpeakerDemo(uo);
-                }else if (uo.typeGetter().equalsIgnoreCase("User")){
-                    AttendeeUI au = new AttendeeUI();
-                    au.AttendeeDemo(uo);
+                if(uo.login(username, password)) {
+                    crw.writeFile(uo);
+                    if (uo.typeGetter().equalsIgnoreCase("Organizer")) {
+                        OrganizerUI ou = new OrganizerUI();
+                        ou.OrganizerDemo(uo);
+                    } else if (uo.typeGetter().equalsIgnoreCase("Speaker")) {
+                        SpeakerUI su = new SpeakerUI();
+                        su.SpeakerDemo(uo);
+                    } else if (uo.typeGetter().equalsIgnoreCase("User")) {
+                        AttendeeUI au = new AttendeeUI();
+                        au.AttendeeDemo(uo);
 //                        if (uo.getClass().equals(Organizer.class)){
 //                            OrganizerUI ou = new OrganizerUI();
 //                            ou.OrganizerDemo();
@@ -66,9 +66,12 @@ public class Demo {
 //                        }else if (uo.getClass().equals(User.class)){
 //                            AttendeeUI au = new AttendeeUI();
 //                            au.AttendeeDemo();
-                }else{
+                    } else {
 //                        System.out.println(uo.typeGetter());
-                    System.out.print("User Type Error!");
+                        System.out.print("User Type Error!");
+                    }
+                }else{
+                    System.out.println("This username can not be found.");
                 }
             }
             crw.writeFile(uo);
