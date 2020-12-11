@@ -70,6 +70,7 @@ public class OrganizerUI {
                         uo.createUser(name, uname, pwd, "Organizer");
                         System.out.println("Organizer account has been created successfully");
                     }else if (option.equals("2")){
+                        uo.createUser(name, uname, pwd, "Speaker");
                         System.out.println("Speaker account has been created successfully");
                         System.out.println("Please schedule an Event for this speaker");
                     }else if (option.equals("3")){
@@ -83,13 +84,13 @@ public class OrganizerUI {
                 }else{
                     System.out.print("This is not an valid option, please give a number from 1 to 4.");
                 }
-            } else if (choice.equals("3")) {
+            } else if (choice.equals("3")&&uo.hasRoom()) {
                 //Schedule an event
                 System.out.println("1.Create a panel discussion");
                 System.out.println("2.Create a party");
                 System.out.println("3.Create a talk");
                 String option = scanner.nextLine();
-                if (option.equals("1")||option.equals("2")||option.equals("3")){
+                if ((option.equals("1")&&uo.hasSpeaker())||option.equals("2")||(option.equals("3")&&uo.hasSpeaker())){
                     System.out.print("Please enter date of the event will be held(DD/MM/YYYY):");
                     Date date = null;
                     try{
@@ -103,6 +104,7 @@ public class OrganizerUI {
                             uo.speakerAvailable(date);
                         }catch (Exception e){
                             System.out.print("We don't have any speaker available currently.");
+                            return;
                         }
                     }
                     boolean constraintLoop = true;
@@ -160,7 +162,11 @@ public class OrganizerUI {
                         System.out.println("There is a time conflict exist");
                     }
                 }else{
-                    System.out.print("This is not an valid option, please give a number from 1 to 3.");
+                    if (!uo.hasSpeaker()){
+                        System.out.print("There is no speaker available.");
+                    }else{
+                        System.out.print("This is not an valid option, please give a number from 1 to 3.");
+                    }
                 }
             } else if (choice.equals("4")) {
                 //message
@@ -213,7 +219,7 @@ public class OrganizerUI {
                 }
             } else if (choice.equals("7")) {
                 uo.logout();
-//                crw.writeFile(uo);
+                crw.writeFile(uo);
                 handle = false;
             } else {
                 System.out.println("This is not an valid option, please give a number from 1 to 7.");

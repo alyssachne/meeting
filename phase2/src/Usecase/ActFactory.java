@@ -19,10 +19,10 @@ public class ActFactory implements Serializable {
         if(userHashMap.containsKey(username)) {
             return false;
         }
-        if(type == "Organizer") {
+        if(type.equals("Organizer")) {
             User organizer = new Organizer(name, username,password);
             userHashMap.put(username,organizer);
-        } else if (type == "Speaker") {
+        } else if (type.equals("Speaker")) {
             User speaker = new Speaker(name, username,password);
             userHashMap.put(username,speaker);
         } else {
@@ -39,6 +39,9 @@ public class ActFactory implements Serializable {
      * @return boolean that whether the password is correct or not.
      */
     public boolean login(String username, String password){
+        if (getUser(username)==null) {
+            return false;
+        }
         return getUser(username).validatePassword(password);
     }
 

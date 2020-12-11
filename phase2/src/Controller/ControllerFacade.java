@@ -102,6 +102,9 @@ public class ControllerFacade implements Serializable {
     }
 
     public boolean hasRoom(){
+        if (!EntityConstructors.hasRoom(rm)){
+            System.out.println("There is no room available!");
+        }
         return EntityConstructors.hasRoom(rm);
     }
 
