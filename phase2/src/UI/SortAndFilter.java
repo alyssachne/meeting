@@ -10,7 +10,8 @@ public class SortAndFilter {
         System.out.println("3. Sort by speaker's username.");
         System.out.println("4. Sort by starting time of event.");
         System.out.println("5. Sort by title of event.");
-        System.out.println("Please choose one of the options. (Enter 'exit' to skip and finish.)");
+        System.out.println("Please choose one of the options. For example, enter eventId, if you want to choose the " +
+                "first option. (Enter 'exit' to skip and finish.)");
     }
 
     public void FilterHelper(){

@@ -44,7 +44,6 @@ public class ActFactory implements Serializable {
      */
     public boolean login(String username, String password){
         if (getUser(username)==null) {
-            System.out.println("This username can not be found.");
             return false;
         }
         if(!getUser(username).validatePassword(password)){
@@ -84,6 +83,11 @@ public class ActFactory implements Serializable {
      */
     public ArrayList<Integer> getEvents(String username){
         return getUser(username).getSignUp();
+    }
+
+    public ArrayList<Integer> givenEvents(String username,Date date){
+        Speaker speaker = (Speaker)getUser(username);
+        return speaker.getGiveEvents_OneDay(date);
     }
 
     /**

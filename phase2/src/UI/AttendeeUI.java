@@ -4,10 +4,7 @@ import Controller.ControllerFacade;
 import Controller.Sorter.SorterStrategy;
 import Gateway.ControllerRW;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class AttendeeUI {
 
@@ -54,40 +51,40 @@ public class AttendeeUI {
                 // sort events
                 sf.SortHelper();
                 String sort = scanner.nextLine();
-                if(1>Integer.parseInt(sort) && Integer.parseInt(sort)>5) {
-                    System.out.println("This is not an valid option.");
-                } else {
-                    if (choice.equals("1")) {
-                        // print out current schedule
-                        System.out.println("Here is your current schedule: ");
-                        if (sort.equals("exit")) {
-                            uo.attendeeSchedule("Time", filterMap);
-                        } else {
-                            uo.attendeeSchedule(sort, filterMap);
-                        }
-                        System.out.println("1.Like an event");
-                        System.out.println("2.Cancel an event reservation");
-                        String decision = scanner.nextLine();
-                        System.out.println("Please enter the eventId you would like modify");
-                        String eventId = scanner.nextLine();
-                        if (decision.equals("1")) {
-                            uo.likeEvent(Integer.parseInt(eventId));
-                        } else if (decision.equals("2")) {
-                            uo.cancelSpot(Integer.parseInt(eventId));
-                        } else {
-                            System.out.println("This is not an valid option, please choose a number from 1 to 2.");
-                        }
+                if (choice.equals("1")) {
+                    // print out current schedule
+                    System.out.println("Here is your current schedule: ");
+                    if (sort.equals("exit")) {
+                        uo.attendeeSchedule("Time", filterMap);
                     } else {
-                        // option 2
+                        uo.attendeeSchedule(sort, filterMap);
+                    }
+                    System.out.println("1.Like an event");
+                    System.out.println("2.Cancel an event reservation");
+                    String decision = scanner.nextLine();
+                    System.out.println("Please enter the eventId you would like modify");
+                    String eventId = scanner.nextLine();
+                    if (decision.equals("1")) {
+                        uo.likeEvent(Integer.parseInt(eventId));
+                    } else if (decision.equals("2")) {
+                        uo.cancelSpot(Integer.parseInt(eventId));
+                    } else {
+                        System.out.println("This is not an valid option, please choose a number from 1 to 2.");
+                    }
+                } else {
+                    // option 2
+                    if(uo.hasEvent()) {
                         System.out.println("Here are events you can sign up: ");
                         if (sort.equals("exit")) {
-                            uo.getAvailableEvent("Time",filterMap);
+                            uo.getAvailableEvent("Time", filterMap);
                         } else {
-                            uo.getAvailableEvent(sort,filterMap);
+                            uo.getAvailableEvent(sort, filterMap);
                         }
                         System.out.println("Please enter the eventId you would like to sign up");
                         String eventId = scanner.nextLine();
                         uo.signUp(Integer.parseInt(eventId));
+                    }else{
+                        System.out.println("There is no event available.");
                     }
                 }
             } else if (choice.equals("3")) {

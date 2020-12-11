@@ -77,7 +77,7 @@ public class Room implements Serializable {
      */
     public ArrayList<Integer> getSchedule(Date date) {
         if(!schedule.containsKey(date)){
-            return new ArrayList<>(8);
+            schedule.put(date, new ArrayList<>(8));
         }
         return schedule.get(date);
     }

@@ -33,11 +33,13 @@ public class ControllerFacade implements Serializable {
      * @param username The username of the user.
      * @param password The password of the user.
      */
-    public void login(String username, String password){
+    public boolean login(String username, String password){
         if(af.login(username,password)) {
             this.username = username;
             type = af.getUser(username).typeGetter();
+            return true;
         }
+        return false;
     }
 
     public String typeGetter(){
@@ -103,14 +105,15 @@ public class ControllerFacade implements Serializable {
         return MessageDealer.hasContacts(username,mm,box);
     }
 
+    public boolean hasEvent(){
+        return EventDealer.hasEvent(ef);
+    }
+
     public boolean hasMessage(String box){
         return MessageDealer.hasMessage(username,mm,box);
     }
 
     public boolean hasRoom(){
-        if (!EntityConstructors.hasRoom(rm)){
-            System.out.println("There is no room available!");
-        }
         return EntityConstructors.hasRoom(rm);
     }
 
@@ -124,8 +127,8 @@ public class ControllerFacade implements Serializable {
     /**
      * printout all rooms and their available times.
      */
-    public void roomList(Date date, int maxCapacity, ArrayList<String> constraints){
-        Getter.roomList(date, this.rm, maxCapacity, constraints,cm);
+    public boolean roomList(Date date, int maxCapacity, ArrayList<String> constraints){
+        return Getter.roomList(date, this.rm, maxCapacity, constraints,cm);
     }
 
     /**
@@ -307,5 +310,13 @@ public class ControllerFacade implements Serializable {
 
     public String checkAccess(){
         return af.checkAccess(username);
+    }
+
+    public boolean validRoom(int roomId){
+        return EntityConstructors.validRoom(roomId,rm);
+    }
+
+    public boolean validSpeaker(String speaker){
+        return EntityConstructors.validSpeaker(speaker,af);
     }
 }

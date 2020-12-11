@@ -57,4 +57,8 @@ public class EventDealer implements Serializable {
     public static void likeEvent(int eventId, ActFactory af, String username) {
         af.likeEvent(username, eventId);
     }
+
+    public static boolean hasEvent(EventFactory ef){
+        return ef.allEvents.isEmpty();
+    }
 }

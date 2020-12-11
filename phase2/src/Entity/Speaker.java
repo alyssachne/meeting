@@ -51,7 +51,8 @@ public class Speaker extends User {
      */
     public ArrayList<Integer> getGiveEvents_OneDay(Date date){
         if(!events.containsKey(date)){
-            return new ArrayList<>(8);
+            events.put(date, new ArrayList<>(8));
+
         }
         return events.get(date);
     }
