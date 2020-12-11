@@ -37,6 +37,7 @@ public class EventFactory implements Serializable {
         e.setSpeakers(speakers);
         e.setEventAccess(eventAccess);
         e.setConstraints(constraints);
+        allEvents.add(e);
         return e.getId();
     };
 
