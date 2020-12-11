@@ -75,4 +75,11 @@ public class MessageDealer implements Serializable {
     public static void archiveMessage(String receiver, MessageManager mm, String sender, int index, String box) {
         mm.archiveMessage(receiver, index, sender,box);
     }
+
+    public static boolean hasContacts(String username, MessageManager mm, String box) {
+        if(mm.getMessageBox(username).getAllMessage(box).isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }

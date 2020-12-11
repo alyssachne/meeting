@@ -99,6 +99,10 @@ public class ControllerFacade implements Serializable {
         return EntityConstructors.hasSpeakers(af);
     }
 
+    public boolean hasContact(String box){
+        return MessageDealer.hasContacts(username,mm,box);
+    }
+
     public boolean hasRoom(){
         if (!EntityConstructors.hasRoom(rm)){
             System.out.println("There is no room available!");
