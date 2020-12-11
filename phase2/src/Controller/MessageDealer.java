@@ -52,7 +52,6 @@ public class MessageDealer implements Serializable {
      * @param sender The username of the user who sent messages to this user.
      */
     public static void getMessage(String sender, MessageManager mm, String username, String box){
-        System.out.println("Here are the " + box + " messages from this person");
         mm.seeMessageFromOne(username,sender, box);
 //        System.out.println("Here are the read messages from this person");
 //        mm.seeMessageFromOne(username,sender, "Read");
@@ -81,5 +80,14 @@ public class MessageDealer implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public static boolean hasMessage(String username, MessageManager mm, String box){
+        for(String name: mm.getMessageBox(username).getAllMessage(box).keySet()){
+            if(mm.getMessageBox(username).getAllMessage(box).get(name).size() != 0){
+                return true;
+            }
+        }
+        return false;
     }
 }

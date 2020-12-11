@@ -41,6 +41,17 @@ public class UserPrinter implements Serializable {
         }
     }
 
+    /**
+     * printout all usernames of users in the system.
+     */
+    public static void checkUsers(ActFactory af, String username) {
+        for (String name : af.userHashMap.keySet()) {
+            if (!username.equals(name)) {
+                System.out.println(name);
+            }
+        }
+    }
+
     public static void changeUserAccess(String username, ActFactory af, String access) {
         af.changeAccess(username, access);
     }

@@ -103,6 +103,10 @@ public class ControllerFacade implements Serializable {
         return MessageDealer.hasContacts(username,mm,box);
     }
 
+    public boolean hasMessage(String box){
+        return MessageDealer.hasMessage(username,mm,box);
+    }
+
     public boolean hasRoom(){
         if (!EntityConstructors.hasRoom(rm)){
             System.out.println("There is no room available!");
@@ -225,6 +229,10 @@ public class ControllerFacade implements Serializable {
      */
     public void checkContacts(String box){
         UserPrinter.checkContacts(this.mm,this.username,box);
+    }
+
+    public void checkUsers(){
+        UserPrinter.checkUsers(af,username);
     }
 
     /**

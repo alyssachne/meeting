@@ -189,6 +189,8 @@ public class OrganizerUI {
                     } else if (option.equals("2")) {
                         uo.groupMessageTo(message, "Attendee");
                     } else if (option.equals("3")) {
+                        System.out.println("Here are all users in the system: ");
+                        uo.checkUsers();
                         System.out.println("Please enter the username of the User you want to send to");
                         String receiver = scanner.nextLine();
                         uo.privateMessageTo(receiver, message);

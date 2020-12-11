@@ -115,7 +115,7 @@ public class MessageBox implements Serializable {
      * @param sender: the User who send the message
      * @param destination: type of message that the User want it to be
      */
-    public void addTo(String message, String sender, String destination) {
+    public void addTo(String sender, String message, String destination) {
         if (getAllMessage(destination).containsKey(sender)) {
             getMessageFromOne(sender, destination).add(message);
         } else {
@@ -132,11 +132,7 @@ public class MessageBox implements Serializable {
      * @param destination: type of message that the User want it to be
      */
     public void removeFrom(String sender, String message, String destination) {
-        if (getAllMessage(destination).get(sender).size() == 1) {
-            getAllMessage(destination).remove(sender);
-        } else {
-            getMessageFromOne(sender, destination).remove(message);
-        }
+        getMessageFromOne(sender, destination).remove(message);
     }
 
 }
