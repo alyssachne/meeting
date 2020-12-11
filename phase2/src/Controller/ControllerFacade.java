@@ -17,7 +17,7 @@ public class ControllerFacade implements Serializable {
     protected MessageManager mm = new MessageManager();
     protected ActFactory af = new ActFactory();
     protected CalendarManager cm = new CalendarManager();
-    protected String username;
+    public String username;
     protected String type;
 
     /**

@@ -19,7 +19,6 @@ public class AttendeeUI {
         } else{
             System.out.println("Read File Error");
         }
-
         Scanner scanner = new Scanner(System.in);
         SortAndFilter sf = new SortAndFilter();
 
