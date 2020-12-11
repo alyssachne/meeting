@@ -106,4 +106,11 @@ public class EntityConstructors implements Serializable {
         return true;
     }
 
+    public static boolean hasSpeakers(ActFactory af) {
+        if(af.speakerList().isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
 }

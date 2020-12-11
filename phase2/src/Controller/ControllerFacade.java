@@ -97,6 +97,10 @@ public class ControllerFacade implements Serializable {
             return EntityConstructors.createEvent(speakers,title,date,time,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
     }
 
+    public boolean hasSpeaker(){
+        return EntityConstructors.hasSpeakers(af);
+    }
+
     /**
      * printout all speakers and their available times.
      */
