@@ -103,10 +103,20 @@ public class ActFactory implements Serializable {
         return false;
     }
 
+    /**
+     * Get a list of liked event of a user
+     * @param username: the username of the User
+     */
     public ArrayList<Integer> checkLikedEvents(String username) {
         return getUser(username).getLikedEvents();
     }
 
+    /**
+     * Add a new liked event to the list
+     * @param username: the username of the User
+     * @param eventId: Id of the event
+     * @return the boolean that whether the event is successfully added to the list
+     */
     public boolean likeEvent(String username, int eventId) {
         if(getUser(username).getLikedEvents().contains(eventId)) {
             return false;
@@ -114,10 +124,20 @@ public class ActFactory implements Serializable {
         getUser(username).getLikedEvents().add(eventId);
         return true;
     }
+
+    /**
+     * Get access
+     * @param username: the username of the User
+     */
     public String checkAccess(String username) {
         return getUser(username).getAccess();
     }
 
+    /**
+     * Change access
+     * @param username: the username of the User
+     * @param access: user's access
+     */
     public void changeAccess(String username, String access) {
         getUser(username).setAccess(access);
     }

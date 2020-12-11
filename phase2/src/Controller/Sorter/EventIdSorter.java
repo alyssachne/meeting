@@ -4,7 +4,18 @@ import Usecase.EventFactory;
 
 import java.util.ArrayList;
 
+    /**
+     * The class to implement sorter by event id.
+     */
+
+
 public class EventIdSorter implements SorterStrategy {
+
+    /**
+     * A function to implement sort by sorting the events according to their event ids.
+     * @param tl An arraylist of the ids of the event.
+     * @param ef EventFactory in use case.
+     */
 
     @Override
     // Selection Sort
@@ -21,7 +32,7 @@ public class EventIdSorter implements SorterStrategy {
             }
 
             // Swap the item at index i with the item with the smallest id
-            // between i and  list.size() - 1 inclusive.
+            // between i and list.size() - 1 inclusive.
             int temp = tl.get(i);
             tl.set(i, tl.get(indexMin));
             tl.set(indexMin, temp);

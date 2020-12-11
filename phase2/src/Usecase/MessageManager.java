@@ -54,12 +54,13 @@ public class MessageManager extends Observable implements Serializable {
      */
     public void seeAllMessage(String username, String box) {
         System.out.println("Here are the messages in " + box + " :");
-        for (int i = 0; i < getMessageBox(username).getAllMessage(box).size(); i++) {
-            System.out.println("Message" + (i + 1) + ": " + getMessageBox(username).getAllMessage(box).get(i));
-        }
         if(box.equals("Unread")){
             for(String sender: getMessageBox(username).getAllMessage("Unread").keySet()){
                 seeUnreadMessage(username, sender);
+            }
+        } else {
+            for (int i = 0; i < getMessageBox(username).getAllMessage(box).size(); i++) {
+                System.out.println("Message" + (i + 1) + ": " + getMessageBox(username).getAllMessage(box).get(i));
             }
         }
     }
@@ -72,12 +73,14 @@ public class MessageManager extends Observable implements Serializable {
      */
     public void seeMessageFromOne(String username, String sender, String box) {
         System.out.println("Here are the messages from" + sender + ":");
-        for (int i = 0; i < getMessageBox(username).getMessageFromOne(sender, box).size(); i++) {
-            System.out.println("Message" + (i + 1) + ": " + getMessageBox(username).getMessageFromOne(sender, box).get(i));
-        }
         if(box.equals("Unread")){
             seeUnreadMessage(username, sender);
+        } else {
+            for (int i = 0; i < getMessageBox(username).getMessageFromOne(sender, box).size(); i++) {
+                System.out.println("Message" + (i + 1) + ": " + getMessageBox(username).getMessageFromOne(sender, box).get(i));
+            }
         }
+
     }
 
     /**
@@ -86,10 +89,14 @@ public class MessageManager extends Observable implements Serializable {
      * @param sender: the username of the Sender
      */
     private void seeUnreadMessage(String username, String sender ){
-        for(String m: getMessageBox(username).getMessageFromOne(sender, "Unread")){
-            getMessageBox(username).addTo(sender,m,"Read");
-            getMessageBox(username).removeFrom(sender,m,"Unread");
+        int i = 1;
+        while (!getMessageBox(username).getMessageFromOne(sender,"Unread").isEmpty()) {
+            System.out.println("Message" + i + ": " + getMessageBox(username).getMessageFromOne(sender,"Unread").get(0));
+            getMessageBox(username).addTo(sender,getMessageBox(username).getMessageFromOne(sender,"Unread").get(0),"Read");
+            getMessageBox(username).removeFrom(sender,getMessageBox(username).getMessageFromOne(sender,"Unread").get(0),"Unread");
+            i++;
         }
+
     }
 
     /**
@@ -100,8 +107,8 @@ public class MessageManager extends Observable implements Serializable {
      * @param box: the original type of message
      */
     public void MarkAsUnread(String username, int index, String sender, String box) {
+        getMessageBox(username).addTo(sender, getMessage(username,index,sender,box), "Unread");
         getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,box), box);
-        getMessageBox(username).addTo(getMessage(username,index,sender,box), sender, "Unread");
         System.out.println("You have marked the message as unread");
     }
 
@@ -113,8 +120,8 @@ public class MessageManager extends Observable implements Serializable {
      * @param box: the original messagebox type
      */
     public void archiveMessage(String username, int index, String sender, String box) {
-        getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,box), "Read");
         getMessageBox(username).addTo(getMessage(username,index,sender,box), sender, "Archive");
+        getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,box), "Read");
         System.out.println("You have archived the message");
     }
 
