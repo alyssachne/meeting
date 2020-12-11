@@ -167,7 +167,7 @@ public class MessageManager extends Observable implements Serializable {
      * @param box: the type of message want to search from
      */
     private String getMessage(String username, int index, String sender, String box){
-        System.out.println(getMessageBox(username).getMessageFromOne(sender,box));
+//        System.out.println(getMessageBox(username).getMessageFromOne(sender,box));
         return getMessageBox(username).getMessageFromOne(sender,box).get(index-1);
     }
 }
