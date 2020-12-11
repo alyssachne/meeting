@@ -62,9 +62,8 @@ public class RequestManager implements Serializable {
      * Print all request from the list.
      */
     public void getAllRequests() {
-        System.out.println("Here are all requests: ");
         for(Request request: allRequests){
            System.out.println(request);
-       };
+       }
     }
 }
