@@ -33,12 +33,8 @@ public class Request extends Observable implements Serializable {
         notifyObservers("This request " + request + " made by" + username + " is addressed.");
     }
 
-    @Override
     public String toString()  {
-        System.out.print("This request " + id + " is made by " + username + " :");
-        System.out.println(request);
-        System.out.println("It is " + statue);
-        return null;
+        return "This request "+ id + " is made by " + username + " :" + "\n" + request + "\n It is" + statue;
     }
 
 }

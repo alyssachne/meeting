@@ -12,7 +12,6 @@ public class RequestDealer implements Serializable {
     }
 
     public static void checkMyRequest(String username, RequestManager rm){
-        System.out.println("Here are your requests: ");
         for(Request req: rm.allRequests){
             if(req.getUser().equals(username)){
                 System.out.println(req);
