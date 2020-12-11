@@ -100,12 +100,12 @@ public class MessageBox implements Serializable {
      * @param message: the Content of the message
      */
     public void sendMessage(String sender, String message) {
-        if (ReadMessage.containsKey(sender)){
-            ReadMessage.get(sender).add(message);
+        if (UnreadMessage.containsKey(sender)){
+            UnreadMessage.get(sender).add(message);
         }else{
             ArrayList<String> arr = new ArrayList<>();
             arr.add(message);
-            ReadMessage.put(sender,arr);
+            UnreadMessage.put(sender,arr);
         }
     }
 

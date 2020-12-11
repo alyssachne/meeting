@@ -53,10 +53,10 @@ public class Demo {
                     ou.OrganizerDemo(uo);
                 }else if (uo.typeGetter().equalsIgnoreCase("Speaker")){
                     SpeakerUI su = new SpeakerUI();
-                    su.SpeakerDemo();
+                    su.SpeakerDemo(uo);
                 }else if (uo.typeGetter().equalsIgnoreCase("User")){
                     AttendeeUI au = new AttendeeUI();
-                    au.AttendeeDemo();
+                    au.AttendeeDemo(uo);
 //                        if (uo.getClass().equals(Organizer.class)){
 //                            OrganizerUI ou = new OrganizerUI();
 //                            ou.OrganizerDemo();

@@ -55,7 +55,7 @@ public class MessageManager extends Observable implements Serializable {
     public void seeAllMessage(String username, String box) {
         System.out.println("Here are the messages in " + box + " :");
         for (int i = 0; i < getMessageBox(username).getAllMessage(box).size(); i++) {
-            System.out.println("Message" + i + 1 + ": " + getMessageBox(username).getAllMessage(box).get(i));
+            System.out.println("Message" + (i + 1) + ": " + getMessageBox(username).getAllMessage(box).get(i));
         }
         if(box.equals("Unread")){
             for(String sender: getMessageBox(username).getAllMessage("Unread").keySet()){
@@ -73,7 +73,7 @@ public class MessageManager extends Observable implements Serializable {
     public void seeMessageFromOne(String username, String sender, String box) {
         System.out.println("Here are the messages from" + sender + ":");
         for (int i = 0; i < getMessageBox(username).getMessageFromOne(sender, box).size(); i++) {
-            System.out.println("Message" + i + 1 + ": " + getMessageBox(username).getMessageFromOne(sender, box).get(i));
+            System.out.println("Message" + (i + 1) + ": " + getMessageBox(username).getMessageFromOne(sender, box).get(i));
         }
         if(box.equals("Unread")){
             seeUnreadMessage(username, sender);
@@ -167,6 +167,7 @@ public class MessageManager extends Observable implements Serializable {
      * @param box: the type of message want to search from
      */
     private String getMessage(String username, int index, String sender, String box){
+        System.out.println(getMessageBox(username).getMessageFromOne(sender,box));
         return getMessageBox(username).getMessageFromOne(sender,box).get(index-1);
     }
 }

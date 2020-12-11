@@ -7,14 +7,14 @@ import java.util.Scanner;
 
 public class MessageUI {
 
-    public void MessageDemo(){
-        ControllerRW crw = new ControllerRW();
-        ControllerFacade uo = null;
-        if (crw.readFile()!=null){
-            uo = crw.readFile();
-        }else {
-            System.out.println("Read File Error");
-        }
+    public void MessageDemo(ControllerFacade uo){
+//        ControllerRW crw = new ControllerRW();
+//        ControllerFacade uo = null;
+//        if (crw.readFile()!=null){
+//            uo = crw.readFile();
+//        }else {
+//            System.out.println("Read File Error");
+//        }
 
         Scanner scanner = new Scanner(System.in);
             System.out.println("1.Unread message");
@@ -32,6 +32,7 @@ public class MessageUI {
             }else if (box.equals("2")){
                 System.out.println("Here is a list of contacts that messages are unread");
                 uo.checkContacts("Read");
+                System.out.println("Please enter the username to check the message");
                 String sender = scanner.nextLine();
                 uo.getMessage(sender,"Read");
                 System.out.println("Please choose the message number you want to modify(you can enter exit to skip this option)");
@@ -73,6 +74,6 @@ public class MessageUI {
             }else{
                 System.out.println("This is not an valid option, please give a number from 1 to 3.");
             }
-        crw.writeFile(uo);
+//        crw.writeFile(uo);
     }
 }

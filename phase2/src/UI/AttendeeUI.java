@@ -11,20 +11,20 @@ import java.util.Scanner;
 
 public class AttendeeUI {
 
-    public void AttendeeDemo() {
-        ControllerRW crw = new ControllerRW();
-        ControllerFacade uo = null;
-        if (crw.readFile() != null) {
-            uo = crw.readFile();
-        } else{
-            System.out.println("Read File Error");
-        }
+    public void AttendeeDemo(ControllerFacade uo) {
+//        ControllerRW crw = new ControllerRW();
+//        ControllerFacade uo = null;
+//        if (crw.readFile() != null) {
+//            uo = crw.readFile();
+//        } else{
+//            System.out.println("Read File Error");
+//        }
         Scanner scanner = new Scanner(System.in);
         SortAndFilter sf = new SortAndFilter();
 
         boolean handle = true;
         while (handle) {
-            uo = crw.readFile();
+//            uo = crw.readFile();
             if (uo.checkAccess().equalsIgnoreCase("VIP")){
                 System.out.print("Welcome VIP!");
             }
@@ -102,7 +102,7 @@ public class AttendeeUI {
                     uo.privateMessageTo(other, message);
                 } else if (option.equals("2")) {
                     MessageUI mu = new MessageUI();
-                    mu.MessageDemo();
+                    mu.MessageDemo(uo);
                 } else {
                     System.out.println("This is not an valid option, please give a number from 1 to 2.");
                 }
@@ -127,7 +127,7 @@ public class AttendeeUI {
                 }else{
                     System.out.println("This is not an valid option, please give a number from 1 to 6.");
                 }
-            crw.writeFile(uo);
+//            crw.writeFile(uo);
             }
         }
 }

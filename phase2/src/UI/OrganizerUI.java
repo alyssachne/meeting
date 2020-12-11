@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class OrganizerUI {
 
     public void OrganizerDemo(ControllerFacade uo){
-        ControllerRW crw = new ControllerRW();
+//        ControllerRW crw = new ControllerRW();
 //        ControllerFacade uo = uo;
 //        if (crw.readFile()!=null){
 //            uo = crw.readFile();
@@ -197,7 +197,7 @@ public class OrganizerUI {
                     }
                 } else if (decision.equals("2")) {
                     MessageUI mu = new MessageUI();
-                    mu.MessageDemo();
+                    mu.MessageDemo(uo);
                 }else{
                     System.out.println("This is not an valid option, please give a number from 1 to 2.");
                 }
@@ -223,12 +223,12 @@ public class OrganizerUI {
                 }
             } else if (choice.equals("7")) {
                 uo.logout();
-                crw.writeFile(uo);
+//                crw.writeFile(uo);
                 handle = false;
             } else {
                 System.out.println("This is not an valid option, please give a number from 1 to 7.");
             }
-            crw.writeFile(uo);
+//            crw.writeFile(uo);
         }
     }
 }
