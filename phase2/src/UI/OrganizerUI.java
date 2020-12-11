@@ -14,19 +14,19 @@ import java.util.Scanner;
 
 public class OrganizerUI {
 
-    public void OrganizerDemo(){
+    public void OrganizerDemo(ControllerFacade uo){
         ControllerRW crw = new ControllerRW();
-        ControllerFacade uo = null;
-        if (crw.readFile()!=null){
-            uo = crw.readFile();
-        }else {
-            System.out.println("Read File Error");
-        }
+//        ControllerFacade uo = uo;
+//        if (crw.readFile()!=null){
+//            uo = crw.readFile();
+//        }else {
+//            System.out.println("Read File Error");
+//        }
 
         Scanner scanner = new Scanner(System.in);
         boolean handle = true;
         while(handle){
-            uo = crw.readFile();
+//            uo = crw.readFile();
             System.out.println("Please enter your choice below:");
             System.out.println("1.Create Rooms");
             System.out.println("2.Create an Account");
@@ -103,8 +103,8 @@ public class OrganizerUI {
                         try{
                             uo.speakerAvailable(date);
                         }catch (Exception e){
-                            System.out.print("We don't have any speaker available currently.");
-                            return;
+                            System.out.print("Don't have speaker available, please choose a new date or create a new" +
+                                    "speaker.");
                         }
                     }
                     boolean constraintLoop = true;
@@ -122,13 +122,13 @@ public class OrganizerUI {
                     String max = scanner.nextLine();
                     System.out.println("Here is a list of ids of the room as well as their empty time slot:");
                     try{
-                        uo.speakerAvailable(date);
+                        uo.roomList(date,Integer.parseInt(max),constraints);
                     }catch (Exception e){
-                        System.out.print("We don't have any room available currently.");
+                        System.out.print("Don't have room available, please choose a new date or create a new room.");
                     }
-                    uo.roomList(date,Integer.parseInt(max), constraints);
+//                    uo.roomList(date,Integer.parseInt(max), constraints);
                     ArrayList<String> speakerList = new ArrayList<>();
-                    if (choice.equals("1")||choice.equals("3")){
+                    if (choice.equals("1")){
                         boolean speakerLoop = true;
                         while (speakerLoop) {
                             System.out.println("Please enter the username of the speaker you want to schedule for(Enter exit to skip finish):");
@@ -139,6 +139,10 @@ public class OrganizerUI {
                                 speakerList.add(su);
                             }
                         }
+                    } else{
+                        System.out.println("Please enter the username of the speaker you want to schedule for(Enter exit to skip finish):");
+                        String su = scanner.nextLine();
+                        speakerList.add(su);
                     }
                     System.out.println("Please enter the room id you wish the event to be hold");
                     String roomId = scanner.nextLine();

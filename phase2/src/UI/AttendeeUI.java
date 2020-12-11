@@ -79,6 +79,12 @@ public class AttendeeUI {
                         }
                     } else {
                         // option 2
+                        System.out.println("Here are events you can sign up: ");
+                        if (sort.equals("exit")) {
+                            uo.getAvailableEvent("Time",filterMap);
+                        } else {
+                            uo.getAvailableEvent(sort,filterMap);
+                        }
                         System.out.println("Please enter the eventId you would like to sign up");
                         String eventId = scanner.nextLine();
                         uo.signUp(Integer.parseInt(eventId));

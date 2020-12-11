@@ -33,13 +33,11 @@ public class ControllerFacade implements Serializable {
      * @param username The username of the user.
      * @param password The password of the user.
      */
-    public boolean login(String username, String password){
-        if(af.login(username,password)){
+    public void login(String username, String password){
+        if(af.login(username,password)) {
             this.username = username;
             type = af.getUser(username).typeGetter();
-            return true;
         }
-        return false;
     }
 
     public String typeGetter(){
@@ -153,10 +151,10 @@ public class ControllerFacade implements Serializable {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public void getAvailableEvent(String sort) {
+    public void getAvailableEvent(String sort,Map<String, String> filter) {
 
         try {
-            ScheduleGetter.getAvailableEvent(this.rm, this.username, sort, ef);
+            ScheduleGetter.getAvailableEvent(this.rm, this.username, sort, filter,ef);
         }catch (Exception e){
             System.out.print("Not a valid format!");
         }

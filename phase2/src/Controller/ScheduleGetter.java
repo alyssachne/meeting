@@ -43,9 +43,9 @@ public class ScheduleGetter implements Serializable {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public static void getAvailableEvent(RoomManager rm, String username, String strategy,EventFactory ef){
+    public static void getAvailableEvent(RoomManager rm, String username, String strategy,Map<String, String> filter,EventFactory ef) throws ParseException {
         ArrayList<Integer> all = availableEvent(rm,username,ef);
-        sortEvent(strategy,all,ef);
+        sortAndFilter(strategy,all,filter,ef);
         for(Integer i: all) {
             System.out.println(ef.getEvent(i).toString());}
     }

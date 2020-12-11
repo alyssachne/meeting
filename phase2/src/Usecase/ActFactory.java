@@ -8,7 +8,11 @@ import java.util.*;
 
 public class ActFactory implements Serializable {
 
-    public HashMap<String,User> userHashMap = new HashMap<>();
+    public HashMap<String,User> userHashMap;
+
+    public ActFactory() {
+        userHashMap = new HashMap<>();
+    }
     /**
      * Create a new user and return true if the creation is successful.
      * @param name: the name of the attendee.
@@ -40,9 +44,14 @@ public class ActFactory implements Serializable {
      */
     public boolean login(String username, String password){
         if (getUser(username)==null) {
+            System.out.println("This username can not be found.");
             return false;
         }
-        return getUser(username).validatePassword(password);
+        if(!getUser(username).validatePassword(password)){
+            System.out.println("Username and password do not match.");
+            return false;
+        }
+        return true;
     }
 
     /**

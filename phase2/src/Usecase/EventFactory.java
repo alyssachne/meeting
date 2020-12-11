@@ -21,6 +21,9 @@ import java.util.ArrayList;
 public class EventFactory implements Serializable {
     public ArrayList<Event> allEvents;
 
+    public EventFactory() {
+        allEvents = new ArrayList<>();
+    }
     /**
      * Create a new event.
      */

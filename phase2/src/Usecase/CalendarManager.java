@@ -4,12 +4,16 @@ import Entity.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class CalendarManager implements Serializable {
 
-    public List<Calendar> allCalendars;
+    public ArrayList<Calendar> allCalendars;
 
+    public CalendarManager() {
+        allCalendars = new ArrayList<>();
+    }
 //    public void createCalendar(Date date) {
 //        Calendar c = new Calendar(date);
 //        allCalendars.add(c);
@@ -18,7 +22,7 @@ public class CalendarManager implements Serializable {
     // calendar so that organizer can schedule a new event on that day.
     public Calendar getCalendar(Date date) {
         for (Calendar c : allCalendars) {
-            if (c.getDate() == date) {
+            if (c.getDate().equals(date)) {
                 return c;
             }
         }
@@ -32,10 +36,12 @@ public class CalendarManager implements Serializable {
     public List<Integer> getAvailable(Date date, List<Integer> events) {
         List<Integer> available = new ArrayList<>();
         for (Integer time: getCalendar(date).getSchedule().keySet()) {
-            if (!getCalendar(date).getSchedule().get(time).containsAll(events)){
+            if (!getCalendar(date).getSchedule().get(time).containsAll(events) && !events.isEmpty()){
                 available.add(time);
+            } else if(events.isEmpty()){
+                available.add(time);
+                }
             }
-        }
         return available;
     }
 

@@ -28,7 +28,9 @@ public class Getter implements Serializable {
                                 CalendarManager cm){
         for(int id: rm.suggestedRooms(maxCapacity, constraints)) {
             System.out.println("Room " + id + " ：");
-            cm.getAvailable(date, rm.seeSchedule(id, date));
+            for(Integer time: cm.getAvailable(date, rm.seeSchedule(id, date))){
+                System.out.println(time);
+            }
         }
     }
 

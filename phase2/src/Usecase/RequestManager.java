@@ -4,11 +4,16 @@ import Entity.Event;
 import Entity.Request;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
 public class RequestManager implements Serializable {
     public List<Request> allRequests;
+
+    public RequestManager() {
+        allRequests = new ArrayList<>();
+    }
 
     public int createRequest(String request, String username) {
         Request req = new Request(request, username, allRequests.size() + 1);

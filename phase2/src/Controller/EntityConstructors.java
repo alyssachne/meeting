@@ -85,7 +85,11 @@ public class EntityConstructors implements Serializable {
         // if the room is free from the beginning of the event to the end of the event/
         // if the room satisfies all constraints the event need
         for(String sp: speaker) {
-            for(int i=0; i <= duration - 1; i++) {
+            for(int i=9; i <= 9 + duration - 1; i++) {
+//                System.out.println(cm.getAvailable(date, af.getEvents(sp)).contains(i));
+//                System.out.println(cm.getAvailable(date, rm.getRoom(roomId).getSchedule(date)).contains(i));
+//                System.out.println(rm.getRoom(roomId).getConstraints().containsAll(constraints));
+
                 if (!cm.getAvailable(date, af.getEvents(sp)).contains(i) |
                         !cm.getAvailable(date, rm.getRoom(roomId).getSchedule(date)).contains(i) |
                 !rm.getRoom(roomId).getConstraints().containsAll(constraints)) {
@@ -96,7 +100,7 @@ public class EntityConstructors implements Serializable {
         date.setHours(time);
         int eventId = ef.createEvent(title,date,roomId,speaker, duration, eventAccess, constraints);
         // add the event to the speakers' given ArrayList and room's ArrayList.
-        for(int i=0; i <= duration - 1; i++) {
+        for(int i=9; i <= 9 + duration - 1; i++) {
             for(String s: speaker) {
                 af.giveEvent(s,eventId,date);
             }
