@@ -39,9 +39,6 @@ public class ActFactory implements Serializable {
      * @return boolean that whether the password is correct or not.
      */
     public boolean login(String username, String password){
-        if (getUser(username)==null) {
-            return false;
-        }
         return getUser(username).validatePassword(password);
     }
 
