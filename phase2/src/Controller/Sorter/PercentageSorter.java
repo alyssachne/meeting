@@ -15,8 +15,8 @@ public class PercentageSorter {
         /**
          * A function to implement sort by sorting the events according to their percentage of attendance.
          * @param tl An arraylist of the ids of the event.
-         * @param ef The EventFactory object in use case.
-         * @param rm The RoomManager object in use case.
+         * @param ef EventFactory in use case.
+         * @param rm RoomManager in use case.
          */
 
     public void sort(ArrayList<Integer> tl, EventFactory ef, RoomManager rm) {

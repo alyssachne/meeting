@@ -15,7 +15,7 @@ public class EventRoomSorter implements SorterStrategy {
     /**
      * A function to implement sort by sorting the events according to their room ids.
      * @param tl An arraylist of the ids of the event.
-     * @param ef The EventFactory object in use case.
+     * @param ef EventFactory in use case.
      */
 
     @Override

@@ -16,7 +16,7 @@ public interface SorterStrategy {
     /**
      * An abstract function to sort the events that will be implemented in different classes.
      * @param tl An arraylist of the ids of the event.
-     * @param ef The EventFactory object in use case.
+     * @param ef EventFactory in use case.
      */
 
     void sort(ArrayList<Integer> tl, EventFactory ef);
