@@ -21,9 +21,13 @@ import java.util.ArrayList;
 public class EventFactory implements Serializable {
     public ArrayList<Event> allEvents;
 
+    /**
+     * Initialize a EventFactory
+     */
     public EventFactory() {
         allEvents = new ArrayList<>();
     }
+
     /**
      * Create a new event.
      */
@@ -36,6 +40,11 @@ public class EventFactory implements Serializable {
         return e.getId();
     };
 
+    /**
+     * Cancel a event
+     * @param id: the Event Id
+     * @return: whether the Event is successfully canceled or not
+     */
     public boolean cancelEvent(int id) {
         if(allEvents.contains(getEvent(id))) {
             allEvents.remove(getEvent(id));
@@ -45,9 +54,14 @@ public class EventFactory implements Serializable {
         return false;
     }
 
+    /**
+     * Whether the event exist
+     * @param id: the Id of the event
+     */
     public boolean containEvent(int id) {
         return allEvents.contains(id);
     }
+
     /**
      * Return the event of the corresponding id, raise error if not found.
      * @param id: the id of the event.
@@ -66,6 +80,10 @@ public class EventFactory implements Serializable {
         return null;
     }
 
+    /**
+     * Get a list of all event
+     * @return all the event in the event list
+     */
     public ArrayList<Integer> getAllEvents() {
         ArrayList<Integer> all = new ArrayList<>();
         for(Event e: allEvents) {
@@ -102,10 +120,21 @@ public class EventFactory implements Serializable {
         }
     }
 
+    /**
+     * Check access
+     * @param eventId: the Id of the Event
+     * @return
+     */
     public String checkAccess(int eventId) {
         return getEvent(eventId).getEventAccess();
     }
 
+    /**
+     * Change an access
+     * @param eventId: the Id of the Event
+     * @param access: Event's access
+     * @return
+     */
     public boolean changeAccess(int eventId, String access) {
         if(getEvent(eventId).getEventAccess().equals(access)){
             return false;
@@ -114,10 +143,21 @@ public class EventFactory implements Serializable {
         return true;
     }
 
+    /**
+     * Get a event's speaker
+     * @param eventId: the Id of the Event
+     * @return
+     */
     public ArrayList<String> speakerOfEvent(int eventId) {
         return getEvent(eventId).getSpeaker();
     }
 
+    /**
+     * Whether the event has a speaker or not
+     * @param eventId: the Id of the Event
+     * @param speaker: the username of the Speaker
+     * @return the boolean that whether there is a speaker or not
+     */
     public boolean containSpeaker(int eventId, String speaker) {
         return speakerOfEvent(eventId).contains(speaker);
     }
