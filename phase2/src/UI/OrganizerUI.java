@@ -98,8 +98,12 @@ public class OrganizerUI {
                         System.out.print("Not a valid input!");
                     }
                     if (choice.equals("1")||choice.equals("3")){
-                        System.out.println("Here is a list of username of current speakers along with their free time slot");
-                        uo.speakerAvailable(date);
+                        System.out.println("Here is a list of username of current speakers along with their free time slot:");
+                        try{
+                            uo.speakerAvailable(date);
+                        }catch (Exception e){
+                            System.out.print("We don't have any speaker available currently.");
+                        }
                     }
                     boolean constraintLoop = true;
                     ArrayList<String> constraints = new ArrayList<>();
@@ -114,7 +118,12 @@ public class OrganizerUI {
                     }
                     System.out.println("Please enter the maximum capacity you want for the room");
                     String max = scanner.nextLine();
-                    System.out.println("Here is a list of ids of the room as well as their empty time slot");
+                    System.out.println("Here is a list of ids of the room as well as their empty time slot:");
+                    try{
+                        uo.speakerAvailable(date);
+                    }catch (Exception e){
+                        System.out.print("We don't have any room available currently.");
+                    }
                     uo.roomList(date,Integer.parseInt(max), constraints);
                     ArrayList<String> speakerList = new ArrayList<>();
                     if (choice.equals("1")||choice.equals("3")){
