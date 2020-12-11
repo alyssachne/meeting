@@ -1,6 +1,7 @@
 package UI;
 
 import Controller.ControllerFacade;
+import Entity.Organizer;
 import Gateway.ControllerRW;
 
 import java.io.IOException;
@@ -55,6 +56,15 @@ public class Demo {
                     }else if (uo.typeGetter().equalsIgnoreCase("User")){
                         AttendeeUI au = new AttendeeUI();
                         au.AttendeeDemo();
+//                        if (uo.getClass().equals(Organizer.class)){
+//                            OrganizerUI ou = new OrganizerUI();
+//                            ou.OrganizerDemo();
+//                        }else if (uo.getClass().equals(Speaker.class)){
+//                            SpeakerUI su = new SpeakerUI();
+//                            su.SpeakerDemo();
+//                        }else if (uo.getClass().equals(User.class)){
+//                            AttendeeUI au = new AttendeeUI();
+//                            au.AttendeeDemo();
                     }else{
 //                        System.out.println(uo.typeGetter());
                         System.out.print("User Type Error!");
