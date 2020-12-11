@@ -117,11 +117,10 @@ public class MessageManager extends Observable implements Serializable {
      * @param username: the username of the User
      * @param index: MessageManager
      * @param sender: the username of the sender
-     * @param box: the original messagebox type
      */
-    public void archiveMessage(String username, int index, String sender, String box) {
-        getMessageBox(username).addTo(getMessage(username,index,sender,box), sender, "Archive");
-        getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,box), "Read");
+    public void archiveMessage(String username, int index, String sender) {
+        getMessageBox(username).addTo(sender,getMessage(username,index,sender,"Read"),  "Archive");
+        getMessageBox(username).removeFrom(sender, getMessage(username,index,sender,"Read"), "Read");
         System.out.println("You have archived the message");
     }
 

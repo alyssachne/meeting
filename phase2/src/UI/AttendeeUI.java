@@ -33,25 +33,25 @@ public class AttendeeUI {
             System.out.println("4.Make a request");
             System.out.println("5.Exit");
             String choice = scanner.nextLine();
-            if (choice.equals("1") || choice.equals("2")) {
-                // filter events
-                boolean filterLoop = true;
-                HashMap<String, String> filterMap = new HashMap<>();
-                while (filterLoop) {
-                    sf.FilterHelper();
-                    System.out.println("Please enter the filter and restriction you want (Enter 'exit' to skip and finish):");
-                    String filter = scanner.nextLine();
-                    if (filter.equals("exit")) {
-                        filterLoop = false;
-                    } else {
-                        String restriction = scanner.nextLine();
-                        filterMap.put(filter,restriction);
+            if (choice.equals("1")) {
+                if (uo.hasSignUp()) {
+                    // filter events
+                    boolean filterLoop = true;
+                    HashMap<String, String> filterMap = new HashMap<>();
+                    while (filterLoop) {
+                        sf.FilterHelper();
+                        System.out.println("Please enter the filter and restriction you want (Enter 'exit' to skip and finish):");
+                        String filter = scanner.nextLine();
+                        if (filter.equals("exit")) {
+                            filterLoop = false;
+                        } else {
+                            String restriction = scanner.nextLine();
+                            filterMap.put(filter, restriction);
+                        }
                     }
-                }
-                // sort events
-                sf.SortHelper();
-                String sort = scanner.nextLine();
-                if (choice.equals("1")) {
+                    // sort events
+                    sf.SortHelper();
+                    String sort = scanner.nextLine();
                     // print out current schedule
                     System.out.println("Here is your current schedule: ");
                     if (sort.equals("exit")) {
@@ -72,20 +72,40 @@ public class AttendeeUI {
                         System.out.println("This is not an valid option, please choose a number from 1 to 2.");
                     }
                 } else {
-                    // option 2
-                    if(uo.hasEvent()) {
-                        System.out.println("Here are events you can sign up: ");
-                        if (sort.equals("exit")) {
-                            uo.getAvailableEvent("Time", filterMap);
+                    System.out.println("You didn't sign up for any event.");
+                }
+            }
+            else if(choice.equals("2")) {
+                if(uo.hasEvent()){
+                    // filter events
+                    boolean filterLoop = true;
+                    HashMap<String, String> filterMap = new HashMap<>();
+                    while (filterLoop) {
+                        sf.FilterHelper();
+                        System.out.println("Please enter the filter and restriction you want (Enter 'exit' to skip and finish):");
+                        String filter = scanner.nextLine();
+                        if (filter.equals("exit")) {
+                            filterLoop = false;
                         } else {
-                            uo.getAvailableEvent(sort, filterMap);
+                            String restriction = scanner.nextLine();
+                            filterMap.put(filter, restriction);
                         }
-                        System.out.println("Please enter the eventId you would like to sign up");
-                        String eventId = scanner.nextLine();
-                        uo.signUp(Integer.parseInt(eventId));
-                    }else{
-                        System.out.println("There is no event available.");
                     }
+                    // sort events
+                    sf.SortHelper();
+                    String sort = scanner.nextLine();
+                    // print out available schedule
+                    System.out.println("Here are events you can sign up: ");
+                    if (sort.equals("exit")) {
+                        uo.getAvailableEvent("Time", filterMap);
+                    } else {
+                        uo.getAvailableEvent(sort, filterMap);
+                    }
+                    System.out.println("Please enter the eventId you would like to sign up");
+                    String eventId = scanner.nextLine();
+                    uo.signUp(Integer.parseInt(eventId));
+                    } else{
+                    System.out.println("There is no event available");
                 }
             } else if (choice.equals("3")) {
                 System.out.println("1.Send message to a specific User");

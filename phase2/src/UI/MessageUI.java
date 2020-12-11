@@ -50,7 +50,7 @@ public class MessageUI {
                         if (modify.equals("1")) {
                             uo.deleteMessage(sender, Integer.parseInt(modifyOption), "Read");//need to modify
                         } else if (modify.equals("2")) {
-                            uo.archiveMessage(sender, Integer.parseInt(modifyOption), "Read");//need to modify
+                            uo.archiveMessage(sender, Integer.parseInt(modifyOption));//need to modify
                         } else if (modify.equals("3")) {
                             uo.markAsUnread(sender, Integer.parseInt(modifyOption), "Read");//need to modify
                         } else {
@@ -61,9 +61,10 @@ public class MessageUI {
                     System.out.println("There is no message");
                 }
             }else if (box.equals("3")){
-                if( uo.hasMessage("Unread")) {
+                if( uo.hasMessage("Archived")) {
                     System.out.println("Here is a list of contacts that messages are Archived");
                     uo.checkContacts("Archived");
+                    System.out.println("Please enter the username to check the message");
                     String sender = scanner.nextLine();
                     uo.getMessage(sender, "Archived");
                     System.out.println("Please choose the message number you want to modify(you can enter exit to skip this option)");

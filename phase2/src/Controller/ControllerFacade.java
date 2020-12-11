@@ -105,6 +105,10 @@ public class ControllerFacade implements Serializable {
         return MessageDealer.hasContacts(username,mm,box);
     }
 
+    public boolean hasSignUp(){
+        return EventDealer.hasSignUp(username,af);
+    }
+
     public boolean hasEvent(){
         return EventDealer.hasEvent(ef);
     }
@@ -286,8 +290,8 @@ public class ControllerFacade implements Serializable {
         MessageDealer.deleteMessage(username,mm, sender,index, box);
     }
 
-    public void archiveMessage(String sender, int index, String box) {
-        MessageDealer.archiveMessage(username,mm, sender,index, box);
+    public void archiveMessage(String sender, int index) {
+        MessageDealer.archiveMessage(username,mm, sender,index);
     }
 
     public void cancelEvent(int eventId, Date date) {

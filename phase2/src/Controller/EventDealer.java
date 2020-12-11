@@ -59,6 +59,10 @@ public class EventDealer implements Serializable {
     }
 
     public static boolean hasEvent(EventFactory ef){
-        return ef.allEvents.isEmpty();
+        return !ef.allEvents.isEmpty();
+    }
+
+    public static boolean hasSignUp(String username, ActFactory af){
+        return !af.getEvents(username).isEmpty();
     }
 }

@@ -71,8 +71,8 @@ public class MessageDealer implements Serializable {
         mm.deleteMessage(receiver, index, sender, box);
     }
 
-    public static void archiveMessage(String receiver, MessageManager mm, String sender, int index, String box) {
-        mm.archiveMessage(receiver, index, sender,box);
+    public static void archiveMessage(String receiver, MessageManager mm, String sender, int index) {
+        mm.archiveMessage(receiver, index, sender);
     }
 
     public static boolean hasContacts(String username, MessageManager mm, String box) {
