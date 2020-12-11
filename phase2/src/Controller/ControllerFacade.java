@@ -101,6 +101,10 @@ public class ControllerFacade implements Serializable {
         return EntityConstructors.hasSpeakers(af);
     }
 
+    public boolean hasRoom(){
+        return EntityConstructors.hasRoom(rm);
+    }
+
     /**
      * printout all speakers and their available times.
      */

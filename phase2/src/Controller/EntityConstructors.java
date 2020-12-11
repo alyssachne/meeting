@@ -113,4 +113,11 @@ public class EntityConstructors implements Serializable {
         return true;
     }
 
+    public static boolean hasRoom(RoomManager rm) {
+        if(rm.allRooms.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
 }
