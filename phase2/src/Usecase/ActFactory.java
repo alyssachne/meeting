@@ -6,6 +6,10 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * The Usecase class for the actions of users.
+ */
+
 public class ActFactory implements Serializable {
 
     public HashMap<String,User> userHashMap;
@@ -55,8 +59,7 @@ public class ActFactory implements Serializable {
 
     /**
      * Get the user information from the map.
-     *
-     * @param username: the username of the user
+     * @param username: the username of the user.
      */
     public User getUser(String username) {
         return userHashMap.get(username);
@@ -64,9 +67,9 @@ public class ActFactory implements Serializable {
 
     /**
      * Sign up for an event.
-     * @param username: the username of the user
-     * @param eventId: the event id
-     * @return if the user sign up successfully
+     * @param username: the username of the user.
+     * @param eventId: the event id.
+     * @return if the user sign up successfully.
      */
     public boolean signUp(String username, Integer eventId) {
         if(getUser(username).getSignUp().contains(eventId)) {
@@ -77,9 +80,9 @@ public class ActFactory implements Serializable {
     }
 
     /**
-     * Get the list of event id that user sign up
-     * @param username: the username of the user
-     * @return list of event that user in
+     * Get the list of event id that user sign up.
+     * @param username: the username of the user.
+     * @return list of event that user in.
      */
     public ArrayList<Integer> getEvents(String username){
         return getUser(username).getSignUp();
@@ -91,21 +94,26 @@ public class ActFactory implements Serializable {
     }
 
     /**
-     * Remove an event in the eventList of user
-     * @param username: the username of the user
-     * @param eventId: the event id that user want to remove
+     * Remove an event in the eventList of user.
+     * @param username: the username of the user.
+     * @param eventId: the event id that user want to remove.
      */
     public void removeFromEvent(String username, int eventId) {
         getUser(username).getSignUp().remove(eventId);
     }
 
+    /**
+     * Check if the username has already be taken.
+     * @param username: the username of the user.
+     * @return the boolean value of whether the username has been taken.
+     */
     public boolean checkUsernameTaken(String username) {
         return userHashMap.containsKey(username);
     }
 
     /**
-     * Get a list of liked event of a user
-     * @param username: the username of the User
+     * Get a list of liked event of a user.
+     * @param username: the username of the user
      */
     public ArrayList<Integer> checkLikedEvents(String username) {
         return getUser(username).getLikedEvents();
@@ -113,7 +121,7 @@ public class ActFactory implements Serializable {
 
     /**
      * Add a new liked event to the list
-     * @param username: the username of the User
+     * @param username: the username of the user
      * @param eventId: Id of the event
      * @return the boolean that whether the event is successfully added to the list
      */
@@ -126,17 +134,17 @@ public class ActFactory implements Serializable {
     }
 
     /**
-     * Get access
-     * @param username: the username of the User
+     * Get access of the user.
+     * @param username: the username of the User.
      */
     public String checkAccess(String username) {
         return getUser(username).getAccess();
     }
 
     /**
-     * Change access level of the User
-     * @param username: the username of the User
-     * @param access: whether user is a VIP or normal
+     * Change access of the user.
+     * @param username: the username of the user.
+     * @param access: the user's access.
      */
     public void changeAccess(String username, String access) {
         getUser(username).setAccess(access);
@@ -144,9 +152,8 @@ public class ActFactory implements Serializable {
 
     /**
      * Returns an hash map of events that the speaker will present.
-     *
-     * @param username the username
-     * @return the hash map
+     * @param username: the username of the speaker.
+     * @return the hash map of the events that the speaker will present.
      */
     public HashMap<Date, ArrayList<Integer>> allEventList(String username){
         Speaker speaker = (Speaker) getUser(username);
@@ -155,12 +162,10 @@ public class ActFactory implements Serializable {
 
 
     /**
-     * Puts an event in speaker's events list. If the speaker are available to add the event, return True.
-     *
-     * @param username the username
-     * @param eventId  the event id
-     * @param date     the date
-     * @return the boolean
+     * Puts an event in speaker's events list. If the speaker is available to add the event, return True.
+     * @param username: the username of the speaker.
+     * @param eventId: the event id of the input event.
+     * @param date: the date of the event.
      */
     public void giveEvent(String username,Integer eventId, Date date){
         Speaker speaker = (Speaker) getUser(username);
@@ -168,11 +173,9 @@ public class ActFactory implements Serializable {
     }
 
     /**
-     * Cancels an event. If successfully cancels the event, return true
-     *
-     * @param username the username
-     * @param eventId  the event id
-     * @return the boolean
+     * Cancels an event. If successfully cancels the event, return true.
+     * @param username: the username of the speaker.
+     * @param eventId: the event id of the event to be cancelled.
      */
     public void cancelEvent(String username, Integer eventId, Date date) {
         Speaker speaker = (Speaker) getUser(username);
@@ -181,7 +184,8 @@ public class ActFactory implements Serializable {
 
 
     /**
-     * get all speakers.
+     * Get the arraylist that contains all speakers' usernames.
+     * @return the arraylist of the usernames of all the speakers.
      */
     public ArrayList<String> speakerList() {
         ArrayList<String> speakers = new ArrayList<>();
@@ -194,7 +198,8 @@ public class ActFactory implements Serializable {
     }
 
     /**
-     * get all organizers.
+     * Get the arraylist that contains all organizers' usernames.
+     * @return the arraylist of the usernames of all the organizers.
      */
     public ArrayList<String> organizerList() {
         ArrayList<String> organizers = new ArrayList<>();
@@ -207,7 +212,8 @@ public class ActFactory implements Serializable {
     }
 
     /**
-     * get all attendees.
+     * Get the arraylist that contains all attendees' usernames.
+     * @return the arraylist of the usernames of all the attendees.
      */
     public ArrayList<String> attendeeList() {
         ArrayList<String> attendees = new ArrayList<>();

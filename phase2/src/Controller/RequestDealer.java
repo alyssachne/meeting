@@ -34,4 +34,8 @@ public class RequestDealer implements Serializable {
     public static boolean hasRequest(RequestManager rm){
         return !rm.allRequests.isEmpty();
     }
+
+    public static boolean containRequest(RequestManager rm, int id){
+        return rm.allRequests.contains(id);
+    }
 }

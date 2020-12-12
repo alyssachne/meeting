@@ -30,6 +30,7 @@ public class RoomManager implements Serializable {
     /**
      * Create a new room.
      * @param MaxCapacity: the maximum capacity of the room.
+     * @return the id of the room.
      */
     public int createRoom(int MaxCapacity, ArrayList<String> constraints){
         Room room = new Room(allRooms.size() + 1, MaxCapacity, constraints);
@@ -58,6 +59,7 @@ public class RoomManager implements Serializable {
     /**
      * Return the maximum capacity of this room.
      * @param id: the unique id of the room.
+     * @return the max capacity of the room.
      */
     public Integer getMaxCapacity(int id){
         return getRoom(id).getMaxCapacity();
@@ -71,34 +73,24 @@ public class RoomManager implements Serializable {
         return getRoom(id).getSchedule(date);
     }
 
-//    /**
-//     * Return a list of integers which represent the available time of this room.
-//     * @param roomId: the unique id of the room.
-//     */
-//    public ArrayList<Integer> availableTime(int roomId){
-//        Room room = getRoom(roomId);
-//        return room.getAvailableTime();
-//    }
-
     /**
-     * Printout all the rooms that suit the requirement of the event and the available time of each room.
+     * Get the ids of all the rooms that suit the requirements of the event.
+     * @param maxCapacity: the max capacity of the room.
+     * @param constraints: the string representations of the constraints of the room.
+     * @return the arraylist of ids of all the rooms that suit the requirements of the event.
      */
     public ArrayList<Integer> suggestedRooms(int maxCapacity, List<String> constraints){
         ArrayList<Integer> acc = new ArrayList<>();
         for (Room room:allRooms){
             if (room.getMaxCapacity() >= maxCapacity && room.getConstraints().containsAll(constraints)) {
                 acc.add(room.getId());
-//                for (Integer time : availableTime(room.getId())){
-//                    System.out.println(time);
-//                }
             }
         }
         return acc;
     }
 
     /**
-     * Book the room for a certain event at a certain time, return true if there is no time conflict;
-     * else, return false.
+     * Book the room for a certain event at a certain time.
      * @param roomId: the unique id of the room.
      * @param eventId: the unique id of the event happen in this room.
      * @param date: the date the event happen.
@@ -117,11 +109,21 @@ public class RoomManager implements Serializable {
         getRoom(roomId).getSchedule(date).remove(eventId);
     }
 
+    /**
+     * Get the constraints of the room.
+     * @param roomId: the id of the room.
+     * @return the arraylist of string representations of constraints of the room.
+     */
     public ArrayList<String> seeConstraints(int roomId) {
         return getRoom(roomId).getConstraints();
     }
 
-
+    /**
+     * Add a new feature to the room.
+     * @param roomId: the id of the room.
+     * @param newFeature: the string representation of the new feature.
+     * @return whether the new feature is successfully added.
+     */
     public boolean addNewFeature(int roomId, String newFeature) {
         if(getRoom(roomId).getConstraints().contains(newFeature)) {
             return false;
@@ -130,49 +132,15 @@ public class RoomManager implements Serializable {
         return true;
     }
 
+    /**
+     * Remove a feature from the room.
+     * @param roomId: the id of the room.
+     * @param feature: the string representation of the feature.
+     * @return whether the new feature is successfully removed.
+     */
     public boolean removeFeature(int roomId, String feature) {
         return getRoom(roomId).getConstraints().remove(feature);
     }
-
-
-
-
-
-
-//    public boolean addTechnology(int roomId, String new_technology, Integer number) {
-//        if (getRoom(roomId).getTechnology().containsKey(new_technology)) {
-//            return false;
-//        }
-//        getRoom(roomId).getTechnology().put(new_technology, number);
-//        return true;
-//    }
-////
-//    public boolean changeTechnology(int roomId, String technology, Integer new_number) {
-//        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
-//            return false;
-//        }
-//        getRoom(roomId).getTechnology().replace(technology, new_number);
-//        return true;
-//    }
-//
-//    public boolean removeTechnology(int roomId, String technology) {
-//        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
-//            return false;
-//        }
-//        getRoom(roomId).getTechnology().remove(technology);
-//        return true;
-//    }
-//
-//    public Integer checkTechnology(int roomId, String technology) {
-//        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
-//            return 0;
-//        }
-//        return getRoom(roomId).getTechnology().get(technology);
-//    }
-//
-//    public HashMap<String, Integer> seeTechnology(int roomId) {
-//        return getRoom(roomId).getTechnology();
-//    }
 
 }
 
