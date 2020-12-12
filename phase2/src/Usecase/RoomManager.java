@@ -30,13 +30,11 @@ public class RoomManager implements Serializable {
 
     /**
      * Create a new room.
-     * @param MaxCapacity: the maximum capacity of the room.
-     * @return the id of the room.
+     * @param MaxCapacity : the maximum capacity of the room.
      */
-    public int createRoom(int MaxCapacity, ArrayList<String> constraints){
+    public void createRoom(int MaxCapacity, ArrayList<String> constraints){
         Room room = new Room(allRooms.size() + 1, MaxCapacity, constraints);
         allRooms.add(room);
-        return room.getId();
     }
 
     /**
@@ -108,39 +106,6 @@ public class RoomManager implements Serializable {
      */
     public void cancel(Integer roomId, Integer eventId, Date date){
         getRoom(roomId).getSchedule(date).remove(eventId);
-    }
-
-    /**
-     * Get the constraints of the room.
-     * @param roomId: the id of the room.
-     * @return the arraylist of string representations of constraints of the room.
-     */
-    public ArrayList<String> seeConstraints(int roomId) {
-        return getRoom(roomId).getConstraints();
-    }
-
-    /**
-     * Add a new feature to the room.
-     * @param roomId: the id of the room.
-     * @param newFeature: the string representation of the new feature.
-     * @return whether the new feature is successfully added.
-     */
-    public boolean addNewFeature(int roomId, String newFeature) {
-        if(getRoom(roomId).getConstraints().contains(newFeature)) {
-            return false;
-        }
-        getRoom(roomId).getConstraints().add(newFeature);
-        return true;
-    }
-
-    /**
-     * Remove a feature from the room.
-     * @param roomId: the id of the room.
-     * @param feature: the string representation of the feature.
-     * @return whether the new feature is successfully removed.
-     */
-    public boolean removeFeature(int roomId, String feature) {
-        return getRoom(roomId).getConstraints().remove(feature);
     }
 
 }

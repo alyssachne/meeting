@@ -10,26 +10,18 @@ import java.util.*;
 public class AttendeeUI {
 
     public void AttendeeDemo(ControllerFacade uo) throws ParseException {
-//        ControllerRW crw = new ControllerRW();
-//        ControllerFacade uo = null;
-//        if (crw.readFile() != null) {
-//            uo = crw.readFile();
-//        } else{
-//            System.out.println("Read File Error");
-//        }
+
         Scanner scanner = new Scanner(System.in);
         SortAndFilter sf = new SortAndFilter();
 
         boolean handle = true;
         while (handle) {
-//            uo = crw.readFile();
             if (uo.checkAccess().equalsIgnoreCase("VIP")){
                 System.out.print("Welcome VIP!");
             }
             System.out.println("Please enter your choice below:");
             System.out.println("1.Show my current schedule");
             System.out.println("2.Sign up an event");
-//            System.out.println("3.Cancel an event reservation");
             System.out.println("3.Message system");
             System.out.println("4.Make a request");
             System.out.println("5.Exit");
@@ -67,7 +59,7 @@ public class AttendeeUI {
                                 }
                             }
                         }else {
-                            System.out.println("This is not an valid option, please choose a number from 1 to 2.");
+                            System.out.println("This is not a valid option, please choose a number from 1 to 2.");
                         }
                     } else if(events.equals("2")){
                         // filter events
@@ -83,7 +75,7 @@ public class AttendeeUI {
                             uo.getLikedEvents(sort, filterMap);
                         }
                     } else{
-                        System.out.println("This is not an valid option, please choose a number from 1 to 2.");
+                        System.out.println("This is not a valid option, please choose a number from 1 to 2.");
                     }
                 } else {
                     System.out.println("You didn't sign up for any event.");
@@ -125,7 +117,7 @@ public class AttendeeUI {
                     MessageUI mu = new MessageUI();
                     mu.MessageDemo(uo);
                 } else {
-                    System.out.println("This is not an valid option, please give a number from 1 to 2.");
+                    System.out.println("This is not a valid option, please give a number from 1 to 2.");
                 }
             }else if (choice.equals("4")){
                 System.out.println("1.Made a new request");
@@ -139,16 +131,14 @@ public class AttendeeUI {
                     System.out.println("Here are the requests you had made: ");
                     uo.checkMyRequest();
                 } else {
-                    System.out.println("This is not an valid option, please give a number from 1 to 2.");
+                    System.out.println("This is not a valid option, please give a number from 1 to 2.");
                 }
             }else if (choice.equals("5")) {
                     uo.logout();
-//                    crw.writeFile(uo);
                     handle = false;
                 }else{
-                    System.out.println("This is not an valid option, please give a number from 1 to 6.");
+                    System.out.println("This is not a valid option, please give a number from 1 to 6.");
                 }
-//            crw.writeFile(uo);
             }
         }
 

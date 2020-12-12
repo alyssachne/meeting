@@ -50,7 +50,9 @@ public class getSchedule implements Serializable {
         ArrayList<Integer> scheduleList = new ArrayList<>();
         Date date1 =new SimpleDateFormat("dd/MM/yyyy").parse(date);
         for (Integer i:lst) {
-            if (ef.getEvent(i).getDate() == date1) {
+            if (ef.getEvent(i).getDate().getYear() == date1.getYear() &&
+                    ef.getEvent(i).getDate().getMonth() == date1.getMonth() &&
+                    ef.getEvent(i).getDate().getDay() == date1.getDay()) {
                 scheduleList.add(i);
             }
         }

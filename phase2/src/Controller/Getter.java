@@ -75,14 +75,19 @@ public class Getter implements Serializable {
             eventArrayList.remove(-1);
         }
         HashMap<String,Integer> hashMap = new HashMap<>();
+        int i = 1;
         for (int event: eventArrayList){
-            hashMap.put(ef.getEvent(event).getId()+ ". " + ef.getEvent(event).getTitle(), ef.getEvent(event).getNumOfAttendees());
+            hashMap.put(i + ". event " + ef.getEvent(event).getId() + " [" +ef.getEvent(event).getTitle() + "] ",
+                    ef.getEvent(event).getNumOfAttendees());
         }
-        if(eventArrayList.size()<5){
-            System.out.println("There is only" + eventArrayList.size() +"events and the top-list is" );
+        if(eventArrayList.isEmpty()){
+            System.out.println("There is no event in the system.");
+        }else if(eventArrayList.size()<5){
+            System.out.println("There is only " + eventArrayList.size() +" events in the system and the top-list is" );
+            System.out.println(hashMap);
+        }else{
+            System.out.println(hashMap);
         }
-        System.out.println(hashMap);
-
     }
 
     /**
@@ -95,11 +100,17 @@ public class Getter implements Serializable {
         PercentageSorter a = new PercentageSorter();
         a.sort(eventArrayList, ef, rm);
         HashMap<String, Float> TrafficMap= new HashMap<>();
+        int i = 1;
         for (int event: eventArrayList){
-            TrafficMap.put(ef.getEvent(event).getId()+ ". " + ef.getEvent(event).getTitle(),
-                    (float)ef.getEvent(event).getNumOfAttendees()/rm.getRoom(ef.getEvent(event).getRoom()).getMaxCapacity());
+            TrafficMap.put(i + ". event " + ef.getEvent(event).getId() + " [" + ef.getEvent(event).getTitle() + "] ",
+                    (float) (ef.getEvent(event).getNumOfAttendees()/rm.getRoom(ef.getEvent(event).getRoom()).getMaxCapacity()));
+            i++;
         }
-        System.out.println(TrafficMap);
+        if(TrafficMap.isEmpty()){
+            System.out.println("There is no app traffic data in the system.");
+        }else{
+            System.out.println(TrafficMap);
+        }
     }
 
     /**
@@ -111,6 +122,10 @@ public class Getter implements Serializable {
         ArrayList<Integer> eventArrayList = ef.getAllEvents();
         PercentageSorter a = new PercentageSorter();
         a.sort(eventArrayList,ef,rm);
-        System.out.println("most Attendee chose" + eventArrayList.get(0) );
+        if(eventArrayList.isEmpty()){
+            System.out.println("There is no event in the system");
+        }else{
+            System.out.println("Most user chose" + ef.getEvent(eventArrayList.get(0)) );
+        }
     }
 }

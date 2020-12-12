@@ -8,18 +8,11 @@ import java.util.Scanner;
 public class SpeakerUI {
 
     public void SpeakerDemo(ControllerFacade uo) {
-//        ControllerRW crw = new ControllerRW();
-//        ControllerFacade uo= null;
-//        if (crw.readFile() != null) {
-//            uo = crw.readFile();
-//        }else {
-//            System.out.println("Read File Error");
-//        }
 
         Scanner scanner = new Scanner(System.in);
         boolean handle = true;
         while (handle) {
-//            uo = crw.readFile();
+
             System.out.println("Please enter your choice below:");
             System.out.println("1.Show my current schedule");
             System.out.println("2.Message System");
@@ -61,12 +54,10 @@ public class SpeakerUI {
                 }
             } else if (choice.equals("3")) {
                 uo.logout();
-//                crw.writeFile(uo);
                 handle = false;
             } else {
                 System.out.println("This is not an valid option, please give a number from 1 to 3.");
             }
-//            crw.writeFile(uo);
         }
     }
 }

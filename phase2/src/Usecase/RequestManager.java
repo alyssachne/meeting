@@ -18,14 +18,12 @@ public class RequestManager implements Serializable {
 
     /**
      * Create a new request from the user and return the request Id
-     * @param request: User's request
-     * @param username: the username of the User
-     * @return request Id
+     * @param request : User's request
+     * @param username : the username of the User
      */
-    public int createRequest(String request, String username) {
+    public void createRequest(String request, String username) {
         Request req = new Request(request, username, allRequests.size() + 1);
         allRequests.add(req);
-        return req.getId();
     }
 
     /**

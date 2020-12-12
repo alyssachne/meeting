@@ -181,7 +181,7 @@ public class ControllerFacade implements Serializable {
         try {
             ScheduleGetter.attendeeSchedule(this.af, this.username, ef, sort, filter);
         }catch (Exception e){
-            System.out.print("Not a valid input!");
+            System.out.print("Not a valid input! + \n");
         }
     }
 
@@ -210,12 +210,8 @@ public class ControllerFacade implements Serializable {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public void getAvailableEvent(String sort,Map<String, String> filter) {
-        try {
-            ScheduleGetter.getAvailableEvent(this.rm, this.username, sort, filter,ef,af);
-        }catch (Exception e){
-            System.out.print("Not a valid format!");
-        }
+    public void getAvailableEvent(String sort,Map<String, String> filter) throws ParseException {
+        ScheduleGetter.getAvailableEvent(this.rm, this.username, sort, filter,ef,af);
     }
 
     /**
@@ -304,11 +300,10 @@ public class ControllerFacade implements Serializable {
     }
 
     /**
-     * Read all the messages in the message box
-     * @param box: the type of Message
+     * Printout all events in the system.
      */
-    public void readAllMessage(String box){
-        MessageDealer.readAllMessage(box,username,mm);
+    public void getAllEvents(){
+        EventDealer.getAllEvents(ef);
     }
 
     /**
@@ -346,19 +341,6 @@ public class ControllerFacade implements Serializable {
         RequestDealer.tagRequest(requestId, reqm);
     }
 
-    /**
-     * Add new feature to a room
-     * @param newFeatures: the new feature
-     * @param roomId: the Id of the room
-     */
-    public void updateRoom(ArrayList<String> newFeatures,int roomId) {RoomDealer.updateRoom(newFeatures, rm, roomId);}
-
-    /**
-     * Clear old features of the room
-     * @param oldFeatures: the old features
-     * @param roomId: the Id of the room
-     */
-    public void cleanRoom(ArrayList<String> oldFeatures, int roomId) {RoomDealer.cleanRoom(oldFeatures, rm, roomId);}
 
     /**
      * Mark a message as unread
@@ -397,13 +379,6 @@ public class ControllerFacade implements Serializable {
     public void cancelEvent(int eventId, Date date) {
         EventDealer.cancelEvent(eventId, date, ef, af, rm, cm);
     }
-
-    /**
-     * Change whether the user can access the event
-     * @param eventId: the Id of the event
-     * @param access: access of the event of the user
-     */
-    public void changeEventAccess(int eventId,String access){EventDealer.changeEventAccess(eventId,ef, access);}
 
     /**
      * Make a new request

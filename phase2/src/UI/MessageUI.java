@@ -8,13 +8,6 @@ import java.util.Scanner;
 public class MessageUI {
 
     public void MessageDemo(ControllerFacade uo){
-//        ControllerRW crw = new ControllerRW();
-//        ControllerFacade uo = null;
-//        if (crw.readFile()!=null){
-//            uo = crw.readFile();
-//        }else {
-//            System.out.println("Read File Error");
-//        }
 
         Scanner scanner = new Scanner(System.in);
             System.out.println("1.Unread message");
@@ -87,6 +80,5 @@ public class MessageUI {
             }else{
                 System.out.println("This is not an valid option, please give a number from 1 to 3.");
             }
-//        crw.writeFile(uo);
     }
 }

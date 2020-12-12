@@ -1,6 +1,8 @@
 package Controller;
 
+import Entity.Event;
 import Usecase.*;
+import com.sun.javafx.event.EventHandlerManager;
 //import com.sun.org.apache.xerces.internal.impl.xs.SchemaNamespaceSupport;
 
 import java.io.Serializable;
@@ -95,5 +97,14 @@ public class EventDealer implements Serializable {
      */
     public static boolean hasSignUp(String username, ActFactory af){
         return !af.getEvents(username).isEmpty();
+    }
+
+    /**
+     * Printout all events in the system.
+     */
+    public static void getAllEvents(EventFactory ef){
+        for(Event event: ef.allEvents){
+            System.out.println(event);
+        }
     }
 }

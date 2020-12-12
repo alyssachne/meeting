@@ -52,4 +52,3 @@ public class EventSpeakerSorter implements SorterStrategy {
         }
     }
 }
-// Want to sort according to speaker's name, since username may not be that well-known to other users.

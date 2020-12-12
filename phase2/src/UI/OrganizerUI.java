@@ -4,29 +4,17 @@ import Controller.ControllerFacade;
 import Entity.Organizer;
 import Gateway.ControllerRW;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class OrganizerUI {
 
-    public void OrganizerDemo(ControllerFacade uo){
-//        ControllerRW crw = new ControllerRW();
-//        ControllerFacade uo = uo;
-//        if (crw.readFile()!=null){
-//            uo = crw.readFile();
-//        }else {
-//            System.out.println("Read File Error");
-//        }
+    public void OrganizerDemo(ControllerFacade uo) {
 
         Scanner scanner = new Scanner(System.in);
         boolean handle = true;
         while(handle){
-//            uo = crw.readFile();
             System.out.println("Please enter your choice below:");
             System.out.println("1.Create Rooms");
             System.out.println("2.Create an Account");
@@ -34,7 +22,8 @@ public class OrganizerUI {
             System.out.println("4.Message System");
             System.out.println("5.Request System");
             System.out.println("6.Statistics Summary");
-            System.out.println("7.Exit");
+            System.out.println("7.Cancel an event");
+            System.out.println("8.Exit");
             String choice = scanner.nextLine();
             if (choice.equals("1")) {
                 System.out.println("Please enter the max capacity of the room:");
@@ -129,7 +118,6 @@ public class OrganizerUI {
                             System.out.println("Here is a list of ids of the room as well as their empty time slot:");
                             uo.roomList(date,Integer.parseInt(max),constraints);
 
-//                    uo.roomList(date,Integer.parseInt(max), constraints);
                             boolean valid = true;
                             ArrayList<String> speakerList = new ArrayList<>();
                             if (option.equals("1")){
@@ -263,14 +251,29 @@ public class OrganizerUI {
                 } else {
                     System.out.println("This is not an valid option, please give a number from 1 to 3.");
                 }
-            } else if (choice.equals("7")) {
+            } else if(choice.equals("7")){
+                if(!uo.hasEvent()){
+                    System.out.println("There is no event in the system.");
+                }else {
+                    System.out.println("Here are events in the system:");
+                    uo.getAllEvents();
+                    System.out.println("Please enter the eventId you want cancel.");
+                    String id = scanner.nextLine();
+                    System.out.print("Please enter date of the event you want to cancel (DD/MM/YYYY):");
+                    Date date = null;
+                    try {
+                        date = new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
+                        uo.cancelEvent(Integer.parseInt(id), date);
+                    } catch (Exception e){
+                        System.out.println(e);
+                    }
+                }
+            }else if (choice.equals("8")) {
                 uo.logout();
-//                crw.writeFile(uo);
                 handle = false;
             } else {
-                System.out.println("This is not an valid option, please give a number from 1 to 7.");
+                System.out.println("This is not an valid option, please give a number from 1 to 8.");
             }
-//            crw.writeFile(uo);
         }
     }
 }

@@ -44,11 +44,16 @@ public class ScheduleGetter implements Serializable {
     public static void attendeeSchedule(ActFactory af, String username, EventFactory ef, String strategy,
                                         Map<String, String> filter) throws ParseException {
         ArrayList<Integer> temp = new ArrayList<>(af.getEvents(username));
-        sortAndFilter(strategy,temp,filter,ef);
-        for(int i: temp) {
+        sortAndFilter(strategy, temp, filter, ef);
+        int i = 0;
+        while (i < temp.size()) {
+            int j = ef.getEvent(i).getDuration();
+            while (j > 1) {
+                j--;
+                i++;
+            }
             System.out.println(ef.getEvent(i).toString());
         }
-
     }
 
     /**
@@ -69,12 +74,13 @@ public class ScheduleGetter implements Serializable {
         sortAndFilter(strategy,all,filter,ef);
         int i = 0;
         while(i< all.size()){
-            int j = ef.getEvent(i).getDuration();
+            int j = ef.getEvent(all.get(i)).getDuration();
             while(j>1){
                 j--;
                 i++;
             }
             System.out.println(ef.getEvent(all.get(i)).toString());
+            i++;
         }
     }
 
@@ -122,19 +128,19 @@ public class ScheduleGetter implements Serializable {
      * @param ef EventFactory in Use case.
      */
     private static void sortEvent(String strategy, ArrayList<Integer> lst, EventFactory ef){
-        if(strategy.equals("EventId")){
+        if(strategy.equalsIgnoreCase("EventId")){
             SorterStrategy sorter = new EventIdSorter();
             sorter.sort(lst,ef);
-        } else if (strategy.equals("RoomId")){
+        } else if (strategy.equalsIgnoreCase("RoomId")){
             SorterStrategy sorter = new EventRoomSorter();
             sorter.sort(lst,ef);
-        } else if(strategy.equals("Speaker")){
+        } else if(strategy.equalsIgnoreCase("Speaker")){
             SorterStrategy sorter = new EventSpeakerSorter();
             sorter.sort(lst,ef);
-        }else if(strategy.equals("Time")){
+        }else if(strategy.equalsIgnoreCase("Time")){
             SorterStrategy sorter = new EventTimeSorter();
             sorter.sort(lst,ef);
-        }else if(strategy.equals("Title")){
+        }else if(strategy.equalsIgnoreCase("Title")){
             SorterStrategy sorter = new EventTitleSorter();
             sorter.sort(lst,ef);
         }
@@ -176,9 +182,9 @@ public class ScheduleGetter implements Serializable {
     private static void sortAndFilter(String strategy, ArrayList<Integer> lst, Map<String, String> filter, EventFactory ef) throws ParseException {
         getSchedule gs = new getSchedule();
         for (String f: filter.keySet()) {
-            if(f.equals("Day")) {
+            if(f.equalsIgnoreCase("Date")) {
                 sortEvent(strategy, gs.getScheduleByDay(filter.get(f), lst, ef), ef);
-            } else if (f.equals("Speaker")) {
+            } else if (f.equalsIgnoreCase("Speaker")) {
                 sortEvent(strategy, gs.getScheduleBySpeaker(filter.get(f), lst, ef), ef);
             } else {
                 sortEvent(strategy, gs.getScheduleByTime(filter.get(f), lst, ef), ef);

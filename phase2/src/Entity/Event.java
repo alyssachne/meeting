@@ -92,8 +92,10 @@ public class Event implements Serializable {
      * Get the endTime of the event.
      * @return endTime The endTime of the event.
      */
-    public int getEndTime() {
-        return getTime() + duration;
+    public Date getEndTime() {
+        Date d = (Date) date.clone();
+        d.setHours(d.getHours()+duration);
+        return d;
     }
 
     /**
@@ -189,14 +191,14 @@ public class Event implements Serializable {
     public String toString() {
         ArrayList<String> s = speakers;
         if(s.isEmpty()){
-            return "Event ID:"+id+" This party " + title + ", given by " + s + ". It starts at " + date  + " on Room"
-                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + " ." ;
+            return "Event ID:"+id+" "+ title + ". It starts at " + date  + " on Room "
+                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + ". It is a party." ;
         } else if(s.size()==1){
-            return "Event ID:"+id+" This talk " + title + ", given by " + s + ". It starts at " + date  + " on Room"
-                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + " ." ;
+            return "Event ID:"+id + " "+title + ", given by " + s.get(0) + ". It starts at " + date  + " on Room "
+                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + ". It is a talk." ;
         }else{
-            return "Event ID:"+id+" This discussion " + title + ", given by " + s + ". It starts at " + date  + " on Room"
-                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + " ." ;
+            return "Event ID:"+id+" "+ title + ", given by " + s + ". It starts at " + date  + " on Room "
+                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + ". It is a discussion." ;
         }
     }
 }
