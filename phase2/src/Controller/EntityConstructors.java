@@ -15,25 +15,6 @@ public class EntityConstructors implements Serializable {
     public static void createRoom(int capacity, ArrayList<String> constraints, RoomManager rm){
         rm.createRoom(capacity,constraints);
     }
-//
-//    /**
-//     * If the username is not taken by other user, allow the organizer to create this speaker account and return true;
-//     * else, return false.
-//     * @param name The name of the speaker.
-//     * @param username The username of the speaker.
-//     * @param password The password of the speaker.
-//     */
-//    public static void createSpeaker(String name, String username, String password, SpeakerAct sa, AttendeeAct aa,
-//                                     OrganizerAct oa, MessageManager mm){
-//        // check if the username is taken by any user
-//        if(oa.checkUsernameTaken(username) && aa.checkUsernameTaken(username) &&
-//                !sa.createUser(name,username,password)){
-//            System.out.println("This username has already been taken, please choose a new username.");
-//        } else {
-//            sa.createUser(name,username,password);
-//            mm.createMessageBox(username);
-//        }
-//    }
 
     /**
      * If the username is not taken by other attendee, allow the attendee to create the account and return true;
@@ -51,6 +32,7 @@ public class EntityConstructors implements Serializable {
             mm.createMessageBox(username);
         }
     }
+
     /**
      * Create a new event with given username of the speaker, the Id of the event, the title of the event, the start
      * time of the event, and the Id of the room.
@@ -62,33 +44,7 @@ public class EntityConstructors implements Serializable {
     public static boolean createEvent(ArrayList<String> speaker, String title, Date date, int time, int roomId,
                                       int duration, String eventAccess, ArrayList<String> constraints,
                                       RoomManager rm, ActFactory af, EventFactory ef, CalendarManager cm){
-//        Set<Integer> temp = new HashSet<>();
-//        ArrayList<Integer> spTime = new ArrayList<>();
-//        // collect all available times for each speaker
-//        for(String s: speaker) {
-//            temp.addAll(sa.availableTime(s));
-//        }
-//        // find out the time that all speakers are free.
-//        for(Integer i: temp) {
-//            if (Collections.frequency(temp,i) == speaker.size()) {
-//                spTime.add(i);
-//            }
-//        }
-//        ArrayList<Integer> roomTime = rm.availableTime(roomId);
-//        for(int i=0; i <= duration - 1; i++) {
-//            if (!spTime.contains(time + i) | !roomTime.contains(time + i)) {
-//                return false;
-//            }
-//        }
-
-        // check if all speakers are free from the beginning of the event to the end of the event
-        // if the room is free from the beginning of the event to the end of the event/
-        // if the room satisfies all constraints the event need
-
         for(int i=time; i <= time + duration - 1; i++) {
-//                System.out.println(cm.getAvailable(date, af.getEvents(sp)).contains(i));
-//                System.out.println(cm.getAvailable(date, rm.getRoom(roomId).getSchedule(date)).contains(i));
-//                System.out.println(rm.getRoom(roomId).getConstraints().containsAll(constraints));
             for(String sp: speaker) {
                 if (!cm.getAvailable(date, af.givenEvents(sp,date)).contains(i)){
                     return false;
@@ -114,26 +70,40 @@ public class EntityConstructors implements Serializable {
         return true;
     }
 
+    /**
+     * A method used to validate if a given user is a valid speaker
+     * @param speaker, The User name of the user to be validated.
+     * @param af, the class we used to manage all the users.
+     * @return a boolean value indicating if the user is a valid speaker.
+     */
     public static boolean validSpeaker(String speaker, ActFactory af){
         return af.speakerList().contains(speaker);
     }
 
+    /**
+     * A method used to validate if a given room exist in the system.
+     * @param roomId, The id of the rooms to be validated.
+     * @param rm, the class we used to manage all the rooms.
+     * @return a boolean value indicating if the room is a valid room.
+     */
     public static boolean validRoom(int roomId, RoomManager rm){
         return rm.allRooms.contains(rm.getRoom((roomId)));
     }
 
+    /**
+     * A method used to validate if at least one speaker exist in the system.
+     * @return a boolean value indicating if there is at least one speaker.
+     */
     public static boolean hasSpeakers(ActFactory af) {
-        if(af.speakerList().isEmpty()){
-            return false;
-        }
-        return true;
+        return !af.speakerList().isEmpty();
     }
 
+    /**
+     * A method used to validate if at least one room exist in the system.
+     * @return a boolean value indicating if there is at least one room.
+     */
     public static boolean hasRoom(RoomManager rm) {
-        if(rm.allRooms.isEmpty()){
-            return false;
-        }
-        return true;
+        return !rm.allRooms.isEmpty();
     }
 
 }

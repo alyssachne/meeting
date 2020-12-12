@@ -1,10 +1,5 @@
 package Entity;
-
-//import com.sun.org.apache.xerces.internal.parsers.IntegratedParserConfiguration;
-//import javafx.util.Pair;
-
 import java.util.*;
-
 
 /**
  * The type Speaker.
@@ -27,22 +22,6 @@ public class Speaker extends User {
         super(name, username, password);
         events = new HashMap<>();
     }
-
-//    /**
-//     * Return An ArrayList of available time.
-//     *
-//     * @return the available
-//     */
-//    public ArrayList<Integer> getAvailable() {
-//        ArrayList<Integer> acc = new ArrayList<>();
-//        Set<Integer> temp = events.keySet();
-//        for (Integer time: temp) {
-//            if(events.get(time) == null) {
-//                acc.add(time);
-//            }
-//        }
-//        return acc;
-//    }
 
     /**
      * returns an array list of events that are given on that day.
