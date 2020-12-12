@@ -134,9 +134,9 @@ public class ActFactory implements Serializable {
     }
 
     /**
-     * Change access
+     * Change access level of the User
      * @param username: the username of the User
-     * @param access: user's access
+     * @param access: whether user is a VIP or normal
      */
     public void changeAccess(String username, String access) {
         getUser(username).setAccess(access);
