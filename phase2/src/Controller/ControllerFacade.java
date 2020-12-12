@@ -171,8 +171,12 @@ public class ControllerFacade implements Serializable {
     /**
      * printout all rooms and their available times.
      */
-    public boolean roomList(Date date, int maxCapacity, ArrayList<String> constraints){
-        return Getter.roomList(date, this.rm, maxCapacity, constraints,cm);
+    public void roomList(Date date, int maxCapacity, ArrayList<String> constraints){
+        Getter.roomList(date, this.rm, maxCapacity, constraints,cm);
+    }
+
+    public boolean hasAvailableRoom(int maxCapacity, ArrayList<String> constraints){
+        return Getter.hasAvailableRoom(rm, maxCapacity,constraints);
     }
 
     /**
