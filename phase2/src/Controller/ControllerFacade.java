@@ -42,6 +42,9 @@ public class ControllerFacade implements Serializable {
         return false;
     }
 
+    /**
+     * Get the user type
+     */
     public String typeGetter(){
         return type;
     }
@@ -73,17 +76,6 @@ public class ControllerFacade implements Serializable {
     public void createUser(String name, String username, String password, String userType){
         EntityConstructors.createUser(name, username , password, af, mm, userType);
     }
-//
-//    /**
-//     * If the username is not taken by other attendee, allow the attendee to create the account and return true;
-//     * else, return false.
-//     * @param name The name of the attendee.
-//     * @param username The username of the attendee.
-//     * @param password The password of the attendee.
-//     */
-//    public void createAttendee(String name, String username, String password){
-//        EntityConstructors.createAttendee(name,username,password, aa, sa, oa,mm);
-//    }
 
     /**
      * Create a new event with given username of the speaker, the Id of the event, the title of the event, the start
@@ -97,34 +89,63 @@ public class ControllerFacade implements Serializable {
             return EntityConstructors.createEvent(speakers,title,date,time,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
     }
 
+    /**
+     * Check whether it has a speaker or not
+     */
     public boolean hasSpeaker(){
         return EntityConstructors.hasSpeakers(af);
     }
 
+    /**
+     * Whether the User have contact with any other user or not
+     * @param box: the type of message
+     * @return a boolean that shows contacted or not
+     */
     public boolean hasContact(String box){
         return MessageDealer.hasContacts(username,mm,box);
     }
 
+    /**
+     * Whether the user sign up for event or not
+     * @return boolean that shows sign up or not
+     */
     public boolean hasSignUp(){
         return EventDealer.hasSignUp(username,af);
     }
 
+    /**
+     * Whether there is a request or not
+     */
     public boolean hasRequest(){
             return RequestDealer.hasRequest(reqm);
     }
 
+    /**
+     * Check if there is an event or not in the list
+     */
     public boolean hasEvent(){
         return EventDealer.hasEvent(ef);
     }
 
+    /**
+     * Whether there is available event for the user or not
+     * @return true if there is
+     */
     public boolean hasAvailableEvent(){
         return ScheduleGetter.hasAvailableEvent(ef,username,rm,af);
     }
 
+    /**
+     * Whether the user have send message before or not by message type
+     * @param box: the type of message
+     */
     public boolean hasMessage(String box){
         return MessageDealer.hasMessage(username,mm,box);
     }
 
+    /**
+     * Whether there is empty room or not
+     */
     public boolean hasRoom(){
         return EntityConstructors.hasRoom(rm);
     }
@@ -161,10 +182,22 @@ public class ControllerFacade implements Serializable {
         }
     }
 
+    /**
+     * Get all selected event
+     * @param sort: the type of sort
+     * @param filter: the filter for the Event
+     * @throws ParseException
+     */
     public void getAllSelectedEvents(String sort, Map<String, String> filter) throws ParseException {
         ScheduleGetter.getAllSelectedEvents(sort,filter, ef);
     }
 
+    /**
+     * Get all liked events
+     * @param sort: the type of sort
+     * @param filter: the filter for the Event
+     * @throws ParseException
+     */
     public void getLikedEvents(String sort, Map<String, String> filter) throws ParseException {
         ScheduleGetter.getLikedEvents(username, sort, filter, af, ef);
     }
@@ -175,7 +208,6 @@ public class ControllerFacade implements Serializable {
      * yet.
      */
     public void getAvailableEvent(String sort,Map<String, String> filter) {
-
         try {
             ScheduleGetter.getAvailableEvent(this.rm, this.username, sort, filter,ef,af);
         }catch (Exception e){
@@ -183,14 +215,23 @@ public class ControllerFacade implements Serializable {
         }
     }
 
+    /**
+     * Get the enrollment Statistics of the event
+     */
     public void getEnrollmentStatistics(){
         Getter.enrollmentStatistics(ef,rm);
     }
 
+    /**
+     * Get the top five events that User sign up for
+     */
     public void getTopFiveLists(){
         Getter.getTopFiveEvents(ef);
     }
 
+    /**
+     * Get the app traffic map
+     */
     public void getAppTraffic(){
         Getter.getAppTraffic(ef,rm);
     }
@@ -201,8 +242,6 @@ public class ControllerFacade implements Serializable {
     public void signUp(int eventId){
         EventDealer.signUp(eventId,this.af,ef,this.username);
     }
-
-
 
     /**
      * Remove this attendee from the event.
@@ -246,6 +285,9 @@ public class ControllerFacade implements Serializable {
         UserPrinter.checkContacts(this.mm,this.username,box);
     }
 
+    /**
+     * printout all usernames of users in the system.
+     */
     public void checkUsers(){
         UserPrinter.checkUsers(af,username);
     }
@@ -258,6 +300,10 @@ public class ControllerFacade implements Serializable {
         MessageDealer.getMessage(sender,this.mm,this.username,box);
     }
 
+    /**
+     * Read all the messages in the message box
+     * @param box: the type of Message
+     */
     public void readAllMessage(String box){
         MessageDealer.readAllMessage(box,username,mm);
     }
@@ -274,61 +320,140 @@ public class ControllerFacade implements Serializable {
      * Printout all usernames of speakers who give the events this attendee signed up for.
      */
     public void checkSpeakers() {
-    UserPrinter.checkSpeakers(this.af, this.username, ef);}
+        UserPrinter.checkSpeakers(this.af, this.username, ef);
+    }
 
+    /**
+     * Print all request from the list.
+     */
     public void checkAllRequest() {
         RequestDealer.checkAllRequest(reqm);
     }
 
+    /**
+     * Print all request from a specific User
+     */
     public void checkMyRequest(){RequestDealer.checkMyRequest(username,reqm);}
 
+    /**
+     * Addressed a request
+     * @param requestId: the Id of the Request
+     */
     public void addressRequest(int requestId) {
         RequestDealer.tagRequest(requestId, reqm);
     }
 
+    /**
+     * Add new feature to a room
+     * @param newFeatures: the new feature
+     * @param roomId: the Id of the room
+     */
     public void updateRoom(ArrayList<String> newFeatures,int roomId) {RoomDealer.updateRoom(newFeatures, rm, roomId);}
 
+    /**
+     * Clear old features of the room
+     * @param oldFeatures: the old features
+     * @param roomId: the Id of the room
+     */
     public void cleanRoom(ArrayList<String> oldFeatures, int roomId) {RoomDealer.cleanRoom(oldFeatures, rm, roomId);}
 
+    /**
+     * Mark a message as unread
+     * @param sender: the username of the sender who send the message
+     * @param index: the index of the message +1
+     * @param box: the type of Message
+     */
     public void markAsUnread(String sender, int index,String box) {
         MessageDealer.markAsUnread(username,mm,sender,index,box);
     }
 
+    /**
+     * Delete a message
+     * @param sender: the username of the sender
+     * @param index: the index of the message +1
+     * @param box: the type of message
+     */
     public void deleteMessage(String sender, int index, String box) {
         MessageDealer.deleteMessage(username,mm, sender,index, box);
     }
 
+    /**
+     * Archive a message
+     * @param sender: the username of the User who send the message
+     * @param index: the index of the message +1
+     */
     public void archiveMessage(String sender, int index) {
         MessageDealer.archiveMessage(username,mm, sender,index);
     }
 
+    /**
+     * Cancel an event
+     * @param eventId: the Id of the event
+     * @param date: the date of the event
+     */
     public void cancelEvent(int eventId, Date date) {
         EventDealer.cancelEvent(eventId, date, ef, af, rm, cm);
     }
 
+    /**
+     * Change whether the user can access the event
+     * @param eventId: the Id of the event
+     * @param access: access of the event of the user
+     */
     public void changeEventAccess(int eventId,String access){EventDealer.changeEventAccess(eventId,ef, access);}
 
+    /**
+     * Make a new request
+     * @param request: the content of the request
+     */
     public void madeRequest(String request) {
         RequestDealer.madeRequest(reqm, request,username);
     }
 
+    /**
+     * Like an event
+     * @param eventId: the id of the event
+     */
     public void likeEvent(int eventId) {
         EventDealer.likeEvent(eventId,af,username);
     }
 
+    /**
+     * Change user's access level to VIP event
+     * @param username: the username of the User
+     * @param access: the access level of the User
+     */
     public void changeUserAccess(String username, String access){
         UserPrinter.changeUserAccess(username,af,access);
     }
 
+    /**
+     * Check whether the user can access the VIP events
+     * @return VIP if the user is an VIP, and normal if the user is not
+     */
     public String checkAccess(){
         return af.checkAccess(username);
     }
 
+    /**
+     * Whether the room is valid or not
+     * @param roomId: the Id of the room
+     * @return true if the room is valid
+     */
     public boolean validRoom(int roomId){
         return EntityConstructors.validRoom(roomId,rm);
     }
 
+    /**
+     * Whether the speaker is in the list or not
+     * @param speaker: the username of the Speaker
+     * @return true if the Speaker is in the list
+     */
     public boolean validSpeaker(String speaker){
         return EntityConstructors.validSpeaker(speaker,af);
+    }
+
+    public boolean validRequest(int id){
+        return RequestDealer.containRequest(reqm,id);
     }
 }

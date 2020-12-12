@@ -12,7 +12,7 @@ import java.util.*;
 public class ScheduleGetter implements Serializable {
 
     /**
-     * printout all events this speaker is going to give. This schedule is only shown to the speaker.
+     * Print out all events this speaker is going to give. This schedule is only shown to the speaker.
      */
     public static void speakerSchedule(ActFactory af, String username, EventFactory ef) {
         for (Date date : af.allEventList(username).keySet()) {
@@ -25,8 +25,8 @@ public class ScheduleGetter implements Serializable {
     }
 
     /**
-     * printout selected events this attendee signed up for in the order this person wants. T
-     * his schedule is only shown to this attendee.
+     * Print out selected events this attendee signed up for in the order this person wants.
+     * This schedule is only shown to this attendee.
      */
     public static void attendeeSchedule(ActFactory af, String username, EventFactory ef, String strategy,
                                         Map<String, String> filter) throws ParseException {
@@ -39,7 +39,7 @@ public class ScheduleGetter implements Serializable {
     }
 
     /**
-     * printout all events this attendee can signed up for. That is, events that are not full, the rooms where those
+     * Printout all events this attendee can signed up for. That is, events that are not full, the rooms where those
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */

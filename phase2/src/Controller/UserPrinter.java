@@ -52,6 +52,12 @@ public class UserPrinter implements Serializable {
         }
     }
 
+    /**
+     * Change user's access to VIP
+     * @param username: the username of the User
+     * @param af: Act Factory
+     * @param access: the access level of the User
+     */
     public static void changeUserAccess(String username, ActFactory af, String access) {
         af.changeAccess(username, access);
     }
