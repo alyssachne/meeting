@@ -123,71 +123,75 @@ public class OrganizerUI {
                         }
                         System.out.println("Please enter the maximum capacity you want for the room");
                         String max = scanner.nextLine();
-                        System.out.println("Here is a list of ids of the room as well as their empty time slot:");
-                        if(!uo.roomList(date,Integer.parseInt(max),constraints)){
+                        if(!uo.hasAvailableRoom(Integer.parseInt(max),constraints)){
                             System.out.print("Don't have room available, please choose a new date or create a new room.");
-                        }
+                        } else{
+                            System.out.println("Here is a list of ids of the room as well as their empty time slot:");
+                            uo.roomList(date,Integer.parseInt(max),constraints);
+
 //                    uo.roomList(date,Integer.parseInt(max), constraints);
-                        boolean valid = true;
-                        ArrayList<String> speakerList = new ArrayList<>();
-                        if (option.equals("1")){
-                            boolean speakerLoop = true;
-                            while (speakerLoop) {
-                                System.out.println("Please enter the username of the speaker you want to schedule for(Enter exit to skip finish):");
-                                String su = scanner.nextLine();
-                                if (su.equals("exit")) {
-                                    speakerLoop = false;
-                                } else {
-                                    if(!uo.validSpeaker(su)){
-                                        valid = false;
+                            boolean valid = true;
+                            ArrayList<String> speakerList = new ArrayList<>();
+                            if (option.equals("1")){
+                                boolean speakerLoop = true;
+                                while (speakerLoop) {
+                                    System.out.println("Please enter the username of the speaker you want to schedule for(Enter exit to skip finish):");
+                                    String su = scanner.nextLine();
+                                    if (su.equals("exit")) {
                                         speakerLoop = false;
                                     } else {
-                                    speakerList.add(su);
+                                        if(!uo.validSpeaker(su)){
+                                            valid = false;
+                                            speakerLoop = false;
+                                        } else {
+                                            speakerList.add(su);
+                                        }
                                     }
                                 }
-                            }
-                        } else if(option.equals("3")){
-                            System.out.println("Please enter the username of the speaker you want to schedule for.");
-                            String su = scanner.nextLine();
-                            if(!uo.validSpeaker(su)){
-                                valid = false;
-                            } else {
-                                speakerList.add(su);
-                            }
-                        }
-                        if(!valid){
-                            System.out.println("Not a valid speaker username");
-                        } else{
-                            System.out.println("Please enter the room id you wish the event to be hold");
-                            String roomId = scanner.nextLine();
-                            if(!uo.validRoom(Integer.parseInt(roomId))){
-                                System.out.println("Not a valid roomId");
-                            } else {
-                                System.out.println("Please enter the Duration(in hours), Title, and the starting time of the event you wish to create");
-                                System.out.println("Press Enter button after each entry");
-                                String duration = scanner.nextLine();
-                                String title = scanner.nextLine();
-                                String time = scanner.nextLine();
-                                System.out.print("Would you want to make it a VIP event(Y/N)?");
-                                String YN = scanner.nextLine();
-                                if (YN.equalsIgnoreCase("Y")) {
-                                    YN = "VIP";
-                                    if (uo.createEvent(speakerList, title, date, Integer.parseInt(time), Integer.parseInt(roomId), Integer.parseInt(duration), YN, constraints)) {
-                                        System.out.println("Event created successfully");
-                                    } else {
-                                        System.out.println("There is a time conflict exist");
-                                    }
-                                } else if (YN.equalsIgnoreCase("N")) {
-                                    YN = "Normal";
-                                    if (uo.createEvent(speakerList, title, date, Integer.parseInt(time), Integer.parseInt(roomId), Integer.parseInt(duration), YN, constraints)) {
-                                        System.out.println("Event created successfully");
-                                    } else {
-                                        System.out.println("There is a time conflict exist");
-                                    }
+                            } else if(option.equals("3")){
+                                System.out.println("Please enter the username of the speaker you want to schedule for.");
+                                String su = scanner.nextLine();
+                                if(!uo.validSpeaker(su)){
+                                    valid = false;
                                 } else {
-                                    System.out.print("Not a valid input");
+                                    speakerList.add(su);
                                 }
                             }
+                            if(!valid){
+                                System.out.println("Not a valid speaker username");
+                            } else{
+                                System.out.println("Please enter the room id you wish the event to be hold");
+                                String roomId = scanner.nextLine();
+                                if(!uo.validRoom(Integer.parseInt(roomId))){
+                                    System.out.println("Not a valid roomId");
+                                } else {
+                                    System.out.println("Please enter the Duration(in hours), Title, and the starting time of the event you wish to create");
+                                    System.out.println("Press Enter button after each entry");
+                                    String duration = scanner.nextLine();
+                                    String title = scanner.nextLine();
+                                    String time = scanner.nextLine();
+                                    System.out.print("Would you want to make it a VIP event(Y/N)?");
+                                    String YN = scanner.nextLine();
+                                    if (YN.equalsIgnoreCase("Y")) {
+                                        YN = "VIP";
+                                        if (uo.createEvent(speakerList, title, date, Integer.parseInt(time), Integer.parseInt(roomId), Integer.parseInt(duration), YN, constraints)) {
+                                            System.out.println("Event created successfully");
+                                        } else {
+                                            System.out.println("There is a time conflict exist");
+                                        }
+                                    } else if (YN.equalsIgnoreCase("N")) {
+                                        YN = "Normal";
+                                        if (uo.createEvent(speakerList, title, date, Integer.parseInt(time), Integer.parseInt(roomId), Integer.parseInt(duration), YN, constraints)) {
+                                            System.out.println("Event created successfully");
+                                        } else {
+                                            System.out.println("There is a time conflict exist");
+                                        }
+                                    } else {
+                                        System.out.print("Not a valid input");
+                                    }
+                                }
+                        }
+
                         }
                     }else{
                         if (!uo.hasSpeaker()){
@@ -232,9 +236,16 @@ public class OrganizerUI {
                 if(uo.hasRequest()){
                     System.out.println("Here are all requests: ");
                     uo.checkAllRequest();
-                    System.out.println("Please enter the id of the request you want to address");
+                    System.out.println("Please enter the id of the request you want to address (enter exit if you" +
+                            "don't want to address any request.)");
                     String id = scanner.nextLine();
-                    uo.addressRequest(Integer.parseInt(id));
+                    if(!id.equals("exit")){
+                        if(!uo.validRequest(Integer.parseInt(id))){
+                            System.out.println("This is not a valid request id.");
+                        } else {
+                            uo.addressRequest(Integer.parseInt(id));
+                        }
+                    }
                 }else{
                     System.out.println("There is no request");
                 }
