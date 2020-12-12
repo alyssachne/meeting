@@ -73,15 +73,6 @@ public class RoomManager implements Serializable {
         return getRoom(id).getSchedule(date);
     }
 
-//    /**
-//     * Return a list of integers which represent the available time of this room.
-//     * @param roomId: the unique id of the room.
-//     */
-//    public ArrayList<Integer> availableTime(int roomId){
-//        Room room = getRoom(roomId);
-//        return room.getAvailableTime();
-//    }
-
     /**
      * Get the ids of all the rooms that suit the requirements of the event.
      * @param maxCapacity: the max capacity of the room.
@@ -93,9 +84,6 @@ public class RoomManager implements Serializable {
         for (Room room:allRooms){
             if (room.getMaxCapacity() >= maxCapacity && room.getConstraints().containsAll(constraints)) {
                 acc.add(room.getId());
-//                for (Integer time : availableTime(room.getId())){
-//                    System.out.println(time);
-//                }
             }
         }
         return acc;
@@ -153,46 +141,6 @@ public class RoomManager implements Serializable {
     public boolean removeFeature(int roomId, String feature) {
         return getRoom(roomId).getConstraints().remove(feature);
     }
-
-
-
-
-
-
-//    public boolean addTechnology(int roomId, String new_technology, Integer number) {
-//        if (getRoom(roomId).getTechnology().containsKey(new_technology)) {
-//            return false;
-//        }
-//        getRoom(roomId).getTechnology().put(new_technology, number);
-//        return true;
-//    }
-////
-//    public boolean changeTechnology(int roomId, String technology, Integer new_number) {
-//        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
-//            return false;
-//        }
-//        getRoom(roomId).getTechnology().replace(technology, new_number);
-//        return true;
-//    }
-//
-//    public boolean removeTechnology(int roomId, String technology) {
-//        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
-//            return false;
-//        }
-//        getRoom(roomId).getTechnology().remove(technology);
-//        return true;
-//    }
-//
-//    public Integer checkTechnology(int roomId, String technology) {
-//        if (! getRoom(roomId).getTechnology().containsKey(technology)) {
-//            return 0;
-//        }
-//        return getRoom(roomId).getTechnology().get(technology);
-//    }
-//
-//    public HashMap<String, Integer> seeTechnology(int roomId) {
-//        return getRoom(roomId).getTechnology();
-//    }
 
 }
 
