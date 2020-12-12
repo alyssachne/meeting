@@ -30,4 +30,8 @@ public class RequestDealer implements Serializable {
             rm.tag(id);
         }
     }
+
+    public static boolean hasRequest(RequestManager rm){
+        return !rm.allRequests.isEmpty();
+    }
 }

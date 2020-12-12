@@ -225,11 +225,15 @@ public class OrganizerUI {
                     System.out.println("This is not an valid option, please give a number from 1 to 2.");
                 }
             } else if(choice.equals("5")) {
-                System.out.println("Here are all requests: ");
-                uo.checkAllRequest();
-                System.out.println("Please enter the id of the request you want to address");
-                String id = scanner.nextLine();
-                uo.addressRequest(Integer.parseInt(id));
+                if(uo.hasRequest()){
+                    System.out.println("Here are all requests: ");
+                    uo.checkAllRequest();
+                    System.out.println("Please enter the id of the request you want to address");
+                    String id = scanner.nextLine();
+                    uo.addressRequest(Integer.parseInt(id));
+                }else{
+                    System.out.println("There is no request");
+                }
             } else if(choice.equals("6")){
                 System.out.println("1.Enrollment Statistics");
                 System.out.println("2.Top Five Event Lists");

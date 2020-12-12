@@ -109,6 +109,10 @@ public class ControllerFacade implements Serializable {
         return EventDealer.hasSignUp(username,af);
     }
 
+    public boolean hasRequest(){
+            return RequestDealer.hasRequest(reqm);
+    }
+
     public boolean hasEvent(){
         return EventDealer.hasEvent(ef);
     }
