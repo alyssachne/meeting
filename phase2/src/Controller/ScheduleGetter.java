@@ -61,6 +61,10 @@ public class ScheduleGetter implements Serializable {
         sortAndFilter(strategy, af.checkLikedEvents(username),filter,ef);
     }
 
+    public static boolean hasAvailableEvent(EventFactory ef, String username, RoomManager rm, ActFactory af){
+        return !availableEvent(rm,username, ef, af).isEmpty();
+    }
+
     private static void sortEvent(String strategy, ArrayList<Integer> lst, EventFactory ef){
         if(strategy.equals("EventId")){
             SorterStrategy sorter = new EventIdSorter();
