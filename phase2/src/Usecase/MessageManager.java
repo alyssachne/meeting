@@ -127,7 +127,7 @@ public class MessageManager extends Observable implements Serializable {
     /**
      * Delete a message from one destination
      * @param username: the username of the User
-     * @param index: MessageManager
+     * @param index: the index of the message in the list +1
      * @param sender: the username of the sender
      * @param destination: the original message type where you want to delete from.
      */
@@ -168,7 +168,7 @@ public class MessageManager extends Observable implements Serializable {
     /**
      * Get a specific message from the list of messages from one user
      * @param username: the username of the User
-     * @param index: the index of the message
+     * @param index: the index of the message +1
      * @param sender: the username of the User
      * @param box: the type of message want to search from
      */

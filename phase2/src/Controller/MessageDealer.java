@@ -53,28 +53,60 @@ public class MessageDealer implements Serializable {
      */
     public static void getMessage(String sender, MessageManager mm, String username, String box){
         mm.seeMessageFromOne(username,sender, box);
-//        System.out.println("Here are the read messages from this person");
-//        mm.seeMessageFromOne(username,sender, "Read");
-//        System.out.println("Here are the archived messages from this person");
-//        mm.seeMessageFromOne(username,sender, "Archived");
     }
 
+    /**
+     * Read all messages in the list
+     * @param box: the type of message
+     * @param username: the username of the User
+     * @param mm: Message Manager
+     */
     public static void readAllMessage(String box, String username, MessageManager mm){
         mm.seeAllMessage(username, box);
     }
 
+    /**
+     * Mark a message as unread
+     * @param receiver: the username of the User who receive the message
+     * @param mm: Message Manager
+     * @param sender: the username of the User who send the message
+     * @param index: the index of the message +1
+     * @param box: the type of message
+     */
     public static void markAsUnread(String receiver, MessageManager mm, String sender, int index, String box) {
         mm.MarkAsUnread(receiver, index, sender, box);
     }
 
+    /**
+     * Delete a message
+     * @param receiver: the username of the User who receive the message
+     * @param mm: Message Manager
+     * @param sender: the username of the User who send the message
+     * @param index: the index of the message in the list +1
+     * @param box: the type of message
+     */
     public static void deleteMessage(String receiver, MessageManager mm, String sender, int index, String box) {
         mm.deleteMessage(receiver, index, sender, box);
     }
 
+    /**
+     * Archive a message
+     * @param receiver: the username of the User who receive the message
+     * @param mm: Message Manager
+     * @param sender: the username of the User who send the message
+     * @param index: the index of the message in the list +1
+     */
     public static void archiveMessage(String receiver, MessageManager mm, String sender, int index) {
         mm.archiveMessage(receiver, index, sender);
     }
 
+    /**
+     * Whether the user have a contact list or not
+     * @param username: the username of the User
+     * @param mm: Message Manager
+     * @param box: the type of message wants to check in
+     * @return true if the message list is not empty
+     */
     public static boolean hasContacts(String username, MessageManager mm, String box) {
         if(mm.getMessageBox(username).getAllMessage(box).isEmpty()){
             return false;
@@ -82,6 +114,13 @@ public class MessageDealer implements Serializable {
         return true;
     }
 
+    /**
+     * Whether the message box contains a message or not
+     * @param username: the username of the User
+     * @param mm: Message Manager
+     * @param box: the type of message wants to check in
+     * @return true if contains message
+     */
     public static boolean hasMessage(String username, MessageManager mm, String box){
         for(String name: mm.getMessageBox(username).getAllMessage(box).keySet()){
             if(mm.getMessageBox(username).getAllMessage(box).get(name).size() != 0){

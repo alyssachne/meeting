@@ -76,17 +76,6 @@ public class ControllerFacade implements Serializable {
     public void createUser(String name, String username, String password, String userType){
         EntityConstructors.createUser(name, username , password, af, mm, userType);
     }
-//
-//    /**
-//     * If the username is not taken by other attendee, allow the attendee to create the account and return true;
-//     * else, return false.
-//     * @param name The name of the attendee.
-//     * @param username The username of the attendee.
-//     * @param password The password of the attendee.
-//     */
-//    public void createAttendee(String name, String username, String password){
-//        EntityConstructors.createAttendee(name,username,password, aa, sa, oa,mm);
-//    }
 
     /**
      * Create a new event with given username of the speaker, the Id of the event, the title of the event, the start
@@ -375,7 +364,7 @@ public class ControllerFacade implements Serializable {
     /**
      * Mark a message as unread
      * @param sender: the username of the sender who send the message
-     * @param index: the index of the message
+     * @param index: the index of the message +1
      * @param box: the type of Message
      */
     public void markAsUnread(String sender, int index,String box) {
@@ -385,7 +374,7 @@ public class ControllerFacade implements Serializable {
     /**
      * Delete a message
      * @param sender: the username of the sender
-     * @param index: the index of the message
+     * @param index: the index of the message +1
      * @param box: the type of message
      */
     public void deleteMessage(String sender, int index, String box) {
@@ -395,7 +384,7 @@ public class ControllerFacade implements Serializable {
     /**
      * Archive a message
      * @param sender: the username of the User who send the message
-     * @param index: the index of the message
+     * @param index: the index of the message +1
      */
     public void archiveMessage(String sender, int index) {
         MessageDealer.archiveMessage(username,mm, sender,index);
