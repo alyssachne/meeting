@@ -3,8 +3,6 @@ package Gateway;
 import Controller.ControllerFacade;
 
 import java.io.*;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 
 public class ControllerRW {
     ObjectInputStream Reader;

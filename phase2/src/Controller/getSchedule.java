@@ -1,6 +1,5 @@
 package Controller;
 
-import Entity.Event;
 import Usecase.EventFactory;
 
 import java.io.Serializable;
@@ -9,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-    /**
+/**
      * The class contains methods that get schedule according to different conditions.
      */
 

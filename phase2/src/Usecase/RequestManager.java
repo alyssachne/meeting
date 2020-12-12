@@ -1,12 +1,10 @@
 package Usecase;
 
-import Entity.Event;
 import Entity.Request;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 public class RequestManager implements Serializable {
     public List<Request> allRequests;
@@ -42,7 +40,7 @@ public class RequestManager implements Serializable {
      * Get a user's request by the request Id. If request doesn't exist,
      * return null and print "This request does not exist."
      * @param id: the id of the Request
-     * @return
+     * @return : the request that the id representing.
      */
     public Request getRequest(int id) {
         try {
