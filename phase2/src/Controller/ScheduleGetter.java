@@ -47,8 +47,15 @@ public class ScheduleGetter implements Serializable {
                                          EventFactory ef, ActFactory af) throws ParseException {
         ArrayList<Integer> all = availableEvent(rm,username,ef,af);
         sortAndFilter(strategy,all,filter,ef);
-        for(Integer i: all) {
-            System.out.println(ef.getEvent(i).toString());}
+        int i = 0;
+        while(i< all.size()){
+            int j = ef.getEvent(i).getDuration();
+            while(j>1){
+                j--;
+                i++;
+            }
+            System.out.println(ef.getEvent(all.get(i)).toString());
+        }
     }
 
 
