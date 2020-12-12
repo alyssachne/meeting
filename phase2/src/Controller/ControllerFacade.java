@@ -331,4 +331,8 @@ public class ControllerFacade implements Serializable {
     public boolean validSpeaker(String speaker){
         return EntityConstructors.validSpeaker(speaker,af);
     }
+
+    public boolean validRequest(int id){
+        return RequestDealer.containRequest(reqm,id);
+    }
 }

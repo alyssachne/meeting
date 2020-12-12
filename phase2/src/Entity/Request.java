@@ -59,7 +59,7 @@ public class Request extends Observable implements Serializable {
      * @return the string of the request
      */
     public String toString()  {
-        return "This request "+ id + " is made by " + username + " :" + "\n" + request + "\n It is" + statue;
+        return "This request "+ id + " is made by " + username + " :" + "\n" + request + "\n It is " + statue;
     }
 
 }

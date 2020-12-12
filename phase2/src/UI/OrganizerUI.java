@@ -232,9 +232,16 @@ public class OrganizerUI {
                 if(uo.hasRequest()){
                     System.out.println("Here are all requests: ");
                     uo.checkAllRequest();
-                    System.out.println("Please enter the id of the request you want to address");
+                    System.out.println("Please enter the id of the request you want to address (enter exit if you" +
+                            "don't want to address any request.)");
                     String id = scanner.nextLine();
-                    uo.addressRequest(Integer.parseInt(id));
+                    if(!id.equals("exit")){
+                        if(!uo.validRequest(Integer.parseInt(id))){
+                            System.out.println("This is not a valid request id.");
+                        } else {
+                            uo.addressRequest(Integer.parseInt(id));
+                        }
+                    }
                 }else{
                     System.out.println("There is no request");
                 }
