@@ -13,6 +13,9 @@ public class EventDealer implements Serializable {
      * @param eventId The Id of the event this attendee wants to sign up for.
      */
     public static void signUp(int eventId, ActFactory af, EventFactory em, String username){
+//        if(rm.getMaxCapacity(eventId).equals(em.getEvent(eventId).getNumOfAttendees())){
+//            return false;
+//        }
         if (af.checkAccess(username).equals("VIP")) {
             af.signUp(username,eventId);
             em.addAttendee(username,eventId);
@@ -22,6 +25,7 @@ public class EventDealer implements Serializable {
         } else{
             System.out.println("This event is not open to you.");
         }
+//        return true;
     }
 
     /**

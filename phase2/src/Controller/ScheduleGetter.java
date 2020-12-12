@@ -87,7 +87,7 @@ public class ScheduleGetter implements Serializable {
         for (Integer i: ef.getAllEvents()){
             //check if the attendee has signed up the event or not and if the event reaches its room's maxCapacity
             if ((!ef.getEvent(i).getAttendees().contains(username))&&
-                    rm.getMaxCapacity(ef.getEvent(i).getRoom())>ef.getEvent(i).getAttendees().size()){
+                    rm.getMaxCapacity(ef.getEvent(i).getRoom())>ef.getEvent(i).getNumOfAttendees()){
                 temp.add(i);
             }
         }

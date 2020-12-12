@@ -99,12 +99,13 @@ public class EventFactory implements Serializable {
      * @param username : the username of the attendee who is going to attend this event.
      * @param eventId : the unique Id of the event the attendee is going to attend.
      */
-    public void addAttendee(String username, int eventId) {
+    public boolean addAttendee(String username, int eventId) {
         // if the username is in the ArrayList
         if(getEvent(eventId).getAttendees().contains(username)) {
-            return;
+            return false;
         }
         getEvent(eventId).getAttendees().add(username);
+        return true;
     }
 
     /**

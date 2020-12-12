@@ -169,9 +169,16 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         ArrayList<String> s = speakers;
-
-        return "Event ID:"+id+" This event is about " + title + ", given by " + s + ". It starts at " + date  + " on Room"
-                + roomId + " , it lasts for" + duration + " hour and ends at " + getEndTime() + " ." ;
+        if(s.isEmpty()){
+            return "Event ID:"+id+" This party " + title + ", given by " + s + ". It starts at " + date  + " on Room"
+                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + " ." ;
+        } else if(s.size()==1){
+            return "Event ID:"+id+" This talk " + title + ", given by " + s + ". It starts at " + date  + " on Room"
+                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + " ." ;
+        }else{
+            return "Event ID:"+id+" This discussion " + title + ", given by " + s + ". It starts at " + date  + " on Room"
+                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + " ." ;
+        }
     }
 }
 
