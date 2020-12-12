@@ -1,10 +1,13 @@
 package Usecase;
 
-import Entity.*;
+import Entity.Organizer;
+import Entity.Speaker;
+import Entity.User;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * The Usecase class for the actions of users.

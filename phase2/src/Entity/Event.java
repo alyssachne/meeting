@@ -5,7 +5,6 @@ import Usecase.EventFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.ArrayList;
 
 /**
  * The entity class for event: event object, getters, setters & toString methods

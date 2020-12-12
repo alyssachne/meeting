@@ -33,9 +33,9 @@ public class MessageBox implements Serializable {
      * @return all messages in one type
      */
     public HashMap<String, ArrayList<String>> getAllMessage(String boxType) {
-        if(boxType == "Read") {
+        if(boxType.equals("Read")) {
             return ReadMessage;
-        } else if(boxType == "Unread") {
+        } else if(boxType.equals("Unread")) {
             return UnreadMessage;
         } else {
             return ArchivedMessage;
@@ -46,12 +46,12 @@ public class MessageBox implements Serializable {
      * Get a list of all messages from one specific sender by type
      * @param sender: User who send the message
      * @param boxType: Message's type
-     * @return
+     * @return ArchivedMessage: a list of messages
      */
     public ArrayList<String> getMessageFromOne(String sender, String boxType) {
-        if(boxType == "Read") {
+        if(boxType.equals("Read")) {
             return ReadMessage.get(sender);
-        } else if(boxType == "Unread") {
+        } else if(boxType.equals("Unread")) {
             return UnreadMessage.get(sender);
         } else {
             return ArchivedMessage.get(sender);

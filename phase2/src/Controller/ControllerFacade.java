@@ -1,12 +1,11 @@
 package Controller;
 
 import Usecase.*;
+
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class ControllerFacade implements Serializable {

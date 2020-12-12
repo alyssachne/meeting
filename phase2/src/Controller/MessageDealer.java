@@ -108,10 +108,7 @@ public class MessageDealer implements Serializable {
      * @return true if the message list is not empty
      */
     public static boolean hasContacts(String username, MessageManager mm, String box) {
-        if(mm.getMessageBox(username).getAllMessage(box).isEmpty()){
-            return false;
-        }
-        return true;
+        return !mm.getMessageBox(username).getAllMessage(box).isEmpty();
     }
 
     /**

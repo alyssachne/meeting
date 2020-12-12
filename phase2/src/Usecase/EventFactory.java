@@ -1,11 +1,10 @@
 package Usecase;
 
-import Entity.*;
+import Entity.Event;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.ArrayList;
 
 /**
  * Miscellaneous {@link Event} methods
@@ -39,12 +38,12 @@ public class EventFactory implements Serializable {
         e.setConstraints(constraints);
         allEvents.add(e);
         return e.getId();
-    };
+    }
 
     /**
      * Cancel a event
      * @param id: the Event Id
-     * @return: whether the Event is successfully canceled or not
+     * @return : whether the Event is successfully canceled or not
      */
     public boolean cancelEvent(int id) {
         if(allEvents.contains(getEvent(id))) {
@@ -53,14 +52,6 @@ public class EventFactory implements Serializable {
         }
         System.out.println("This party does not exist.");
         return false;
-    }
-
-    /**
-     * Whether the event exist
-     * @param id: the Id of the event
-     */
-    public boolean containEvent(int id) {
-        return allEvents.contains(id);
     }
 
     /**
@@ -124,7 +115,7 @@ public class EventFactory implements Serializable {
     /**
      * Check access
      * @param eventId: the Id of the Event
-     * @return
+     * @return the string "VIP" or "Normal" representing the access of the event
      */
     public String checkAccess(int eventId) {
         return getEvent(eventId).getEventAccess();
@@ -134,7 +125,7 @@ public class EventFactory implements Serializable {
      * Change an access
      * @param eventId: the Id of the Event
      * @param access: Event's access
-     * @return
+     * @return : a boolean value indicating if the access is successfully changed
      */
     public boolean changeAccess(int eventId, String access) {
         if(getEvent(eventId).getEventAccess().equals(access)){
@@ -147,7 +138,7 @@ public class EventFactory implements Serializable {
     /**
      * Get a event's speaker
      * @param eventId: the Id of the Event
-     * @return
+     * @return : speakerList, the list of speaker for this event
      */
     public ArrayList<String> speakerOfEvent(int eventId) {
         return getEvent(eventId).getSpeaker();

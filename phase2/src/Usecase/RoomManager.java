@@ -1,10 +1,11 @@
 package Usecase;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.*;
+import Entity.Room;
 
-import Entity.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * The use case class for the {@link Room} method

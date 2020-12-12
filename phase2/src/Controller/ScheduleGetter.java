@@ -1,13 +1,15 @@
 package Controller;
 
-import Controller.getSchedule;
 import Controller.Sorter.*;
-import Entity.Event;
-import Usecase.*;
+import Usecase.ActFactory;
+import Usecase.EventFactory;
+import Usecase.RoomManager;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * The Controller class that can get the schedule of different users in different conditions.
