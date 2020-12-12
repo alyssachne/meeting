@@ -2,11 +2,9 @@ package Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
- * The abstract entity class for all Users, the parent class of {@link Attendee},{@link Speaker} and {@link Organizer}
+ * The abstract entity class for all Users, the parent class of,{@link Speaker} and {@link Organizer}
  *
  * Defines the structure that all User type objects should share: getters, setters & framework of interaction with
  * message.
@@ -87,18 +85,35 @@ public class User implements Serializable {
         return eventList;
     }
 
+    /**
+     * Getter for the liked event list of a user.
+     * @return likedEvent , a list of liked events marked by the user.
+     */
     public ArrayList<Integer> getLikedEvents() {
         return likedEvent;
     }
 
+    /**
+     * Setter for the liked event list, will add the parameter event to the liked event list.
+     * @param id, the id of the liked event to be added to the list.
+     */
     public void setLikeEvent(int id){
         likedEvent.add(id);
     }
 
+    /**
+     * getter for the access of this user.
+     * @return access, the String representing the access granted to the user, if the returned string could be either
+     * "VIP" or "Normal".
+     */
     public String getAccess() {
         return access;
     }
 
+    /**
+     * setter for the access of this user.
+     * @param  newAccess, the String representing the access granted to the user
+     */
     public void setAccess(String newAccess) {
         access = newAccess;
     }
