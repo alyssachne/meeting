@@ -173,7 +173,7 @@ public class ControllerFacade implements Serializable {
     public void getAvailableEvent(String sort,Map<String, String> filter) {
 
         try {
-            ScheduleGetter.getAvailableEvent(this.rm, this.username, sort, filter,ef);
+            ScheduleGetter.getAvailableEvent(this.rm, this.username, sort, filter,ef,af);
         }catch (Exception e){
             System.out.print("Not a valid format!");
         }

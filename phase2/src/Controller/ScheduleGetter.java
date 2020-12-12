@@ -43,8 +43,9 @@ public class ScheduleGetter implements Serializable {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public static void getAvailableEvent(RoomManager rm, String username, String strategy,Map<String, String> filter,EventFactory ef) throws ParseException {
-        ArrayList<Integer> all = availableEvent(rm,username,ef);
+    public static void getAvailableEvent(RoomManager rm, String username, String strategy,Map<String, String> filter,
+                                         EventFactory ef, ActFactory af) throws ParseException {
+        ArrayList<Integer> all = availableEvent(rm,username,ef,af);
         sortAndFilter(strategy,all,filter,ef);
         for(Integer i: all) {
             System.out.println(ef.getEvent(i).toString());}
@@ -81,13 +82,14 @@ public class ScheduleGetter implements Serializable {
             System.out.println(ef.getEvent(event).toString());
         }
     }
-    private static ArrayList<Integer> availableEvent(RoomManager rm, String username, EventFactory ef){
+    private static ArrayList<Integer> availableEvent(RoomManager rm, String username, EventFactory ef, ActFactory af){
         //events that are not full
         ArrayList<Integer> temp = new ArrayList<>();
         for (Integer i: ef.getAllEvents()){
             //check if the attendee has signed up the event or not and if the event reaches its room's maxCapacity
             if ((!ef.getEvent(i).getAttendees().contains(username))&&
-                    rm.getMaxCapacity(ef.getEvent(i).getRoom())>ef.getEvent(i).getNumOfAttendees()){
+                    rm.getMaxCapacity(ef.getEvent(i).getRoom())>ef.getEvent(i).getNumOfAttendees()&&
+            af.checkAccess(username).equals(ef.checkAccess(i))){
                 temp.add(i);
             }
         }
