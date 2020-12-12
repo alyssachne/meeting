@@ -1,5 +1,8 @@
 package UI;
 
+import java.util.HashMap;
+import java.util.Scanner;
+
 public class SortAndFilter {
     public SortAndFilter (){};
 
@@ -14,12 +17,26 @@ public class SortAndFilter {
                 "first option. (Enter 'exit' to skip and finish.)");
     }
 
-    public void FilterHelper(){
-        System.out.println("Filter option: ");
-        System.out.println("1. Filter by speaker of event.");
-        System.out.println("2. Filter by starting time of event.");
-        System.out.println("3. Filter by date.");
-        System.out.println("Please choose options you want one at a time. (Enter the number first then press Enter " +
-                "then type in the restriction for the selected filter.");
+    public HashMap<String, String> FilterHelper(Scanner scanner){
+        // filter events
+        boolean filterLoop = true;
+        HashMap<String, String> filterMap = new HashMap<>();
+        while (filterLoop) {
+            System.out.println("Filter option: ");
+            System.out.println("1. Filter by speaker of event.");
+            System.out.println("2. Filter by starting time of event.");
+            System.out.println("3. Filter by date.");
+            System.out.println("Please choose options you want one at a time. (Enter the number first then press Enter " +
+                    "then type in the restriction for the selected filter.");
+            System.out.println("Please enter the filter and restriction you want (Enter 'exit' to skip and finish):");
+            String filter = scanner.nextLine();
+            if (filter.equals("exit")) {
+                filterLoop = false;
+            } else {
+                String restriction = scanner.nextLine();
+                filterMap.put(filter, restriction);
+            }
+        }
+        return filterMap;
     }
 }

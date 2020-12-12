@@ -4,11 +4,12 @@ import Controller.ControllerFacade;
 import Controller.Sorter.SorterStrategy;
 import Gateway.ControllerRW;
 
+import java.text.ParseException;
 import java.util.*;
 
 public class AttendeeUI {
 
-    public void AttendeeDemo(ControllerFacade uo) {
+    public void AttendeeDemo(ControllerFacade uo) throws ParseException {
 //        ControllerRW crw = new ControllerRW();
 //        ControllerFacade uo = null;
 //        if (crw.readFile() != null) {
@@ -35,40 +36,48 @@ public class AttendeeUI {
             String choice = scanner.nextLine();
             if (choice.equals("1")) {
                 if (uo.hasSignUp()) {
-                    // filter events
-                    boolean filterLoop = true;
-                    HashMap<String, String> filterMap = new HashMap<>();
-                    while (filterLoop) {
-                        sf.FilterHelper();
-                        System.out.println("Please enter the filter and restriction you want (Enter 'exit' to skip and finish):");
-                        String filter = scanner.nextLine();
-                        if (filter.equals("exit")) {
-                            filterLoop = false;
+                    System.out.println("1.Show all events");
+                    System.out.println("2.Show like events");
+                    String events = scanner.nextLine();
+                    if(events.equals("1")){
+                        // filter events
+                        HashMap<String, String> filterMap = sf.FilterHelper(scanner);
+                        // sort events
+                        sf.SortHelper();
+                        String sort = scanner.nextLine();
+                        // print out current schedule
+                        System.out.println("Here is your current schedule: ");
+                        if (sort.equals("exit")) {
+                            uo.attendeeSchedule("Time", filterMap);
                         } else {
-                            String restriction = scanner.nextLine();
-                            filterMap.put(filter, restriction);
+                            uo.attendeeSchedule(sort, filterMap);
                         }
-                    }
-                    // sort events
-                    sf.SortHelper();
-                    String sort = scanner.nextLine();
-                    // print out current schedule
-                    System.out.println("Here is your current schedule: ");
-                    if (sort.equals("exit")) {
-                        uo.attendeeSchedule("Time", filterMap);
-                    } else {
-                        uo.attendeeSchedule(sort, filterMap);
-                    }
-                    System.out.println("1.Like an event");
-                    System.out.println("2.Cancel an event reservation");
-                    String decision = scanner.nextLine();
-                    System.out.println("Please enter the eventId you would like modify");
-                    String eventId = scanner.nextLine();
-                    if (decision.equals("1")) {
-                        uo.likeEvent(Integer.parseInt(eventId));
-                    } else if (decision.equals("2")) {
-                        uo.cancelSpot(Integer.parseInt(eventId));
-                    } else {
+                        System.out.println("1.Like an event");
+                        System.out.println("2.Cancel an event reservation");
+                        String decision = scanner.nextLine();
+                        System.out.println("Please enter the eventId you would like modify");
+                        String eventId = scanner.nextLine();
+                        if (decision.equals("1")) {
+                            uo.likeEvent(Integer.parseInt(eventId));
+                        } else if (decision.equals("2")) {
+                            uo.cancelSpot(Integer.parseInt(eventId));
+                        } else {
+                            System.out.println("This is not an valid option, please choose a number from 1 to 2.");
+                        }
+                    } else if(events.equals("2")){
+                        // filter events
+                        HashMap<String, String> filterMap = sf.FilterHelper(scanner);
+                        // sort events
+                        sf.SortHelper();
+                        String sort = scanner.nextLine();
+                        // print out current schedule
+                        System.out.println("Here is your current schedule: ");
+                        if (sort.equals("exit")) {
+                            uo.getLikedEvents("Time", filterMap);
+                        } else {
+                            uo.getLikedEvents(sort, filterMap);
+                        }
+                    } else{
                         System.out.println("This is not an valid option, please choose a number from 1 to 2.");
                     }
                 } else {
@@ -78,19 +87,7 @@ public class AttendeeUI {
             else if(choice.equals("2")) {
                 if(uo.hasEvent()){
                     // filter events
-                    boolean filterLoop = true;
-                    HashMap<String, String> filterMap = new HashMap<>();
-                    while (filterLoop) {
-                        sf.FilterHelper();
-                        System.out.println("Please enter the filter and restriction you want (Enter 'exit' to skip and finish):");
-                        String filter = scanner.nextLine();
-                        if (filter.equals("exit")) {
-                            filterLoop = false;
-                        } else {
-                            String restriction = scanner.nextLine();
-                            filterMap.put(filter, restriction);
-                        }
-                    }
+                    HashMap<String, String> filterMap = sf.FilterHelper(scanner);
                     // sort events
                     sf.SortHelper();
                     String sort = scanner.nextLine();

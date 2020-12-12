@@ -61,10 +61,10 @@ public class ScheduleGetter implements Serializable {
     }
 
     private static void sortEvent(String strategy, ArrayList<Integer> lst, EventFactory ef){
-        if(strategy.equals("Id")){
+        if(strategy.equals("EventId")){
             SorterStrategy sorter = new EventIdSorter();
             sorter.sort(lst,ef);
-        } else if (strategy.equals("Room")){
+        } else if (strategy.equals("RoomId")){
             SorterStrategy sorter = new EventRoomSorter();
             sorter.sort(lst,ef);
         } else if(strategy.equals("Speaker")){

@@ -100,11 +100,7 @@ public class ActFactory implements Serializable {
     }
 
     public boolean checkUsernameTaken(String username) {
-        if(userHashMap.containsKey(username)) {
-            System.out.println("This username has been taken.");
-            return true;
-        }
-        return false;
+        return userHashMap.containsKey(username);
     }
 
     /**
