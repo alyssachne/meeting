@@ -121,7 +121,7 @@ public class ActFactory implements Serializable {
         if(getUser(username).getLikedEvents().contains(eventId)) {
             return false;
         }
-        getUser(username).getLikedEvents().add(eventId);
+        getUser(username).setLikeEvent(eventId);
         return true;
     }
 

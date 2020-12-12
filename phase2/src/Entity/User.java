@@ -19,7 +19,6 @@ public class User implements Serializable {
     public ArrayList<Integer> eventList;
     private ArrayList<Integer> likedEvent;
     private String access;
-    private String dietaryHabit;
 
     /**
      * Initialize an user.
@@ -92,6 +91,10 @@ public class User implements Serializable {
         return likedEvent;
     }
 
+    public void setLikeEvent(int id){
+        likedEvent.add(id);
+    }
+
     public String getAccess() {
         return access;
     }
@@ -105,12 +108,5 @@ public class User implements Serializable {
      */
     public String typeGetter(){return "User";}
 
-    /**
-     * DietaryHabit setter, used to document the user's dietary habit if special accommodation need to be made.
-     * @param habit: a string representing the dietary habit of the user
-     */
-    public void setDietaryHabit(String habit){
-        this.dietaryHabit = habit;
-    }
 
 }

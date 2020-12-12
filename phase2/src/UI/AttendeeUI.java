@@ -54,14 +54,19 @@ public class AttendeeUI {
                         }
                         System.out.println("1.Like an event");
                         System.out.println("2.Cancel an event reservation");
+                        System.out.println("3.Return");
                         String decision = scanner.nextLine();
-                        System.out.println("Please enter the eventId you would like modify");
-                        String eventId = scanner.nextLine();
-                        if (decision.equals("1")) {
-                            uo.likeEvent(Integer.parseInt(eventId));
-                        } else if (decision.equals("2")) {
-                            uo.cancelSpot(Integer.parseInt(eventId));
-                        } else {
+                        if(decision.equals("1") || decision.equals("2") || decision.equals("3")){
+                            if(!decision.equals("3")){
+                                System.out.println("Please enter the eventId you would like modify");
+                                String eventId = scanner.nextLine();
+                                if (decision.equals("1")) {
+                                    uo.likeEvent(Integer.parseInt(eventId));
+                                } else{
+                                    uo.cancelSpot(Integer.parseInt(eventId));
+                                }
+                            }
+                        }else {
                             System.out.println("This is not an valid option, please choose a number from 1 to 2.");
                         }
                     } else if(events.equals("2")){
