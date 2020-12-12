@@ -11,9 +11,9 @@ public class Request extends Observable implements Serializable {
 
     /**
      * Initialize a new request
-     * @param request
-     * @param username
-     * @param id
+     * @param request : a String representing the request
+     * @param username : a String representing the username
+     * @param id : the id of the request
      */
     public Request(String request, String username, int id) {
         this.request = request;

@@ -1,16 +1,29 @@
 package Controller;
 
-import Controller.Sorter.*;
-import Entity.*;
-import Usecase.*;
+import Controller.Sorter.EventEnrollmentSorter;
+import Controller.Sorter.PercentageSorter;
+import Usecase.ActFactory;
+import Usecase.CalendarManager;
+import Usecase.EventFactory;
+import Usecase.RoomManager;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * This class get various information for different features of the program.
+ */
 
 public class Getter implements Serializable {
 
     /**
-     * printout all speakers and their available times on the selected date.
+     * Print out all speakers and their available times on the selected date.
+     * @param af ActFactory in Use case.
+     * @param date The date to check.
+     * @param cm CalendarManager in Use case.
      */
     public static void speakerAvailable(ActFactory af, Date date, Usecase.CalendarManager cm){
         for(String s: af.speakerList()) {
@@ -22,7 +35,12 @@ public class Getter implements Serializable {
     }
 
     /**
-     * printout all rooms and their available times.
+     * Print out all rooms and their available times.
+     * @param date The date to check.
+     * @param rm RoomManager in Use case.
+     * @param maxCapacity The max capacity of the room.
+     * @param constraints The constraints of the room.
+     * @param cm CalendarManager in Use case.
      */
     public static void roomList(Date date, RoomManager rm, int maxCapacity, List<String> constraints,
                                 CalendarManager cm){
@@ -34,10 +52,21 @@ public class Getter implements Serializable {
         }
     }
 
+    /**
+     * Check whether there are rooms available for the event.
+     * @param rm RoomManager in Use case.
+     * @param maxCapacity The max capacity of the room.
+     * @param constraints The constraints of the room.
+     * @return The boolean value of whether there are rooms available for the event.
+     */
     public static boolean hasAvailableRoom(RoomManager rm, int maxCapacity, List<String> constraints){
         return !rm.suggestedRooms(maxCapacity, constraints).isEmpty();
     }
 
+    /**
+     * Get the top five events according to the number of enrollment.
+     * @param ef EventFactory in Use case.
+     */
     public static void getTopFiveEvents(EventFactory ef){
         ArrayList<Integer> eventArrayList = ef.getAllEvents();
         EventEnrollmentSorter a = new EventEnrollmentSorter();
@@ -56,6 +85,11 @@ public class Getter implements Serializable {
 
     }
 
+    /**
+     * Get the traffic of the app.
+     * @param ef EventFactory in Use case.
+     * @param rm RoomManager in Use case.
+     */
     public static void getAppTraffic(EventFactory ef, RoomManager rm){
         ArrayList<Integer> eventArrayList = ef.getAllEvents();
         PercentageSorter a = new PercentageSorter();
@@ -68,6 +102,11 @@ public class Getter implements Serializable {
         System.out.println(TrafficMap);
     }
 
+    /**
+     * Get the enrollment statistics of the events.
+     * @param ef EventFactory in Use case.
+     * @param rm RoomManager in Use case.
+     */
     public static void enrollmentStatistics(EventFactory ef,RoomManager rm){
         ArrayList<Integer> eventArrayList = ef.getAllEvents();
         PercentageSorter a = new PercentageSorter();

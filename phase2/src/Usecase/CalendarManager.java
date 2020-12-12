@@ -1,10 +1,10 @@
 package Usecase;
-import Entity.*;
+
+import Entity.Calendar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public class CalendarManager implements Serializable {
@@ -43,8 +43,8 @@ public class CalendarManager implements Serializable {
     /**
      * Given the selected date and events happen in that date, we can tell when the room, or the speaker (depends on
      * which class call this method in controller) are available.
-     * @param date
-     * @param events
+     * @param date: the date to check for room and speaker availability
+     * @param events: the event
      * @return a List of time that is available
      */
     public List<Integer> getAvailable(Date date, List<Integer> events) {

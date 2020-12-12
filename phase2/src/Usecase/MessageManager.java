@@ -31,7 +31,7 @@ public class MessageManager extends Observable implements Serializable {
     /**
      * Get a user's message box
      * @param username: the username of the User
-     * @return
+     * @return : Message Box, the message box of the given user
      */
     public MessageBox getMessageBox(String username) {
         try {
@@ -156,10 +156,10 @@ public class MessageManager extends Observable implements Serializable {
     }
 
     /**
-     * Get a list of username of the user (list of contact) from the messages sended
+     * Get a list of username of the user (list of contact) from the messages sent
      * @param username: the username of the User
-     * @param box: the messagebox's type
-     * @return
+     * @param box: the messagebox type
+     * @return : A set of strings representing the contacts of the user
      */
     public Set<String> getContacts(String username, String box){
         return getMessageBox(username).getContacts(box);
@@ -173,7 +173,6 @@ public class MessageManager extends Observable implements Serializable {
      * @param box: the type of message want to search from
      */
     private String getMessage(String username, int index, String sender, String box){
-//        System.out.println(getMessageBox(username).getMessageFromOne(sender,box));
         return getMessageBox(username).getMessageFromOne(sender,box).get(index-1);
     }
 }
