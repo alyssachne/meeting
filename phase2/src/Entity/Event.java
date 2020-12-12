@@ -89,6 +89,10 @@ public class Event implements Serializable {
         return duration;
     }
 
+    /**
+     * Get the endTime of the event.
+     * @return endTime The endTime of the event.
+     */
     public int getEndTime() {
         return getTime() + duration;
     }
@@ -125,16 +129,16 @@ public class Event implements Serializable {
         return ListOfAttendees.size();
     }
 
+    /**
+     * Getter for the access of the event object.
+     */
     public String getEventAccess() {return eventAccess;}
 
+    /**
+     * Getter for the constraints of the event object.
+     * @return  constraints, An arrayList stands for the constraints that the event enforces.
+     */
     public ArrayList<String> getConstraints() {return constraints;}
-
-//
-//    /**
-//     * Get the username of the speaker who talks at the event.
-//     * @return speaker The username of the speaker who talks at the event.
-//     */
-//    public abstract Object getSpeaker();
 
     /**
      * Get the title of this event.
@@ -152,14 +156,30 @@ public class Event implements Serializable {
         this.roomId = roomId;
     }
 
+    /**
+     * Set the type of the room.
+     * @param newType The type of the room.
+     */
     public void setEventType(String newType) {
         eventAccess = newType;
     }
 
+    /**
+     * Setter for the speaker of the event object.
+     * @param speakers The ArrayList representing the speaker list of the event.
+     */
     public void setSpeakers(ArrayList<String> speakers){this.speakers= speakers;}
 
+    /**
+     * Setter for the constraints of the event object.
+     * @param constraints The ArrayList stands for the constraints that the event enforce.
+     */
     public void setConstraints(ArrayList<String> constraints){this.constraints = constraints;}
 
+    /**
+     * Setter for the access of the event object.
+     * @param Access A string representing the access status that the event enforce.
+     */
     public void setEventAccess(String Access){this.eventAccess=Access;}
 
     /**
