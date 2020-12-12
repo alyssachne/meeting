@@ -135,14 +135,14 @@ public class OrganizerUI {
                             while (speakerLoop) {
                                 System.out.println("Please enter the username of the speaker you want to schedule for(Enter exit to skip finish):");
                                 String su = scanner.nextLine();
-                                if(!uo.validSpeaker(su)){
-                                    valid = false;
+                                if (su.equals("exit")) {
                                     speakerLoop = false;
                                 } else {
-                                    if (su.equals("exit")) {
+                                    if(!uo.validSpeaker(su)){
+                                        valid = false;
                                         speakerLoop = false;
                                     } else {
-                                        speakerList.add(su);
+                                    speakerList.add(su);
                                     }
                                 }
                             }
