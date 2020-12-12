@@ -172,19 +172,23 @@ public class OrganizerUI {
                                 String YN = scanner.nextLine();
                                 if (YN.equalsIgnoreCase("Y")) {
                                     YN = "VIP";
+                                    if (uo.createEvent(speakerList, title, date, Integer.parseInt(time), Integer.parseInt(roomId), Integer.parseInt(duration), YN, constraints)) {
+                                        System.out.println("Event created successfully");
+                                    } else {
+                                        System.out.println("There is a time conflict exist");
+                                    }
                                 } else if (YN.equalsIgnoreCase("N")) {
                                     YN = "Normal";
+                                    if (uo.createEvent(speakerList, title, date, Integer.parseInt(time), Integer.parseInt(roomId), Integer.parseInt(duration), YN, constraints)) {
+                                        System.out.println("Event created successfully");
+                                    } else {
+                                        System.out.println("There is a time conflict exist");
+                                    }
                                 } else {
                                     System.out.print("Not a valid input");
                                 }
-                                if (uo.createEvent(speakerList, title, date, Integer.parseInt(time), Integer.parseInt(roomId), Integer.parseInt(duration), YN, constraints)) {
-                                    System.out.println("Event created successfully");
-                                } else {
-                                    System.out.println("There is a time conflict exist");
-                                }
                             }
                         }
-
                     }else{
                         if (!uo.hasSpeaker()){
                             System.out.print("There is no speaker available.");

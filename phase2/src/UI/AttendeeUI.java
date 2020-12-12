@@ -96,18 +96,20 @@ public class AttendeeUI {
                     // sort events
                     sf.SortHelper();
                     String sort = scanner.nextLine();
-                    // print out available schedule
-                    System.out.println("Here are events you can sign up: ");
-                    if (sort.equals("exit")) {
-                        uo.getAvailableEvent("Time", filterMap);
-                    } else {
-                        uo.getAvailableEvent(sort, filterMap);
+                    if(uo.hasAvailableEvent()){
+                        // print out available schedule
+                        System.out.println("Here are events you can sign up: ");
+                        if (sort.equals("exit")) {
+                            uo.getAvailableEvent("Time", filterMap);
+                        } else {
+                            uo.getAvailableEvent(sort, filterMap);
+                        }
+                        System.out.println("Please enter the eventId you would like to sign up");
+                        String eventId = scanner.nextLine();
+                        uo.signUp(Integer.parseInt(eventId));
+                    }else {
+                        System.out.println("There is no event available");
                     }
-                    System.out.println("Please enter the eventId you would like to sign up");
-                    String eventId = scanner.nextLine();
-                    uo.signUp(Integer.parseInt(eventId));
-                    } else{
-                    System.out.println("There is no event available");
                 }
             } else if (choice.equals("3")) {
                 System.out.println("1.Send message to a specific User");
@@ -149,4 +151,5 @@ public class AttendeeUI {
 //            crw.writeFile(uo);
             }
         }
+
 }

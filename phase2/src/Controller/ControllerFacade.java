@@ -117,6 +117,10 @@ public class ControllerFacade implements Serializable {
         return EventDealer.hasEvent(ef);
     }
 
+    public boolean hasAvailableEvent(){
+        return ScheduleGetter.hasAvailableEvent(ef,username,rm,af);
+    }
+
     public boolean hasMessage(String box){
         return MessageDealer.hasMessage(username,mm,box);
     }

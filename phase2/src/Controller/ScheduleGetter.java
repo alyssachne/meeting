@@ -47,8 +47,15 @@ public class ScheduleGetter implements Serializable {
                                          EventFactory ef, ActFactory af) throws ParseException {
         ArrayList<Integer> all = availableEvent(rm,username,ef,af);
         sortAndFilter(strategy,all,filter,ef);
-        for(Integer i: all) {
-            System.out.println(ef.getEvent(i).toString());}
+        int i = 0;
+        while(i< all.size()){
+            int j = ef.getEvent(i).getDuration();
+            while(j>1){
+                j--;
+                i++;
+            }
+            System.out.println(ef.getEvent(all.get(i)).toString());
+        }
     }
 
 
@@ -59,6 +66,10 @@ public class ScheduleGetter implements Serializable {
     public static void getLikedEvents(String username, String strategy, Map<String, String> filter, ActFactory af,
                                       EventFactory ef) throws ParseException {
         sortAndFilter(strategy, af.checkLikedEvents(username),filter,ef);
+    }
+
+    public static boolean hasAvailableEvent(EventFactory ef, String username, RoomManager rm, ActFactory af){
+        return !availableEvent(rm,username, ef, af).isEmpty();
     }
 
     private static void sortEvent(String strategy, ArrayList<Integer> lst, EventFactory ef){
