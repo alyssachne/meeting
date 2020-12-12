@@ -11,7 +11,8 @@ Organizer functions
 4.Message System
 5.Request System
 6.Statistics Summary
-7.Exit
+7.Cancel an event
+8.Exit
 --when trying to schedule a Panel Discussion and a Talk, the organizer should create a room and speaker accounts in order to assign these events
 into the room and to corresponding speakers(Panel Discussion can have multiple Speakers, While Talk can only have one.)
 Organizer functions
@@ -19,7 +20,8 @@ Organizer functions
 --While creating a room, you can define the max capacity of this room and a list of constraints of this room (such as WIFI, 5 Tables, 3 Chairs).
 2.create accounts
 --In this option, 4 different user types can be created(Speaker, Attendee(including VIP Attendee) and other Organizer accounts)
-3.3 different types of event can be created(Panel Discussion, Talk and Party(No speakers))
+3.Schedule event
+--3 different types of event can be created(Panel Discussion, Talk and Party(No speakers))
 4.Message System
 --inside this system, a number of message options will be given.
 in this inbox, Users are able to check unread messages, and modify read messages such as archive it or delete it.
@@ -29,7 +31,9 @@ in this inbox, Users are able to check unread messages, and modify read messages
 --Enrollment stats can show the most enrolled event
 --Top five events will show organizers the five most popular events
 --App traffic can show organizers the current occupancy of all Events
-7.Exit will save current modification
+7.Cancel an event
+--Organizers are able to cancel the event
+8.Exit will save current modification
 *********************
 Speaker functions
 1.Speaker is going to see their current schedule.
