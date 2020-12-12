@@ -53,7 +53,7 @@ public class EventDealer implements Serializable {
             af.removeFromEvent(a, eventId);
         }
         rm.cancel(em.getEvent(eventId).getRoom(), eventId, date);
-        for (int i = 0; i < em.getEvent(eventId).getDuration() - 1; i++) {
+        for (int i = date.getHours(); i < date.getHours()+em.getEvent(eventId).getDuration() - 1; i++) {
             cm.cancelEvent(date, i, eventId);
             em.cancelEvent(eventId);
         }
