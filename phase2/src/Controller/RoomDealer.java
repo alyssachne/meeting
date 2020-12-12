@@ -1,6 +1,5 @@
 package Controller;
 
-import Entity.Room;
 import Usecase.RoomManager;
 
 import java.io.Serializable;

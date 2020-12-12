@@ -4,7 +4,6 @@ import Entity.Request;
 import Usecase.RequestManager;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class RequestDealer implements Serializable {
 
