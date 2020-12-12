@@ -117,7 +117,6 @@ public class EventFactory implements Serializable {
         for (String name: getEvent(eventId).getAttendees()) {
             if(username.equals(name)) {
                 getEvent(eventId).getAttendees().remove(name);
-                return;
             }
         }
     }
