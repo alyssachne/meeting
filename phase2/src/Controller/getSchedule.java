@@ -48,11 +48,8 @@ public class getSchedule implements Serializable {
          */
     public ArrayList<Integer> getScheduleByDay(String date, ArrayList<Integer> lst,EventFactory ef) throws ParseException {
         ArrayList<Integer> scheduleList = new ArrayList<>();
-        Date date1 =new SimpleDateFormat("dd/MM/yyyy").parse(date);
         for (Integer i:lst) {
-            if (ef.getEvent(i).getDate().getYear() == date1.getYear() &&
-                    ef.getEvent(i).getDate().getMonth() == date1.getMonth() &&
-                    ef.getEvent(i).getDate().getDay() == date1.getDay()) {
+            if (ef.getEvent(i).getDate_str().equals(date)) {
                 scheduleList.add(i);
             }
         }

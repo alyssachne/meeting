@@ -38,25 +38,41 @@ public class EventDealer implements Serializable {
     /**
      * A method used to cancel a event. The event will be removed from the system.
      * @param eventId: the id of the event to be cancelled
-     * @param date: the date that the event will be held
+//     * @param date: the date that the event will be held
      * @param em: the class we used to manage all the event
      * @param af: a class we used to manage all the users
      * @param rm: a class we used to manage all the rooms
      * @param cm: a class we used to manage all the calendars
      */
-    public static void cancelEvent(int eventId, Date date, EventFactory em, ActFactory af, RoomManager rm,
+    public static void cancelEvent(int eventId, EventFactory em, ActFactory af, RoomManager rm,
                                    CalendarManager cm) {
         for (String s : em.getEvent(eventId).getSpeaker()) {
-            af.cancelEvent(s, eventId, date);
+            af.cancelEvent(s, eventId, em.getEvent(eventId).getDate_str());
         }
         for (String a : em.getEvent(eventId).getAttendees()) {
             af.removeFromEvent(a, eventId);
         }
-        rm.cancel(em.getEvent(eventId).getRoom(), eventId, date);
-        for (int i = date.getHours(); i < date.getHours()+em.getEvent(eventId).getDuration() - 1; i++) {
-            cm.cancelEvent(date, i, eventId);
-            em.cancelEvent(eventId);
+        rm.cancel(em.getEvent(eventId).getRoom(), eventId, em.getEvent(eventId).getDate_str());
+        int temp = em.getEvent(eventId).getDate().getHours();
+        int duration = em.getEvent(eventId).getDuration();
+        for (int i = temp; i < temp+duration; i++) {
+            Date copy = em.getEvent(eventId).getDate();
+            copy.setHours(i);
+            cm.cancelEvent(em.getEvent(eventId).getDate_str(), copy, eventId);
         }
+        em.cancelEvent(eventId);
+//        if(em.getEvent(eventId).getDuration()==1){
+//            cm.cancelEvent(em.getEvent(eventId).getDate_str(), em.getEvent(eventId).getDate(), eventId);
+//            em.cancelEvent(eventId);
+//        }else{
+//            for (int i = em.getEvent(eventId).getDate().getHours(); i < em.getEvent(eventId).getDate().getHours()+em.getEvent(eventId).getDuration()-1; i++) {
+//                Date copy = em.getEvent(eventId).getDate();
+//                copy.setHours(i);
+//                cm.cancelEvent(em.getEvent(eventId).getDate_str(), copy, eventId);
+//                em.cancelEvent(eventId);
+//            }
+//        }
+
     }
 
     /**

@@ -96,9 +96,12 @@ public class AttendeeUI {
                         } else {
                             uo.getAvailableEvent(sort, filterMap);
                         }
-                        System.out.println("Please enter the eventId you would like to sign up");
+                        System.out.println("Please enter the eventId you would like to sign up. (Enter return if you " +
+                                "don't want to sign up for any event.)");
                         String eventId = scanner.nextLine();
-                        uo.signUp(Integer.parseInt(eventId));
+                        if(!eventId.equalsIgnoreCase("return")){
+                            uo.signUp(Integer.parseInt(eventId));
+                        }
                     }else {
                         System.out.println("There is no event available");
                     }

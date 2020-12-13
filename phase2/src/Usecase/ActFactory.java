@@ -91,7 +91,7 @@ public class ActFactory implements Serializable {
         return getUser(username).getSignUp();
     }
 
-    public ArrayList<Integer> givenEvents(String username,Date date){
+    public ArrayList<Integer> givenEvents(String username,String date){
         Speaker speaker = (Speaker)getUser(username);
         return speaker.getGiveEvents_OneDay(date);
     }
@@ -158,7 +158,7 @@ public class ActFactory implements Serializable {
      * @param username: the username of the speaker.
      * @return the hash map of the events that the speaker will present.
      */
-    public HashMap<Date, ArrayList<Integer>> allEventList(String username){
+    public HashMap<String, ArrayList<Integer>> allEventList(String username){
         Speaker speaker = (Speaker) getUser(username);
         return speaker.getAllGivenEvents();
     }
@@ -170,7 +170,7 @@ public class ActFactory implements Serializable {
      * @param eventId: the event id of the input event.
      * @param date: the date of the event.
      */
-    public void giveEvent(String username,Integer eventId, Date date){
+    public void giveEvent(String username,Integer eventId, String date){
         Speaker speaker = (Speaker) getUser(username);
         speaker.getGiveEvents_OneDay(date).add(eventId);
     }
@@ -180,7 +180,7 @@ public class ActFactory implements Serializable {
      * @param username: the username of the speaker.
      * @param eventId: the event id of the event to be cancelled.
      */
-    public void cancelEvent(String username, Integer eventId, Date date) {
+    public void cancelEvent(String username, Integer eventId, String date) {
         Speaker speaker = (Speaker) getUser(username);
         speaker.getGiveEvents_OneDay(date).remove(eventId);
     }

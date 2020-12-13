@@ -29,7 +29,7 @@ public class CalendarManager implements Serializable {
      * @param date: the date of Calendar
      * @return the whole calendar
      */
-    public Calendar getCalendar(Date date) {
+    public Calendar getCalendar(String date) {
         for (Calendar c : allCalendars) {
             if (c.getDate().equals(date)) {
                 return c;
@@ -47,13 +47,13 @@ public class CalendarManager implements Serializable {
      * @param events: the event
      * @return a List of time that is available
      */
-    public List<Integer> getAvailable(Date date, List<Integer> events) {
-        List<Integer> available = new ArrayList<>();
-        for (Integer time: getCalendar(date).getSchedule().keySet()) {
-            if (!getCalendar(date).getSchedule().get(time).containsAll(events) && !events.isEmpty()){
-                available.add(time);
+    public List<Date> getAvailable(String date, List<Integer> events) {
+        List<Date> available = new ArrayList<>();
+        for (Date d: getCalendar(date).getSchedule().keySet()) {
+            if (!getCalendar(date).getSchedule().get(d).containsAll(events) && !events.isEmpty()){
+                available.add(d);
             } else if(events.isEmpty()){
-                available.add(time);
+                available.add(d);
                 }
             }
         return available;
@@ -65,7 +65,7 @@ public class CalendarManager implements Serializable {
      * @param time: the time of the Event
      * @param eventId: the Id of the Event
      */
-    public void newEvent (Date date, Integer time, int eventId) {
+    public void newEvent (String date, Date time, int eventId) {
         getCalendar(date).getSchedule().get(time).add(eventId);
     }
 
@@ -75,7 +75,11 @@ public class CalendarManager implements Serializable {
      * @param time: the time the Event start
      * @param eventId: the Id of the Event
      */
-    public void cancelEvent (Date date, Integer time, int eventId) {
-        getCalendar(date).getSchedule().get(time).remove(eventId);
+    public void cancelEvent (String date, Date time, int eventId) {
+        for(Date d: getCalendar(date).getSchedule().keySet()){
+            if(d.equals(time)){
+                getCalendar(date).getSchedule().get(d).remove(Integer.valueOf(eventId));
+            }
+        }
     }
 }

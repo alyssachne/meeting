@@ -41,31 +41,36 @@ public class EntityConstructors implements Serializable {
      * @param date The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public static boolean createEvent(ArrayList<String> speaker, String title, Date date, int time, int roomId,
+    public static boolean createEvent(ArrayList<String> speaker, String title, String date, int time, int roomId,
                                       int duration, String eventAccess, ArrayList<String> constraints,
                                       RoomManager rm, ActFactory af, EventFactory ef, CalendarManager cm){
+        Date d = new Date((Integer.parseInt(date.substring(6,10))-1900), (Integer.parseInt(date.substring(3,5))-1)
+                , Integer.parseInt(date.substring(0,2)));
         for(int i=time; i <= time + duration - 1; i++) {
+            Date copy = (Date) d.clone();
+            copy.setHours(i);
             for(String sp: speaker) {
-                if (!cm.getAvailable(date, af.givenEvents(sp,date)).contains(i)){
+                if (!cm.getAvailable(date, af.givenEvents(sp,date)).contains(copy)){
                     return false;
                 }
             }
-            if(!cm.getAvailable(date, rm.getRoom(roomId).getSchedule(date)).contains(i) |
+            if(!cm.getAvailable(date, rm.getRoom(roomId).getSchedule(date)).contains(copy) |
                 !rm.getRoom(roomId).getConstraints().containsAll(constraints)) {
                     return false;
                 }
             }
 
-        Date copy = (Date) date.clone();
-        date.setHours(time);
-        int eventId = ef.createEvent(title,date,roomId,speaker, duration, eventAccess, constraints);
+        d.setHours(time);
+        int eventId = ef.createEvent(title,d,roomId,speaker, duration, eventAccess, constraints);
         // add the event to the speakers' given ArrayList and room's ArrayList.
         for(int i=time; i <= time + duration - 1; i++) {
+            Date copy = (Date) d.clone();
+            copy.setHours(i);
             for(String s: speaker) {
-                af.giveEvent(s,eventId,copy);
+                af.giveEvent(s,eventId,date);
             }
-            rm.book(roomId,eventId,copy);
-            cm.newEvent(copy, i, eventId);
+            rm.book(roomId,eventId,date);
+            cm.newEvent(date, copy, eventId);
         }
         return true;
     }

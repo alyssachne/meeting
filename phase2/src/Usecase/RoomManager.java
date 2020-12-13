@@ -68,7 +68,7 @@ public class RoomManager implements Serializable {
      * Return the schedule of this room on the given date.
      * @param id: the unique id of the room.
      */
-    public ArrayList<Integer> seeSchedule(int id, Date date){
+    public ArrayList<Integer> seeSchedule(int id, String date){
         return getRoom(id).getSchedule(date);
     }
 
@@ -94,7 +94,7 @@ public class RoomManager implements Serializable {
      * @param eventId: the unique id of the event happen in this room.
      * @param date: the date the event happen.
      */
-    public void book(Integer roomId, Integer eventId, Date date){
+    public void book(Integer roomId, Integer eventId, String date){
         getRoom(roomId).getSchedule(date).add(eventId);
     }
 
@@ -104,7 +104,7 @@ public class RoomManager implements Serializable {
      * @param eventId: the unique id of the event that is going to be cancelled.
      * @param date: the date the event happen.
      */
-    public void cancel(Integer roomId, Integer eventId, Date date){
+    public void cancel(Integer roomId, Integer eventId, String date){
         getRoom(roomId).getSchedule(date).remove(eventId);
     }
 

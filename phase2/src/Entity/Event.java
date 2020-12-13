@@ -73,6 +73,18 @@ public class Event implements Serializable {
     }
 
     /**
+     * Get the date the event happen in string format.
+     * @return date the date the event happen.
+     */
+    public String getDate_str() {
+        if(9<=date.getMonth() && date.getMonth()<=11){
+            return date.getDate()+"/"+(1+date.getMonth())+"/"+(1900+date.getYear());
+        } else {
+            return date.getDate() + "/0" + (1 + date.getMonth()) + "/" + (1900 + date.getYear());
+        }
+    }
+
+    /**
      * Get the start time of the event.
      * @return time The time of the event.
      */
@@ -191,14 +203,14 @@ public class Event implements Serializable {
     public String toString() {
         ArrayList<String> s = speakers;
         if(s.isEmpty()){
-            return "Event ID:"+id+" "+ title + ". It starts at " + date  + " on Room "
-                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + ". It is a party." ;
+            return "Event ID "+id+" "+ title + ". It starts at " + date  + " on Room "
+                    + roomId + ", it lasts for " + duration + " hour and ends at " + getEndTime() + ". It is a party." ;
         } else if(s.size()==1){
-            return "Event ID:"+id + " "+title + ", given by " + s.get(0) + ". It starts at " + date  + " on Room "
-                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + ". It is a talk." ;
+            return "Event ID "+id + " "+title + ", given by " + s.get(0) + ". It starts at " + date  + " on Room "
+                    + roomId + ", it lasts for " + duration + " hour and ends at " + getEndTime() + ". It is a talk." ;
         }else{
-            return "Event ID:"+id+" "+ title + ", given by " + s + ". It starts at " + date  + " on Room "
-                    + roomId + " , it lasts for " + duration + " hour and ends at " + getEndTime() + ". It is a discussion." ;
+            return "Event ID "+id+" "+ title + ", given by " + s + ". It starts at " + date  + " on Room "
+                    + roomId + ", it lasts for " + duration + " hour and ends at " + getEndTime() + ". It is a discussion." ;
         }
     }
 }

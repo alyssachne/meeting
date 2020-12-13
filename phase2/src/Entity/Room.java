@@ -16,7 +16,7 @@ public class Room implements Serializable {
     private final int MaxCapacity;
     private final int id;
     //date, ArrayList of eventId
-    private HashMap<Date, ArrayList<Integer>> schedule;
+    private HashMap<String, ArrayList<Integer>> schedule;
     private ArrayList<String> constraints;
 
     private final HashMap<String, Integer> technology = new HashMap<>();
@@ -53,7 +53,7 @@ public class Room implements Serializable {
      * Get the schedule of the room at the given date.
      * @return The hashmap of the schedule of a certain room.
      */
-    public ArrayList<Integer> getSchedule(Date date) {
+    public ArrayList<Integer> getSchedule(String date) {
         if(!schedule.containsKey(date)){
             schedule.put(date, new ArrayList<>(8));
         }

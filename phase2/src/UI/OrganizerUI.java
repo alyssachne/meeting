@@ -84,12 +84,12 @@ public class OrganizerUI {
                     String option = scanner.nextLine();
                     if ((option.equals("1")&&uo.hasSpeaker())||option.equals("2")||(option.equals("3")&&uo.hasSpeaker())){
                         System.out.print("Please enter date of the event will be held(DD/MM/YYYY):");
-                        Date date = null;
-                        try{
-                            date = new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
-                        }catch (Exception e){
-                            System.out.print("Not a valid input!");
-                        }
+                        String date = scanner.nextLine();
+//                        try{
+//                            date = new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
+//                        }catch (Exception e){
+//                            System.out.print("Not a valid input!");
+//                        }
                         if (option.equals("1")||option.equals("3")){
                             System.out.println("Here is a list of username of current speakers along with their free time slot:");
                             try{
@@ -259,14 +259,15 @@ public class OrganizerUI {
                     uo.getAllEvents();
                     System.out.println("Please enter the eventId you want cancel.");
                     String id = scanner.nextLine();
-                    System.out.print("Please enter date of the event you want to cancel (DD/MM/YYYY):");
-                    Date date = null;
-                    try {
-                        date = new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
-                        uo.cancelEvent(Integer.parseInt(id), date);
-                    } catch (Exception e){
-                        System.out.println(e);
-                    }
+                    uo.cancelEvent(Integer.parseInt(id));
+//                    System.out.print("Please enter date of the event you want to cancel (DD/MM/YYYY):");
+//                    Date date = null;
+//                    try {
+//                        date = new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
+//                        uo.cancelEvent(Integer.parseInt(id), date);
+//                    } catch (Exception e){
+//                        System.out.println(e);
+//                    }
                 }
             }else if (choice.equals("8")) {
                 uo.logout();

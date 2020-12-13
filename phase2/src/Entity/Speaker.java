@@ -9,7 +9,7 @@ public class Speaker extends User {
      * The Events.
      */
 // The first Integer is the date and the second one is a list of eventId.
-    public HashMap<Date, ArrayList<Integer>> events;
+    public HashMap<String, ArrayList<Integer>> events;
 
     /**
      * Instantiates a new Speaker with empty slot of events from 9am to 4 pm.
@@ -28,7 +28,7 @@ public class Speaker extends User {
      *
      * @return the array list
      */
-    public ArrayList<Integer> getGiveEvents_OneDay(Date date){
+    public ArrayList<Integer> getGiveEvents_OneDay(String date){
         if(!events.containsKey(date)){
             events.put(date, new ArrayList<>(8));
 
@@ -41,7 +41,7 @@ public class Speaker extends User {
      *
      * @return the array list
      */
-    public HashMap<Date, ArrayList<Integer>> getAllGivenEvents(){
+    public HashMap<String, ArrayList<Integer>> getAllGivenEvents(){
         return events;
     }
 

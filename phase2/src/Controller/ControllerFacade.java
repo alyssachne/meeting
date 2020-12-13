@@ -84,7 +84,7 @@ public class ControllerFacade implements Serializable {
      * @param date The start time of the event.
      * @param roomId The unique Id of the room where this event takes place.
      */
-    public boolean createEvent(ArrayList<String> speakers, String title, Date date, int time, int roomId, int duration, String eventAccess, ArrayList<String> constraints){
+    public boolean createEvent(ArrayList<String> speakers, String title, String date, int time, int roomId, int duration, String eventAccess, ArrayList<String> constraints){
             return EntityConstructors.createEvent(speakers,title,date,time,roomId,duration,eventAccess,constraints,this.rm,this.af,ef,cm);
     }
 
@@ -152,14 +152,14 @@ public class ControllerFacade implements Serializable {
     /**
      * printout all speakers and their available times.
      */
-    public void speakerAvailable(Date date){
+    public void speakerAvailable(String date){
         Getter.speakerAvailable(this.af, date, cm);
     }
 
     /**
      * printout all rooms and their available times.
      */
-    public void roomList(Date date, int maxCapacity, ArrayList<String> constraints){
+    public void roomList(String date, int maxCapacity, ArrayList<String> constraints){
         Getter.roomList(date, this.rm, maxCapacity, constraints,cm);
     }
 
@@ -374,10 +374,9 @@ public class ControllerFacade implements Serializable {
     /**
      * Cancel an event
      * @param eventId: the Id of the event
-     * @param date: the date of the event
      */
-    public void cancelEvent(int eventId, Date date) {
-        EventDealer.cancelEvent(eventId, date, ef, af, rm, cm);
+    public void cancelEvent(int eventId) {
+        EventDealer.cancelEvent(eventId, ef, af, rm, cm);
     }
 
     /**

@@ -25,10 +25,10 @@ public class Getter implements Serializable {
      * @param date The date to check.
      * @param cm CalendarManager in Use case.
      */
-    public static void speakerAvailable(ActFactory af, Date date, Usecase.CalendarManager cm){
+    public static void speakerAvailable(ActFactory af, String date, Usecase.CalendarManager cm){
         for(String s: af.speakerList()) {
             System.out.println(s);
-            for(Integer time: cm.getAvailable(date, af.getEvents(s))) {
+            for(Date time: cm.getAvailable(date, af.getEvents(s))) {
                 System.out.println(time);
             }
         }
@@ -42,11 +42,11 @@ public class Getter implements Serializable {
      * @param constraints The constraints of the room.
      * @param cm CalendarManager in Use case.
      */
-    public static void roomList(Date date, RoomManager rm, int maxCapacity, List<String> constraints,
+    public static void roomList(String date, RoomManager rm, int maxCapacity, List<String> constraints,
                                 CalendarManager cm){
         for (int id : rm.suggestedRooms(maxCapacity, constraints)) {
             System.out.println("Room " + id + " ：");
-            for (Integer time : cm.getAvailable(date, rm.seeSchedule(id, date))) {
+            for (Date time : cm.getAvailable(date, rm.seeSchedule(id, date))) {
                 System.out.println(time);
             }
         }

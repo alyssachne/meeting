@@ -5,33 +5,37 @@ import java.util.*;
 
 public class Calendar implements Serializable {
 
-    private Date date;
+    // dd/mm/yyyy
+    private String date;
     // key is the start time, value is the list of eventId that starts ar that time.
-    private Map<Integer, ArrayList<Integer>> schedule;
+    private Map<Date, ArrayList<Integer>> schedule;
 
     /**
      * Initialize a Calendar
      * @param date: the date of the Calendar
      */
-    public Calendar(Date date) {
+    public Calendar(String date) {
         this.date = date;
         schedule = new HashMap<>();
         for (int i = 9; i < 17; i++) {
-            schedule.put(i, new ArrayList<>());
+            Date d = new Date((Integer.parseInt(date.substring(6,9))-1900), (Integer.parseInt(date.substring(3,5))-1)
+                    , Integer.parseInt(date.substring(0,2)));
+            d.setHours(i);
+            schedule.put(d, new ArrayList<>());
         }
     }
 
     /**
      * Get the date of the Calendar
      */
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
     /**
      * Get the schedule of the date
      */
-    public Map<Integer, ArrayList<Integer>> getSchedule() {
+    public Map<Date, ArrayList<Integer>> getSchedule() {
         return schedule;
     }
 
