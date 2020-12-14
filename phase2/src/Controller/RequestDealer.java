@@ -67,6 +67,6 @@ public class RequestDealer implements Serializable {
      * @return true if the list contains the request
      */
     public static boolean containRequest(RequestManager rm, int id){
-        return rm.allRequests.contains(id);
+        return rm.allRequests.contains(rm.getRequest(id));
     }
 }
