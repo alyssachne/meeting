@@ -6,7 +6,6 @@ import Entity.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -70,16 +69,14 @@ public class ActFactory implements Serializable {
 
     /**
      * Sign up for an event.
-     * @param username: the username of the user.
-     * @param eventId: the event id.
-     * @return if the user sign up successfully.
+     * @param username : the username of the user.
+     * @param eventId : the event id.
      */
-    public boolean signUp(String username, Integer eventId) {
+    public void signUp(String username, Integer eventId) {
         if(getUser(username).getSignUp().contains(eventId)) {
-            return false;
+            return;
         }
         getUser(username).eventList.add(eventId);
-        return true;
     }
 
     /**
@@ -124,16 +121,14 @@ public class ActFactory implements Serializable {
 
     /**
      * Add a new liked event to the list
-     * @param username: the username of the user
-     * @param eventId: Id of the event
-     * @return the boolean that whether the event is successfully added to the list
+     * @param username : the username of the user
+     * @param eventId : Id of the event
      */
-    public boolean likeEvent(String username, int eventId) {
+    public void likeEvent(String username, int eventId) {
         if(getUser(username).getLikedEvents().contains(eventId)) {
-            return false;
+            return;
         }
         getUser(username).setLikeEvent(eventId);
-        return true;
     }
 
     /**

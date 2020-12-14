@@ -5,7 +5,6 @@ import Usecase.*;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
 public class ControllerFacade implements Serializable {
@@ -96,15 +95,6 @@ public class ControllerFacade implements Serializable {
     }
 
     /**
-     * Whether the User have contact with any other user or not
-     * @param box: the type of message
-     * @return a boolean that shows contacted or not
-     */
-    public boolean hasContact(String box){
-        return MessageDealer.hasContacts(username,mm,box);
-    }
-
-    /**
      * Whether the user sign up for event or not
      * @return boolean that shows sign up or not
      */
@@ -163,6 +153,9 @@ public class ControllerFacade implements Serializable {
         Getter.roomList(date, this.rm, maxCapacity, constraints,cm);
     }
 
+    /**
+     * Whether there is available room or not
+     */
     public boolean hasAvailableRoom(int maxCapacity, ArrayList<String> constraints){
         return Getter.hasAvailableRoom(rm, maxCapacity,constraints);
     }
@@ -186,20 +179,10 @@ public class ControllerFacade implements Serializable {
     }
 
     /**
-     * Get all selected event
-     * @param sort: the type of sort
-     * @param filter: the filter for the Event
-     * @throws ParseException
-     */
-    public void getAllSelectedEvents(String sort, Map<String, String> filter) throws ParseException {
-        ScheduleGetter.getAllSelectedEvents(sort,filter, ef);
-    }
-
-    /**
      * Get all liked events
      * @param sort: the type of sort
      * @param filter: the filter for the Event
-     * @throws ParseException
+     * @throws ParseException if input is not valid
      */
     public void getLikedEvents(String sort, Map<String, String> filter) throws ParseException {
         ScheduleGetter.getLikedEvents(username, sort, filter, af, ef);
@@ -315,13 +298,6 @@ public class ControllerFacade implements Serializable {
     }
 
     /**
-     * Printout all usernames of speakers who give the events this attendee signed up for.
-     */
-    public void checkSpeakers() {
-        UserPrinter.checkSpeakers(this.af, this.username, ef);
-    }
-
-    /**
      * Print all request from the list.
      */
     public void checkAllRequest() {
@@ -430,6 +406,11 @@ public class ControllerFacade implements Serializable {
         return EntityConstructors.validSpeaker(speaker,af);
     }
 
+    /**
+     * Whether the request is in the list or not
+     * @param id: the id of the request
+     * @return true if the request is in the list
+     */
     public boolean validRequest(int id){
         return RequestDealer.containRequest(reqm,id);
     }

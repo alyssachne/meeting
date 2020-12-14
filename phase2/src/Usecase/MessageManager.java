@@ -1,8 +1,6 @@
 package Usecase;
 
 import Entity.*;
-//import com.sun.xml.internal.ws.api.message.Message;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -45,24 +43,6 @@ public class MessageManager extends Observable implements Serializable {
             System.out.println("This message box does not exist.");
         }
         return null;
-    }
-
-    /**
-     * Print all messages from one type of message
-     * @param username: the username of the User
-     * @param box: the type of message
-     */
-    public void seeAllMessage(String username, String box) {
-        System.out.println("Here are the messages in " + box + " :");
-        if(box.equals("Unread")){
-            for(String sender: getMessageBox(username).getAllMessage("Unread").keySet()){
-                seeUnreadMessage(username, sender);
-            }
-        } else {
-            for (int i = 0; i < getMessageBox(username).getAllMessage(box).size(); i++) {
-                System.out.println("Message" + (i + 1) + ": " + getMessageBox(username).getAllMessage(box).get(i));
-            }
-        }
     }
 
     /**

@@ -42,10 +42,7 @@ public class Event implements Serializable {
         this.roomId = roomId;
         this.duration = duration;
         this.id = id;
-//        this.speakers = speakers;
         ListOfAttendees = new ArrayList<>();
-//        this.constraints = constraints;
-//        this.eventAccess = eventAccess;
     }
 
     /**

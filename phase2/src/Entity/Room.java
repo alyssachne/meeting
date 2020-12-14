@@ -19,8 +19,6 @@ public class Room implements Serializable {
     private HashMap<String, ArrayList<Integer>> schedule;
     private ArrayList<String> constraints;
 
-    private final HashMap<String, Integer> technology = new HashMap<>();
-
     /**
      * Class constructor
      * @param id The id of the room.
@@ -67,11 +65,5 @@ public class Room implements Serializable {
         return this.constraints;
     }
 
-    /**
-     * Get the Technology in the room
-     */
-    public HashMap<String, Integer> getTechnology() {
-        return this.technology;
-    }
 
 }

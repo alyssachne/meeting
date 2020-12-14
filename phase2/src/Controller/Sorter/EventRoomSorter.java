@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class EventRoomSorter implements SorterStrategy {
 
-    public EventRoomSorter(){}
 
     /**
      * A function to implement sort by sorting the events according to their room ids.

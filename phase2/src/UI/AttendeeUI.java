@@ -1,8 +1,6 @@
 package UI;
 
 import Controller.ControllerFacade;
-import Controller.Sorter.SorterStrategy;
-import Gateway.ControllerRW;
 
 import java.text.ParseException;
 import java.util.*;

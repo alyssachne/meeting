@@ -10,18 +10,6 @@ import java.io.Serializable;
 public class UserPrinter implements Serializable {
 
     /**
-     * Print out all usernames of speakers who give the events this attendee signed up for.
-     * @param af ActFactory in Use case.
-     * @param username The username of the speakers.
-     * @param ef EventFactory in Use case.
-     */
-    public static void checkSpeakers(ActFactory af, String username, EventFactory ef) {
-        for(Integer eventId: af.getEvents(username)) {
-            System.out.println(ef.getEvent(eventId).getSpeaker());
-        }
-    }
-
-    /**
      * Print out all usernames of attendees who attend this event.
      * @param eventId The Id of the certain event that is being chosen.
      * @param em EventFactory in Use case.

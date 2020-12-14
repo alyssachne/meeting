@@ -56,16 +56,6 @@ public class MessageDealer implements Serializable {
     }
 
     /**
-     * Read all messages in the list
-     * @param box: the type of message
-     * @param username: the username of the User
-     * @param mm: Message Manager
-     */
-    public static void readAllMessage(String box, String username, MessageManager mm){
-        mm.seeAllMessage(username, box);
-    }
-
-    /**
      * Mark a message as unread
      * @param receiver: the username of the User who receive the message
      * @param mm: Message Manager
@@ -98,17 +88,6 @@ public class MessageDealer implements Serializable {
      */
     public static void archiveMessage(String receiver, MessageManager mm, String sender, int index) {
         mm.archiveMessage(receiver, index, sender);
-    }
-
-    /**
-     * Whether the user have a contact list or not
-     * @param username: the username of the User
-     * @param mm: Message Manager
-     * @param box: the type of message wants to check in
-     * @return true if the message list is not empty
-     */
-    public static boolean hasContacts(String username, MessageManager mm, String box) {
-        return !mm.getMessageBox(username).getAllMessage(box).isEmpty();
     }
 
     /**

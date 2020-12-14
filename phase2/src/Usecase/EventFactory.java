@@ -42,16 +42,14 @@ public class EventFactory implements Serializable {
 
     /**
      * Cancel a event
-     * @param id: the Event Id
-     * @return : whether the Event is successfully canceled or not
+     * @param id : the Event Id
      */
-    public boolean cancelEvent(int id) {
+    public void cancelEvent(int id) {
         if(allEvents.contains(getEvent(id))) {
             allEvents.remove(getEvent(id));
-            return true;
+            return;
         }
         System.out.println("This party does not exist.");
-        return false;
     }
 
     /**
@@ -90,13 +88,12 @@ public class EventFactory implements Serializable {
      * @param username : the username of the attendee who is going to attend this event.
      * @param eventId : the unique Id of the event the attendee is going to attend.
      */
-    public boolean addAttendee(String username, int eventId) {
+    public void addAttendee(String username, int eventId) {
         // if the username is in the ArrayList
         if(getEvent(eventId).getAttendees().contains(username)) {
-            return false;
+            return;
         }
         getEvent(eventId).getAttendees().add(username);
-        return true;
     }
 
     /**
@@ -119,20 +116,6 @@ public class EventFactory implements Serializable {
      */
     public String checkAccess(int eventId) {
         return getEvent(eventId).getEventAccess();
-    }
-
-    /**
-     * Change an access
-     * @param eventId: the Id of the Event
-     * @param access: Event's access
-     * @return : a boolean value indicating if the access is successfully changed
-     */
-    public boolean changeAccess(int eventId, String access) {
-        if(getEvent(eventId).getEventAccess().equals(access)){
-            return false;
-        }
-        getEvent(eventId).setEventType(access);
-        return true;
     }
 
     /**

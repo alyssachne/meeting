@@ -18,7 +18,7 @@ public class Calendar implements Serializable {
         this.date = date;
         schedule = new HashMap<>();
         for (int i = 9; i < 17; i++) {
-            Date d = new Date((Integer.parseInt(date.substring(6,9))-1900), (Integer.parseInt(date.substring(3,5))-1)
+            Date d = new Date((Integer.parseInt(date.substring(6,10))-1900), (Integer.parseInt(date.substring(3,5))-1)
                     , Integer.parseInt(date.substring(0,2)));
             d.setHours(i);
             schedule.put(d, new ArrayList<>());

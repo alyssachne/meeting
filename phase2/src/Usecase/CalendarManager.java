@@ -17,12 +17,6 @@ public class CalendarManager implements Serializable {
     public CalendarManager() {
         allCalendars = new ArrayList<>();
     }
-//    public void createCalendar(Date date) {
-//        Calendar c = new Calendar(date);
-//        allCalendars.add(c);
-//    }
-    // when check the calendar, if the date has no event (every room and speaker are free at that day), create a new
-    // calendar so that organizer can schedule a new event on that day.
 
     /**
      * Get the Calendar

@@ -11,8 +11,6 @@ import java.util.ArrayList;
 public class EventSpeakerSorter implements SorterStrategy {
 
 
-    public EventSpeakerSorter(){}
-
     /**
      * A function to implement sort by sorting the events according to their speakers' names alphabetically.
      * @param tl An arraylist of the ids of the event.

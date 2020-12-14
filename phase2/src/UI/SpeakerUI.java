@@ -1,8 +1,6 @@
 package UI;
 
 import Controller.ControllerFacade;
-import Gateway.ControllerRW;
-
 import java.util.Scanner;
 
 public class SpeakerUI {

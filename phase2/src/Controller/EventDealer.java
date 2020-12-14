@@ -2,9 +2,6 @@ package Controller;
 
 import Entity.Event;
 import Usecase.*;
-import com.sun.javafx.event.EventHandlerManager;
-//import com.sun.org.apache.xerces.internal.impl.xs.SchemaNamespaceSupport;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -38,7 +35,6 @@ public class EventDealer implements Serializable {
     /**
      * A method used to cancel a event. The event will be removed from the system.
      * @param eventId: the id of the event to be cancelled
-//     * @param date: the date that the event will be held
      * @param em: the class we used to manage all the event
      * @param af: a class we used to manage all the users
      * @param rm: a class we used to manage all the rooms
@@ -61,30 +57,7 @@ public class EventDealer implements Serializable {
             cm.cancelEvent(em.getEvent(eventId).getDate_str(), copy, eventId);
         }
         em.cancelEvent(eventId);
-//        if(em.getEvent(eventId).getDuration()==1){
-//            cm.cancelEvent(em.getEvent(eventId).getDate_str(), em.getEvent(eventId).getDate(), eventId);
-//            em.cancelEvent(eventId);
-//        }else{
-//            for (int i = em.getEvent(eventId).getDate().getHours(); i < em.getEvent(eventId).getDate().getHours()+em.getEvent(eventId).getDuration()-1; i++) {
-//                Date copy = em.getEvent(eventId).getDate();
-//                copy.setHours(i);
-//                cm.cancelEvent(em.getEvent(eventId).getDate_str(), copy, eventId);
-//                em.cancelEvent(eventId);
-//            }
-//        }
 
-    }
-
-    /**
-     * A method used to change the event from VIP to Normal or vice versa
-     * @param eventId: id of the event to be changed
-     * @param em: the class we used to manage all the events
-     * @param access: the access after we change the event
-     */
-    public static void changeEventAccess(int eventId, EventFactory em, String access) {
-        if(!em.changeAccess(eventId,access)){
-            System.out.println("This is access is the same as the current access.");
-        }
     }
 
     /**

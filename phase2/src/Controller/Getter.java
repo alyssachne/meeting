@@ -2,16 +2,9 @@ package Controller;
 
 import Controller.Sorter.EventEnrollmentSorter;
 import Controller.Sorter.PercentageSorter;
-import Usecase.ActFactory;
-import Usecase.CalendarManager;
-import Usecase.EventFactory;
-import Usecase.RoomManager;
-
+import Usecase.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class get various information for different features of the program.

@@ -1,15 +1,8 @@
 package UI;
 
 import Controller.ControllerFacade;
-import Entity.Organizer;
 import Gateway.ControllerRW;
-
-import java.io.IOException;
-import java.io.Serializable;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Demo {

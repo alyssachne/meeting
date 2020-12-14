@@ -2,14 +2,11 @@ package Controller;
 
 import Controller.Sorter.*;
 import Usecase.ActFactory;
-import Usecase.CalendarManager;
 import Usecase.EventFactory;
 import Usecase.RoomManager;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -40,10 +37,9 @@ public class ScheduleGetter implements Serializable {
      * @param ef EventFactory in Use case.
      * @param strategy The sorter strategy.
      * @param filter The map of the filter of the schedule.
-     * @throws ParseException Throw an exception if the required format of input is not followed.
      */
     public static void attendeeSchedule(ActFactory af, String username, EventFactory ef, String strategy,
-                                        Map<String, String> filter) throws ParseException {
+                                        Map<String, String> filter){
         ArrayList<Integer> temp = new ArrayList<>(af.getEvents(username));
         sortAndFilter(strategy, temp, filter, ef);
         int i = 0;
@@ -67,32 +63,15 @@ public class ScheduleGetter implements Serializable {
      * @param filter The map of the filter of the schedule.
      * @param ef EventFactory in Use case.
      * @param af ActFactory in Use case.
-     * @throws ParseException Throw an exception if the required format of input is not followed.
      */
     public static void getAvailableEvent(RoomManager rm, String username, String strategy,Map<String, String> filter,
-                                         EventFactory ef, ActFactory af) throws ParseException {
+                                         EventFactory ef, ActFactory af){
         ArrayList<Integer> all = availableEvent(rm,username,ef,af);
         int i = 0;
         while(i< sortAndFilter(strategy,all,filter,ef).size()){
-//            int j = ef.getEvent(all.get(i)).getDuration();
-//            while(j>1){
-//                j--;
-//                i++;
-//            }
             System.out.println(ef.getEvent(all.get(i)).toString());
             i++;
         }
-    }
-
-    /**
-     * Get all the selected events.
-     * @param strategy The sorter strategy.
-     * @param filter The map of the filter of the schedule.
-     * @param ef EventFactory in Use case.
-     * @throws ParseException Throw an exception if the required format of input is not followed.
-     */
-    public static void getAllSelectedEvents(String strategy, Map<String, String> filter, EventFactory ef) throws ParseException {
-        sortAndFilter(strategy,ef.getAllEvents(), filter, ef);
     }
 
     /**
@@ -102,10 +81,9 @@ public class ScheduleGetter implements Serializable {
      * @param filter The map of the filter of the schedule.
      * @param af ActFactory in Use case.
      * @param ef EventFactory in Use case.
-     * @throws ParseException Throw an exception if the required format of input is not followed.
      */
     public static void getLikedEvents(String username, String strategy, Map<String, String> filter, ActFactory af,
-                                      EventFactory ef) throws ParseException {
+                                      EventFactory ef){
         sortAndFilter(strategy, af.checkLikedEvents(username),filter,ef);
     }
 
@@ -143,11 +121,10 @@ public class ScheduleGetter implements Serializable {
         }else if(strategy.equalsIgnoreCase("Title")){
             SorterStrategy sorter = new EventTitleSorter();
             sorter.sort(lst,ef);
+        } else{
+            System.out.println("Invalid input");
         }
         return lst;
-//        for(Integer event: lst) {
-//            System.out.println(ef.getEvent(event).toString());
-//        }
     }
 
     /**
@@ -178,17 +155,18 @@ public class ScheduleGetter implements Serializable {
      * @param lst The list of event ids.
      * @param filter The map of the filter of the schedule.
      * @param ef EventFactory in Use case.
-     * @throws ParseException Throw an exception if the required format of input is not followed.
      */
-    private static ArrayList<Integer> sortAndFilter(String strategy, ArrayList<Integer> lst, Map<String, String> filter, EventFactory ef) throws ParseException {
+    private static ArrayList<Integer> sortAndFilter(String strategy, ArrayList<Integer> lst, Map<String, String> filter, EventFactory ef){
         getSchedule gs = new getSchedule();
         for (String f: filter.keySet()) {
             if(f.equalsIgnoreCase("Date")) {
                 return sortEvent(strategy, gs.getScheduleByDay(filter.get(f), lst, ef), ef);
             } else if (f.equalsIgnoreCase("Speaker")) {
                 return sortEvent(strategy, gs.getScheduleBySpeaker(filter.get(f), lst, ef), ef);
-            } else {
+            } else if(f.equalsIgnoreCase("Time")){
                 return sortEvent(strategy, gs.getScheduleByTime(filter.get(f), lst, ef), ef);
+            } else{
+                System.out.println("Invalid input");
             }
         }
         return sortEvent(strategy,lst,ef);

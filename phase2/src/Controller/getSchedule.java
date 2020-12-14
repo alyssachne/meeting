@@ -4,9 +4,7 @@ import Usecase.EventFactory;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
      * The class contains methods that get schedule according to different conditions.
@@ -46,7 +44,7 @@ public class getSchedule implements Serializable {
          * @return The list of ids of the events that take place on certain day.
          * @throws ParseException Thrown when the input string does not follow the specific format of the date.
          */
-    public ArrayList<Integer> getScheduleByDay(String date, ArrayList<Integer> lst,EventFactory ef) throws ParseException {
+    public ArrayList<Integer> getScheduleByDay(String date, ArrayList<Integer> lst,EventFactory ef) {
         ArrayList<Integer> scheduleList = new ArrayList<>();
         for (Integer i:lst) {
             if (ef.getEvent(i).getDate_str().equals(date)) {

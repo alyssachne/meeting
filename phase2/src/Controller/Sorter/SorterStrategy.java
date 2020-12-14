@@ -1,6 +1,5 @@
 package Controller.Sorter;
 
-import Entity.Event;
 import Usecase.EventFactory;
 
 import java.util.ArrayList;
