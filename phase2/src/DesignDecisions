@@ -1,0 +1,10 @@
+************************************************************************************************************************
+*                                         Design decisions and improvements                                            *
+************************************************************************************************************************
+1. In phase 1, we only have one class for controller. Hence, it is too big. Now use façade to make it smaller.
+2. In phase 1, we didn’t handle exception and now we print out message to tell people what goes wrong and return to the
+   main menu.
+3. We only have a hashMap in user to store message (it is a field in user class). Now we have an entity to handle all
+   messages and if we want to have more “folders” in the message system, it is easier to extend than before.
+4. We only have events happen in one date. Now we have a calendar entity class that store event happen in that date,
+   and a calendar manager to all dates.
