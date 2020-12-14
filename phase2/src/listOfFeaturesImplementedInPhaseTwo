@@ -9,10 +9,10 @@ organizer can decide whether it is a VIP only event or a normal event that every
     -Organizer can create room.
     -Organizer can create other users' account (organizer, speaker, normal attendee, and VIP attendee).
     -Organizer can create new event.
+    -Organizer can cancel event.
 5. Maximum capacity for an event:
     -Each event has a maximum number of people who can attend it.
     -Organizer can set the capacity of the event when creating the event.
-    -Organizer can change the capacity of the event afterwards.
     -Program can restrict the number of attendee not to exceed the maximum.
 
 ************************************************************************************************************************
@@ -23,18 +23,14 @@ the login and the sign up method.
 2.Enhance the user's messaging experience by allowing them to "mark as unread", delete, or archive messages after
 reading them.
     -Users can check unread message, read message, or archived message sent from a specific user.
-    -Users can archive read message.
-    -Users can mark read message or archived message as unread message.
-    -Users can delete read message or archived message.
-3.Have the program produce a neatly formatted program or schedule for the conference that users have the option of
-"downloading" (outputting it as html, pdf, or similar). Alternatively, if you just want the program to print the
-schedule to the screen, then users should be able to request a schedule by at least three of: day, by speaker, by time
-(all 3-4 pm talks on all days), or just the ones they have signed up for, or "liked" events (where you have to enable
-users to "like" events).
+    -Users can delete read message, mark message as unread, or archived message.
+3.Have the program produce a schedule for the conference that users have the option of, it can be filtered day, by
+speaker, by time (all 3-4 pm talks on all days), or just the ones they have signed up for,
+or "liked" events (where you have to enable users to "like" events).
     -Attendee can see a list of events he has signed up for
     -Attendee can like events they have signed up for
     -Attendee can sort and filter the events he has signed up for by EventID, Room, Speaker, Title
-    -Attendee can sort and filter the events he is eligible to sign up by, Availability, EventID, Room, Speaker, Title
+    -Attendee can sort and sort the events he is eligible to sign up by, Availability, EventID, Room, Speaker, Title
     -Attendee can print the sorted and filtered results listed above.
 4.Add additional constraints to the scheduling for various types of events (e.g. technology requirements for
 presentations, tables vs rows of chairs). When organizers are creating events, they can see a suggested list of rooms

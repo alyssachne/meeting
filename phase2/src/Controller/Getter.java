@@ -21,7 +21,7 @@ public class Getter implements Serializable {
     public static void speakerAvailable(ActFactory af, String date, Usecase.CalendarManager cm){
         for(String s: af.speakerList()) {
             System.out.println(s);
-            for(Date time: cm.getAvailable(date, af.getEvents(s))) {
+            for(Date time: cm.getAvailable(date, af.givenEvents(s,date))) {
                 System.out.println(time);
             }
         }
