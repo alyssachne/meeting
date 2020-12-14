@@ -1,0 +1,10 @@
+************************************************************************************************************************
+*                                                Design Patterns List                                                  *
+************************************************************************************************************************
+1. Strategy: we implemented the event sorting system with Strategy design pattern. There are different algorithms of
+sorting the event in out event list. e.g. by id, by name of speaker, by time. We made an interface called Sorter
+strategy with one method sort. All the different classes that represent the concrete algorithm of sorting implements
+this interface.
+2. Facade: We have one facade class called ControllerFacade, we aggregates all the controller method in this facade
+class, the concrete realization of the methods are put elsewhere.
+3. Observer: We have the message system implementing this strategy.
