@@ -65,8 +65,8 @@ public class AttendeeUI {
                         // sort events
                         sf.SortHelper();
                         String sort = scanner.nextLine();
-                        // print out current schedule
-                        System.out.println("Here is your current schedule: ");
+                        // print out liked events
+                        System.out.println("Here is your liked event: ");
                         if (sort.equals("exit")) {
                             uo.getLikedEvents("Time", filterMap);
                         } else {

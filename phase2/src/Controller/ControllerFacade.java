@@ -3,7 +3,6 @@ package Controller;
 import Usecase.*;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -178,9 +177,8 @@ public class ControllerFacade implements Serializable {
      * Get all liked events
      * @param sort: the type of sort
      * @param filter: the filter for the Event
-     * @throws ParseException if input is not valid
      */
-    public void getLikedEvents(String sort, Map<String, String> filter) throws ParseException {
+    public void getLikedEvents(String sort, Map<String, String> filter) {
         ScheduleGetter.getLikedEvents(username, sort, filter, af, ef);
     }
 
@@ -189,7 +187,7 @@ public class ControllerFacade implements Serializable {
      * events take place haven't reach the the rooms' maximum capacity, and this attendee hasn't sign up for the event,
      * yet.
      */
-    public void getAvailableEvent(String sort,Map<String, String> filter) throws ParseException {
+    public void getAvailableEvent(String sort,Map<String, String> filter){
         ScheduleGetter.getAvailableEvent(this.rm, this.username, sort, filter,ef,af);
     }
 

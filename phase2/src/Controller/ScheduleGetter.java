@@ -87,7 +87,10 @@ public class ScheduleGetter implements Serializable {
      */
     public static void getLikedEvents(String username, String strategy, Map<String, String> filter, ActFactory af,
                                       EventFactory ef){
-        sortAndFilter(strategy, af.checkLikedEvents(username),filter,ef);
+        for(int i:sortAndFilter(strategy, af.checkLikedEvents(username),filter,ef)){
+            System.out.println(ef.getEvent(i));
+        }
+
     }
 
     /**
