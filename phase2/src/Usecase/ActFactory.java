@@ -99,7 +99,7 @@ public class ActFactory implements Serializable {
      * @param eventId: the event id that user want to remove.
      */
     public void removeFromEvent(String username, int eventId) {
-        getUser(username).getSignUp().remove(eventId);
+        getUser(username).getSignUp().remove(Integer.valueOf(eventId));
     }
 
     /**
@@ -177,7 +177,7 @@ public class ActFactory implements Serializable {
      */
     public void cancelEvent(String username, Integer eventId, String date) {
         Speaker speaker = (Speaker) getUser(username);
-        speaker.getGiveEvents_OneDay(date).remove(eventId);
+        speaker.getGiveEvents_OneDay(date).remove(Integer.valueOf(eventId));
     }
 
 
