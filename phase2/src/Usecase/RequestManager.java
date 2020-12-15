@@ -22,7 +22,7 @@ public class RequestManager implements Serializable {
      * @param username : the username of the User
      */
     public void createRequest(String request, String username) {
-        Request req = new Request(request, username, allRequests.size() + 1);
+        Request req = new Request(request, username, allRequests.get(allRequests.size()-1).getId() + 1);
         allRequests.add(req);
     }
 

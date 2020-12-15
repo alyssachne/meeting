@@ -32,7 +32,7 @@ public class EventFactory implements Serializable {
      */
     public int createEvent(String title, Date date, int roomId, ArrayList<String> speakers, int duration,
                             String eventAccess,ArrayList<String> constraints) {
-        Event e = new Event(allEvents.size() + 1, title, date, roomId, duration);
+        Event e = new Event(allEvents.get(allEvents.size()-1).getId()+1, title, date, roomId, duration);
         e.setSpeakers(speakers);
         e.setEventAccess(eventAccess);
         e.setConstraints(constraints);
