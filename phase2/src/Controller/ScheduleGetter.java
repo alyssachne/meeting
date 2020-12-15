@@ -51,11 +51,6 @@ public class ScheduleGetter implements Serializable {
         sortAndFilter(strategy, temp, filter, ef);
         int i = 0;
         while (i < temp.size()) {
-            int j = ef.getEvent(temp.get(i)).getDuration();
-            while (j > 1) {
-                j--;
-                i++;
-            }
             System.out.println(ef.getEvent(temp.get(i)).toString());
             i++;
         }

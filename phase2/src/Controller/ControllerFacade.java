@@ -171,11 +171,7 @@ public class ControllerFacade implements Serializable {
      * printout all events this attendee signed up for. This schedule is only shown to this attendee.
      */
     public void attendeeSchedule(String sort, Map<String, String> filter) {
-        try {
-            ScheduleGetter.attendeeSchedule(this.af, this.username, ef, sort, filter);
-        }catch (Exception e){
-            System.out.print("Not a valid input! + \n");
-        }
+        ScheduleGetter.attendeeSchedule(this.af, this.username, ef, sort, filter);
     }
 
     /**
