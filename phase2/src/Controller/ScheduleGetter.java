@@ -148,17 +148,15 @@ public class ScheduleGetter implements Serializable {
             //check if the attendee has signed up the event or not and if the event reaches its room's maxCapacity
             if ((!ef.getEvent(i).getAttendees().contains(username))&&
                     rm.getMaxCapacity(ef.getEvent(i).getRoom())>ef.getEvent(i).getNumOfAttendees()){
-                temp.add(i);
-            }
-        }
-        // if this attendee is not an VIP, remove event that he has no access to.
-        if(!af.checkAccess(username).equalsIgnoreCase("VIP")){
-            for(int i: temp){
-                if(!af.checkAccess(username).equals(ef.checkAccess(i))){
-                    temp.remove(Integer.valueOf(i));
+                // if this attendee is not an VIP, add event that he has access to.
+                if(!af.checkAccess(username).equalsIgnoreCase("VIP")){
+                        if(af.checkAccess(username).equals(ef.checkAccess(i))){
+                            temp.add(i);
+                        }
+                } else{
+                    temp.add(i);
                 }
             }
-
         }
         return temp;
     }

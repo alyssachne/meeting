@@ -118,7 +118,7 @@ public class Getter implements Serializable {
         if(eventArrayList.isEmpty()){
             System.out.println("There is no event in the system");
         }else{
-            System.out.println("Most user chose" + ef.getEvent(eventArrayList.get(0)) );
+            System.out.println("Most user chose " + ef.getEvent(eventArrayList.get(0)) );
         }
     }
 }
