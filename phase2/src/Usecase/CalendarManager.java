@@ -17,6 +17,12 @@ public class CalendarManager implements Serializable {
     public CalendarManager() {
         allCalendars = new ArrayList<>();
     }
+//    public void createCalendar(Date date) {
+//        Calendar c = new Calendar(date);
+//        allCalendars.add(c);
+//    }
+    // when check the calendar, if the date has no event (every room and speaker are free at that day), create a new
+    // calendar so that organizer can schedule a new event on that day.
 
     /**
      * Get the Calendar
@@ -44,9 +50,17 @@ public class CalendarManager implements Serializable {
     public List<Date> getAvailable(String date, List<Integer> events) {
         List<Date> available = new ArrayList<>();
         for (Date d: getCalendar(date).getSchedule().keySet()) {
-            if (!getCalendar(date).getSchedule().get(d).containsAll(events) && !events.isEmpty()){
-                available.add(d);
-            } else if(events.isEmpty()){
+            if(!events.isEmpty()){
+                boolean flag = true;
+                for(int i: events){
+                    if(getCalendar(date).getSchedule().get(d).contains(i)){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    available.add(d);
+                }
+            } else {
                 available.add(d);
                 }
             }

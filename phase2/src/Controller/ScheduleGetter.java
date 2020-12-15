@@ -23,8 +23,15 @@ public class ScheduleGetter implements Serializable {
     public static void speakerSchedule(ActFactory af, String username, EventFactory ef) {
         for (String date : af.allEventList(username).keySet()) {
             System.out.println("On " + date);
-            for (int id : af.allEventList(username).get(date)) {
-                System.out.println(ef.getEvent(id).toString());
+            int i = 0;
+            while (i < af.allEventList(username).get(date).size()) {
+                int j = ef.getEvent(af.allEventList(username).get(date).get(i)).getDuration();
+                while (j > 1) {
+                    j--;
+                    i++;
+                }
+                System.out.println(ef.getEvent(af.allEventList(username).get(date).get(i)).toString());
+                i++;
             }
         }
     }
@@ -44,12 +51,13 @@ public class ScheduleGetter implements Serializable {
         sortAndFilter(strategy, temp, filter, ef);
         int i = 0;
         while (i < temp.size()) {
-            int j = ef.getEvent(i).getDuration();
+            int j = ef.getEvent(temp.get(i)).getDuration();
             while (j > 1) {
                 j--;
                 i++;
             }
-            System.out.println(ef.getEvent(i).toString());
+            System.out.println(ef.getEvent(temp.get(i)).toString());
+            i++;
         }
     }
 
